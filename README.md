@@ -4,7 +4,7 @@ Tableau de bord des données brutes aggrégées de plusieurs outils qui évaluen
 
 L'acquisition des données ainsi que la génération du rapport sont automatisés par des [GitHub actions](https://github.com/features/actions)
 
-Démo : https://socialgouv.github.io/dashlord
+https://dashlord.incubateur.net
 
 ## Usage
 
