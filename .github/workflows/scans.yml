@@ -7,14 +7,8 @@ on:
         description: "Single url to scan or scan all urls"
         required: false
         default: ""
-  push:
-    paths:
-      - 'dashlord.yaml'
-      - 'dashlord.yml'
-      - 'urls.txt'
   schedule:
     - cron: "0 0 * * *"
-    
 jobs:
   init:
     runs-on: ubuntu-latest
@@ -22,6 +16,7 @@ jobs:
     outputs:
       urls: ${{ steps.init.outputs.urls }}
       urls_json: ${{ steps.init.outputs.urls_json }}
+      json: ${{ steps.init.outputs.json }}
     steps:
       - uses: actions/checkout@v2
       - id: init
@@ -36,7 +31,7 @@ jobs:
       fail-fast: false
       max-parallel: 3
       matrix:
-        url: ${{ fromJson(needs.init.outputs.urls_json) }}
+        urls: ${{ fromJson(needs.init.outputs.urls_json) }}
     steps:
       - uses: actions/checkout@v2
 
@@ -52,7 +47,7 @@ jobs:
         uses: "socialgouv/wappalyzer-action@master"
         continue-on-error: true
         with:
-          url: "${{ matrix.url }}"
+          url: "${{ matrix.urls.url }}"
           output: scans/wappalyzer.json
 
       - name: ZAP Scan
@@ -60,15 +55,16 @@ jobs:
         continue-on-error: true
         with:
           token: "" # disable issue creation
+          rules_file_name: "zap-rules.tsv"
           docker_name: "owasp/zap2docker-stable"
-          target: "${{ matrix.url }}"
+          target: "${{ matrix.urls.url }}"
           cmd_options: "-a"
 
       - name: Lighthouse scan
         continue-on-error: true
         uses: treosh/lighthouse-ci-action@v7
         with:
-          urls: "${{ matrix.url }}"
+          urls: "${{ matrix.urls.url }}"
           uploadArtifacts: false
           temporaryPublicStorage: false
           configPath: "./lighthouserc.json"
@@ -77,21 +73,21 @@ jobs:
         continue-on-error: true
         uses: SocialGouv/httpobs-action@master
         with:
-          url: "${{ matrix.url }}"
+          url: "${{ matrix.urls.url }}"
           output: "scans/http.json"
 
       - name: Third-party scripts scan
         continue-on-error: true
         uses: SocialGouv/thirdparties-action@master
         with:
-          url: "${{ matrix.url }}"
+          url: "${{ matrix.urls.url }}"
           output: "scans/thirdparties.json"
 
       # testssl.sh action needs an hostname to save its output so we build it here
       - name: Extract hostname
         id: hostname
         run: |
-          HOSTNAME=$(echo "${{ matrix.url }}" | sed -e 's/[^/]*\/\/\([^@]*@\)\?\([^:/]*\).*/\2/')
+          HOSTNAME=$(echo "${{ matrix.urls.url }}" | sed -e 's/[^/]*\/\/\([^@]*@\)\?\([^:/]*\).*/\2/')
           echo "::set-output name=value::$HOSTNAME"
 
       - name: testssl.sh scan
@@ -107,24 +103,25 @@ jobs:
         continue-on-error: true
         uses: "SocialGouv/dashlord-nuclei-action@master"
         with:
-          url: ${{ matrix.url }}
+          url: ${{ matrix.urls.url }}
           output: "scans/nuclei.log"
-          
+
       - name: Updown.io checks
         continue-on-error: true
         uses: "MTES-MCT/updownio-action@main"
         with:
           apiKey: ${{ secrets.UPDOWNIO_API_KEY }}
-          url: ${{ matrix.url }}
+          url: ${{ matrix.urls.url }}
           output: scans/updownio.json
 
       - uses: SocialGouv/dashlord-save-action@master
         with:
-          url: ${{ matrix.url }}
+          url: ${{ matrix.urls.url }}
 
       - uses: EndBug/add-and-commit@v7
         with:
           add: '["results"]'
           author_name: ${{ secrets.SOCIALGROOVYBOT_NAME }}
           author_email: ${{ secrets.SOCIALGROOVYBOT_EMAIL }}
-          message: "update: ${{ matrix.url }}"
+          message: "update: ${{ matrix.urls.url }}"
+
