@@ -113,6 +113,23 @@ jobs:
           apiKey: ${{ secrets.UPDOWNIO_API_KEY }}
           url: ${{ matrix.urls.url }}
           output: scans/updownio.json
+          
+      - name: Extract repositories
+        id: repositories
+        env:
+          json: ${{ needs.init.outputs.json }}
+        run: |
+          REPOS=$( echo $json | jq -r '.urls[] | select( .url == "${{ matrix.urls.url }}" ) | .repositories // [] | join(",")' )
+          echo "::set-output name=REPOS::$REPOS"
+
+      - name: Dependabot vulnerabilities alerts
+        continue-on-error: true
+        if: ${{ steps.repositories.outputs.REPOS != '' }}
+        uses: "MTES-MCT/dependabotalerts-action@main"
+        with:
+          token: ${{ secrets.DEPENDABOTALERTS_TOKEN }}
+          repositories: ${{ steps.repositories.outputs.REPOS }}
+          output: scans/dependabotalerts.json
 
       - uses: SocialGouv/dashlord-save-action@master
         with:
