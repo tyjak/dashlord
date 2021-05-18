@@ -99,6 +99,16 @@ jobs:
           grade: "F"
           options: "--fast"
           
+      - name: nmap vulnerabilities scan
+        continue-on-error: true
+        uses: "MTES-MCT/nmap-action@main"
+        with:
+          host: ${{ steps.hostname.outputs.value }}
+          outputDir: 'scans'
+          outputFile: 'nmapvuln.json'
+          withVulnerabilities: true
+          raw: false
+          
       - name: Nuclei scan
         continue-on-error: true
         uses: "SocialGouv/dashlord-nuclei-action@master"
