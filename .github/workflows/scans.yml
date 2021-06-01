@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - id: init
-        uses: "SocialGouv/dashlord-init-action@master"
+        uses: "SocialGouv/dashlord-actions/init@main"
 
   scans:
     runs-on: ubuntu-latest
@@ -42,6 +42,15 @@ jobs:
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Screenshot Website
+        uses: swinton/screenshot-website@v1.x
+        with:
+          source: "${{ matrix.urls.url }}"
+          type: jpeg
+          destination: screenshot.jpeg
+          width: 1280
+          scaleFactor: 0.5
 
       - name: Wappalyzer scan
         uses: "socialgouv/wappalyzer-action@master"
@@ -141,7 +150,7 @@ jobs:
           repositories: ${{ steps.repositories.outputs.REPOS }}
           output: scans/dependabotalerts.json
 
-      - uses: SocialGouv/dashlord-save-action@master
+      - uses: SocialGouv/dashlord-actions/save@main
         with:
           url: ${{ matrix.urls.url }}
 
