@@ -1,6 +1,6 @@
 {
 	"@version": "2.11.1",
-	"@generated": "Sun, 2 Jan 2022 02:36:48",
+	"@generated": "Sun, 9 Jan 2022 02:41:46",
 	"site":[ 
 		{
 			"@name": "https://app.covoiturage.beta.gouv.fr",
@@ -58,12 +58,12 @@
 				{
 					"pluginid": "10020",
 					"alertRef": "10020",
-					"alert": "X-Frame-Options Header Not Set",
-					"name": "X-Frame-Options Header Not Set",
+					"alert": "Missing Anti-clickjacking Header",
+					"name": "Missing Anti-clickjacking Header",
 					"riskcode": "2",
 					"confidence": "2",
 					"riskdesc": "Medium (Medium)",
-					"desc": "<p>X-Frame-Options header is not included in the HTTP response to protect against 'ClickJacking' attacks.</p>",
+					"desc": "<p>The response does not include either Content-Security-Policy with 'frame-ancestors' directive or X-Frame-Options to protect against 'ClickJacking' attacks.</p>",
 					"instances":[ 
 						{
 							"uri": "https://app.covoiturage.beta.gouv.fr/",
@@ -95,7 +95,7 @@
 						}
 					],
 					"count": "4",
-					"solution": "<p>Most modern Web browsers support the X-Frame-Options HTTP header. Ensure it's set on all web pages returned by your site (if you expect the page to be framed only by pages on your server (e.g. it's part of a FRAMESET) then you'll want to use SAMEORIGIN, otherwise if you never expect the page to be framed, you should use DENY. Alternatively consider implementing Content Security Policy's \"frame-ancestors\" directive. </p>",
+					"solution": "<p>Modern Web browsers support the Content-Security-Policy and X-Frame-Options HTTP headers. Ensure one of them is set on all web pages returned by your site/app.</p><p>If you expect the page to be framed only by pages on your server (e.g. it's part of a FRAMESET) then you'll want to use SAMEORIGIN, otherwise if you never expect the page to be framed, you should use DENY. Alternatively consider implementing Content Security Policy's \"frame-ancestors\" directive.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options</p>",
 					"cweid": "1021",
@@ -113,6 +113,13 @@
 					"desc": "<p>A dangerous JS function seems to be in use that would leave the site vulnerable.</p>",
 					"instances":[ 
 						{
+							"uri": "https://app.covoiturage.beta.gouv.fr/main-es2015.b3f2a044c5366ef089ce.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "bypassSecurityTrustHtml"
+						},
+						{
 							"uri": "https://app.covoiturage.beta.gouv.fr/main-es5.b3f2a044c5366ef089ce.js",
 							"method": "GET",
 							"param": "",
@@ -120,7 +127,7 @@
 							"evidence": "bypassSecurityTrustHtml"
 						}
 					],
-					"count": "1",
+					"count": "2",
 					"solution": "<p>See the references for security advice on the use of these functions.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://angular.io/guide/security</p>",
@@ -439,6 +446,13 @@
 					"desc": "<p>The response appears to contain suspicious comments which may help an attacker. Note: Matches made within script blocks or files are against the entire content not only comments.</p>",
 					"instances":[ 
 						{
+							"uri": "https://app.covoiturage.beta.gouv.fr/main-es2015.b3f2a044c5366ef089ce.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "bug"
+						},
+						{
 							"uri": "https://app.covoiturage.beta.gouv.fr/main-es5.b3f2a044c5366ef089ce.js",
 							"method": "GET",
 							"param": "",
@@ -467,9 +481,9 @@
 							"evidence": "from"
 						}
 					],
-					"count": "4",
+					"count": "5",
 					"solution": "<p>Remove all comments that return information that may help an attacker and fix any underlying problems they refer to.</p>",
-					"otherinfo": "<p>The following pattern was used: \\bBUG\\b and was detected in the element starting with: \"!function(){function e(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=\", see evidence field for the suspicious comment/snippet.</p>",
+					"otherinfo": "<p>The following pattern was used: \\bBUG\\b and was detected in the element starting with: \"(self.webpackChunkdashboard=self.webpackChunkdashboard||[]).push([[179],{98255:function(t){function e(t){return Promise.resolve(\", see evidence field for the suspicious comment/snippet.</p>",
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
