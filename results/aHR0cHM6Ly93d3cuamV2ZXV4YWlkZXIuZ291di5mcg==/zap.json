@@ -1,6 +1,6 @@
 {
 	"@version": "2.11.1",
-	"@generated": "Sun, 9 Jan 2022 06:09:17",
+	"@generated": "Sun, 16 Jan 2022 06:05:12",
 	"site":[ 
 		{
 			"@name": "https://www.jeveuxaider.gouv.fr",
@@ -8,6 +8,32 @@
 			"@port": "443",
 			"@ssl": "true",
 			"alerts": [ 
+				{
+					"pluginid": "90022",
+					"alertRef": "90022",
+					"alert": "Application Error Disclosure",
+					"name": "Application Error Disclosure",
+					"riskcode": "2",
+					"confidence": "2",
+					"riskdesc": "Medium (Medium)",
+					"desc": "<p>This page contains an error/warning message that may disclose sensitive information like the location of the file that produced the unhandled exception. This information can be used to launch further attacks against the web application. The alert could be a false positive if the error message is found inside a documentation page.</p>",
+					"instances":[ 
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/villes/angers",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Internal Server Error"
+						}
+					],
+					"count": "1",
+					"solution": "<p>Review the source code of this page. Implement custom error pages. Consider implementing a mechanism to provide a unique error reference/identifier to the client (browser) while logging the details on the server side and not exposing them to the user.</p>",
+					"otherinfo": "",
+					"reference": "",
+					"cweid": "200",
+					"wascid": "13",
+					"sourceid": "13651"
+				},
 				{
 					"pluginid": "10038",
 					"alertRef": "10038",
@@ -361,15 +387,118 @@
 							"param": "",
 							"attack": "",
 							"evidence": "<form class=\"el-form form-register-steps el-form--label-top\" data-v-25756a5a>"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/territoires",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form action=\"#\" method=\"GET\" class=\"w-full flex md:ml-0 mb-0\" data-v-35004af4>"
 						}
 					],
-					"count": "11",
+					"count": "12",
 					"solution": "<p>Phase: Architecture and Design</p><p>Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid.</p><p>For example, use anti-CSRF packages such as the OWASP CSRFGuard.</p><p></p><p>Phase: Implementation</p><p>Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.</p><p></p><p>Phase: Architecture and Design</p><p>Generate a unique nonce for each form, place the nonce into the form, and verify the nonce upon receipt of the form. Be sure that the nonce is not predictable (CWE-330).</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Identify especially dangerous operations. When the user performs a dangerous operation, send a separate confirmation request to ensure that the user intended to perform that operation.</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Use the ESAPI Session Management control.</p><p>This control includes a component for CSRF.</p><p></p><p>Do not use the GET method for any request that triggers a state change.</p><p></p><p>Phase: Implementation</p><p>Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.</p>",
 					"otherinfo": "<p>No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"\" ].</p>",
 					"reference": "<p>http://projects.webappsec.org/Cross-Site-Request-Forgery</p><p>http://cwe.mitre.org/data/definitions/352.html</p>",
 					"cweid": "352",
 					"wascid": "9",
 					"sourceid": "1"
+				},
+				{
+					"pluginid": "90022",
+					"alertRef": "90022",
+					"alert": "Application Error Disclosure",
+					"name": "Application Error Disclosure",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>This page contains an error/warning message that may disclose sensitive information like the location of the file that produced the unhandled exception. This information can be used to launch further attacks against the web application. The alert could be a false positive if the error message is found inside a documentation page.</p>",
+					"instances":[ 
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/domaines-action/art-culture-pour-tous",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "HTTP/1.1 500 RuntimeError"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/domaines-action/protection-de-la-nature",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "HTTP/1.1 500 RuntimeError"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/domaines-action/sport-pour-tous",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "HTTP/1.1 500 RuntimeError"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/missions-benevolat/15004/benevolat-dessine-moi-la-high-tech-cesson-sevigne",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "HTTP/1.1 500 RuntimeError"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/organisations/5575-singa",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "HTTP/1.1 500 RuntimeError"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/organisations/5605-emmaus-connect-paris",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "HTTP/1.1 500 RuntimeError"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/organisations/6484-coallia",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "HTTP/1.1 500 RuntimeError"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/organisations/8507-etendart",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "HTTP/1.1 500 RuntimeError"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/organisations/8818-secours-catholique-delegation-du-val-de-marne",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "HTTP/1.1 500 RuntimeError"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/villes/montpellier",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "HTTP/1.1 500 RuntimeError"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/villes/nantes",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "HTTP/1.1 500 RuntimeError"
+						}
+					],
+					"count": "11",
+					"solution": "<p>Review the source code of this page. Implement custom error pages. Consider implementing a mechanism to provide a unique error reference/identifier to the client (browser) while logging the details on the server side and not exposing them to the user.</p>",
+					"otherinfo": "",
+					"reference": "",
+					"cweid": "200",
+					"wascid": "13",
+					"sourceid": "13555"
 				},
 				{
 					"pluginid": "10010",
@@ -395,7 +524,7 @@
 					"reference": "<p>https://owasp.org/www-community/HttpOnly</p>",
 					"cweid": "1004",
 					"wascid": "13",
-					"sourceid": "13229"
+					"sourceid": "7490"
 				},
 				{
 					"pluginid": "10011",
@@ -421,7 +550,7 @@
 					"reference": "<p>https://owasp.org/www-project-web-security-testing-guide/v41/4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.html</p>",
 					"cweid": "614",
 					"wascid": "13",
-					"sourceid": "13229"
+					"sourceid": "7490"
 				},
 				{
 					"pluginid": "10054",
@@ -447,7 +576,7 @@
 					"reference": "<p>https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site</p>",
 					"cweid": "1275",
 					"wascid": "13",
-					"sourceid": "13229"
+					"sourceid": "7490"
 				},
 				{
 					"pluginid": "10017",
@@ -543,7 +672,7 @@
 					"reference": "",
 					"cweid": "829",
 					"wascid": "15",
-					"sourceid": "13273"
+					"sourceid": "13499"
 				},
 				{
 					"pluginid": "10110",
@@ -569,7 +698,7 @@
 					"reference": "<p>https://angular.io/guide/security</p>",
 					"cweid": "749",
 					"wascid": "-1",
-					"sourceid": "13629"
+					"sourceid": "13794"
 				},
 				{
 					"pluginid": "10015",
@@ -594,13 +723,6 @@
 							"param": "Cache-Control",
 							"attack": "",
 							"evidence": "max-age=60, public, no-transform"
-						},
-						{
-							"uri": "https://www.jeveuxaider.gouv.fr/engagement/actualites/",
-							"method": "GET",
-							"param": "Cache-Control",
-							"attack": "",
-							"evidence": ""
 						},
 						{
 							"uri": "https://www.jeveuxaider.gouv.fr/engagement/ecoles-et-universites/",
@@ -657,6 +779,13 @@
 							"param": "Cache-Control",
 							"attack": "",
 							"evidence": "max-age=60, public, no-transform"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/territoires",
+							"method": "GET",
+							"param": "Cache-Control",
+							"attack": "",
+							"evidence": "max-age=60, public, no-transform"
 						}
 					],
 					"count": "11",
@@ -666,6 +795,39 @@
 					"cweid": "525",
 					"wascid": "13",
 					"sourceid": "1"
+				},
+				{
+					"pluginid": "10023",
+					"alertRef": "10023",
+					"alert": "Information Disclosure - Debug Error Messages",
+					"name": "Information Disclosure - Debug Error Messages",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>The response appeared to contain common error messages returned by platforms such as ASP.NET, and Web-servers such as IIS and Apache. You can configure the list of common debug messages.</p>",
+					"instances":[ 
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/missions-benevolat/15902/benevolat-lobby-des-consciences-antenne-des-hautes-alpes-05-la-batie-neuve",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Internal Server Error"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/villes/angers",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Internal Server Error"
+						}
+					],
+					"count": "2",
+					"solution": "<p>Disable debugging messages before pushing to production.</p>",
+					"otherinfo": "",
+					"reference": "",
+					"cweid": "200",
+					"wascid": "13",
+					"sourceid": "13834"
 				},
 				{
 					"pluginid": "10063",
@@ -835,13 +997,6 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://www.jeveuxaider.gouv.fr/engagement/actualites/",
-							"method": "GET",
-							"param": "X-Content-Type-Options",
-							"attack": "",
-							"evidence": ""
-						},
-						{
 							"uri": "https://www.jeveuxaider.gouv.fr/engagement/ecoles-et-universites/",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
@@ -896,6 +1051,13 @@
 							"param": "X-Content-Type-Options",
 							"attack": "",
 							"evidence": ""
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/territoires",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
 						}
 					],
 					"count": "11",
@@ -938,13 +1100,6 @@
 							"evidence": "0NsllqYC1WoW3UcctUd3UBABzvJgFfhq99AxFDt0"
 						},
 						{
-							"uri": "https://www.jeveuxaider.gouv.fr/engagement/actualites/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "com/uploads/2021/12/JeVeuxAider-uai-1607x904"
-						},
-						{
 							"uri": "https://www.jeveuxaider.gouv.fr/engagement/ecoles-et-universites/",
 							"method": "GET",
 							"param": "",
@@ -956,7 +1111,7 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "com/uploads/2021/06/logo-jagis-vert-RVB"
+							"evidence": "com/uploads/2021/05/Logo_Jaccede"
 						},
 						{
 							"uri": "https://www.jeveuxaider.gouv.fr/inscription/organisation",
@@ -991,7 +1146,14 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1f133b-ayPiiBLLa+uJp6vvBB/3mcMvy+s"
+							"evidence": "1fa9d6-+lXHnXsNm5uUrwqTTSf3b42fBK0"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/territoires",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0NsllqYC1WoW3UcctUd3UBABzvJgFfhq99AxFDt0"
 						}
 					],
 					"count": "11",
@@ -1209,84 +1371,84 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Age: 308779"
+							"evidence": "Age: 885025"
 						},
 						{
-							"uri": "https://www.jeveuxaider.gouv.fr/_nuxt/6a3b79e.modern.js",
+							"uri": "https://www.jeveuxaider.gouv.fr/_nuxt/465b9b4.modern.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Age: 2712565"
+							"evidence": "Age: 223723"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/_nuxt/9b6538a.modern.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 1607682"
 						},
 						{
 							"uri": "https://www.jeveuxaider.gouv.fr/_nuxt/b2cd039.modern.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Age: 2060667"
+							"evidence": "Age: 3176834"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/_nuxt/css/2c53353.css",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 3318922"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/_nuxt/css/5e2b645.css",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 3323281"
 						},
 						{
 							"uri": "https://www.jeveuxaider.gouv.fr/_nuxt/css/95c2e7b.css",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Age: 308805"
+							"evidence": "Age: 909090"
 						},
 						{
 							"uri": "https://www.jeveuxaider.gouv.fr/_nuxt/css/c1c3cf4.css",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Age: 2049209"
+							"evidence": "Age: 2659725"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/_nuxt/e1ba6c722bc33f1f1209d3047467f6c0.svg",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 279077"
 						},
 						{
 							"uri": "https://www.jeveuxaider.gouv.fr/_nuxt/f59ac94.modern.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Age: 308775"
+							"evidence": "Age: 885026"
 						},
 						{
-							"uri": "https://www.jeveuxaider.gouv.fr/_nuxt/fonts/element-icons.313f7da.woff",
+							"uri": "https://www.jeveuxaider.gouv.fr/_nuxt/fonts/element-icons.4520188.ttf",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Age: 1656931"
-						},
-						{
-							"uri": "https://www.jeveuxaider.gouv.fr/_nuxt/fonts/Marianne-Bold.e2b3b9a.woff2",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "Age: 255055"
-						},
-						{
-							"uri": "https://www.jeveuxaider.gouv.fr/_nuxt/fonts/Marianne-ExtraBold.c32a58c.woff2",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "Age: 146801"
-						},
-						{
-							"uri": "https://www.jeveuxaider.gouv.fr/_nuxt/fonts/Marianne-Medium.811c637.woff2",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "Age: 84105"
-						},
-						{
-							"uri": "https://www.jeveuxaider.gouv.fr/_nuxt/fonts/Marianne-Regular.b095bc9.woff2",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "Age: 1254557"
+							"evidence": "Age: 435948"
 						},
 						{
 							"uri": "https://www.jeveuxaider.gouv.fr/favicon.png",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Age: 244867"
+							"evidence": "Age: 3188580"
 						}
 					],
 					"count": "12",
@@ -1295,7 +1457,7 @@
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "-1",
 					"wascid": "-1",
-					"sourceid": "13624"
+					"sourceid": "13787"
 				},
 				{
 					"pluginid": "10049",
@@ -1417,7 +1579,7 @@
 					"reference": "<p>http://websecuritytool.codeplex.com/wikipage?title=Checks#user-controlled-html-attribute</p>",
 					"cweid": "20",
 					"wascid": "20",
-					"sourceid": "13457"
+					"sourceid": "13649"
 				}
 			]
 		}
