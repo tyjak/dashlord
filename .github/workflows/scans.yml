@@ -164,6 +164,16 @@ jobs:
           apiKey: ${{ secrets.UPDOWNIO_API_KEY }}
           url: ${{ matrix.sites.url }}
           output: scans/updownio.json
+      
+      - name: Stats page
+        continue-on-error: true
+        timeout-minutes: 10
+        uses: "MTES-MCT/stats-action@main"
+        if: ${{ matrix.sites.tools.stats }}
+        with:
+          url: ${{ matrix.sites.url }}
+          uri: 'stats'
+          output: scans/stats.json
 
       - name: Dependabot vulnerabilities alerts
         continue-on-error: true
