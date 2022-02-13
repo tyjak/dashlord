@@ -1,6 +1,6 @@
 {
 	"@version": "2.11.1",
-	"@generated": "Sun, 6 Feb 2022 06:15:53",
+	"@generated": "Sun, 13 Feb 2022 06:18:50",
 	"site":[ 
 		{
 			"@name": "https://www.jeveuxaider.gouv.fr",
@@ -47,14 +47,14 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://www.jeveuxaider.gouv.fr/engagement/ecoles-et-universites/",
+							"uri": "https://www.jeveuxaider.gouv.fr/engagement/organisations/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": ""
 						},
 						{
-							"uri": "https://www.jeveuxaider.gouv.fr/engagement/organisations/",
+							"uri": "https://www.jeveuxaider.gouv.fr/inscription",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -103,6 +103,60 @@
 					"cweid": "693",
 					"wascid": "15",
 					"sourceid": "1"
+				},
+				{
+					"pluginid": "10098",
+					"alertRef": "10098",
+					"alert": "Cross-Domain Misconfiguration",
+					"name": "Cross-Domain Misconfiguration",
+					"riskcode": "2",
+					"confidence": "2",
+					"riskdesc": "Medium (Medium)",
+					"desc": "<p>Web browser data loading may be possible, due to a Cross Origin Resource Sharing (CORS) misconfiguration on the web server</p>",
+					"instances":[ 
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/engagement/actualites/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "access-control-allow-origin: *"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/engagement/communication/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "access-control-allow-origin: *"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/engagement/ecoles-et-universites/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "access-control-allow-origin: *"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/engagement/organisations/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "access-control-allow-origin: *"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/engagement/presse/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "access-control-allow-origin: *"
+						}
+					],
+					"count": "5",
+					"solution": "<p>Ensure that sensitive data is not available in an unauthenticated manner (using IP address white-listing, for instance).</p><p>Configure the \"Access-Control-Allow-Origin\" HTTP header to a more restrictive set of domains, or remove all CORS headers entirely, to allow the web browser to enforce the Same Origin Policy (SOP) in a more restrictive manner.</p>",
+					"otherinfo": "<p>The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing.</p>",
+					"reference": "<p>https://vulncat.fortify.com/en/detail?id=desc.config.dotnet.html5_overly_permissive_cors_policy</p>",
+					"cweid": "264",
+					"wascid": "14",
+					"sourceid": "14729"
 				},
 				{
 					"pluginid": "10020",
@@ -372,6 +426,32 @@
 					"sourceid": "1"
 				},
 				{
+					"pluginid": "10010",
+					"alertRef": "10010",
+					"alert": "Cookie No HttpOnly Flag",
+					"name": "Cookie No HttpOnly Flag",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>A cookie has been set without the HttpOnly flag, which means that the cookie can be accessed by JavaScript. If a malicious script can be run on this page then the cookie will be accessible and can be transmitted to another site. If this is a session cookie then session hijacking may be possible.</p>",
+					"instances":[ 
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/engagement/organisations/",
+							"method": "GET",
+							"param": "uncode_privacy[consent_types]",
+							"attack": "",
+							"evidence": "set-cookie: uncode_privacy[consent_types]"
+						}
+					],
+					"count": "1",
+					"solution": "<p>Ensure that the HttpOnly flag is set for all cookies.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://owasp.org/www-community/HttpOnly</p>",
+					"cweid": "1004",
+					"wascid": "13",
+					"sourceid": "3538"
+				},
+				{
 					"pluginid": "10017",
 					"alertRef": "10017",
 					"alert": "Cross-Domain JavaScript Source File Inclusion",
@@ -465,7 +545,7 @@
 					"reference": "",
 					"cweid": "829",
 					"wascid": "15",
-					"sourceid": "8851"
+					"sourceid": "14729"
 				},
 				{
 					"pluginid": "10110",
@@ -491,7 +571,7 @@
 					"reference": "<p>https://angular.io/guide/security</p>",
 					"cweid": "749",
 					"wascid": "-1",
-					"sourceid": "14811"
+					"sourceid": "15180"
 				},
 				{
 					"pluginid": "10015",
@@ -518,7 +598,7 @@
 							"evidence": "max-age=60, public, no-transform"
 						},
 						{
-							"uri": "https://www.jeveuxaider.gouv.fr/engagement/ecoles-et-universites/",
+							"uri": "https://www.jeveuxaider.gouv.fr/engagement/actualites/",
 							"method": "GET",
 							"param": "Cache-Control",
 							"attack": "",
@@ -628,14 +708,14 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://www.jeveuxaider.gouv.fr/engagement/ecoles-et-universites/",
+							"uri": "https://www.jeveuxaider.gouv.fr/engagement/organisations/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": ""
 						},
 						{
-							"uri": "https://www.jeveuxaider.gouv.fr/engagement/organisations/",
+							"uri": "https://www.jeveuxaider.gouv.fr/inscription",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -771,7 +851,7 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://www.jeveuxaider.gouv.fr/engagement/ecoles-et-universites/",
+							"uri": "https://www.jeveuxaider.gouv.fr/engagement/actualites/",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -874,18 +954,18 @@
 							"evidence": "0NsllqYC1WoW3UcctUd3UBABzvJgFfhq99AxFDt0"
 						},
 						{
-							"uri": "https://www.jeveuxaider.gouv.fr/engagement/ecoles-et-universites/",
+							"uri": "https://www.jeveuxaider.gouv.fr/engagement/actualites/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "fr/engagement/wp-content/uploads/2020/09/Capture-de"
+							"evidence": "fr/engagement/wp-content/uploads/2021/12/JeVeuxAider-uai-258x145"
 						},
 						{
 							"uri": "https://www.jeveuxaider.gouv.fr/engagement/organisations/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "fr/engagement/wp-content/uploads/2020/12/Samu-Social-de-Paris-uai-258x60"
+							"evidence": "fr/engagement/wp-content/uploads/2020/12/Armee-du-Salut-uai-258x258"
 						},
 						{
 							"uri": "https://www.jeveuxaider.gouv.fr/inscription/organisation",
@@ -920,14 +1000,14 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2195f0-PnjYys/FXpRVTmnGcpOdMo9D3u0"
+							"evidence": "227d7e-J11JyzklZuYUlnePCpXJfDWRXBY"
 						},
 						{
 							"uri": "https://www.jeveuxaider.gouv.fr/territoires",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "11ffe0-pMhJ2hzfan4Baj1rOGskDkFnYNw"
+							"evidence": "1230a1-lO99Cw5xMAlCkTRSin+q7DSbSFI"
 						}
 					],
 					"count": "11",
@@ -977,18 +1057,18 @@
 							"evidence": "admin"
 						},
 						{
-							"uri": "https://www.jeveuxaider.gouv.fr/engagement/ecoles-et-universites/",
+							"uri": "https://www.jeveuxaider.gouv.fr/engagement/organisations/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "admin"
 						},
 						{
-							"uri": "https://www.jeveuxaider.gouv.fr/engagement/organisations/",
+							"uri": "https://www.jeveuxaider.gouv.fr/inscription",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "admin"
+							"evidence": "db"
 						},
 						{
 							"uri": "https://www.jeveuxaider.gouv.fr/inscription/organisation",
@@ -1073,18 +1153,18 @@
 							"evidence": "<a href=\"#\" data-filter=\"*\" class=\"active isotope-nav-link\">Tout</a>"
 						},
 						{
-							"uri": "https://www.jeveuxaider.gouv.fr/engagement/ecoles-et-universites/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<a tabindex=\"-1\" href=\"#\" class=\"inactive-link pushed\" data-lb-index=\"0\"><div class=\"t-entry-visual-overlay\"><div class=\"t-entry-visual-overlay-in style-dark-bg\" style=\"opacity: 0.5;\"></div></div><img class=\"adaptive-async wp-image-2769\" src=\"https://www.jeveuxaider.gouv.fr/engagement/wp-content/uploads/2021/04/logo-benevolat_0003_Calque-2-uai-258x145.png\" width=\"258\" height=\"145\" alt=\"\" data-uniqueid=\"2769-732737\" data-guid=\"https://www.jeveuxaider.gouv.fr/engagement/wp-content/uploads/2021/04/logo-benevolat_0003_Calque-2.png\" data-path=\"2021/04/logo-benevolat_0003_Calque-2.png\" data-width=\"1000\" data-height=\"563\" data-singlew=\"2\" data-singleh=\"4\" data-crop=\"\" /></a>"
-						},
-						{
 							"uri": "https://www.jeveuxaider.gouv.fr/engagement/organisations/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "<a href=\"#\" data-filter=\"*\" class=\"active isotope-nav-link\">Tout</a>"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/inscription",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<noscript data-n-head=\"ssr\" data-hid=\"gtm-noscript\" data-pbody=\"true\"><iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-5S3DCV6&\" height=\"0\" width=\"0\" style=\"display:none;visibility:hidden\" title=\"gtm\"></iframe></noscript>"
 						},
 						{
 							"uri": "https://www.jeveuxaider.gouv.fr/inscription/organisation",
@@ -1145,84 +1225,84 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Age: 150173"
+							"evidence": "Age: 174"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/_nuxt/5810830.modern.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 728527"
 						},
 						{
 							"uri": "https://www.jeveuxaider.gouv.fr/_nuxt/c52143b.modern.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Age: 149562"
+							"evidence": "Age: 174"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/_nuxt/cef826a.modern.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 728527"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/_nuxt/css/033bf57.css",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 728527"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/_nuxt/css/5e2b645.css",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 5740616"
 						},
 						{
 							"uri": "https://www.jeveuxaider.gouv.fr/_nuxt/css/71a80c7.css",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Age: 1685104"
+							"evidence": "Age: 2143095"
 						},
 						{
 							"uri": "https://www.jeveuxaider.gouv.fr/_nuxt/css/c1c3cf4.css",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Age: 2481442"
+							"evidence": "Age: 2143095"
+						},
+						{
+							"uri": "https://www.jeveuxaider.gouv.fr/_nuxt/css/c251d6e.css",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 1101370"
 						},
 						{
 							"uri": "https://www.jeveuxaider.gouv.fr/_nuxt/d32baf8.modern.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Age: 150170"
+							"evidence": "Age: 174"
 						},
 						{
 							"uri": "https://www.jeveuxaider.gouv.fr/_nuxt/fc08dd9.modern.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Age: 150167"
-						},
-						{
-							"uri": "https://www.jeveuxaider.gouv.fr/engagement/actualites/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "HIT"
-						},
-						{
-							"uri": "https://www.jeveuxaider.gouv.fr/engagement/communication/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "Age: 0"
-						},
-						{
-							"uri": "https://www.jeveuxaider.gouv.fr/engagement/ecoles-et-universites/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "HIT"
-						},
-						{
-							"uri": "https://www.jeveuxaider.gouv.fr/engagement/organisations/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "HIT"
-						},
-						{
-							"uri": "https://www.jeveuxaider.gouv.fr/engagement/presse/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "HIT"
+							"evidence": "Age: 728531"
 						},
 						{
 							"uri": "https://www.jeveuxaider.gouv.fr/favicon.png",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Age: 167958"
+							"evidence": "Age: 1216547"
 						}
 					],
 					"count": "12",
@@ -1231,7 +1311,7 @@
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "-1",
 					"wascid": "-1",
-					"sourceid": "14768"
+					"sourceid": "15175"
 				},
 				{
 					"pluginid": "10049",
@@ -1353,7 +1433,7 @@
 					"reference": "<p>http://websecuritytool.codeplex.com/wikipage?title=Checks#user-controlled-html-attribute</p>",
 					"cweid": "20",
 					"wascid": "20",
-					"sourceid": "14618"
+					"sourceid": "14942"
 				}
 			]
 		}
