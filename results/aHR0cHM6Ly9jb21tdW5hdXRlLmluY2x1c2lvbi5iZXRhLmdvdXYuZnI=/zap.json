@@ -1,6 +1,6 @@
 {
 	"@version": "2.11.1",
-	"@generated": "Sun, 6 Feb 2022 02:34:08",
+	"@generated": "Sun, 13 Feb 2022 02:33:20",
 	"site":[ 
 		{
 			"@name": "https://communaute.inclusion.beta.gouv.fr",
@@ -32,7 +32,7 @@
 					"reference": "",
 					"cweid": "359",
 					"wascid": "13",
-					"sourceid": "1251"
+					"sourceid": "1249"
 				},
 				{
 					"pluginid": "10038",
@@ -67,13 +67,6 @@
 						},
 						{
 							"uri": "https://communaute.inclusion.beta.gouv.fr/communautes/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/communautes/dora/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -116,6 +109,13 @@
 						},
 						{
 							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-login.php",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-login.php?reauth=1&redirect_to=https%3A%2F%2Fcommunaute.inclusion.beta.gouv.fr%2Fwp-admin%2F",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -169,21 +169,21 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/communautes/dora/",
+							"uri": "https://communaute.inclusion.beta.gouv.fr/communautes/carnet-de-bord/",
 							"method": "GET",
 							"param": "X-Frame-Options",
 							"attack": "",
 							"evidence": ""
 						},
 						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/communautes/les-actus-de-linclusion/",
+							"uri": "https://communaute.inclusion.beta.gouv.fr/communautes/cej-contrat-dengagement-jeune/",
 							"method": "GET",
 							"param": "X-Frame-Options",
 							"attack": "",
 							"evidence": ""
 						},
 						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/communautes/les-regionales-de-linclusion/",
+							"uri": "https://communaute.inclusion.beta.gouv.fr/communautes/les-emplois-de-linclusion/",
 							"method": "GET",
 							"param": "X-Frame-Options",
 							"attack": "",
@@ -340,42 +340,21 @@
 							"evidence": "<form id=\"bb-block-member\" action=\"javascript:void(0);\">"
 						},
 						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/",
+							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-login.php?reauth=1&redirect_to=https%3A%2F%2Fcommunaute.inclusion.beta.gouv.fr%2Fwp-admin%2F",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "<form role=\"search\" method=\"get\" class=\"search-form\" action=\"https://communaute.inclusion.beta.gouv.fr/\">"
+							"evidence": "<form name=\"loginform\" id=\"loginform\" action=\"https://communaute.inclusion.beta.gouv.fr/wp-login.php\" method=\"post\">"
 						},
 						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/",
+							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-login.php?reauth=1&redirect_to=https%3A%2F%2Fcommunaute.inclusion.beta.gouv.fr%2Fwp-admin%2F",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "<form role=\"search\" method=\"get\" class=\"search-form\" action=\"https://communaute.inclusion.beta.gouv.fr/\">"
-						},
-						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<form action=\"\" method=\"get\" class=\"bp-dir-search-form\" id=\"dir-activity-search-form\" autocomplete=\"off\">"
-						},
-						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<form id=\"bb-report-content\" action=\"javascript:void(0);\">"
-						},
-						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<form id=\"bb-block-member\" action=\"javascript:void(0);\">"
+							"evidence": "<form id=\"language-switcher\" action=\"\" method=\"get\">"
 						}
 					],
-					"count": "10",
+					"count": "7",
 					"solution": "<p>Phase: Architecture and Design</p><p>Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid.</p><p>For example, use anti-CSRF packages such as the OWASP CSRFGuard.</p><p></p><p>Phase: Implementation</p><p>Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.</p><p></p><p>Phase: Architecture and Design</p><p>Generate a unique nonce for each form, place the nonce into the form, and verify the nonce upon receipt of the form. Be sure that the nonce is not predictable (CWE-330).</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Identify especially dangerous operations. When the user performs a dangerous operation, send a separate confirmation request to ensure that the user intended to perform that operation.</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Use the ESAPI Session Management control.</p><p>This control includes a component for CSRF.</p><p></p><p>Do not use the GET method for any request that triggers a state change.</p><p></p><p>Phase: Implementation</p><p>Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.</p>",
 					"otherinfo": "<p>No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"s\" ].</p>",
 					"reference": "<p>http://projects.webappsec.org/Cross-Site-Request-Forgery</p><p>http://cwe.mitre.org/data/definitions/352.html</p>",
@@ -415,13 +394,6 @@
 							"evidence": "Set-Cookie: last_knowledge_base"
 						},
 						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/aide/pilotage/",
-							"method": "GET",
-							"param": "last_knowledge_base",
-							"attack": "",
-							"evidence": "Set-Cookie: last_knowledge_base"
-						},
-						{
 							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-login.php",
 							"method": "GET",
 							"param": "wordpress_test_cookie",
@@ -441,6 +413,20 @@
 							"param": "wordpress_test_cookie",
 							"attack": "",
 							"evidence": "Set-Cookie: wordpress_test_cookie"
+						},
+						{
+							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-login.php?redirect_to=https%3A%2F%2Fcommunaute.inclusion.beta.gouv.fr%2Fwp-admin%2F&wp_lang=fr_FR",
+							"method": "GET",
+							"param": "wordpress_test_cookie",
+							"attack": "",
+							"evidence": "Set-Cookie: wordpress_test_cookie"
+						},
+						{
+							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-login.php?redirect_to=https%3A%2F%2Fcommunaute.inclusion.beta.gouv.fr%2Fwp-admin%2F&wp_lang=fr_FR",
+							"method": "GET",
+							"param": "wp_lang",
+							"attack": "",
+							"evidence": "Set-Cookie: wp_lang"
 						},
 						{
 							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-login.php?wp_lang=fr_FR",
@@ -471,13 +457,13 @@
 							"evidence": "Set-Cookie: wordpress_test_cookie"
 						}
 					],
-					"count": "11",
+					"count": "12",
 					"solution": "<p>Ensure that the HttpOnly flag is set for all cookies.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://owasp.org/www-community/HttpOnly</p>",
 					"cweid": "1004",
 					"wascid": "13",
-					"sourceid": "1421"
+					"sourceid": "2210"
 				},
 				{
 					"pluginid": "10011",
@@ -511,13 +497,6 @@
 							"evidence": "Set-Cookie: last_knowledge_base"
 						},
 						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/aide/pilotage/",
-							"method": "GET",
-							"param": "last_knowledge_base",
-							"attack": "",
-							"evidence": "Set-Cookie: last_knowledge_base"
-						},
-						{
 							"uri": "https://communaute.inclusion.beta.gouv.fr/membre/",
 							"method": "POST",
 							"param": "bp_ps_request",
@@ -525,13 +504,13 @@
 							"evidence": "Set-Cookie: bp_ps_request"
 						}
 					],
-					"count": "5",
+					"count": "4",
 					"solution": "<p>Whenever a cookie contains sensitive information or is a session token, then it should always be passed using an encrypted channel. Ensure that the secure flag is set for cookies containing such sensitive information.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://owasp.org/www-project-web-security-testing-guide/v41/4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.html</p>",
 					"cweid": "614",
 					"wascid": "13",
-					"sourceid": "1421"
+					"sourceid": "2210"
 				},
 				{
 					"pluginid": "10054",
@@ -543,20 +522,6 @@
 					"riskdesc": "Low (Medium)",
 					"desc": "<p>A cookie has been set without the SameSite attribute, which means that the cookie can be sent as a result of a 'cross-site' request. The SameSite attribute is an effective counter measure to cross-site request forgery, cross-site script inclusion, and timing attacks.</p>",
 					"instances":[ 
-						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/aide/communaute/",
-							"method": "GET",
-							"param": "last_knowledge_base",
-							"attack": "",
-							"evidence": "Set-Cookie: last_knowledge_base"
-						},
-						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/aide/emplois/",
-							"method": "GET",
-							"param": "last_knowledge_base",
-							"attack": "",
-							"evidence": "Set-Cookie: last_knowledge_base"
-						},
 						{
 							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-login.php",
 							"method": "GET",
@@ -577,6 +542,20 @@
 							"param": "wordpress_test_cookie",
 							"attack": "",
 							"evidence": "Set-Cookie: wordpress_test_cookie"
+						},
+						{
+							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-login.php?redirect_to=https%3A%2F%2Fcommunaute.inclusion.beta.gouv.fr%2Fwp-admin%2F&wp_lang=fr_FR",
+							"method": "GET",
+							"param": "wordpress_test_cookie",
+							"attack": "",
+							"evidence": "Set-Cookie: wordpress_test_cookie"
+						},
+						{
+							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-login.php?redirect_to=https%3A%2F%2Fcommunaute.inclusion.beta.gouv.fr%2Fwp-admin%2F&wp_lang=fr_FR",
+							"method": "GET",
+							"param": "wp_lang",
+							"attack": "",
+							"evidence": "Set-Cookie: wp_lang"
 						},
 						{
 							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-login.php?wp_lang=fr_FR",
@@ -627,7 +606,7 @@
 					"reference": "<p>https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site</p>",
 					"cweid": "1275",
 					"wascid": "13",
-					"sourceid": "1421"
+					"sourceid": "304"
 				},
 				{
 					"pluginid": "10017",
@@ -668,7 +647,7 @@
 							"evidence": "<script type=\"text/javascript\" src=\"https://cdn.jsdelivr.net/gh/AmauriC/tarteaucitron.js@1.9.3/tarteaucitron.js\"></script>"
 						},
 						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/communautes/dora/",
+							"uri": "https://communaute.inclusion.beta.gouv.fr/communautes/carnet-de-bord/",
 							"method": "GET",
 							"param": "https://cdn.jsdelivr.net/gh/AmauriC/tarteaucitron.js@1.9.3/tarteaucitron.js",
 							"attack": "",
@@ -763,7 +742,7 @@
 					"reference": "<p>https://angular.io/guide/security</p>",
 					"cweid": "749",
 					"wascid": "-1",
-					"sourceid": "1136"
+					"sourceid": "1137"
 				},
 				{
 					"pluginid": "10015",
@@ -804,14 +783,7 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/evenement/les-entreprise-sengagent-visites-en-immersion-job-dating/",
-							"method": "GET",
-							"param": "Cache-Control",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/evenement/maison-de-lemploi-kfe-pro-bordeaux/",
+							"uri": "https://communaute.inclusion.beta.gouv.fr/evenement/les-entreprise-sengagent-visites-en-immersion/",
 							"method": "GET",
 							"param": "Cache-Control",
 							"attack": "",
@@ -847,6 +819,13 @@
 						},
 						{
 							"uri": "https://communaute.inclusion.beta.gouv.fr/sinscrire/",
+							"method": "GET",
+							"param": "Cache-Control",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-sitemap.xml",
 							"method": "GET",
 							"param": "Cache-Control",
 							"attack": "",
@@ -900,13 +879,6 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/communautes/dora/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
-						},
-						{
 							"uri": "https://communaute.inclusion.beta.gouv.fr/evenements/",
 							"method": "GET",
 							"param": "",
@@ -943,6 +915,13 @@
 						},
 						{
 							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-login.php",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-login.php?reauth=1&redirect_to=https%3A%2F%2Fcommunaute.inclusion.beta.gouv.fr%2Fwp-admin%2F",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -996,21 +975,7 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/evenements/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
-						},
-						{
 							"uri": "https://communaute.inclusion.beta.gouv.fr/membre/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/ressourcerie/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1039,6 +1004,20 @@
 						},
 						{
 							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-login.php",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-login.php?reauth=1&redirect_to=https%3A%2F%2Fcommunaute.inclusion.beta.gouv.fr%2Fwp-admin%2F",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-sitemap.xml",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1082,42 +1061,42 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1644114764"
+							"evidence": "1644719536"
 						},
 						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/asp-contrat-unique-dinsertion/",
+							"uri": "https://communaute.inclusion.beta.gouv.fr/campus-de-linclusion-permettre-a-chacun-de-trouver-sa-place/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1644114766"
+							"evidence": "1644719532"
 						},
 						{
 							"uri": "https://communaute.inclusion.beta.gouv.fr/declics-numeriques-un-dispositif-gratuit-qui-facilite-votre-reconversion-professionnelle-vers-les-metiers-du-numerique/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1644114762"
+							"evidence": "1644719534"
 						},
 						{
 							"uri": "https://communaute.inclusion.beta.gouv.fr/demarches-simplifiees-derogation-aux-480-heures-en-association-intermediaire/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1644114764"
+							"evidence": "1644719534"
 						},
 						{
 							"uri": "https://communaute.inclusion.beta.gouv.fr/demarches-simplifiees-derogation-collective-a-la-duree-hebdomadaire-minimale-de-travail/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1644114766"
+							"evidence": "1644719536"
 						},
 						{
 							"uri": "https://communaute.inclusion.beta.gouv.fr/sourdoues-lecole-des-metiers-du-numerique-100-langue-des-signes-francaise/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1644114762"
+							"evidence": "1644719533"
 						},
 						{
 							"uri": "https://communaute.inclusion.beta.gouv.fr/stats/",
@@ -1202,20 +1181,6 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/communautes/dora/",
-							"method": "GET",
-							"param": "X-Content-Type-Options",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/evenements/",
-							"method": "GET",
-							"param": "X-Content-Type-Options",
-							"attack": "",
-							"evidence": ""
-						},
-						{
 							"uri": "https://communaute.inclusion.beta.gouv.fr/membre/",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
@@ -1245,6 +1210,20 @@
 						},
 						{
 							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-login.php",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-login.php?reauth=1&redirect_to=https%3A%2F%2Fcommunaute.inclusion.beta.gouv.fr%2Fwp-admin%2F",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-sitemap.xml",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -1298,14 +1277,7 @@
 							"evidence": "fr/wp-content/uploads/2021/09/Marianne-Bold"
 						},
 						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/communautes/dora/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "fr/wp-content/uploads/2021/09/Marianne-Bold"
-						},
-						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/communautes/les-regionales-de-linclusion/",
+							"uri": "https://communaute.inclusion.beta.gouv.fr/communautes/carnet-de-bord/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1345,6 +1317,13 @@
 							"param": "",
 							"attack": "",
 							"evidence": "fr/wp-content/uploads/2021/09/Marianne-Bold"
+						},
+						{
+							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-login.php?reauth=1&redirect_to=https%3A%2F%2Fcommunaute.inclusion.beta.gouv.fr%2Fwp-admin%2F",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "fr/wp-content/uploads/2021/09/Marianne-Bold"
 						}
 					],
 					"count": "11",
@@ -1373,34 +1352,20 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-json/oembed/1.0/embed?format=xml&url=https%3A%2F%2Fcommunaute.inclusion.beta.gouv.fr%2Fcommunautes%2F",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
-						},
-						{
 							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-json/oembed/1.0/embed?format=xml&url=https%3A%2F%2Fcommunaute.inclusion.beta.gouv.fr%2Fmembre%2F",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-json/oembed/1.0/embed?format=xml&url=https%3A%2F%2Fcommunaute.inclusion.beta.gouv.fr%2Fsinscrire%2F",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": ""
 						}
 					],
-					"count": "4",
+					"count": "2",
 					"solution": "<p>Force UTF-8 for all text content in both the HTTP header and meta tags in HTML or encoding declarations in XML.</p>",
 					"otherinfo": "<p>There was a charset mismatch between the HTTP Header and the XML encoding declaration: [UTF-8] and [null] do not match.</p>",
 					"reference": "<p>http://code.google.com/p/browsersec/wiki/Part2#Character_set_handling_and_detection</p>",
 					"cweid": "436",
 					"wascid": "15",
-					"sourceid": "950"
+					"sourceid": "965"
 				},
 				{
 					"pluginid": "10029",
@@ -1413,6 +1378,13 @@
 					"desc": "<p>This check looks at user-supplied input in query string parameters and POST data to identify where cookie parameters might be controlled. This is called a cookie poisoning attack, and becomes exploitable when an attacker can manipulate the cookie in various ways. In some cases this will not be exploitable, however, allowing URL parameters to set cookie values is generally considered a bug.</p>",
 					"instances":[ 
 						{
+							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-login.php?redirect_to=https%3A%2F%2Fcommunaute.inclusion.beta.gouv.fr%2Fwp-admin%2F&wp_lang=fr_FR",
+							"method": "GET",
+							"param": "wp_lang",
+							"attack": "",
+							"evidence": ""
+						},
+						{
 							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-login.php?wp_lang=fr_FR",
 							"method": "GET",
 							"param": "wp_lang",
@@ -1420,13 +1392,13 @@
 							"evidence": ""
 						}
 					],
-					"count": "1",
+					"count": "2",
 					"solution": "<p>Do not allow user input to control cookie names and values. If some query string parameters must be set in cookie values, be sure to filter out semicolon's that can serve as name/value pair delimiters.</p>",
-					"otherinfo": "<p>An attacker may be able to poison cookie values through URL parameters.  Try injecting a semicolon to see if you can add cookie values (e.g. name=controlledValue;name=anotherValue;).</p><p></p><p>This was identified at:</p><p></p><p>https://communaute.inclusion.beta.gouv.fr/wp-login.php?wp_lang=fr_FR</p><p></p><p>User-input was found in the following cookie:</p><p>wp_lang=fr_FR; path=/; secure</p><p></p><p>The user input was:</p><p>wp_lang=fr_FR</p>",
+					"otherinfo": "<p>An attacker may be able to poison cookie values through URL parameters.  Try injecting a semicolon to see if you can add cookie values (e.g. name=controlledValue;name=anotherValue;).</p><p></p><p>This was identified at:</p><p></p><p>https://communaute.inclusion.beta.gouv.fr/wp-login.php?redirect_to=https%3A%2F%2Fcommunaute.inclusion.beta.gouv.fr%2Fwp-admin%2F&wp_lang=fr_FR</p><p></p><p>User-input was found in the following cookie:</p><p>wp_lang=fr_FR; path=/; secure</p><p></p><p>The user input was:</p><p>wp_lang=fr_FR</p>",
 					"reference": "<p>http://websecuritytool.codeplex.com/wikipage?title=Checks#user-controlled-cookie</p>",
 					"cweid": "20",
 					"wascid": "20",
-					"sourceid": "1314"
+					"sourceid": "2106"
 				},
 				{
 					"pluginid": "10027",
@@ -1528,14 +1500,7 @@
 							"evidence": "<a href=\"#\" class=\"bb-toggle-panel\"><i class=\"bb-icon-menu-left\"></i></a>"
 						},
 						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/communautes/dora/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<a href=\"#\" class=\"bb-toggle-panel\"><i class=\"bb-icon-menu-left\"></i></a>"
-						},
-						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/communautes/les-regionales-de-linclusion/",
+							"uri": "https://communaute.inclusion.beta.gouv.fr/communautes/carnet-de-bord/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1571,6 +1536,13 @@
 						},
 						{
 							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-login.php",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<noscript><link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css\" /></noscript>"
+						},
+						{
+							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-login.php?reauth=1&redirect_to=https%3A%2F%2Fcommunaute.inclusion.beta.gouv.fr%2Fwp-admin%2F",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1622,15 +1594,22 @@
 							"param": "",
 							"attack": "",
 							"evidence": "no-store"
+						},
+						{
+							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-login.php?reauth=1&redirect_to=https%3A%2F%2Fcommunaute.inclusion.beta.gouv.fr%2Fwp-admin%2F",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "no-store"
 						}
 					],
-					"count": "4",
+					"count": "5",
 					"solution": "<p>The content may be marked as storable by ensuring that the following conditions are satisfied:</p><p>The request method must be understood by the cache and defined as being cacheable (\"GET\", \"HEAD\", and \"POST\" are currently defined as cacheable)</p><p>The response status code must be understood by the cache (one of the 1XX, 2XX, 3XX, 4XX, or 5XX response classes are generally understood)</p><p>The \"no-store\" cache directive must not appear in the request or response header fields</p><p>For caching by \"shared\" caches such as \"proxy\" caches, the \"private\" response directive must not appear in the response</p><p>For caching by \"shared\" caches such as \"proxy\" caches, the \"Authorization\" header field must not appear in the request, unless the response explicitly allows it (using one of the \"must-revalidate\", \"public\", or \"s-maxage\" Cache-Control response directives)</p><p>In addition to the conditions above, at least one of the following conditions must also be satisfied by the response:</p><p>It must contain an \"Expires\" header field</p><p>It must contain a \"max-age\" response directive</p><p>For \"shared\" caches such as \"proxy\" caches, it must contain a \"s-maxage\" response directive</p><p>It must contain a \"Cache Control Extension\" that allows it to be cached</p><p>It must have a status code that is defined as cacheable by default (200, 203, 204, 206, 300, 301, 404, 405, 410, 414, 501).   </p>",
 					"otherinfo": "",
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "102"
+					"sourceid": "9"
 				},
 				{
 					"pluginid": "10049",
@@ -1664,13 +1643,6 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/communautes/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
-						},
-						{
 							"uri": "https://communaute.inclusion.beta.gouv.fr/membre/",
 							"method": "GET",
 							"param": "",
@@ -1685,14 +1657,14 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://communaute.inclusion.beta.gouv.fr/sinscrire/",
+							"uri": "https://communaute.inclusion.beta.gouv.fr/wp-sitemap.xml",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": ""
 						}
 					],
-					"count": "7",
+					"count": "6",
 					"solution": "<p>Validate that the response does not contain sensitive, personal or user-specific information.  If it does, consider the use of the following HTTP response headers, to limit, or prevent the content being stored and retrieved from the cache by another user:</p><p>Cache-Control: no-cache, no-store, must-revalidate, private</p><p>Pragma: no-cache</p><p>Expires: 0</p><p>This configuration directs both HTTP 1.0 and HTTP 1.1 compliant caching servers to not store the response, and to not retrieve the response (without validation) from the cache, in response to a similar request. </p>",
 					"otherinfo": "<p>In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.</p>",
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
@@ -1801,7 +1773,7 @@
 					"reference": "<p>http://websecuritytool.codeplex.com/wikipage?title=Checks#user-controlled-html-attribute</p>",
 					"cweid": "20",
 					"wascid": "20",
-					"sourceid": "1293"
+					"sourceid": "1873"
 				}
 			]
 		}
