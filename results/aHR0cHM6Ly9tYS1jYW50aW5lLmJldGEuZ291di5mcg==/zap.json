@@ -1,6 +1,6 @@
 {
 	"@version": "2.11.1",
-	"@generated": "Sun, 6 Feb 2022 03:32:56",
+	"@generated": "Sun, 13 Feb 2022 03:35:35",
 	"site":[ 
 		{
 			"@name": "https://ma-cantine.beta.gouv.fr",
@@ -9,97 +9,121 @@
 			"@ssl": "true",
 			"alerts": [ 
 				{
-					"pluginid": "10038",
-					"alertRef": "10038",
-					"alert": "Content Security Policy (CSP) Header Not Set",
-					"name": "Content Security Policy (CSP) Header Not Set",
+					"pluginid": "10055",
+					"alertRef": "10055",
+					"alert": "CSP: Wildcard Directive",
+					"name": "CSP: Wildcard Directive",
 					"riskcode": "2",
-					"confidence": "3",
-					"riskdesc": "Medium (High)",
-					"desc": "<p>Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross Site Scripting (XSS) and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware. CSP provides a set of standard HTTP headers that allow website owners to declare approved sources of content that browsers should be allowed to load on that page \u2014 covered types are JavaScript, CSS, HTML frames, fonts, images and embeddable objects such as Java applets, ActiveX, audio and video files.</p>",
+					"confidence": "2",
+					"riskdesc": "Medium (Medium)",
+					"desc": "<p>The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: </p><p>connects-src, frame-ancestors, form-action</p><p></p><p>The directive(s): frame-ancestors, form-action are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything.</p>",
 					"instances":[ 
 						{
 							"uri": "https://ma-cantine.beta.gouv.fr",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://ma-cantine.beta.gouv.fr/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
+							"evidence": "script-src 'self' stats.data.gouv.fr 'unsafe-inline'; connect-src 'self' stats.data.gouv.fr ws: api-adresse.data.gouv.fr; font-src 'self'; style-src 'self' 'unsafe-inline'; default-src 'self'; object-src 'self' cellar-c2.services.clever-cloud.com; frame-src 'self'; media-src 'self' cellar-c2.services.clever-cloud.com; img-src 'self' cellar-c2.services.clever-cloud.com voxusagers.numerique.gouv.fr 'unsafe-inline' stats.data.gouv.fr www.w3.org data:"
 						},
 						{
 							"uri": "https://ma-cantine.beta.gouv.fr/creer-mon-compte",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://ma-cantine.beta.gouv.fr/nos-cantines/AGESSO%20RIA%20de%20Caen--33/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://ma-cantine.beta.gouv.fr/nos-cantines/Campus%20Vert%20d'Azur--18/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://ma-cantine.beta.gouv.fr/nos-cantines/Cantine%20de%20Misson--14/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://ma-cantine.beta.gouv.fr/nos-cantines/Coll%C3%A8ge%20Val%20d'AURE--17/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://ma-cantine.beta.gouv.fr/nos-cantines/Emile%20Littr%C3%A9--36/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://ma-cantine.beta.gouv.fr/nos-cantines/RIAB--31/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
+							"evidence": "script-src 'self' stats.data.gouv.fr 'unsafe-inline'; connect-src 'self' stats.data.gouv.fr ws: api-adresse.data.gouv.fr; font-src 'self'; style-src 'self' 'unsafe-inline'; default-src 'self'; object-src 'self' cellar-c2.services.clever-cloud.com; frame-src 'self'; media-src 'self' cellar-c2.services.clever-cloud.com; img-src 'self' cellar-c2.services.clever-cloud.com voxusagers.numerique.gouv.fr 'unsafe-inline' stats.data.gouv.fr www.w3.org data:"
 						},
 						{
 							"uri": "https://ma-cantine.beta.gouv.fr/robots.txt/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": ""
-						},
+							"evidence": "script-src 'self' stats.data.gouv.fr 'unsafe-inline'; connect-src 'self' stats.data.gouv.fr ws: api-adresse.data.gouv.fr; font-src 'self'; style-src 'self' 'unsafe-inline'; default-src 'self'; object-src 'self' cellar-c2.services.clever-cloud.com; frame-src 'self'; media-src 'self' cellar-c2.services.clever-cloud.com; img-src 'self' cellar-c2.services.clever-cloud.com voxusagers.numerique.gouv.fr 'unsafe-inline' stats.data.gouv.fr www.w3.org data:"
+						}
+					],
+					"count": "3",
+					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is properly configured to set the Content-Security-Policy header.</p>",
+					"otherinfo": "",
+					"reference": "<p>http://www.w3.org/TR/CSP2/</p><p>http://www.w3.org/TR/CSP/</p><p>http://caniuse.com/#search=content+security+policy</p><p>http://content-security-policy.com/</p><p>https://github.com/shapesecurity/salvation</p><p>https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources</p>",
+					"cweid": "693",
+					"wascid": "15",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10055",
+					"alertRef": "10055",
+					"alert": "CSP: script-src unsafe-inline",
+					"name": "CSP: script-src unsafe-inline",
+					"riskcode": "2",
+					"confidence": "2",
+					"riskdesc": "Medium (Medium)",
+					"desc": "<p>script-src includes unsafe-inline.</p>",
+					"instances":[ 
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/s-identifier",
+							"uri": "https://ma-cantine.beta.gouv.fr",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": ""
+							"evidence": "script-src 'self' stats.data.gouv.fr 'unsafe-inline'; connect-src 'self' stats.data.gouv.fr ws: api-adresse.data.gouv.fr; font-src 'self'; style-src 'self' 'unsafe-inline'; default-src 'self'; object-src 'self' cellar-c2.services.clever-cloud.com; frame-src 'self'; media-src 'self' cellar-c2.services.clever-cloud.com; img-src 'self' cellar-c2.services.clever-cloud.com voxusagers.numerique.gouv.fr 'unsafe-inline' stats.data.gouv.fr www.w3.org data:"
+						},
+						{
+							"uri": "https://ma-cantine.beta.gouv.fr/creer-mon-compte",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "script-src 'self' stats.data.gouv.fr 'unsafe-inline'; connect-src 'self' stats.data.gouv.fr ws: api-adresse.data.gouv.fr; font-src 'self'; style-src 'self' 'unsafe-inline'; default-src 'self'; object-src 'self' cellar-c2.services.clever-cloud.com; frame-src 'self'; media-src 'self' cellar-c2.services.clever-cloud.com; img-src 'self' cellar-c2.services.clever-cloud.com voxusagers.numerique.gouv.fr 'unsafe-inline' stats.data.gouv.fr www.w3.org data:"
+						},
+						{
+							"uri": "https://ma-cantine.beta.gouv.fr/robots.txt/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "script-src 'self' stats.data.gouv.fr 'unsafe-inline'; connect-src 'self' stats.data.gouv.fr ws: api-adresse.data.gouv.fr; font-src 'self'; style-src 'self' 'unsafe-inline'; default-src 'self'; object-src 'self' cellar-c2.services.clever-cloud.com; frame-src 'self'; media-src 'self' cellar-c2.services.clever-cloud.com; img-src 'self' cellar-c2.services.clever-cloud.com voxusagers.numerique.gouv.fr 'unsafe-inline' stats.data.gouv.fr www.w3.org data:"
 						}
 					],
-					"count": "11",
-					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to set the Content-Security-Policy header, to achieve optimal browser support: \"Content-Security-Policy\" for Chrome 25+, Firefox 23+ and Safari 7+, \"X-Content-Security-Policy\" for Firefox 4.0+ and Internet Explorer 10+, and \"X-WebKit-CSP\" for Chrome 14+ and Safari 6+.</p>",
+					"count": "3",
+					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is properly configured to set the Content-Security-Policy header.</p>",
 					"otherinfo": "",
-					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/Security/CSP/Introducing_Content_Security_Policy</p><p>https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html</p><p>http://www.w3.org/TR/CSP/</p><p>http://w3c.github.io/webappsec/specs/content-security-policy/csp-specification.dev.html</p><p>http://www.html5rocks.com/en/tutorials/security/content-security-policy/</p><p>http://caniuse.com/#feat=contentsecuritypolicy</p><p>http://content-security-policy.com/</p>",
+					"reference": "<p>http://www.w3.org/TR/CSP2/</p><p>http://www.w3.org/TR/CSP/</p><p>http://caniuse.com/#search=content+security+policy</p><p>http://content-security-policy.com/</p><p>https://github.com/shapesecurity/salvation</p><p>https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources</p>",
+					"cweid": "693",
+					"wascid": "15",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10055",
+					"alertRef": "10055",
+					"alert": "CSP: style-src unsafe-inline",
+					"name": "CSP: style-src unsafe-inline",
+					"riskcode": "2",
+					"confidence": "2",
+					"riskdesc": "Medium (Medium)",
+					"desc": "<p>style-src includes unsafe-inline.</p>",
+					"instances":[ 
+						{
+							"uri": "https://ma-cantine.beta.gouv.fr",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "script-src 'self' stats.data.gouv.fr 'unsafe-inline'; connect-src 'self' stats.data.gouv.fr ws: api-adresse.data.gouv.fr; font-src 'self'; style-src 'self' 'unsafe-inline'; default-src 'self'; object-src 'self' cellar-c2.services.clever-cloud.com; frame-src 'self'; media-src 'self' cellar-c2.services.clever-cloud.com; img-src 'self' cellar-c2.services.clever-cloud.com voxusagers.numerique.gouv.fr 'unsafe-inline' stats.data.gouv.fr www.w3.org data:"
+						},
+						{
+							"uri": "https://ma-cantine.beta.gouv.fr/creer-mon-compte",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "script-src 'self' stats.data.gouv.fr 'unsafe-inline'; connect-src 'self' stats.data.gouv.fr ws: api-adresse.data.gouv.fr; font-src 'self'; style-src 'self' 'unsafe-inline'; default-src 'self'; object-src 'self' cellar-c2.services.clever-cloud.com; frame-src 'self'; media-src 'self' cellar-c2.services.clever-cloud.com; img-src 'self' cellar-c2.services.clever-cloud.com voxusagers.numerique.gouv.fr 'unsafe-inline' stats.data.gouv.fr www.w3.org data:"
+						},
+						{
+							"uri": "https://ma-cantine.beta.gouv.fr/robots.txt/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "script-src 'self' stats.data.gouv.fr 'unsafe-inline'; connect-src 'self' stats.data.gouv.fr ws: api-adresse.data.gouv.fr; font-src 'self'; style-src 'self' 'unsafe-inline'; default-src 'self'; object-src 'self' cellar-c2.services.clever-cloud.com; frame-src 'self'; media-src 'self' cellar-c2.services.clever-cloud.com; img-src 'self' cellar-c2.services.clever-cloud.com voxusagers.numerique.gouv.fr 'unsafe-inline' stats.data.gouv.fr www.w3.org data:"
+						}
+					],
+					"count": "3",
+					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is properly configured to set the Content-Security-Policy header.</p>",
+					"otherinfo": "",
+					"reference": "<p>http://www.w3.org/TR/CSP2/</p><p>http://www.w3.org/TR/CSP/</p><p>http://caniuse.com/#search=content+security+policy</p><p>http://content-security-policy.com/</p><p>https://github.com/shapesecurity/salvation</p><p>https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources</p>",
 					"cweid": "693",
 					"wascid": "15",
 					"sourceid": "1"
@@ -320,7 +344,7 @@
 					"reference": "<p>https://angular.io/guide/security</p>",
 					"cweid": "749",
 					"wascid": "-1",
-					"sourceid": "742"
+					"sourceid": "797"
 				},
 				{
 					"pluginid": "10015",
@@ -499,7 +523,7 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -574,7 +598,7 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/css/app.dee03467.css",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/css/app.d6c709fa.css",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -595,7 +619,7 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -635,861 +659,868 @@
 							"evidence": "31449600"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1018393087"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1019803690"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1044525330"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "10485760"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1069501632"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1088475391"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1094730640"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1097458175"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1120210379"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1126891415"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1163531501"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1182971135"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1200080426"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1211993087"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1221709055"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1236535329"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "12582911"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1258324735"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1272893353"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1309151649"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "134217728"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "13554175"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1416354905"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1433087999"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1444681467"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "14484021"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "145523070"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1473231341"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1502002290"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1530992060"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "155497632"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1560198380"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1604231423"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "16423679"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "165796510"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "16711680"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "16711935"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "16744447"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "16777215"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "16777216"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "16843009"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1687547391"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1700485571"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1714657791"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1724754687"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1732584193"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1732584194"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1735328473"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "175875602"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "176418897"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1768516095"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1770035416"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1784335871"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1804477439"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1804603682"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1839030562"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1873313359"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "187363961"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1887473919"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1894986606"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1926607734"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1958414417"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "198630844"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1990404162"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "2005441023"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "2022574463"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "2054922799"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "2070474495"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "2096890111"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "2147418367"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "2147472639"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "2147483647"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "268435456"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "271733878"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "271733879"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "275899379"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "30611744"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "306562965"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "33554432"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "343485551"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "35309556"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "358537222"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "373897302"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "378350505"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "38016083"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "382683433"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "387039845"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "389564586"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "40341101"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "405537848"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "421097727"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "421815835"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "42424260"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "45705983"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "506832829"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "512819199"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "51403784"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "52200625"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "530742520"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "536870912"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "544511269"
+						},
+						{
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "548580095"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "568446438"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "57434055"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "579543807"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "606105819"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "640364487"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "643717713"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "660478335"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "67108864"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "680876936"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "681279174"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "701558691"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "707106781"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "707406591"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "718787259"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "722521979"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "76029189"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "780883967"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "785694958"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "793726975"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "852308735"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "995338651"
 						}
 					],
-					"count": "124",
+					"count": "125",
 					"solution": "<p>Manually confirm that the timestamp data is not sensitive, and that the data cannot be aggregated to disclose exploitable patterns.</p>",
 					"otherinfo": "<p>31449600, which evaluates to: 1970-12-31 00:00:00</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
@@ -1515,7 +1546,7 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/css/app.dee03467.css",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/css/app.d6c709fa.css",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -1550,7 +1581,7 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -1570,7 +1601,7 @@
 					"reference": "<p>http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx</p><p>https://owasp.org/www-community/Security_Headers</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "742"
+					"sourceid": "797"
 				},
 				{
 					"pluginid": "10094",
@@ -1587,70 +1618,70 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "s0qx7H751Nj55dE5Kgl6Pvorrus4pYJisfmb6a4zO2cNLPemklijNOj7rbAiGadx"
+							"evidence": "EFFjnHEZLvZ4epg9Ll7lzl6dG8ya7rGdvSaG04swKhy6TCPZP42iySeOoJs6Fdj8"
 						},
 						{
 							"uri": "https://ma-cantine.beta.gouv.fr",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "ivhtovP9aSbNfu4VKiADo06JnEaYzCndzAN63cg62YtNiKjXRArMSdWk6L8LSgKE"
+							"evidence": "bzNB1H8k05XngM5RL3LuRoef5O93EkmuhyrvVps1RiA5dKxQpDys11oXB7WEhyBX"
 						},
 						{
 							"uri": "https://ma-cantine.beta.gouv.fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "ivhtovP9aSbNfu4VKiADo06JnEaYzCndzAN63cg62YtNiKjXRArMSdWk6L8LSgKE"
+							"evidence": "EFFjnHEZLvZ4epg9Ll7lzl6dG8ya7rGdvSaG04swKhy6TCPZP42iySeOoJs6Fdj8"
 						},
 						{
 							"uri": "https://ma-cantine.beta.gouv.fr/creer-mon-compte",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "ivhtovP9aSbNfu4VKiADo06JnEaYzCndzAN63cg62YtNiKjXRArMSdWk6L8LSgKE"
+							"evidence": "EFFjnHEZLvZ4epg9Ll7lzl6dG8ya7rGdvSaG04swKhy6TCPZP42iySeOoJs6Fdj8"
 						},
 						{
 							"uri": "https://ma-cantine.beta.gouv.fr/nos-cantines/Campus%20Vert%20d'Azur--18/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "ivhtovP9aSbNfu4VKiADo06JnEaYzCndzAN63cg62YtNiKjXRArMSdWk6L8LSgKE"
+							"evidence": "EFFjnHEZLvZ4epg9Ll7lzl6dG8ya7rGdvSaG04swKhy6TCPZP42iySeOoJs6Fdj8"
 						},
 						{
 							"uri": "https://ma-cantine.beta.gouv.fr/nos-cantines/Cantine%20de%20Misson--14/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "ivhtovP9aSbNfu4VKiADo06JnEaYzCndzAN63cg62YtNiKjXRArMSdWk6L8LSgKE"
+							"evidence": "EFFjnHEZLvZ4epg9Ll7lzl6dG8ya7rGdvSaG04swKhy6TCPZP42iySeOoJs6Fdj8"
 						},
 						{
 							"uri": "https://ma-cantine.beta.gouv.fr/nos-cantines/Coll%C3%A8ge%20Val%20d'AURE--17/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "ivhtovP9aSbNfu4VKiADo06JnEaYzCndzAN63cg62YtNiKjXRArMSdWk6L8LSgKE"
+							"evidence": "EFFjnHEZLvZ4epg9Ll7lzl6dG8ya7rGdvSaG04swKhy6TCPZP42iySeOoJs6Fdj8"
 						},
 						{
 							"uri": "https://ma-cantine.beta.gouv.fr/nos-cantines/RIAB--31/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "ivhtovP9aSbNfu4VKiADo06JnEaYzCndzAN63cg62YtNiKjXRArMSdWk6L8LSgKE"
+							"evidence": "EFFjnHEZLvZ4epg9Ll7lzl6dG8ya7rGdvSaG04swKhy6TCPZP42iySeOoJs6Fdj8"
 						},
 						{
 							"uri": "https://ma-cantine.beta.gouv.fr/robots.txt/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "ivhtovP9aSbNfu4VKiADo06JnEaYzCndzAN63cg62YtNiKjXRArMSdWk6L8LSgKE"
+							"evidence": "EFFjnHEZLvZ4epg9Ll7lzl6dG8ya7rGdvSaG04swKhy6TCPZP42iySeOoJs6Fdj8"
 						},
 						{
 							"uri": "https://ma-cantine.beta.gouv.fr/s-identifier",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "ivhtovP9aSbNfu4VKiADo06JnEaYzCndzAN63cg62YtNiKjXRArMSdWk6L8LSgKE"
+							"evidence": "EFFjnHEZLvZ4epg9Ll7lzl6dG8ya7rGdvSaG04swKhy6TCPZP42iySeOoJs6Fdj8"
 						},
 						{
 							"uri": "https://ma-cantine.beta.gouv.fr/sitemap.xml",
@@ -1660,7 +1691,7 @@
 							"evidence": "fr/nos-cantines/NUTRIPAUL--751"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1669,11 +1700,11 @@
 					],
 					"count": "12",
 					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
-					"otherinfo": "<p>\uFFFDJ\uFFFD\uFFFD~\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD9*\tz>\uFFFD+\uFFFD\uFFFD8\uFFFD\uFFFDb\uFFFD\uFFFD\uFFFD\uFFFD3;g\r,\uFFFD\uFFFD\uFFFDX\uFFFD4\uFFFD\uFFFD\uFFFD\uFFFD\"\\x0019\uFFFDq</p>",
+					"otherinfo": "<p>\\x0010Qc\uFFFDq\\x0019.\uFFFDxz\uFFFD=.^\uFFFD\uFFFD^\uFFFD\\x001b\u031A\uEC5D\uFFFD&\uFFFD\u04CB0*\\x001c\uFFFDL#\uFFFD?\uFFFD\uFFFD\uFFFD'\uFFFD\uFFFD\uFFFD:\\x0015\uFFFD\uFFFD</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "1"
+					"sourceid": "7"
 				},
 				{
 					"pluginid": "10027",
@@ -1763,42 +1794,42 @@
 							"evidence": "where"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "bug"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "from"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "query"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "select"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "todo"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1811,7 +1842,7 @@
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "451"
+					"sourceid": "484"
 				},
 				{
 					"pluginid": "10109",
@@ -1828,80 +1859,80 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "<script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"HHKw6wi9MXjpP74giOMA1ruf6V69rMzpHWGa5ZfDzcc7vJExSTJNZKpV6CenIY3E\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n    </script>"
+							"evidence": "<script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"2pdMg8UptCdmnTTvCRK7vpvBQqk7vdm28oRGaQe6kPQ4kRlugrx5F2FjmJ7I8rBv\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n        window.ENABLE_XP_RESERVATION = \"False\" === \"True\"\n    </script>"
 						},
 						{
 							"uri": "https://ma-cantine.beta.gouv.fr",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "<script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"oYU1q7NSgkXTMac30Xo2ugvNLS1vfBmSF3qE5OeP8qfTPqr57ffbYtlouZZiyfJj\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n    </script>"
+							"evidence": "<script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"cffmmPZt5jUBxxTDnz0sqqZhdAjeQ7nK3sKJZcN045tDcKstriVppX7SVbdaoT0F\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n        window.ENABLE_XP_RESERVATION = \"False\" === \"True\"\n    </script>"
 						},
 						{
 							"uri": "https://ma-cantine.beta.gouv.fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "<script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"VB04liQ0Q1qAluYcZhFLkd2n2fs50biMcGwH0ZhXI7IAoKde6zwUOqSYLmqSjPFd\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n    </script>"
+							"evidence": "<script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"LKWNOzAiJJ3wOpH7PWSsOD7yikycMCLACXrarWoPIvCytCgXTFNpNaf90Vs8koov\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n        window.ENABLE_XP_RESERVATION = \"False\" === \"True\"\n    </script>"
 						},
 						{
 							"uri": "https://ma-cantine.beta.gouv.fr/nos-cantines/AGESSO%20RIA%20de%20Caen--33/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "<script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"crkZ7R3yIUqb98sRNrCEcorKcULnxcNjtwQCMyuvA0IbcoHTUJtNGBhlV1JaQQaK\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n    </script>"
+							"evidence": "<script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"TSQCltdnbvPVbt9rfCM8XncTLz3wVE0zK5lZYQ1UahoXQGIhjlH5WUkutaXstqDu\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n        window.ENABLE_XP_RESERVATION = \"False\" === \"True\"\n    </script>"
 						},
 						{
 							"uri": "https://ma-cantine.beta.gouv.fr/nos-cantines/Campus%20Vert%20d'Azur--18/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "<script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"kATsJk2fzzowyGsznwx0zG2Esz7l0GKoBFp5o1tcrFGwBWHBuOo93TSfbG58jk7P\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n    </script>"
+							"evidence": "<script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"RjZDamPiBuU9RuVca2QAB5Y3O77LgW9lIwu0NJDPAgtbwHu2eLLxAC6EwI1HOIMg\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n        window.ENABLE_XP_RESERVATION = \"False\" === \"True\"\n    </script>"
 						},
 						{
 							"uri": "https://ma-cantine.beta.gouv.fr/nos-cantines/Cantine%20de%20Misson--14/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "<script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"vEmEDAhi0oUBrD9qfxnXbjiCLKkV4a2NMJShihIfSucBuTosmPe6Fw8duRiInOpe\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n    </script>"
+							"evidence": "<script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"3K2JKGBKN38dHiWeRHLqCzWSrmyssQaWUXx6n3phMPHfmvv4VqGnB64t9Xso0CNR\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n        window.ENABLE_XP_RESERVATION = \"False\" === \"True\"\n    </script>"
 						},
 						{
 							"uri": "https://ma-cantine.beta.gouv.fr/nos-cantines/Coll%C3%A8ge%20Val%20d'AURE--17/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "<script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"55aqxyrGmQhqXWV9Fv6WDHB8M4Qf10vOmaG3cfSDeWzq0cabMNX57UrJvbO2kESf\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n    </script>"
+							"evidence": "<script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"IoehSGP0sUoCcd20GZ7P3XtbNZcaM4WfzBJEv3DxrGXERqBQKI2M2uBMvA66kQza\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n        window.ENABLE_XP_RESERVATION = \"False\" === \"True\"\n    </script>"
 						},
 						{
 							"uri": "https://ma-cantine.beta.gouv.fr/nos-cantines/Emile%20Littr%C3%A9--36/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "<script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"gdBTHwowzhPv6TH0FG9P6v5qfGRO9YWexi7wmdPtrn7v99W2MY0YAIV1YNPBsCjF\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n    </script>"
+							"evidence": "<script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"hAHdJVx4neGBqG8FiVqfZF2bcmvoagM38NcAmilBm0fD5THvmElcYcaMUXpkI2pY\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n        window.ENABLE_XP_RESERVATION = \"False\" === \"True\"\n    </script>"
 						},
 						{
 							"uri": "https://ma-cantine.beta.gouv.fr/nos-cantines/Restaurant%20Interadministratif%20de%20Lyon--40/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "<script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"XqwN3p9eYXBZDBbP7Dsa7lwKsTwzbhDxev2qI6AbQ3TZGRqReVjjBymlb0umuV0Y\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n    </script>"
+							"evidence": "<script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"17MgtW6QBo7LZ1xjjwNx4eD1CermjZRySkhD6jUnAaGNEe69nfIu3LLCkPliRLut\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n        window.ENABLE_XP_RESERVATION = \"False\" === \"True\"\n    </script>"
 						},
 						{
 							"uri": "https://ma-cantine.beta.gouv.fr/nos-cantines/RIAB--31/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "<script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"u99HcxOKztKUV9xSQbBDJeRDnbJFSEJ4LeFkRefHrz2UYpMUXtsMdrHe6iHsbi6v\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n    </script>"
+							"evidence": "<script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"PaErCGs3N4kFJjiyPIuMfMQ3TP54ag2xGn9Of3gAMQTHowRoTrpJejYEBqZ0I2Fs\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n        window.ENABLE_XP_RESERVATION = \"False\" === \"True\"\n    </script>"
 						},
 						{
 							"uri": "https://ma-cantine.beta.gouv.fr/robots.txt/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "<script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"ZepopMzDOCVGNztUFERnAhbjXHnJzYJvgjV14t0AGIdGQPIWMWIw4u1UGOlwSC6W\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n    </script>"
+							"evidence": "<script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"bZB9c6jK90KafQ7nZA2ob1FSrdnwvzTx2c6wPt7h8MjcU3Gd3jXlayNt9Ohs3lws\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n        window.ENABLE_XP_RESERVATION = \"False\" === \"True\"\n    </script>"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1976,7 +2007,7 @@
 							"evidence": "max-age=3600"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/css/app.dee03467.css",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/css/app.d6c709fa.css",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1997,7 +2028,7 @@
 							"evidence": "max-age=315360000"
 						},
 						{
-							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.331b8242.js",
+							"uri": "https://ma-cantine.beta.gouv.fr/static/js/app.057b5dcc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -2078,7 +2109,7 @@
 					"reference": "<p>http://websecuritytool.codeplex.com/wikipage?title=Checks#user-controlled-html-attribute</p>",
 					"cweid": "20",
 					"wascid": "20",
-					"sourceid": "749"
+					"sourceid": "806"
 				}
 			]
 		}
