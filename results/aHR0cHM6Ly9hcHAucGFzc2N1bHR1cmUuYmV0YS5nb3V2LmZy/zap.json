@@ -1,6 +1,6 @@
 {
 	"@version": "2.11.1",
-	"@generated": "Sun, 6 Mar 2022 04:56:40",
+	"@generated": "Sun, 13 Mar 2022 04:45:17",
 	"site":[ 
 		{
 			"@name": "https://app.passculture.beta.gouv.fr",
@@ -36,7 +36,7 @@
 				},
 				{
 					"pluginid": "10020",
-					"alertRef": "10020",
+					"alertRef": "10020-1",
 					"alert": "Missing Anti-clickjacking Header",
 					"name": "Missing Anti-clickjacking Header",
 					"riskcode": "2",
@@ -267,32 +267,6 @@
 					"sourceid": "1"
 				},
 				{
-					"pluginid": "10015",
-					"alertRef": "10015",
-					"alert": "Incomplete or No Cache-control Header Set",
-					"name": "Incomplete or No Cache-control Header Set",
-					"riskcode": "1",
-					"confidence": "2",
-					"riskdesc": "Low (Medium)",
-					"desc": "<p>The cache-control header has not been set properly or is missing, allowing the browser and proxies to cache content.</p>",
-					"instances":[ 
-						{
-							"uri": "https://app.passculture.beta.gouv.fr",
-							"method": "GET",
-							"param": "Cache-Control",
-							"attack": "",
-							"evidence": "public,max-age=3600"
-						}
-					],
-					"count": "1",
-					"solution": "<p>Whenever possible ensure the cache-control HTTP header is set with no-cache, no-store, must-revalidate.</p>",
-					"otherinfo": "",
-					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching</p><p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control</p>",
-					"cweid": "525",
-					"wascid": "13",
-					"sourceid": "1"
-				},
-				{
 					"pluginid": "10063",
 					"alertRef": "10063",
 					"alert": "Permissions Policy Header Not Set",
@@ -432,12 +406,12 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "ADPycdsKMYWEbgdf8l9fexhTDB-t-QANkXq3t7HBTw2vOq3yuX7-DGaM8Yw6kc30__x12HGDPF8WY8PAXwEFHWfQfQ"
+							"evidence": "ADPycdupNxbpFyM1ItGr48F3gkCMdOCxIs-fa98BNpH5dEV33adHrI353ZvFysh6osl7swPsJWh6ZtJrVLDCG5rUGYKIES_XWw"
 						}
 					],
 					"count": "1",
 					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
-					"otherinfo": "<p>\\x00003\uFFFDq\uFFFD</p><p>1\uFFFD\uFFFDn\\x0007_\uFFFD__{\\x0018S\\x000c\\x001f\uFFFD\uFFFD\\x0000\r\uFFFDz\uFFFD\uFFFD\uFFFD\uFFFDO\r\uFFFD:\uFFFD\uFFFD~\uFFFD\\x000cf\uFFFD\uFFFD:\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDu\uFFFDq\uFFFD<_\\x0016c\uFFFD\uFFFD_\\x0001\\x0005\\x001dg\uFFFD}</p>",
+					"otherinfo": "<p>\\x00003\uFFFDq\u06E97\\x0016\uFFFD\\x0017#5\"\u046B\uFFFD\uFFFDw\uFFFD@\uFFFDt\uFFFD\"\u03DFk\uFFFD\\x00016\uFFFD\uFFFDtEw\u0767G\uFFFD\uFFFD\uFFFD\u075B\uFFFD\uFFFD\uFFFDz\uFFFD\uFFFD{\uFFFD\\x0003\uFFFD%hzf\uFFFDkT\uFFFD\uFFFD\\x001b\uFFFD\uFFFD\\x0019\uFFFD\uFFFD\\x0011/\uFFFD[</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
@@ -470,6 +444,32 @@
 					"sourceid": "1"
 				},
 				{
+					"pluginid": "10015",
+					"alertRef": "10015",
+					"alert": "Re-examine Cache-control Directives",
+					"name": "Re-examine Cache-control Directives",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>The cache-control header has not been set properly or is missing, allowing the browser and proxies to cache content. For static assets like css, js, or image files this might be intended, however, the resources should be reviewed to ensure that no sensitive content will be cached.</p>",
+					"instances":[ 
+						{
+							"uri": "https://app.passculture.beta.gouv.fr",
+							"method": "GET",
+							"param": "Cache-Control",
+							"attack": "",
+							"evidence": "public,max-age=3600"
+						}
+					],
+					"count": "1",
+					"solution": "<p>Whenever possible ensure the cache-control HTTP header is set with \"no-cache, no-store, must-revalidate\". If an asset should be cached consider setting the directives \"public, max-age, immutable\".</p>",
+					"otherinfo": "",
+					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching</p><p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control</p>",
+					"cweid": "525",
+					"wascid": "13",
+					"sourceid": "1"
+				},
+				{
 					"pluginid": "10050",
 					"alertRef": "10050",
 					"alert": "Retrieved from Cache",
@@ -484,7 +484,7 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Age: 0"
+							"evidence": "Age: 1896"
 						}
 					],
 					"count": "1",
