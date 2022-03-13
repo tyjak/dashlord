@@ -1,6 +1,6 @@
 {
 	"@version": "2.11.1",
-	"@generated": "Sun, 6 Mar 2022 08:10:14",
+	"@generated": "Sun, 13 Mar 2022 07:45:57",
 	"site":[ 
 		{
 			"@name": "https://mes-adresses.data.gouv.fr",
@@ -8,6 +8,46 @@
 			"@port": "443",
 			"@ssl": "true",
 			"alerts": [ 
+				{
+					"pluginid": "10202",
+					"alertRef": "10202",
+					"alert": "Absence of Anti-CSRF Tokens",
+					"name": "Absence of Anti-CSRF Tokens",
+					"riskcode": "2",
+					"confidence": "1",
+					"riskdesc": "Medium (Low)",
+					"desc": "<p>No Anti-CSRF tokens were found in a HTML submission form.</p><p>A cross-site request forgery is an attack that involves forcing a victim to send an HTTP request to a target destination without their knowledge or intent in order to perform an action as the victim. The underlying cause is application functionality using predictable URL/form actions in a repeatable way. The nature of the attack is that CSRF exploits the trust that a web site has for a user. By contrast, cross-site scripting (XSS) exploits the trust that a user has for a web site. Like XSS, CSRF attacks are not necessarily cross-site, but they can be. Cross-site request forgery is also known as CSRF, XSRF, one-click attack, session riding, confused deputy, and sea surf.</p><p></p><p>CSRF attacks are effective in a number of situations, including:</p><p>    * The victim has an active session on the target site.</p><p>    * The victim is authenticated via HTTP auth on the target site.</p><p>    * The victim is on the same local network as the target site.</p><p></p><p>CSRF has primarily been used to perform an action against a target site using the victim's privileges, but recent techniques have been discovered to disclose information by gaining access to the response. The risk of information disclosure is dramatically increased when the target site is vulnerable to XSS, because XSS can be used as a platform for CSRF, allowing the attack to operate within the bounds of the same-origin policy.</p>",
+					"instances":[ 
+						{
+							"uri": "https://mes-adresses.data.gouv.fr/new",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form class=\"ub-bg_1wkcxda ub-flx_1 ub-pb_12px ub-pl_12px ub-pr_12px ub-pt_12px ub-h_100prcnt ub-box-szg_border-box\">"
+						},
+						{
+							"uri": "https://mes-adresses.data.gouv.fr/new?demo=1",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form class=\"ub-bg_1wkcxda ub-flx_1 ub-pb_12px ub-pl_12px ub-pr_12px ub-pt_12px ub-h_100prcnt ub-box-szg_border-box\">"
+						},
+						{
+							"uri": "https://mes-adresses.data.gouv.fr/new?email=foo-bar%40example.com&nom=ZAP",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form class=\"ub-bg_1wkcxda ub-flx_1 ub-pb_12px ub-pl_12px ub-pr_12px ub-pt_12px ub-h_100prcnt ub-box-szg_border-box\">"
+						}
+					],
+					"count": "3",
+					"solution": "<p>Phase: Architecture and Design</p><p>Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid.</p><p>For example, use anti-CSRF packages such as the OWASP CSRFGuard.</p><p></p><p>Phase: Implementation</p><p>Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.</p><p></p><p>Phase: Architecture and Design</p><p>Generate a unique nonce for each form, place the nonce into the form, and verify the nonce upon receipt of the form. Be sure that the nonce is not predictable (CWE-330).</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Identify especially dangerous operations. When the user performs a dangerous operation, send a separate confirmation request to ensure that the user intended to perform that operation.</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Use the ESAPI Session Management control.</p><p>This control includes a component for CSRF.</p><p></p><p>Do not use the GET method for any request that triggers a state change.</p><p></p><p>Phase: Implementation</p><p>Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.</p>",
+					"otherinfo": "<p>No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"CommuneSearchField-commune\" \"email\" \"nom\" ].</p>",
+					"reference": "<p>http://projects.webappsec.org/Cross-Site-Request-Forgery</p><p>http://cwe.mitre.org/data/definitions/352.html</p>",
+					"cweid": "352",
+					"wascid": "9",
+					"sourceid": "25"
+				},
 				{
 					"pluginid": "90022",
 					"alertRef": "90022",
@@ -32,7 +72,7 @@
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "41"
+					"sourceid": "40"
 				},
 				{
 					"pluginid": "10038",
@@ -97,7 +137,7 @@
 				},
 				{
 					"pluginid": "10020",
-					"alertRef": "10020",
+					"alertRef": "10020-1",
 					"alert": "Missing Anti-clickjacking Header",
 					"name": "Missing Anti-clickjacking Header",
 					"riskcode": "2",
@@ -143,46 +183,6 @@
 					"sourceid": "1"
 				},
 				{
-					"pluginid": "10202",
-					"alertRef": "10202",
-					"alert": "Absence of Anti-CSRF Tokens",
-					"name": "Absence of Anti-CSRF Tokens",
-					"riskcode": "1",
-					"confidence": "2",
-					"riskdesc": "Low (Medium)",
-					"desc": "<p>No Anti-CSRF tokens were found in a HTML submission form.</p><p>A cross-site request forgery is an attack that involves forcing a victim to send an HTTP request to a target destination without their knowledge or intent in order to perform an action as the victim. The underlying cause is application functionality using predictable URL/form actions in a repeatable way. The nature of the attack is that CSRF exploits the trust that a web site has for a user. By contrast, cross-site scripting (XSS) exploits the trust that a user has for a web site. Like XSS, CSRF attacks are not necessarily cross-site, but they can be. Cross-site request forgery is also known as CSRF, XSRF, one-click attack, session riding, confused deputy, and sea surf.</p><p></p><p>CSRF attacks are effective in a number of situations, including:</p><p>    * The victim has an active session on the target site.</p><p>    * The victim is authenticated via HTTP auth on the target site.</p><p>    * The victim is on the same local network as the target site.</p><p></p><p>CSRF has primarily been used to perform an action against a target site using the victim's privileges, but recent techniques have been discovered to disclose information by gaining access to the response. The risk of information disclosure is dramatically increased when the target site is vulnerable to XSS, because XSS can be used as a platform for CSRF, allowing the attack to operate within the bounds of the same-origin policy.</p>",
-					"instances":[ 
-						{
-							"uri": "https://mes-adresses.data.gouv.fr/new",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<form class=\"ub-bg_1wkcxda ub-flx_1 ub-pb_12px ub-pl_12px ub-pr_12px ub-pt_12px ub-h_100prcnt ub-box-szg_border-box\">"
-						},
-						{
-							"uri": "https://mes-adresses.data.gouv.fr/new?demo=1",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<form class=\"ub-bg_1wkcxda ub-flx_1 ub-pb_12px ub-pl_12px ub-pr_12px ub-pt_12px ub-h_100prcnt ub-box-szg_border-box\">"
-						},
-						{
-							"uri": "https://mes-adresses.data.gouv.fr/new?email=foo-bar%40example.com&nom=ZAP",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<form class=\"ub-bg_1wkcxda ub-flx_1 ub-pb_12px ub-pl_12px ub-pr_12px ub-pt_12px ub-h_100prcnt ub-box-szg_border-box\">"
-						}
-					],
-					"count": "3",
-					"solution": "<p>Phase: Architecture and Design</p><p>Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid.</p><p>For example, use anti-CSRF packages such as the OWASP CSRFGuard.</p><p></p><p>Phase: Implementation</p><p>Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.</p><p></p><p>Phase: Architecture and Design</p><p>Generate a unique nonce for each form, place the nonce into the form, and verify the nonce upon receipt of the form. Be sure that the nonce is not predictable (CWE-330).</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Identify especially dangerous operations. When the user performs a dangerous operation, send a separate confirmation request to ensure that the user intended to perform that operation.</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Use the ESAPI Session Management control.</p><p>This control includes a component for CSRF.</p><p></p><p>Do not use the GET method for any request that triggers a state change.</p><p></p><p>Phase: Implementation</p><p>Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.</p>",
-					"otherinfo": "<p>No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"CommuneSearchField-commune\" \"email\" \"nom\" ].</p>",
-					"reference": "<p>http://projects.webappsec.org/Cross-Site-Request-Forgery</p><p>http://cwe.mitre.org/data/definitions/352.html</p>",
-					"cweid": "352",
-					"wascid": "9",
-					"sourceid": "25"
-				},
-				{
 					"pluginid": "10063",
 					"alertRef": "10063",
 					"alert": "Permissions Policy Header Not Set",
@@ -194,6 +194,13 @@
 					"instances":[ 
 						{
 							"uri": "https://mes-adresses.data.gouv.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://mes-adresses.data.gouv.fr/_next/static/8v5zVKAxkAlJlBQXxKyOQ/_buildManifest.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -214,7 +221,7 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/pages/_app-22c667d69f3a38f150d0.js",
+							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/pages/_app-f216aa9a55411b8992a9.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -235,14 +242,7 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/webpack-7a51653ddd3151b780b3.js",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://mes-adresses.data.gouv.fr/_next/static/y2lstDt_AvKAbi97WV5S_/_buildManifest.js",
+							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/webpack-e9d226a58065a37cd071.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -296,6 +296,13 @@
 							"evidence": "X-Powered-By: Next.js"
 						},
 						{
+							"uri": "https://mes-adresses.data.gouv.fr/_next/static/8v5zVKAxkAlJlBQXxKyOQ/_buildManifest.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "X-Powered-By: Express"
+						},
+						{
 							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/framework-3af989d3dbeb77832f99.js",
 							"method": "GET",
 							"param": "",
@@ -304,13 +311,6 @@
 						},
 						{
 							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/main-40f76118f06e75475bd6.js",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "X-Powered-By: Express"
-						},
-						{
-							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/pages/_app-22c667d69f3a38f150d0.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -331,7 +331,7 @@
 							"evidence": "X-Powered-By: Express"
 						},
 						{
-							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/webpack-7a51653ddd3151b780b3.js",
+							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/webpack-e9d226a58065a37cd071.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -392,6 +392,13 @@
 							"evidence": "nginx/1.20.2"
 						},
 						{
+							"uri": "https://mes-adresses.data.gouv.fr/_next/static/8v5zVKAxkAlJlBQXxKyOQ/_buildManifest.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "nginx/1.20.2"
+						},
+						{
 							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/framework-3af989d3dbeb77832f99.js",
 							"method": "GET",
 							"param": "",
@@ -400,13 +407,6 @@
 						},
 						{
 							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/main-40f76118f06e75475bd6.js",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "nginx/1.20.2"
-						},
-						{
-							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/pages/_app-22c667d69f3a38f150d0.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -427,7 +427,7 @@
 							"evidence": "nginx/1.20.2"
 						},
 						{
-							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/webpack-7a51653ddd3151b780b3.js",
+							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/webpack-e9d226a58065a37cd071.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -486,16 +486,9 @@
 							"param": "",
 							"attack": "",
 							"evidence": "96931717"
-						},
-						{
-							"uri": "https://mes-adresses.data.gouv.fr/robots.txt",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "96931717"
 						}
 					],
-					"count": "2",
+					"count": "1",
 					"solution": "<p>Manually confirm that the timestamp data is not sensitive, and that the data cannot be aggregated to disclose exploitable patterns.</p>",
 					"otherinfo": "<p>96931717, which evaluates to: 1973-01-26 21:28:37</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
@@ -521,6 +514,20 @@
 							"evidence": ""
 						},
 						{
+							"uri": "https://mes-adresses.data.gouv.fr/_next/static/8v5zVKAxkAlJlBQXxKyOQ/_buildManifest.js",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://mes-adresses.data.gouv.fr/_next/static/8v5zVKAxkAlJlBQXxKyOQ/_ssgManifest.js",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
 							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/framework-3af989d3dbeb77832f99.js",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
@@ -535,7 +542,7 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/pages/_app-22c667d69f3a38f150d0.js",
+							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/pages/_app-f216aa9a55411b8992a9.js",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -556,7 +563,7 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/webpack-7a51653ddd3151b780b3.js",
+							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/webpack-e9d226a58065a37cd071.js",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -564,20 +571,6 @@
 						},
 						{
 							"uri": "https://mes-adresses.data.gouv.fr/_next/static/css/a69987e716a219207c00.css",
-							"method": "GET",
-							"param": "X-Content-Type-Options",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://mes-adresses.data.gouv.fr/_next/static/y2lstDt_AvKAbi97WV5S_/_buildManifest.js",
-							"method": "GET",
-							"param": "X-Content-Type-Options",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://mes-adresses.data.gouv.fr/_next/static/y2lstDt_AvKAbi97WV5S_/_ssgManifest.js",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -614,7 +607,14 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "e9d6-3o21AuJcQNP8lysxwkzud5sarwg"
+							"evidence": "ea0b-xFjpGdGlWdQW/6nOPqvCnJ78fLk"
+						},
+						{
+							"uri": "https://mes-adresses.data.gouv.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "e9d6-8pim3U9C2T+83F3i3j6+j1Fxa54"
 						},
 						{
 							"uri": "https://mes-adresses.data.gouv.fr/_next/image?q=75&url=%2Fstatic%2Fimages%2Fmes-adresses.svg&w=640",
@@ -631,7 +631,7 @@
 							"evidence": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
 						},
 						{
-							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/pages/_app-22c667d69f3a38f150d0.js",
+							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/pages/_app-f216aa9a55411b8992a9.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -663,19 +663,19 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "c725-ZPC+lhqpB5zUkQftWIxpUeHeNAc"
+							"evidence": "c75a-Fgr1DqRJt79ABVg0yjUkYzWvweM"
 						},
 						{
 							"uri": "https://mes-adresses.data.gouv.fr/sitemap.xml",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "c725-ZPC+lhqpB5zUkQftWIxpUeHeNAc"
+							"evidence": "c725-19tHMzmKVKRdlaKSIFE7fG7x2GI"
 						}
 					],
-					"count": "9",
+					"count": "10",
 					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
-					"otherinfo": "<p>{\uFFFDz\uFFFDz6\uFFFD\\x000b\uFFFDq\\x0003O\uFFFD\\\uFFFD\uFFFD\t3\uFFFD\uFFFDlj\uFFFD </p>",
+					"otherinfo": "<p>y\uFFFD\\x001b\uFFFD\\x0011c\uFFFDgF\uFFFDgP[\uFFFD\uFFFD8\uFFFD\uFFFD</p><p>r{\uFFFD\uFFFD\uFFFD</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
@@ -746,7 +746,7 @@
 							"evidence": "query"
 						},
 						{
-							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/pages/_app-22c667d69f3a38f150d0.js",
+							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/pages/_app-f216aa9a55411b8992a9.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -936,6 +936,13 @@
 					"desc": "<p>The response contents are storable by caching components such as proxy servers, and may be retrieved directly from the cache, rather than from the origin server by the caching servers, in response to similar requests from other users.  If the response data is sensitive, personal or user-specific, this may result in sensitive information being leaked. In some cases, this may even result in a user gaining complete control of the session of another user, depending on the configuration of the caching components in use in their environment. This is primarily an issue where \"shared\" caching servers such as \"proxy\" caches are configured on the local network. This configuration is typically found in corporate or educational environments, for instance.</p>",
 					"instances":[ 
 						{
+							"uri": "https://mes-adresses.data.gouv.fr/_next/static/8v5zVKAxkAlJlBQXxKyOQ/_buildManifest.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "max-age=31536000"
+						},
+						{
 							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/framework-3af989d3dbeb77832f99.js",
 							"method": "GET",
 							"param": "",
@@ -944,13 +951,6 @@
 						},
 						{
 							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/main-40f76118f06e75475bd6.js",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "max-age=31536000"
-						},
-						{
-							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/pages/_app-22c667d69f3a38f150d0.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -971,7 +971,7 @@
 							"evidence": "max-age=31536000"
 						},
 						{
-							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/webpack-7a51653ddd3151b780b3.js",
+							"uri": "https://mes-adresses.data.gouv.fr/_next/static/chunks/webpack-e9d226a58065a37cd071.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -991,7 +991,7 @@
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "40"
+					"sourceid": "44"
 				}
 			]
 		}
