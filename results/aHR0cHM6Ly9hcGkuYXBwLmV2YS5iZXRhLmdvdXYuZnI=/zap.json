@@ -1,6 +1,6 @@
 {
 	"@version": "2.11.1",
-	"@generated": "Sun, 6 Mar 2022 09:12:52",
+	"@generated": "Sun, 13 Mar 2022 08:39:00",
 	"site":[ 
 		{
 			"@name": "https://api.app.eva.beta.gouv.fr",
@@ -171,32 +171,6 @@
 					"sourceid": "1"
 				},
 				{
-					"pluginid": "10015",
-					"alertRef": "10015",
-					"alert": "Incomplete or No Cache-control Header Set",
-					"name": "Incomplete or No Cache-control Header Set",
-					"riskcode": "1",
-					"confidence": "2",
-					"riskdesc": "Low (Medium)",
-					"desc": "<p>The cache-control header has not been set properly or is missing, allowing the browser and proxies to cache content.</p>",
-					"instances":[ 
-						{
-							"uri": "https://api.app.eva.beta.gouv.fr",
-							"method": "GET",
-							"param": "Cache-Control",
-							"attack": "",
-							"evidence": "max-age=0, private, must-revalidate"
-						}
-					],
-					"count": "1",
-					"solution": "<p>Whenever possible ensure the cache-control HTTP header is set with no-cache, no-store, must-revalidate.</p>",
-					"otherinfo": "",
-					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching</p><p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control</p>",
-					"cweid": "525",
-					"wascid": "13",
-					"sourceid": "1"
-				},
-				{
 					"pluginid": "10063",
 					"alertRef": "10063",
 					"alert": "Permissions Policy Header Not Set",
@@ -260,7 +234,7 @@
 					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html</p><p>https://owasp.org/www-community/Security_Headers</p><p>http://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security</p><p>http://caniuse.com/stricttransportsecurity</p><p>http://tools.ietf.org/html/rfc6797</p>",
 					"cweid": "319",
 					"wascid": "15",
-					"sourceid": "6"
+					"sourceid": "7"
 				},
 				{
 					"pluginid": "10094",
@@ -277,12 +251,12 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2BnTmsnngdI5iXVgPVrH1DMSFZRV7NuhHvV2sUw5jxqRwtDHjSJ"
+							"evidence": "2FLYK2pG4E0ZbyUADrCzId7zkSSg2ii9I2kf06r9VQqRxhhfOBUaZvxmrA1rb1ATqSacGfjZcgyqLxbobbw77H5v"
 						}
 					],
 					"count": "1",
 					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
-					"otherinfo": "<p>\uFFFD\\x0019\u04DA\uFFFD\uFFFD\uFFFD9\uFFFDu`=Z\uFFFD\uFFFD3\\x0012\\x0015\uFFFDU\uFFFD\u06E1\\x001e\uFFFDv\uFFFDL9\uFFFD\\x001a\uFFFD\uFFFD\uFFFD\u01CD\"</p>",
+					"otherinfo": "<p>\uFFFDR\uFFFD+jF\uFFFDM\\x0019o%\\x0000\\x000e\uFFFD\uFFFD!\uFFFD\uFFFD$\uFFFD\uFFFD(\uFFFD#i\\x001f\u04EA\uFFFDU</p><p>\uFFFD\uFFFD\\x0018_8\\x0015\\x001af\uFFFDf\uFFFD\rkoP\\x0013\uFFFD&\uFFFD\\x0019\uFFFD\uFFFDr\\x000c\uFFFD/\\x0016\uFFFDm\uFFFD;\uFFFD~o</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
@@ -311,6 +285,32 @@
 					"otherinfo": "",
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "524",
+					"wascid": "13",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10015",
+					"alertRef": "10015",
+					"alert": "Re-examine Cache-control Directives",
+					"name": "Re-examine Cache-control Directives",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>The cache-control header has not been set properly or is missing, allowing the browser and proxies to cache content. For static assets like css, js, or image files this might be intended, however, the resources should be reviewed to ensure that no sensitive content will be cached.</p>",
+					"instances":[ 
+						{
+							"uri": "https://api.app.eva.beta.gouv.fr",
+							"method": "GET",
+							"param": "Cache-Control",
+							"attack": "",
+							"evidence": "max-age=0, private, must-revalidate"
+						}
+					],
+					"count": "1",
+					"solution": "<p>Whenever possible ensure the cache-control HTTP header is set with \"no-cache, no-store, must-revalidate\". If an asset should be cached consider setting the directives \"public, max-age, immutable\".</p>",
+					"otherinfo": "",
+					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching</p><p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control</p>",
+					"cweid": "525",
 					"wascid": "13",
 					"sourceid": "1"
 				},
@@ -352,7 +352,7 @@
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "6"
+					"sourceid": "7"
 				}
 			]
 		}
