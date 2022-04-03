@@ -1,6 +1,6 @@
 {
 	"@version": "2.11.1",
-	"@generated": "Sun, 27 Mar 2022 01:39:16",
+	"@generated": "Sun, 3 Apr 2022 01:53:01",
 	"site":[ 
 		{
 			"@name": "https://acceslibre.beta.gouv.fr",
@@ -211,14 +211,14 @@
 					"desc": "<p>Web browser data loading may be possible, due to a Cross Origin Resource Sharing (CORS) misconfiguration on the web server</p>",
 					"instances":[ 
 						{
-							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.46a7ce196188.js",
+							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.484c91f0a082.css",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "Access-Control-Allow-Origin: *"
 						},
 						{
-							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.484c91f0a082.css",
+							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.db72758e21f2.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -301,7 +301,33 @@
 					"reference": "<p>https://vulncat.fortify.com/en/detail?id=desc.config.dotnet.html5_overly_permissive_cors_policy</p>",
 					"cweid": "264",
 					"wascid": "14",
-					"sourceid": "127"
+					"sourceid": "113"
+				},
+				{
+					"pluginid": "90022",
+					"alertRef": "90022",
+					"alert": "Application Error Disclosure",
+					"name": "Application Error Disclosure",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>This page contains an error/warning message that may disclose sensitive information like the location of the file that produced the unhandled exception. This information can be used to launch further attacks against the web application. The alert could be a false positive if the error message is found inside a documentation page.</p>",
+					"instances":[ 
+						{
+							"uri": "https://acceslibre.beta.gouv.fr/app/10-troyes/a/restaurant/erp/aria/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "HTTP/1.1 500 Internal Server Error"
+						}
+					],
+					"count": "1",
+					"solution": "<p>Review the source code of this page. Implement custom error pages. Consider implementing a mechanism to provide a unique error reference/identifier to the client (browser) while logging the details on the server side and not exposing them to the user.</p>",
+					"otherinfo": "",
+					"reference": "",
+					"cweid": "200",
+					"wascid": "13",
+					"sourceid": "2949"
 				},
 				{
 					"pluginid": "10010",
@@ -336,6 +362,13 @@
 						},
 						{
 							"uri": "https://acceslibre.beta.gouv.fr/compte/login/?next=/accessibilite",
+							"method": "GET",
+							"param": "csrftoken",
+							"attack": "",
+							"evidence": "Set-Cookie: csrftoken"
+						},
+						{
+							"uri": "https://acceslibre.beta.gouv.fr/compte/login/?next=/communes/",
 							"method": "GET",
 							"param": "csrftoken",
 							"attack": "",
@@ -384,13 +417,6 @@
 							"evidence": "Set-Cookie: csrftoken"
 						},
 						{
-							"uri": "https://acceslibre.beta.gouv.fr/contact/bug/",
-							"method": "GET",
-							"param": "csrftoken",
-							"attack": "",
-							"evidence": "Set-Cookie: csrftoken"
-						},
-						{
 							"uri": "https://acceslibre.beta.gouv.fr/compte/login/",
 							"method": "POST",
 							"param": "csrftoken",
@@ -404,7 +430,7 @@
 					"reference": "<p>https://owasp.org/www-community/HttpOnly</p>",
 					"cweid": "1004",
 					"wascid": "13",
-					"sourceid": "95"
+					"sourceid": "96"
 				},
 				{
 					"pluginid": "10017",
@@ -430,7 +456,7 @@
 					"reference": "",
 					"cweid": "829",
 					"wascid": "15",
-					"sourceid": "95"
+					"sourceid": "96"
 				},
 				{
 					"pluginid": "10110",
@@ -443,7 +469,7 @@
 					"desc": "<p>A dangerous JS function seems to be in use that would leave the site vulnerable.</p>",
 					"instances":[ 
 						{
-							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.46a7ce196188.js",
+							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.db72758e21f2.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -456,7 +482,7 @@
 					"reference": "<p>https://angular.io/guide/security</p>",
 					"cweid": "749",
 					"wascid": "-1",
-					"sourceid": "127"
+					"sourceid": "130"
 				},
 				{
 					"pluginid": "10063",
@@ -565,6 +591,13 @@
 					"desc": "<p>A timestamp was disclosed by the application/web server - Unix</p>",
 					"instances":[ 
 						{
+							"uri": "https://acceslibre.beta.gouv.fr",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "29897705"
+						},
+						{
 							"uri": "https://acceslibre.beta.gouv.fr/api/docs/",
 							"method": "GET",
 							"param": "",
@@ -607,13 +640,13 @@
 							"evidence": "70710678"
 						}
 					],
-					"count": "6",
+					"count": "7",
 					"solution": "<p>Manually confirm that the timestamp data is not sensitive, and that the data cannot be aggregated to disclose exploitable patterns.</p>",
-					"otherinfo": "<p>31449600, which evaluates to: 1970-12-31 00:00:00</p>",
+					"otherinfo": "<p>29897705, which evaluates to: 1970-12-13 00:55:05</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "95"
+					"sourceid": "8"
 				},
 				{
 					"pluginid": "10021",
@@ -626,14 +659,14 @@
 					"desc": "<p>The Anti-MIME-Sniffing header X-Content-Type-Options was not set to 'nosniff'. This allows older versions of Internet Explorer and Chrome to perform MIME-sniffing on the response body, potentially causing the response body to be interpreted and displayed as a content type other than the declared content type. Current (early 2014) and legacy versions of Firefox will use the declared content type (if one is set), rather than performing MIME-sniffing.</p>",
 					"instances":[ 
 						{
-							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.46a7ce196188.js",
+							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.484c91f0a082.css",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
 							"evidence": ""
 						},
 						{
-							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.484c91f0a082.css",
+							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.db72758e21f2.js",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -716,7 +749,7 @@
 					"reference": "<p>http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx</p><p>https://owasp.org/www-community/Security_Headers</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "127"
+					"sourceid": "113"
 				},
 				{
 					"pluginid": "10094",
@@ -754,7 +787,7 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "8NqtYx34Fbf96nYtHDHOgSudJ96xgMAKjtl0NrqEKp4n63eWRO158MD5VXU3Njgb"
+							"evidence": "hXwlG7XPnYoyqYZdr4vztVqFw2BAHzbU9vrcnclXefS5bMzvg2W0GAeEbwxDSjhp"
 						},
 						{
 							"uri": "https://acceslibre.beta.gouv.fr/communes/",
@@ -768,7 +801,7 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "8NqtYx34Fbf96nYtHDHOgSudJ96xgMAKjtl0NrqEKp4n63eWRO158MD5VXU3Njgb"
+							"evidence": "hXwlG7XPnYoyqYZdr4vztVqFw2BAHzbU9vrcnclXefS5bMzvg2W0GAeEbwxDSjhp"
 						},
 						{
 							"uri": "https://acceslibre.beta.gouv.fr/conditions-generales-d-utilisation",
@@ -782,7 +815,7 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "8NqtYx34Fbf96nYtHDHOgSudJ96xgMAKjtl0NrqEKp4n63eWRO158MD5VXU3Njgb"
+							"evidence": "hXwlG7XPnYoyqYZdr4vztVqFw2BAHzbU9vrcnclXefS5bMzvg2W0GAeEbwxDSjhp"
 						},
 						{
 							"uri": "https://acceslibre.beta.gouv.fr/partenaires",
@@ -825,84 +858,84 @@
 					"desc": "<p>The response appears to contain suspicious comments which may help an attacker. Note: Matches made within script blocks or files are against the entire content not only comments.</p>",
 					"instances":[ 
 						{
-							"uri": "https://acceslibre.beta.gouv.fr/app/40-narrosse/a/boulangerie-patisserie/erp/au-fournil-de-narrosse/",
+							"uri": "https://acceslibre.beta.gouv.fr/app/40-dax/a/chaussures/erp/preston/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "TODO"
 						},
 						{
-							"uri": "https://acceslibre.beta.gouv.fr/app/40-narrosse/a/electricien/erp/durou-electricite/",
+							"uri": "https://acceslibre.beta.gouv.fr/app/40-dax/a/loisirs-creatifs/erp/fnac-3/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "TODO"
 						},
 						{
-							"uri": "https://acceslibre.beta.gouv.fr/app/69-villeurbanne/a/cafeteria/erp/etienne-coffee-shop-2/",
+							"uri": "https://acceslibre.beta.gouv.fr/app/40-dax/a/veterinaire/erp/clinique-veterinaire-des-bords-de-l-adour/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "TODO"
 						},
 						{
-							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.46a7ce196188.js",
+							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.db72758e21f2.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "admin"
 						},
 						{
-							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.46a7ce196188.js",
+							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.db72758e21f2.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "bug"
 						},
 						{
-							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.46a7ce196188.js",
+							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.db72758e21f2.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "db"
 						},
 						{
-							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.46a7ce196188.js",
+							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.db72758e21f2.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "from"
 						},
 						{
-							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.46a7ce196188.js",
+							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.db72758e21f2.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "query"
 						},
 						{
-							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.46a7ce196188.js",
+							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.db72758e21f2.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "select"
 						},
 						{
-							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.46a7ce196188.js",
+							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.db72758e21f2.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "user"
 						},
 						{
-							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.46a7ce196188.js",
+							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.db72758e21f2.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "username"
 						},
 						{
-							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.46a7ce196188.js",
+							"uri": "https://acceslibre.beta.gouv.fr/static/dist/main.db72758e21f2.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -915,7 +948,7 @@
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "488"
+					"sourceid": "490"
 				},
 				{
 					"pluginid": "10109",
@@ -1051,7 +1084,7 @@
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "35"
+					"sourceid": "34"
 				},
 				{
 					"pluginid": "10015",
@@ -1325,7 +1358,7 @@
 					"reference": "<p>http://websecuritytool.codeplex.com/wikipage?title=Checks#user-controlled-html-attribute</p>",
 					"cweid": "20",
 					"wascid": "20",
-					"sourceid": "174"
+					"sourceid": "176"
 				}
 			]
 		}
