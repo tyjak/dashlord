@@ -1,6 +1,6 @@
 {
 	"@version": "2.11.1",
-	"@generated": "Sun, 10 Apr 2022 07:00:48",
+	"@generated": "Sun, 17 Apr 2022 08:03:08",
 	"site":[ 
 		{
 			"@name": "https://www.demarches-simplifiees.fr",
@@ -137,48 +137,15 @@
 							"param": "",
 							"attack": "",
 							"evidence": ""
-						},
-						{
-							"uri": "https://www.demarches-simplifiees.fr/contact",
-							"method": "POST",
-							"param": "",
-							"attack": "",
-							"evidence": ""
 						}
 					],
-					"count": "4",
+					"count": "3",
 					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to set the Content-Security-Policy header, to achieve optimal browser support: \"Content-Security-Policy\" for Chrome 25+, Firefox 23+ and Safari 7+, \"X-Content-Security-Policy\" for Firefox 4.0+ and Internet Explorer 10+, and \"X-WebKit-CSP\" for Chrome 14+ and Safari 6+.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/Security/CSP/Introducing_Content_Security_Policy</p><p>https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html</p><p>http://www.w3.org/TR/CSP/</p><p>http://w3c.github.io/webappsec/specs/content-security-policy/csp-specification.dev.html</p><p>http://www.html5rocks.com/en/tutorials/security/content-security-policy/</p><p>http://caniuse.com/#feat=contentsecuritypolicy</p><p>http://content-security-policy.com/</p>",
 					"cweid": "693",
 					"wascid": "15",
 					"sourceid": "35"
-				},
-				{
-					"pluginid": "90022",
-					"alertRef": "90022",
-					"alert": "Application Error Disclosure",
-					"name": "Application Error Disclosure",
-					"riskcode": "1",
-					"confidence": "2",
-					"riskdesc": "Low (Medium)",
-					"desc": "<p>This page contains an error/warning message that may disclose sensitive information like the location of the file that produced the unhandled exception. This information can be used to launch further attacks against the web application. The alert could be a false positive if the error message is found inside a documentation page.</p>",
-					"instances":[ 
-						{
-							"uri": "https://www.demarches-simplifiees.fr/contact",
-							"method": "POST",
-							"param": "",
-							"attack": "",
-							"evidence": "HTTP/1.1 500 Internal Server Error"
-						}
-					],
-					"count": "1",
-					"solution": "<p>Review the source code of this page. Implement custom error pages. Consider implementing a mechanism to provide a unique error reference/identifier to the client (browser) while logging the details on the server side and not exposing them to the user.</p>",
-					"otherinfo": "",
-					"reference": "",
-					"cweid": "200",
-					"wascid": "13",
-					"sourceid": "127"
 				},
 				{
 					"pluginid": "10055",
@@ -214,6 +181,39 @@
 					"sourceid": "1"
 				},
 				{
+					"pluginid": "10010",
+					"alertRef": "10010",
+					"alert": "Cookie No HttpOnly Flag",
+					"name": "Cookie No HttpOnly Flag",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>A cookie has been set without the HttpOnly flag, which means that the cookie can be accessed by JavaScript. If a malicious script can be run on this page then the cookie will be accessible and can be transmitted to another site. If this is a session cookie then session hijacking may be possible.</p>",
+					"instances":[ 
+						{
+							"uri": "https://www.demarches-simplifiees.fr/agent_connect/login",
+							"method": "GET",
+							"param": "agentConnect_nonce",
+							"attack": "",
+							"evidence": "set-cookie: agentConnect_nonce"
+						},
+						{
+							"uri": "https://www.demarches-simplifiees.fr/agent_connect/login",
+							"method": "GET",
+							"param": "agentConnect_state",
+							"attack": "",
+							"evidence": "set-cookie: agentConnect_state"
+						}
+					],
+					"count": "2",
+					"solution": "<p>Ensure that the HttpOnly flag is set for all cookies.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://owasp.org/www-community/HttpOnly</p>",
+					"cweid": "1004",
+					"wascid": "13",
+					"sourceid": "130"
+				},
+				{
 					"pluginid": "10110",
 					"alertRef": "10110",
 					"alert": "Dangerous JS Functions",
@@ -224,7 +224,7 @@
 					"desc": "<p>A dangerous JS function seems to be in use that would leave the site vulnerable.</p>",
 					"instances":[ 
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~track-47e1bebb6b2b96e5451b.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~track-3d7858c820d049553d60.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -237,7 +237,7 @@
 					"reference": "<p>https://angular.io/guide/security</p>",
 					"cweid": "749",
 					"wascid": "-1",
-					"sourceid": "80"
+					"sourceid": "63"
 				},
 				{
 					"pluginid": "10063",
@@ -264,13 +264,6 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/administration",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
-						},
-						{
 							"uri": "https://www.demarches-simplifiees.fr/commencer",
 							"method": "GET",
 							"param": "",
@@ -285,7 +278,14 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/runtime~application-7d2dcb30dce29a30ddef.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/runtime~application-4a279fad0ad898b5951d.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -353,574 +353,574 @@
 							"evidence": "42857143"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1019803690"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1044525330"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1069501632"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1073741823"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1073741824"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1073741825"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1094730640"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1120210379"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1126891415"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1163531501"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1200080426"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1236535329"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1272893353"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "130023424"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1309151649"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "134217728"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1416354905"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1444681467"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "145523070"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "14680064"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "14680066"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1473231341"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1502002290"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1530992060"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "155497632"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1560198380"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "165796510"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "16777216"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1700485571"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1732584193"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1732584194"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1735328473"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "176418897"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1770035416"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1804603682"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1839030562"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1873313359"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "187363961"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1894986606"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1926607734"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1958414417"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "198630844"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1990404162"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "20220329"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "2022574463"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "2054922799"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "2147483647"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "268435455"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "268435456"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "271733878"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "271733879"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "30611744"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "33554432"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "343485551"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "35309556"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "358537222"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "373897302"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "38016083"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "389564586"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "40341101"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "405537848"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "421815835"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "45705983"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "51403784"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "530742520"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "536870912"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "568446438"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "57434055"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "606105819"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "62425156"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "640364487"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "643717713"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "660478335"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "67108864"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "680876936"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "681279174"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "701558691"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "718787259"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "722521979"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "76029189"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "94906265"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -933,7 +933,7 @@
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "76"
+					"sourceid": "56"
 				},
 				{
 					"pluginid": "10021",
@@ -988,14 +988,14 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/application-4b84e5d13986bb9c9ba0.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/application-7bcf9c0f742b855d1387.chunk.js",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
 							"evidence": ""
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/runtime~application-7d2dcb30dce29a30ddef.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/runtime~application-4a279fad0ad898b5951d.js",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -1009,14 +1009,14 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
 							"evidence": ""
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~track-47e1bebb6b2b96e5451b.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~track-3d7858c820d049553d60.chunk.js",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -1036,7 +1036,7 @@
 					"reference": "<p>http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx</p><p>https://owasp.org/www-community/Security_Headers</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "76"
+					"sourceid": "56"
 				},
 				{
 					"pluginid": "10094",
@@ -1095,7 +1095,7 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2F4ugsU85T5ndoE9YDi7yWERG6zGIjqj6U5mzfHAOUIcinQOdkdTKryKzMFgyg6LJi"
+							"evidence": "2BEtLYxKfNCPB7Ze89d2k4nzB4wLLcPG4x"
 						},
 						{
 							"uri": "https://www.demarches-simplifiees.fr/stats",
@@ -1158,7 +1158,7 @@
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "144"
+					"sourceid": "136"
 				},
 				{
 					"pluginid": "10027",
@@ -1185,13 +1185,6 @@
 							"evidence": "user"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/administration",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "user"
-						},
-						{
 							"uri": "https://www.demarches-simplifiees.fr/contact",
 							"method": "GET",
 							"param": "",
@@ -1199,7 +1192,7 @@
 							"evidence": "user"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/application-4b84e5d13986bb9c9ba0.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/application-7bcf9c0f742b855d1387.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1213,14 +1206,14 @@
 							"evidence": "user"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "query"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~track-47e1bebb6b2b96e5451b.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~track-3d7858c820d049553d60.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1235,6 +1228,13 @@
 						},
 						{
 							"uri": "https://www.demarches-simplifiees.fr/suivi",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "user"
+						},
+						{
+							"uri": "https://www.demarches-simplifiees.fr/users/password/new",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1267,7 +1267,7 @@
 					"desc": "<p>The application appears to be a modern web application. If you need to explore it automatically then the Ajax Spider may well be more effective than the standard one.</p>",
 					"instances":[ 
 						{
-							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-c2aca5600847c2276d40.chunk.js",
+							"uri": "https://www.demarches-simplifiees.fr/packs/js/vendors~application-7a7100bb348ad2787b48.chunk.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1280,7 +1280,7 @@
 					"reference": "",
 					"cweid": "-1",
 					"wascid": "-1",
-					"sourceid": "79"
+					"sourceid": "60"
 				},
 				{
 					"pluginid": "10049",
@@ -1307,7 +1307,7 @@
 							"evidence": "private"
 						},
 						{
-							"uri": "https://www.demarches-simplifiees.fr/administration",
+							"uri": "https://www.demarches-simplifiees.fr/contact",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1531,7 +1531,7 @@
 					"reference": "<p>http://websecuritytool.codeplex.com/wikipage?title=Checks#user-controlled-html-attribute</p>",
 					"cweid": "20",
 					"wascid": "20",
-					"sourceid": "100"
+					"sourceid": "101"
 				}
 			]
 		}
