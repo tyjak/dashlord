@@ -1,0 +1,699 @@
+[
+  {
+    "template": "technologies/apache/apache-detect.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/technologies/apache/apache-detect.yaml",
+    "template-id": "apache-detect",
+    "info": {
+      "name": "Apache Detection",
+      "author": [
+        "philippedelteil"
+      ],
+      "tags": [
+        "tech",
+        "apache"
+      ],
+      "description": "Some Apache servers have the version on the response header. The OpenSSL version can be also obtained",
+      "reference": null,
+      "severity": "info"
+    },
+    "type": "http",
+    "host": "https://app.eva.beta.gouv.fr",
+    "matched-at": "https://app.eva.beta.gouv.fr",
+    "extracted-results": [
+      "Apache"
+    ],
+    "request": "GET / HTTP/1.1\r\nHost: app.eva.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nAccept-Ranges: bytes\r\nContent-Type: text/html\r\nDate: Sun, 17 Apr 2022 10:53:27 GMT\r\nEtag: \"3bd-5d4b0578c1e84-gzip\"\r\nLast-Modified: Mon, 03 Jan 2022 16:52:11 GMT\r\nServer: Apache\r\nVary: Accept-Encoding\r\nVia: 1.1 alproxy\r\n\r\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>eva</title>\n  <style type=\"text/css\">\n    body {\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n  <h2>Vous allez être redirigé automatiquement dans quelques secondes vers la nouvelle adresse de EVA ...\"</h2>\n  <p>Si vous n'avez pas été redirigé d'ici 5 secondes <a href=\"https://eva.beta.gouv.fr/jeu/\">cliquez ici</a></p>\n  <script type=\"text/javascript\">\n    if(window.navigator && navigator.serviceWorker) {\n      navigator.serviceWorker.getRegistrations()\n        .then(function(registrations) {\n          for(const registration of registrations) {\n\t    console.log(`Unregistering ${registration}`)\n            registration.unregister();\n          }\n        });\n    }\n\n    setTimeout(function () {\n      window.location.href = \"https://eva.beta.gouv.fr/jeu/\";\n    }, 5000);\n  </script>\n</body>\n</html>\n\n",
+    "ip": "185.31.40.19",
+    "timestamp": "2022-04-17T10:53:27.579547396Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://app.eva.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "It searches for missing security headers, but obviously, could be so less generic and could be useless for Bug Bounty.",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "x-content-type-options",
+    "type": "http",
+    "host": "https://app.eva.beta.gouv.fr",
+    "matched-at": "https://app.eva.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: app.eva.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nAccept-Ranges: bytes\r\nContent-Type: text/html\r\nDate: Sun, 17 Apr 2022 10:53:44 GMT\r\nEtag: \"3bd-5d4b0578c1e84-gzip\"\r\nLast-Modified: Mon, 03 Jan 2022 16:52:11 GMT\r\nServer: Apache\r\nVary: Accept-Encoding\r\nVia: 1.1 alproxy\r\n\r\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>eva</title>\n  <style type=\"text/css\">\n    body {\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n  <h2>Vous allez être redirigé automatiquement dans quelques secondes vers la nouvelle adresse de EVA ...\"</h2>\n  <p>Si vous n'avez pas été redirigé d'ici 5 secondes <a href=\"https://eva.beta.gouv.fr/jeu/\">cliquez ici</a></p>\n  <script type=\"text/javascript\">\n    if(window.navigator && navigator.serviceWorker) {\n      navigator.serviceWorker.getRegistrations()\n        .then(function(registrations) {\n          for(const registration of registrations) {\n\t    console.log(`Unregistering ${registration}`)\n            registration.unregister();\n          }\n        });\n    }\n\n    setTimeout(function () {\n      window.location.href = \"https://eva.beta.gouv.fr/jeu/\";\n    }, 5000);\n  </script>\n</body>\n</html>\n\n",
+    "ip": "185.31.40.19",
+    "timestamp": "2022-04-17T10:53:44.360286337Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://app.eva.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "It searches for missing security headers, but obviously, could be so less generic and could be useless for Bug Bounty.",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "x-permitted-cross-domain-policies",
+    "type": "http",
+    "host": "https://app.eva.beta.gouv.fr",
+    "matched-at": "https://app.eva.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: app.eva.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nAccept-Ranges: bytes\r\nContent-Type: text/html\r\nDate: Sun, 17 Apr 2022 10:53:44 GMT\r\nEtag: \"3bd-5d4b0578c1e84-gzip\"\r\nLast-Modified: Mon, 03 Jan 2022 16:52:11 GMT\r\nServer: Apache\r\nVary: Accept-Encoding\r\nVia: 1.1 alproxy\r\n\r\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>eva</title>\n  <style type=\"text/css\">\n    body {\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n  <h2>Vous allez être redirigé automatiquement dans quelques secondes vers la nouvelle adresse de EVA ...\"</h2>\n  <p>Si vous n'avez pas été redirigé d'ici 5 secondes <a href=\"https://eva.beta.gouv.fr/jeu/\">cliquez ici</a></p>\n  <script type=\"text/javascript\">\n    if(window.navigator && navigator.serviceWorker) {\n      navigator.serviceWorker.getRegistrations()\n        .then(function(registrations) {\n          for(const registration of registrations) {\n\t    console.log(`Unregistering ${registration}`)\n            registration.unregister();\n          }\n        });\n    }\n\n    setTimeout(function () {\n      window.location.href = \"https://eva.beta.gouv.fr/jeu/\";\n    }, 5000);\n  </script>\n</body>\n</html>\n\n",
+    "ip": "185.31.40.19",
+    "timestamp": "2022-04-17T10:53:44.360375539Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://app.eva.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "It searches for missing security headers, but obviously, could be so less generic and could be useless for Bug Bounty.",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "cross-origin-opener-policy",
+    "type": "http",
+    "host": "https://app.eva.beta.gouv.fr",
+    "matched-at": "https://app.eva.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: app.eva.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nAccept-Ranges: bytes\r\nContent-Type: text/html\r\nDate: Sun, 17 Apr 2022 10:53:44 GMT\r\nEtag: \"3bd-5d4b0578c1e84-gzip\"\r\nLast-Modified: Mon, 03 Jan 2022 16:52:11 GMT\r\nServer: Apache\r\nVary: Accept-Encoding\r\nVia: 1.1 alproxy\r\n\r\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>eva</title>\n  <style type=\"text/css\">\n    body {\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n  <h2>Vous allez être redirigé automatiquement dans quelques secondes vers la nouvelle adresse de EVA ...\"</h2>\n  <p>Si vous n'avez pas été redirigé d'ici 5 secondes <a href=\"https://eva.beta.gouv.fr/jeu/\">cliquez ici</a></p>\n  <script type=\"text/javascript\">\n    if(window.navigator && navigator.serviceWorker) {\n      navigator.serviceWorker.getRegistrations()\n        .then(function(registrations) {\n          for(const registration of registrations) {\n\t    console.log(`Unregistering ${registration}`)\n            registration.unregister();\n          }\n        });\n    }\n\n    setTimeout(function () {\n      window.location.href = \"https://eva.beta.gouv.fr/jeu/\";\n    }, 5000);\n  </script>\n</body>\n</html>\n\n",
+    "ip": "185.31.40.19",
+    "timestamp": "2022-04-17T10:53:44.360398339Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://app.eva.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "It searches for missing security headers, but obviously, could be so less generic and could be useless for Bug Bounty.",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-max-age",
+    "type": "http",
+    "host": "https://app.eva.beta.gouv.fr",
+    "matched-at": "https://app.eva.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: app.eva.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nAccept-Ranges: bytes\r\nContent-Type: text/html\r\nDate: Sun, 17 Apr 2022 10:53:44 GMT\r\nEtag: \"3bd-5d4b0578c1e84-gzip\"\r\nLast-Modified: Mon, 03 Jan 2022 16:52:11 GMT\r\nServer: Apache\r\nVary: Accept-Encoding\r\nVia: 1.1 alproxy\r\n\r\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>eva</title>\n  <style type=\"text/css\">\n    body {\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n  <h2>Vous allez être redirigé automatiquement dans quelques secondes vers la nouvelle adresse de EVA ...\"</h2>\n  <p>Si vous n'avez pas été redirigé d'ici 5 secondes <a href=\"https://eva.beta.gouv.fr/jeu/\">cliquez ici</a></p>\n  <script type=\"text/javascript\">\n    if(window.navigator && navigator.serviceWorker) {\n      navigator.serviceWorker.getRegistrations()\n        .then(function(registrations) {\n          for(const registration of registrations) {\n\t    console.log(`Unregistering ${registration}`)\n            registration.unregister();\n          }\n        });\n    }\n\n    setTimeout(function () {\n      window.location.href = \"https://eva.beta.gouv.fr/jeu/\";\n    }, 5000);\n  </script>\n</body>\n</html>\n\n",
+    "ip": "185.31.40.19",
+    "timestamp": "2022-04-17T10:53:44.36042634Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://app.eva.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "It searches for missing security headers, but obviously, could be so less generic and could be useless for Bug Bounty.",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "permission-policy",
+    "type": "http",
+    "host": "https://app.eva.beta.gouv.fr",
+    "matched-at": "https://app.eva.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: app.eva.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nAccept-Ranges: bytes\r\nContent-Type: text/html\r\nDate: Sun, 17 Apr 2022 10:53:44 GMT\r\nEtag: \"3bd-5d4b0578c1e84-gzip\"\r\nLast-Modified: Mon, 03 Jan 2022 16:52:11 GMT\r\nServer: Apache\r\nVary: Accept-Encoding\r\nVia: 1.1 alproxy\r\n\r\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>eva</title>\n  <style type=\"text/css\">\n    body {\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n  <h2>Vous allez être redirigé automatiquement dans quelques secondes vers la nouvelle adresse de EVA ...\"</h2>\n  <p>Si vous n'avez pas été redirigé d'ici 5 secondes <a href=\"https://eva.beta.gouv.fr/jeu/\">cliquez ici</a></p>\n  <script type=\"text/javascript\">\n    if(window.navigator && navigator.serviceWorker) {\n      navigator.serviceWorker.getRegistrations()\n        .then(function(registrations) {\n          for(const registration of registrations) {\n\t    console.log(`Unregistering ${registration}`)\n            registration.unregister();\n          }\n        });\n    }\n\n    setTimeout(function () {\n      window.location.href = \"https://eva.beta.gouv.fr/jeu/\";\n    }, 5000);\n  </script>\n</body>\n</html>\n\n",
+    "ip": "185.31.40.19",
+    "timestamp": "2022-04-17T10:53:44.36045124Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://app.eva.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "It searches for missing security headers, but obviously, could be so less generic and could be useless for Bug Bounty.",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "x-frame-options",
+    "type": "http",
+    "host": "https://app.eva.beta.gouv.fr",
+    "matched-at": "https://app.eva.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: app.eva.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nAccept-Ranges: bytes\r\nContent-Type: text/html\r\nDate: Sun, 17 Apr 2022 10:53:44 GMT\r\nEtag: \"3bd-5d4b0578c1e84-gzip\"\r\nLast-Modified: Mon, 03 Jan 2022 16:52:11 GMT\r\nServer: Apache\r\nVary: Accept-Encoding\r\nVia: 1.1 alproxy\r\n\r\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>eva</title>\n  <style type=\"text/css\">\n    body {\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n  <h2>Vous allez être redirigé automatiquement dans quelques secondes vers la nouvelle adresse de EVA ...\"</h2>\n  <p>Si vous n'avez pas été redirigé d'ici 5 secondes <a href=\"https://eva.beta.gouv.fr/jeu/\">cliquez ici</a></p>\n  <script type=\"text/javascript\">\n    if(window.navigator && navigator.serviceWorker) {\n      navigator.serviceWorker.getRegistrations()\n        .then(function(registrations) {\n          for(const registration of registrations) {\n\t    console.log(`Unregistering ${registration}`)\n            registration.unregister();\n          }\n        });\n    }\n\n    setTimeout(function () {\n      window.location.href = \"https://eva.beta.gouv.fr/jeu/\";\n    }, 5000);\n  </script>\n</body>\n</html>\n\n",
+    "ip": "185.31.40.19",
+    "timestamp": "2022-04-17T10:53:44.360473541Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://app.eva.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "It searches for missing security headers, but obviously, could be so less generic and could be useless for Bug Bounty.",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "clear-site-data",
+    "type": "http",
+    "host": "https://app.eva.beta.gouv.fr",
+    "matched-at": "https://app.eva.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: app.eva.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nAccept-Ranges: bytes\r\nContent-Type: text/html\r\nDate: Sun, 17 Apr 2022 10:53:44 GMT\r\nEtag: \"3bd-5d4b0578c1e84-gzip\"\r\nLast-Modified: Mon, 03 Jan 2022 16:52:11 GMT\r\nServer: Apache\r\nVary: Accept-Encoding\r\nVia: 1.1 alproxy\r\n\r\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>eva</title>\n  <style type=\"text/css\">\n    body {\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n  <h2>Vous allez être redirigé automatiquement dans quelques secondes vers la nouvelle adresse de EVA ...\"</h2>\n  <p>Si vous n'avez pas été redirigé d'ici 5 secondes <a href=\"https://eva.beta.gouv.fr/jeu/\">cliquez ici</a></p>\n  <script type=\"text/javascript\">\n    if(window.navigator && navigator.serviceWorker) {\n      navigator.serviceWorker.getRegistrations()\n        .then(function(registrations) {\n          for(const registration of registrations) {\n\t    console.log(`Unregistering ${registration}`)\n            registration.unregister();\n          }\n        });\n    }\n\n    setTimeout(function () {\n      window.location.href = \"https://eva.beta.gouv.fr/jeu/\";\n    }, 5000);\n  </script>\n</body>\n</html>\n\n",
+    "ip": "185.31.40.19",
+    "timestamp": "2022-04-17T10:53:44.360494641Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://app.eva.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "It searches for missing security headers, but obviously, could be so less generic and could be useless for Bug Bounty.",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-expose-headers",
+    "type": "http",
+    "host": "https://app.eva.beta.gouv.fr",
+    "matched-at": "https://app.eva.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: app.eva.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nAccept-Ranges: bytes\r\nContent-Type: text/html\r\nDate: Sun, 17 Apr 2022 10:53:44 GMT\r\nEtag: \"3bd-5d4b0578c1e84-gzip\"\r\nLast-Modified: Mon, 03 Jan 2022 16:52:11 GMT\r\nServer: Apache\r\nVary: Accept-Encoding\r\nVia: 1.1 alproxy\r\n\r\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>eva</title>\n  <style type=\"text/css\">\n    body {\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n  <h2>Vous allez être redirigé automatiquement dans quelques secondes vers la nouvelle adresse de EVA ...\"</h2>\n  <p>Si vous n'avez pas été redirigé d'ici 5 secondes <a href=\"https://eva.beta.gouv.fr/jeu/\">cliquez ici</a></p>\n  <script type=\"text/javascript\">\n    if(window.navigator && navigator.serviceWorker) {\n      navigator.serviceWorker.getRegistrations()\n        .then(function(registrations) {\n          for(const registration of registrations) {\n\t    console.log(`Unregistering ${registration}`)\n            registration.unregister();\n          }\n        });\n    }\n\n    setTimeout(function () {\n      window.location.href = \"https://eva.beta.gouv.fr/jeu/\";\n    }, 5000);\n  </script>\n</body>\n</html>\n\n",
+    "ip": "185.31.40.19",
+    "timestamp": "2022-04-17T10:53:44.360515041Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://app.eva.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "It searches for missing security headers, but obviously, could be so less generic and could be useless for Bug Bounty.",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "strict-transport-security",
+    "type": "http",
+    "host": "https://app.eva.beta.gouv.fr",
+    "matched-at": "https://app.eva.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: app.eva.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nAccept-Ranges: bytes\r\nContent-Type: text/html\r\nDate: Sun, 17 Apr 2022 10:53:44 GMT\r\nEtag: \"3bd-5d4b0578c1e84-gzip\"\r\nLast-Modified: Mon, 03 Jan 2022 16:52:11 GMT\r\nServer: Apache\r\nVary: Accept-Encoding\r\nVia: 1.1 alproxy\r\n\r\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>eva</title>\n  <style type=\"text/css\">\n    body {\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n  <h2>Vous allez être redirigé automatiquement dans quelques secondes vers la nouvelle adresse de EVA ...\"</h2>\n  <p>Si vous n'avez pas été redirigé d'ici 5 secondes <a href=\"https://eva.beta.gouv.fr/jeu/\">cliquez ici</a></p>\n  <script type=\"text/javascript\">\n    if(window.navigator && navigator.serviceWorker) {\n      navigator.serviceWorker.getRegistrations()\n        .then(function(registrations) {\n          for(const registration of registrations) {\n\t    console.log(`Unregistering ${registration}`)\n            registration.unregister();\n          }\n        });\n    }\n\n    setTimeout(function () {\n      window.location.href = \"https://eva.beta.gouv.fr/jeu/\";\n    }, 5000);\n  </script>\n</body>\n</html>\n\n",
+    "ip": "185.31.40.19",
+    "timestamp": "2022-04-17T10:53:44.360541442Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://app.eva.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "It searches for missing security headers, but obviously, could be so less generic and could be useless for Bug Bounty.",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "content-security-policy",
+    "type": "http",
+    "host": "https://app.eva.beta.gouv.fr",
+    "matched-at": "https://app.eva.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: app.eva.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nAccept-Ranges: bytes\r\nContent-Type: text/html\r\nDate: Sun, 17 Apr 2022 10:53:44 GMT\r\nEtag: \"3bd-5d4b0578c1e84-gzip\"\r\nLast-Modified: Mon, 03 Jan 2022 16:52:11 GMT\r\nServer: Apache\r\nVary: Accept-Encoding\r\nVia: 1.1 alproxy\r\n\r\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>eva</title>\n  <style type=\"text/css\">\n    body {\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n  <h2>Vous allez être redirigé automatiquement dans quelques secondes vers la nouvelle adresse de EVA ...\"</h2>\n  <p>Si vous n'avez pas été redirigé d'ici 5 secondes <a href=\"https://eva.beta.gouv.fr/jeu/\">cliquez ici</a></p>\n  <script type=\"text/javascript\">\n    if(window.navigator && navigator.serviceWorker) {\n      navigator.serviceWorker.getRegistrations()\n        .then(function(registrations) {\n          for(const registration of registrations) {\n\t    console.log(`Unregistering ${registration}`)\n            registration.unregister();\n          }\n        });\n    }\n\n    setTimeout(function () {\n      window.location.href = \"https://eva.beta.gouv.fr/jeu/\";\n    }, 5000);\n  </script>\n</body>\n</html>\n\n",
+    "ip": "185.31.40.19",
+    "timestamp": "2022-04-17T10:53:44.360559342Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://app.eva.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "It searches for missing security headers, but obviously, could be so less generic and could be useless for Bug Bounty.",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "referrer-policy",
+    "type": "http",
+    "host": "https://app.eva.beta.gouv.fr",
+    "matched-at": "https://app.eva.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: app.eva.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nAccept-Ranges: bytes\r\nContent-Type: text/html\r\nDate: Sun, 17 Apr 2022 10:53:44 GMT\r\nEtag: \"3bd-5d4b0578c1e84-gzip\"\r\nLast-Modified: Mon, 03 Jan 2022 16:52:11 GMT\r\nServer: Apache\r\nVary: Accept-Encoding\r\nVia: 1.1 alproxy\r\n\r\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>eva</title>\n  <style type=\"text/css\">\n    body {\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n  <h2>Vous allez être redirigé automatiquement dans quelques secondes vers la nouvelle adresse de EVA ...\"</h2>\n  <p>Si vous n'avez pas été redirigé d'ici 5 secondes <a href=\"https://eva.beta.gouv.fr/jeu/\">cliquez ici</a></p>\n  <script type=\"text/javascript\">\n    if(window.navigator && navigator.serviceWorker) {\n      navigator.serviceWorker.getRegistrations()\n        .then(function(registrations) {\n          for(const registration of registrations) {\n\t    console.log(`Unregistering ${registration}`)\n            registration.unregister();\n          }\n        });\n    }\n\n    setTimeout(function () {\n      window.location.href = \"https://eva.beta.gouv.fr/jeu/\";\n    }, 5000);\n  </script>\n</body>\n</html>\n\n",
+    "ip": "185.31.40.19",
+    "timestamp": "2022-04-17T10:53:44.360582543Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://app.eva.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "It searches for missing security headers, but obviously, could be so less generic and could be useless for Bug Bounty.",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-allow-credentials",
+    "type": "http",
+    "host": "https://app.eva.beta.gouv.fr",
+    "matched-at": "https://app.eva.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: app.eva.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nAccept-Ranges: bytes\r\nContent-Type: text/html\r\nDate: Sun, 17 Apr 2022 10:53:44 GMT\r\nEtag: \"3bd-5d4b0578c1e84-gzip\"\r\nLast-Modified: Mon, 03 Jan 2022 16:52:11 GMT\r\nServer: Apache\r\nVary: Accept-Encoding\r\nVia: 1.1 alproxy\r\n\r\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>eva</title>\n  <style type=\"text/css\">\n    body {\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n  <h2>Vous allez être redirigé automatiquement dans quelques secondes vers la nouvelle adresse de EVA ...\"</h2>\n  <p>Si vous n'avez pas été redirigé d'ici 5 secondes <a href=\"https://eva.beta.gouv.fr/jeu/\">cliquez ici</a></p>\n  <script type=\"text/javascript\">\n    if(window.navigator && navigator.serviceWorker) {\n      navigator.serviceWorker.getRegistrations()\n        .then(function(registrations) {\n          for(const registration of registrations) {\n\t    console.log(`Unregistering ${registration}`)\n            registration.unregister();\n          }\n        });\n    }\n\n    setTimeout(function () {\n      window.location.href = \"https://eva.beta.gouv.fr/jeu/\";\n    }, 5000);\n  </script>\n</body>\n</html>\n\n",
+    "ip": "185.31.40.19",
+    "timestamp": "2022-04-17T10:53:44.360605943Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://app.eva.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "It searches for missing security headers, but obviously, could be so less generic and could be useless for Bug Bounty.",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "cross-origin-embedder-policy",
+    "type": "http",
+    "host": "https://app.eva.beta.gouv.fr",
+    "matched-at": "https://app.eva.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: app.eva.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nAccept-Ranges: bytes\r\nContent-Type: text/html\r\nDate: Sun, 17 Apr 2022 10:53:44 GMT\r\nEtag: \"3bd-5d4b0578c1e84-gzip\"\r\nLast-Modified: Mon, 03 Jan 2022 16:52:11 GMT\r\nServer: Apache\r\nVary: Accept-Encoding\r\nVia: 1.1 alproxy\r\n\r\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>eva</title>\n  <style type=\"text/css\">\n    body {\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n  <h2>Vous allez être redirigé automatiquement dans quelques secondes vers la nouvelle adresse de EVA ...\"</h2>\n  <p>Si vous n'avez pas été redirigé d'ici 5 secondes <a href=\"https://eva.beta.gouv.fr/jeu/\">cliquez ici</a></p>\n  <script type=\"text/javascript\">\n    if(window.navigator && navigator.serviceWorker) {\n      navigator.serviceWorker.getRegistrations()\n        .then(function(registrations) {\n          for(const registration of registrations) {\n\t    console.log(`Unregistering ${registration}`)\n            registration.unregister();\n          }\n        });\n    }\n\n    setTimeout(function () {\n      window.location.href = \"https://eva.beta.gouv.fr/jeu/\";\n    }, 5000);\n  </script>\n</body>\n</html>\n\n",
+    "ip": "185.31.40.19",
+    "timestamp": "2022-04-17T10:53:44.360623043Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://app.eva.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "It searches for missing security headers, but obviously, could be so less generic and could be useless for Bug Bounty.",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "cross-origin-resource-policy",
+    "type": "http",
+    "host": "https://app.eva.beta.gouv.fr",
+    "matched-at": "https://app.eva.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: app.eva.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nAccept-Ranges: bytes\r\nContent-Type: text/html\r\nDate: Sun, 17 Apr 2022 10:53:44 GMT\r\nEtag: \"3bd-5d4b0578c1e84-gzip\"\r\nLast-Modified: Mon, 03 Jan 2022 16:52:11 GMT\r\nServer: Apache\r\nVary: Accept-Encoding\r\nVia: 1.1 alproxy\r\n\r\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>eva</title>\n  <style type=\"text/css\">\n    body {\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n  <h2>Vous allez être redirigé automatiquement dans quelques secondes vers la nouvelle adresse de EVA ...\"</h2>\n  <p>Si vous n'avez pas été redirigé d'ici 5 secondes <a href=\"https://eva.beta.gouv.fr/jeu/\">cliquez ici</a></p>\n  <script type=\"text/javascript\">\n    if(window.navigator && navigator.serviceWorker) {\n      navigator.serviceWorker.getRegistrations()\n        .then(function(registrations) {\n          for(const registration of registrations) {\n\t    console.log(`Unregistering ${registration}`)\n            registration.unregister();\n          }\n        });\n    }\n\n    setTimeout(function () {\n      window.location.href = \"https://eva.beta.gouv.fr/jeu/\";\n    }, 5000);\n  </script>\n</body>\n</html>\n\n",
+    "ip": "185.31.40.19",
+    "timestamp": "2022-04-17T10:53:44.360646244Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://app.eva.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "It searches for missing security headers, but obviously, could be so less generic and could be useless for Bug Bounty.",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-allow-origin",
+    "type": "http",
+    "host": "https://app.eva.beta.gouv.fr",
+    "matched-at": "https://app.eva.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: app.eva.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nAccept-Ranges: bytes\r\nContent-Type: text/html\r\nDate: Sun, 17 Apr 2022 10:53:44 GMT\r\nEtag: \"3bd-5d4b0578c1e84-gzip\"\r\nLast-Modified: Mon, 03 Jan 2022 16:52:11 GMT\r\nServer: Apache\r\nVary: Accept-Encoding\r\nVia: 1.1 alproxy\r\n\r\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>eva</title>\n  <style type=\"text/css\">\n    body {\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n  <h2>Vous allez être redirigé automatiquement dans quelques secondes vers la nouvelle adresse de EVA ...\"</h2>\n  <p>Si vous n'avez pas été redirigé d'ici 5 secondes <a href=\"https://eva.beta.gouv.fr/jeu/\">cliquez ici</a></p>\n  <script type=\"text/javascript\">\n    if(window.navigator && navigator.serviceWorker) {\n      navigator.serviceWorker.getRegistrations()\n        .then(function(registrations) {\n          for(const registration of registrations) {\n\t    console.log(`Unregistering ${registration}`)\n            registration.unregister();\n          }\n        });\n    }\n\n    setTimeout(function () {\n      window.location.href = \"https://eva.beta.gouv.fr/jeu/\";\n    }, 5000);\n  </script>\n</body>\n</html>\n\n",
+    "ip": "185.31.40.19",
+    "timestamp": "2022-04-17T10:53:44.360669144Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://app.eva.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "It searches for missing security headers, but obviously, could be so less generic and could be useless for Bug Bounty.",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-allow-methods",
+    "type": "http",
+    "host": "https://app.eva.beta.gouv.fr",
+    "matched-at": "https://app.eva.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: app.eva.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nAccept-Ranges: bytes\r\nContent-Type: text/html\r\nDate: Sun, 17 Apr 2022 10:53:44 GMT\r\nEtag: \"3bd-5d4b0578c1e84-gzip\"\r\nLast-Modified: Mon, 03 Jan 2022 16:52:11 GMT\r\nServer: Apache\r\nVary: Accept-Encoding\r\nVia: 1.1 alproxy\r\n\r\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>eva</title>\n  <style type=\"text/css\">\n    body {\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n  <h2>Vous allez être redirigé automatiquement dans quelques secondes vers la nouvelle adresse de EVA ...\"</h2>\n  <p>Si vous n'avez pas été redirigé d'ici 5 secondes <a href=\"https://eva.beta.gouv.fr/jeu/\">cliquez ici</a></p>\n  <script type=\"text/javascript\">\n    if(window.navigator && navigator.serviceWorker) {\n      navigator.serviceWorker.getRegistrations()\n        .then(function(registrations) {\n          for(const registration of registrations) {\n\t    console.log(`Unregistering ${registration}`)\n            registration.unregister();\n          }\n        });\n    }\n\n    setTimeout(function () {\n      window.location.href = \"https://eva.beta.gouv.fr/jeu/\";\n    }, 5000);\n  </script>\n</body>\n</html>\n\n",
+    "ip": "185.31.40.19",
+    "timestamp": "2022-04-17T10:53:44.360690045Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://app.eva.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "ssl/tls-version.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/ssl/tls-version.yaml",
+    "template-id": "tls-version",
+    "info": {
+      "name": "TLS Version",
+      "author": [
+        "pdteam"
+      ],
+      "tags": [
+        "ssl"
+      ],
+      "reference": null,
+      "severity": "info"
+    },
+    "type": "ssl",
+    "host": "https://app.eva.beta.gouv.fr",
+    "matched-at": "https://app.eva.beta.gouv.fr",
+    "extracted-results": [
+      "TLS13"
+    ],
+    "ip": "185.31.40.19",
+    "timestamp": "2022-04-17T10:54:08.568088181Z",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "technologies/waf-detect.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/technologies/waf-detect.yaml",
+    "template-id": "waf-detect",
+    "info": {
+      "name": "WAF Detection",
+      "author": [
+        "dwisiswant0",
+        "lu4nx"
+      ],
+      "tags": [
+        "waf",
+        "tech",
+        "misc"
+      ],
+      "description": "A web application firewall was detected.",
+      "reference": [
+        "https://github.com/ekultek/whatwaf"
+      ],
+      "severity": "info",
+      "classification": {
+        "cve-id": null,
+        "cwe-id": [
+          "cwe-200"
+        ],
+        "cvss-metrics": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N"
+      }
+    },
+    "matcher-name": "apachegeneric",
+    "type": "http",
+    "host": "https://app.eva.beta.gouv.fr",
+    "matched-at": "https://app.eva.beta.gouv.fr/",
+    "request": "POST / HTTP/1.1\r\nHost: app.eva.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nContent-Length: 27\r\nContent-Type: application/x-www-form-urlencoded\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nAccept-Ranges: bytes\r\nContent-Type: text/html\r\nDate: Sun, 17 Apr 2022 10:54:15 GMT\r\nEtag: \"3bd-5d4b0578c1e84-gzip\"\r\nLast-Modified: Mon, 03 Jan 2022 16:52:11 GMT\r\nServer: Apache\r\nVary: Accept-Encoding\r\nVia: 1.1 alproxy\r\n\r\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>eva</title>\n  <style type=\"text/css\">\n    body {\n      text-align: center;\n    }\n  </style>\n</head>\n<body>\n  <h2>Vous allez être redirigé automatiquement dans quelques secondes vers la nouvelle adresse de EVA ...\"</h2>\n  <p>Si vous n'avez pas été redirigé d'ici 5 secondes <a href=\"https://eva.beta.gouv.fr/jeu/\">cliquez ici</a></p>\n  <script type=\"text/javascript\">\n    if(window.navigator && navigator.serviceWorker) {\n      navigator.serviceWorker.getRegistrations()\n        .then(function(registrations) {\n          for(const registration of registrations) {\n\t    console.log(`Unregistering ${registration}`)\n            registration.unregister();\n          }\n        });\n    }\n\n    setTimeout(function () {\n      window.location.href = \"https://eva.beta.gouv.fr/jeu/\";\n    }, 5000);\n  </script>\n</body>\n</html>\n\n",
+    "ip": "185.31.40.19",
+    "timestamp": "2022-04-17T10:54:15.842219282Z",
+    "curl-command": "curl -X 'POST' -d '_=<script>alert(1)</script>' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Host: app.eva.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://app.eva.beta.gouv.fr/'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "miscellaneous/options-method.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/miscellaneous/options-method.yaml",
+    "template-id": "options-method",
+    "info": {
+      "name": "Allowed Options Method",
+      "author": [
+        "pdteam"
+      ],
+      "tags": [
+        "misc",
+        "generic"
+      ],
+      "reference": null,
+      "severity": "info"
+    },
+    "type": "http",
+    "host": "https://app.eva.beta.gouv.fr",
+    "matched-at": "https://app.eva.beta.gouv.fr",
+    "extracted-results": [
+      "HEAD,GET,POST,OPTIONS"
+    ],
+    "request": "OPTIONS / HTTP/1.1\r\nHost: app.eva.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nAllow: HEAD,GET,POST,OPTIONS\r\nContent-Type: text/html\r\nDate: Sun, 17 Apr 2022 10:54:31 GMT\r\nServer: Apache\r\nVary: Accept-Encoding\r\nVia: 1.1 alproxy\r\nContent-Length: 0\r\n\r\n",
+    "ip": "185.31.40.19",
+    "timestamp": "2022-04-17T10:54:31.253627125Z",
+    "curl-command": "curl -X 'OPTIONS' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://app.eva.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "ssl/ssl-dns-names.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/ssl/ssl-dns-names.yaml",
+    "template-id": "ssl-dns-names",
+    "info": {
+      "name": "SSL DNS Names",
+      "author": [
+        "pdteam"
+      ],
+      "tags": [
+        "ssl"
+      ],
+      "reference": null,
+      "severity": "info"
+    },
+    "type": "ssl",
+    "host": "https://app.eva.beta.gouv.fr",
+    "matched-at": "https://app.eva.beta.gouv.fr",
+    "extracted-results": [
+      "app.eva.beta.gouv.fr"
+    ],
+    "ip": "185.31.40.19",
+    "timestamp": "2022-04-17T10:56:06.507373524Z",
+    "matcher-status": true,
+    "matched-line": null
+  }
+]
