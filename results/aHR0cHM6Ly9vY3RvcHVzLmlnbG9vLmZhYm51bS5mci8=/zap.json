@@ -1,0 +1,2717 @@
+{
+	"@version": "2.11.1",
+	"@generated": "Sun, 24 Apr 2022 10:34:00",
+	"site":[ 
+		{
+			"@name": "https://octopus.igloo.fabnum.fr",
+			"@host": "octopus.igloo.fabnum.fr",
+			"@port": "443",
+			"@ssl": "true",
+			"alerts": [ 
+				{
+					"pluginid": "10038",
+					"alertRef": "10038",
+					"alert": "Content Security Policy (CSP) Header Not Set",
+					"name": "Content Security Policy (CSP) Header Not Set",
+					"riskcode": "2",
+					"confidence": "3",
+					"riskdesc": "Medium (High)",
+					"desc": "<p>Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross Site Scripting (XSS) and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware. CSP provides a set of standard HTTP headers that allow website owners to declare approved sources of content that browsers should be allowed to load on that page \u2014 covered types are JavaScript, CSS, HTML frames, fonts, images and embeddable objects such as Java applets, ActiveX, audio and video files.</p>",
+					"instances":[ 
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/account/1",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/admin",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/bin",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/notifications",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/sitemap.xml",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						}
+					],
+					"count": "6",
+					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to set the Content-Security-Policy header, to achieve optimal browser support: \"Content-Security-Policy\" for Chrome 25+, Firefox 23+ and Safari 7+, \"X-Content-Security-Policy\" for Firefox 4.0+ and Internet Explorer 10+, and \"X-WebKit-CSP\" for Chrome 14+ and Safari 6+.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/Security/CSP/Introducing_Content_Security_Policy</p><p>https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html</p><p>http://www.w3.org/TR/CSP/</p><p>http://w3c.github.io/webappsec/specs/content-security-policy/csp-specification.dev.html</p><p>http://www.html5rocks.com/en/tutorials/security/content-security-policy/</p><p>http://caniuse.com/#feat=contentsecuritypolicy</p><p>http://content-security-policy.com/</p>",
+					"cweid": "693",
+					"wascid": "15",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10020",
+					"alertRef": "10020-1",
+					"alert": "Missing Anti-clickjacking Header",
+					"name": "Missing Anti-clickjacking Header",
+					"riskcode": "2",
+					"confidence": "2",
+					"riskdesc": "Medium (Medium)",
+					"desc": "<p>The response does not include either Content-Security-Policy with 'frame-ancestors' directive or X-Frame-Options to protect against 'ClickJacking' attacks.</p>",
+					"instances":[ 
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "X-Frame-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/account/1",
+							"method": "GET",
+							"param": "X-Frame-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/admin",
+							"method": "GET",
+							"param": "X-Frame-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/bin",
+							"method": "GET",
+							"param": "X-Frame-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/notifications",
+							"method": "GET",
+							"param": "X-Frame-Options",
+							"attack": "",
+							"evidence": ""
+						}
+					],
+					"count": "5",
+					"solution": "<p>Modern Web browsers support the Content-Security-Policy and X-Frame-Options HTTP headers. Ensure one of them is set on all web pages returned by your site/app.</p><p>If you expect the page to be framed only by pages on your server (e.g. it's part of a FRAMESET) then you'll want to use SAMEORIGIN, otherwise if you never expect the page to be framed, you should use DENY. Alternatively consider implementing Content Security Policy's \"frame-ancestors\" directive.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options</p>",
+					"cweid": "1021",
+					"wascid": "15",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10010",
+					"alertRef": "10010",
+					"alert": "Cookie No HttpOnly Flag",
+					"name": "Cookie No HttpOnly Flag",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>A cookie has been set without the HttpOnly flag, which means that the cookie can be accessed by JavaScript. If a malicious script can be run on this page then the cookie will be accessible and can be transmitted to another site. If this is a session cookie then session hijacking may be possible.</p>",
+					"instances":[ 
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "auth.strategy",
+							"attack": "",
+							"evidence": "set-cookie: auth.strategy"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/account/1",
+							"method": "GET",
+							"param": "auth.strategy",
+							"attack": "",
+							"evidence": "set-cookie: auth.strategy"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/admin",
+							"method": "GET",
+							"param": "auth.strategy",
+							"attack": "",
+							"evidence": "set-cookie: auth.strategy"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/bin",
+							"method": "GET",
+							"param": "auth.strategy",
+							"attack": "",
+							"evidence": "set-cookie: auth.strategy"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/notifications",
+							"method": "GET",
+							"param": "auth.strategy",
+							"attack": "",
+							"evidence": "set-cookie: auth.strategy"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/sitemap.xml",
+							"method": "GET",
+							"param": "auth.strategy",
+							"attack": "",
+							"evidence": "set-cookie: auth.strategy"
+						}
+					],
+					"count": "6",
+					"solution": "<p>Ensure that the HttpOnly flag is set for all cookies.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://owasp.org/www-community/HttpOnly</p>",
+					"cweid": "1004",
+					"wascid": "13",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10011",
+					"alertRef": "10011",
+					"alert": "Cookie Without Secure Flag",
+					"name": "Cookie Without Secure Flag",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>A cookie has been set without the secure flag, which means that the cookie can be accessed via unencrypted connections.</p>",
+					"instances":[ 
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "auth.strategy",
+							"attack": "",
+							"evidence": "set-cookie: auth.strategy"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/account/1",
+							"method": "GET",
+							"param": "auth.strategy",
+							"attack": "",
+							"evidence": "set-cookie: auth.strategy"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/admin",
+							"method": "GET",
+							"param": "auth.strategy",
+							"attack": "",
+							"evidence": "set-cookie: auth.strategy"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/bin",
+							"method": "GET",
+							"param": "auth.strategy",
+							"attack": "",
+							"evidence": "set-cookie: auth.strategy"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/notifications",
+							"method": "GET",
+							"param": "auth.strategy",
+							"attack": "",
+							"evidence": "set-cookie: auth.strategy"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/sitemap.xml",
+							"method": "GET",
+							"param": "auth.strategy",
+							"attack": "",
+							"evidence": "set-cookie: auth.strategy"
+						}
+					],
+					"count": "6",
+					"solution": "<p>Whenever a cookie contains sensitive information or is a session token, then it should always be passed using an encrypted channel. Ensure that the secure flag is set for cookies containing such sensitive information.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://owasp.org/www-project-web-security-testing-guide/v41/4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.html</p>",
+					"cweid": "614",
+					"wascid": "13",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10054",
+					"alertRef": "10054",
+					"alert": "Cookie without SameSite Attribute",
+					"name": "Cookie without SameSite Attribute",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>A cookie has been set without the SameSite attribute, which means that the cookie can be sent as a result of a 'cross-site' request. The SameSite attribute is an effective counter measure to cross-site request forgery, cross-site script inclusion, and timing attacks.</p>",
+					"instances":[ 
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "auth.strategy",
+							"attack": "",
+							"evidence": "set-cookie: auth.strategy"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/account/1",
+							"method": "GET",
+							"param": "auth.strategy",
+							"attack": "",
+							"evidence": "set-cookie: auth.strategy"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/admin",
+							"method": "GET",
+							"param": "auth.strategy",
+							"attack": "",
+							"evidence": "set-cookie: auth.strategy"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/bin",
+							"method": "GET",
+							"param": "auth.strategy",
+							"attack": "",
+							"evidence": "set-cookie: auth.strategy"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/notifications",
+							"method": "GET",
+							"param": "auth.strategy",
+							"attack": "",
+							"evidence": "set-cookie: auth.strategy"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/sitemap.xml",
+							"method": "GET",
+							"param": "auth.strategy",
+							"attack": "",
+							"evidence": "set-cookie: auth.strategy"
+						}
+					],
+					"count": "6",
+					"solution": "<p>Ensure that the SameSite attribute is set to either 'lax' or ideally 'strict' for all cookies.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site</p>",
+					"cweid": "1275",
+					"wascid": "13",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10110",
+					"alertRef": "10110",
+					"alert": "Dangerous JS Functions",
+					"name": "Dangerous JS Functions",
+					"riskcode": "1",
+					"confidence": "1",
+					"riskdesc": "Low (Low)",
+					"desc": "<p>A dangerous JS function seems to be in use that would leave the site vulnerable.</p>",
+					"instances":[ 
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/_nuxt/45394cd.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "eval"
+						}
+					],
+					"count": "1",
+					"solution": "<p>See the references for security advice on the use of these functions.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://angular.io/guide/security</p>",
+					"cweid": "749",
+					"wascid": "-1",
+					"sourceid": "32"
+				},
+				{
+					"pluginid": "10063",
+					"alertRef": "10063",
+					"alert": "Permissions Policy Header Not Set",
+					"name": "Permissions Policy Header Not Set",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>Permissions Policy Header is an added layer of security that helps to restrict from unauthorized access or usage of browser/client features by web resources. This policy ensures the user privacy by limiting or specifying the features of the browsers can be used by the web resources. Permissions Policy provides a set of standard HTTP headers that allow website owners to limit which features of browsers can be used by the page such as camera, microphone, location, full screen etc.</p>",
+					"instances":[ 
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/_nuxt/09dcbfc.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/_nuxt/45247a6.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/_nuxt/45394cd.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/_nuxt/532224e.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/_nuxt/7b82e1b.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/account/1",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/admin",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/bin",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/notifications",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/sitemap.xml",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						}
+					],
+					"count": "11",
+					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to set the Permissions-Policy header.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy</p><p>https://developers.google.com/web/updates/2018/06/feature-policy</p><p>https://scotthelme.co.uk/a-new-security-header-feature-policy/</p><p>https://w3c.github.io/webappsec-feature-policy/</p><p>https://www.smashingmagazine.com/2018/12/feature-policy/</p>",
+					"cweid": "693",
+					"wascid": "15",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10035",
+					"alertRef": "10035",
+					"alert": "Strict-Transport-Security Header Not Set",
+					"name": "Strict-Transport-Security Header Not Set",
+					"riskcode": "1",
+					"confidence": "3",
+					"riskdesc": "Low (High)",
+					"desc": "<p>HTTP Strict Transport Security (HSTS) is a web security policy mechanism whereby a web server declares that complying user agents (such as a web browser) are to interact with it using only secure HTTPS connections (i.e. HTTP layered over TLS/SSL). HSTS is an IETF standards track protocol and is specified in RFC 6797.</p>",
+					"instances":[ 
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/_nuxt/09dcbfc.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/_nuxt/45247a6.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/_nuxt/532224e.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/account/1",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/admin",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/bin",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/favicon.ico",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/notifications",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/robots.txt",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/sitemap.xml",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						}
+					],
+					"count": "11",
+					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to enforce Strict-Transport-Security.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html</p><p>https://owasp.org/www-community/Security_Headers</p><p>http://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security</p><p>http://caniuse.com/stricttransportsecurity</p><p>http://tools.ietf.org/html/rfc6797</p>",
+					"cweid": "319",
+					"wascid": "15",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10096",
+					"alertRef": "10096",
+					"alert": "Timestamp Disclosure - Unix",
+					"name": "Timestamp Disclosure - Unix",
+					"riskcode": "1",
+					"confidence": "1",
+					"riskdesc": "Low (Low)",
+					"desc": "<p>A timestamp was disclosed by the application/web server - Unix</p>",
+					"instances":[ 
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "00052083"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "02122259"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "02264023"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "02705847"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "03582119"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "04123688"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "05306149"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "05394077"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "056263268"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "06349254"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "06410848"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "06718731"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "07236624"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "07499245"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "07511926"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "08744016"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "09310579"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "10427314"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "11399183"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "12505412"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "13149166"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "13333334"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "13385406"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "13385418"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "13463539"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "14253998"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "14453125"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "14996719"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "15484047"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "17484922"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "17525768"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "17545915"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "17578125"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "181139663"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "18175554"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "18183154"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "195038795"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "19639975"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "20000005"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "20052099"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "20130205"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "20136338"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "20871197"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "21249464"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "21262142"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "21400625"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "21709871"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "21852016"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "21855873"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "22097123"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "221287727"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "22383775"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "23529339"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "23731518"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "23743558"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "24998161"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "26018685"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "26242933"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "26666668"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "266666681"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "26718751"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "27434921"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "27570154"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "27734375"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "27917862"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "28700366"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "30927825"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "31901056"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "31958777"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "31978893"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "33333337"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "33385417"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "33463541"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "33753079"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "33753085"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "35598183"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "35822618"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "37114189"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "37173796"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "37300849"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "37501812"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "38761061"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "39107585"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "39744186"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "39999996"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "40000002"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "41039532"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "412505448"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "41447705"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "41643381"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "43359375"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "43665743"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "43665755"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "43896675"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "45067406"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "45098019"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "45143986"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "45289516"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "46258497"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "46452165"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "46466827"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "46530628"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "46618557"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "46666664"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "46718732"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "46718767"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "46753836"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "46796873"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "46796875"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "47422695"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "47475028"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "48448443"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "48900986"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "48958378"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "49994555"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "51171875"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "51298055"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "51447284"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "51508865"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "52056766"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "52222586"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "52244902"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "52326202"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "52511197"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "52577305"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "52649724"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "52734375"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "52987123"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "53333336"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "533333361"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "53385419"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "53463539"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "53785531"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "56247261"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "56398456"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "56862736"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "57638967"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "57678449"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "57936871"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "592904374"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "60000014"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "60052085"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "60816336"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "60824758"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "61312801"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "61887908"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "61916065"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "62512684"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "63488531"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "63744736"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "642389759"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "65172768"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "65234375"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "65937519"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "65979338"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "66039753"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "66210389"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "66248703"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "66345668"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "66345674"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "67493474"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "68659401"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "69094348"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "69263614"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "70148636"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "71242206"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "71508741"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "72059949"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "72395878"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "73385406"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "73463538"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "73727882"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "74246931"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "74508938"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "75038302"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "75310081"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "75413165"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "76308775"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "76308799"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "76320887"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "76409255"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "77366078"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "77371931"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "77392483"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "77551025"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "78431368"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "78959846"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "78959866"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "78959867"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "79553127"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "79611635"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "79679775"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "79998922"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "79999995"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "80000019"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "80011559"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "80052099"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "80150086"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "80408168"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "82322311"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "823529363"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "825010896"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "83080363"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "832653105"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "83898817"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "84780645"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "84992386"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "85005081"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "865979314"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "86796874"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "87597513"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "87628841"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "88235283"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "88659388"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "88659787"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "89690733"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "89710838"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "90832281"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "91108352"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "91257811"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "91428566"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "915165305"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "91752577"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "92783499"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "92815733"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "93333337"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "93385419"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "93385431"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "93463537"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "93557358"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "93761739"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "93814468"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "94745654"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "95876312"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "95936656"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "98742567"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "99183655"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "99815051"
+						}
+					],
+					"count": "238",
+					"solution": "<p>Manually confirm that the timestamp data is not sensitive, and that the data cannot be aggregated to disclose exploitable patterns.</p>",
+					"otherinfo": "<p>00052083, which evaluates to: 1970-01-01 14:28:03</p>",
+					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
+					"cweid": "200",
+					"wascid": "13",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10021",
+					"alertRef": "10021",
+					"alert": "X-Content-Type-Options Header Missing",
+					"name": "X-Content-Type-Options Header Missing",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>The Anti-MIME-Sniffing header X-Content-Type-Options was not set to 'nosniff'. This allows older versions of Internet Explorer and Chrome to perform MIME-sniffing on the response body, potentially causing the response body to be interpreted and displayed as a content type other than the declared content type. Current (early 2014) and legacy versions of Firefox will use the declared content type (if one is set), rather than performing MIME-sniffing.</p>",
+					"instances":[ 
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/_nuxt/09dcbfc.js",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/_nuxt/45247a6.js",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/_nuxt/45394cd.js",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/_nuxt/532224e.js",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/_nuxt/7b82e1b.js",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/account/1",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/admin",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/bin",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/favicon.ico",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/notifications",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						}
+					],
+					"count": "11",
+					"solution": "<p>Ensure that the application/web server sets the Content-Type header appropriately, and that it sets the X-Content-Type-Options header to 'nosniff' for all web pages.</p><p>If possible, ensure that the end user uses a standards-compliant and modern web browser that does not perform MIME-sniffing at all, or that can be directed by the web application/web server to not perform MIME-sniffing.</p>",
+					"otherinfo": "<p>This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.</p><p>At \"High\" threshold this scan rule will not alert on client or server error responses.</p>",
+					"reference": "<p>http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx</p><p>https://owasp.org/www-community/Security_Headers</p>",
+					"cweid": "693",
+					"wascid": "15",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10094",
+					"alertRef": "10094",
+					"alert": "Base64 Disclosure",
+					"name": "Base64 Disclosure",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>Base64 encoded data was disclosed by the application/web server. Note: in the interests of performance not all base64 strings in the response were analyzed individually, the entire response should be looked at by the analyst/security team/developer(s).</p>",
+					"instances":[ 
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "8a1fcb-hyqFO+oFUlcwCYDJVX311KUlhlI"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/_nuxt/45394cd.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/account/1",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "142ac7-FQ5Su6Ry2IdpCX4OoNGyudKvXyo"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/admin",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "214216-25hyx1/t1jNX6/43NSZ8Fqh6oWM"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/bin",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "142ab8-IZjgmD5vS97i5wrPXAT4z7dOMB8"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/notifications",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "142acc-P33n4aRED86uN1S6k+jLsSqLrn8"
+						}
+					],
+					"count": "6",
+					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
+					"otherinfo": "<p>\uFFFD_q\uFFFD\uFFFD\u02A1N\uFFFD\uFFFDT\uFFFD\uFFFD\\x0002`2U_}u)Ia\uFFFD</p>",
+					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
+					"cweid": "200",
+					"wascid": "13",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10027",
+					"alertRef": "10027",
+					"alert": "Information Disclosure - Suspicious Comments",
+					"name": "Information Disclosure - Suspicious Comments",
+					"riskcode": "0",
+					"confidence": "1",
+					"riskdesc": "Informational (Low)",
+					"desc": "<p>The response appears to contain suspicious comments which may help an attacker. Note: Matches made within script blocks or files are against the entire content not only comments.</p>",
+					"instances":[ 
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "user"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/_nuxt/0823b5b.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "bug"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/_nuxt/09dcbfc.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "bug"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/_nuxt/45247a6.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "bugs"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/_nuxt/45394cd.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "query"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/account/1",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "user"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/admin",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "user"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/bin",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "user"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/notifications",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "user"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/sitemap.xml",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "user"
+						}
+					],
+					"count": "10",
+					"solution": "<p>Remove all comments that return information that may help an attacker and fix any underlying problems they refer to.</p>",
+					"otherinfo": "<p>The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script>window.__NUXT__=(function(a,b,c,d,e){return {layout:\"default\",data:[{data:[{id:\"alerts\",header:{label:\"ALERTS\"},blocks:[\", see evidence field for the suspicious comment/snippet.</p>",
+					"reference": "",
+					"cweid": "200",
+					"wascid": "13",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10109",
+					"alertRef": "10109",
+					"alert": "Modern Web Application",
+					"name": "Modern Web Application",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>The application appears to be a modern web application. If you need to explore it automatically then the Ajax Spider may well be more effective than the standard one.</p>",
+					"instances":[ 
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<a class=\"icon-text\"><span class=\"icon is-small\"><i class=\"mdi mdi-logout\"></i></span><span> Logout </span></a>"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/_nuxt/45247a6.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<script>"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/account/1",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<a class=\"icon-text\"><span class=\"icon is-small\"><i class=\"mdi mdi-logout\"></i></span><span> Logout </span></a>"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/admin",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<a class=\"icon-text\"><span class=\"icon is-small\"><i class=\"mdi mdi-logout\"></i></span><span> Logout </span></a>"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/bin",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<a class=\"icon-text\"><span class=\"icon is-small\"><i class=\"mdi mdi-logout\"></i></span><span> Logout </span></a>"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/notifications",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<a class=\"icon-text\"><span class=\"icon is-small\"><i class=\"mdi mdi-logout\"></i></span><span> Logout </span></a>"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/sitemap.xml",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<a class=\"icon-text\"><span class=\"icon is-small\"><i class=\"mdi mdi-logout\"></i></span><span> Logout </span></a>"
+						}
+					],
+					"count": "7",
+					"solution": "<p>This is an informational alert and so no changes are required.</p>",
+					"otherinfo": "<p>Links have been found that do not have traditional href attributes, which is an indication that this is a modern web application.</p>",
+					"reference": "",
+					"cweid": "-1",
+					"wascid": "-1",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10049",
+					"alertRef": "10049",
+					"alert": "Non-Storable Content",
+					"name": "Non-Storable Content",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>The response contents are not storable by caching components such as proxy servers. If the response does not contain sensitive, personal or user-specific information, it may benefit from being stored and cached, to improve performance.</p>",
+					"instances":[ 
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/robots.txt",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "no-store"
+						}
+					],
+					"count": "1",
+					"solution": "<p>The content may be marked as storable by ensuring that the following conditions are satisfied:</p><p>The request method must be understood by the cache and defined as being cacheable (\"GET\", \"HEAD\", and \"POST\" are currently defined as cacheable)</p><p>The response status code must be understood by the cache (one of the 1XX, 2XX, 3XX, 4XX, or 5XX response classes are generally understood)</p><p>The \"no-store\" cache directive must not appear in the request or response header fields</p><p>For caching by \"shared\" caches such as \"proxy\" caches, the \"private\" response directive must not appear in the response</p><p>For caching by \"shared\" caches such as \"proxy\" caches, the \"Authorization\" header field must not appear in the request, unless the response explicitly allows it (using one of the \"must-revalidate\", \"public\", or \"s-maxage\" Cache-Control response directives)</p><p>In addition to the conditions above, at least one of the following conditions must also be satisfied by the response:</p><p>It must contain an \"Expires\" header field</p><p>It must contain a \"max-age\" response directive</p><p>For \"shared\" caches such as \"proxy\" caches, it must contain a \"s-maxage\" response directive</p><p>It must contain a \"Cache Control Extension\" that allows it to be cached</p><p>It must have a status code that is defined as cacheable by default (200, 203, 204, 206, 300, 301, 404, 405, 410, 414, 501).   </p>",
+					"otherinfo": "",
+					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
+					"cweid": "524",
+					"wascid": "13",
+					"sourceid": "6"
+				},
+				{
+					"pluginid": "10015",
+					"alertRef": "10015",
+					"alert": "Re-examine Cache-control Directives",
+					"name": "Re-examine Cache-control Directives",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>The cache-control header has not been set properly or is missing, allowing the browser and proxies to cache content. For static assets like css, js, or image files this might be intended, however, the resources should be reviewed to ensure that no sensitive content will be cached.</p>",
+					"instances":[ 
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "Cache-Control",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/account/1",
+							"method": "GET",
+							"param": "Cache-Control",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/admin",
+							"method": "GET",
+							"param": "Cache-Control",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/bin",
+							"method": "GET",
+							"param": "Cache-Control",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/notifications",
+							"method": "GET",
+							"param": "Cache-Control",
+							"attack": "",
+							"evidence": ""
+						}
+					],
+					"count": "5",
+					"solution": "<p>For secure content, ensure the cache-control HTTP header is set with \"no-cache, no-store, must-revalidate\". If an asset should be cached consider setting the directives \"public, max-age, immutable\".</p>",
+					"otherinfo": "",
+					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching</p><p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control</p>",
+					"cweid": "525",
+					"wascid": "13",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10049",
+					"alertRef": "10049",
+					"alert": "Storable and Cacheable Content",
+					"name": "Storable and Cacheable Content",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>The response contents are storable by caching components such as proxy servers, and may be retrieved directly from the cache, rather than from the origin server by the caching servers, in response to similar requests from other users.  If the response data is sensitive, personal or user-specific, this may result in sensitive information being leaked. In some cases, this may even result in a user gaining complete control of the session of another user, depending on the configuration of the caching components in use in their environment. This is primarily an issue where \"shared\" caching servers such as \"proxy\" caches are configured on the local network. This configuration is typically found in corporate or educational environments, for instance.</p>",
+					"instances":[ 
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/_nuxt/09dcbfc.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "max-age=31536000"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/_nuxt/45247a6.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "max-age=31536000"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/_nuxt/532224e.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "max-age=31536000"
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/account/1",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/admin",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/bin",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/notifications",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/sitemap.xml",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						}
+					],
+					"count": "9",
+					"solution": "<p>Validate that the response does not contain sensitive, personal or user-specific information.  If it does, consider the use of the following HTTP response headers, to limit, or prevent the content being stored and retrieved from the cache by another user:</p><p>Cache-Control: no-cache, no-store, must-revalidate, private</p><p>Pragma: no-cache</p><p>Expires: 0</p><p>This configuration directs both HTTP 1.0 and HTTP 1.1 compliant caching servers to not store the response, and to not retrieve the response (without validation) from the cache, in response to a similar request. </p>",
+					"otherinfo": "<p>In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.</p>",
+					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
+					"cweid": "524",
+					"wascid": "13",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10049",
+					"alertRef": "10049",
+					"alert": "Storable but Non-Cacheable Content",
+					"name": "Storable but Non-Cacheable Content",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>The response contents are storable by caching components such as proxy servers, but will not be retrieved directly from the cache, without validating the request upstream, in response to similar requests from other users. </p>",
+					"instances":[ 
+						{
+							"uri": "https://octopus.igloo.fabnum.fr/favicon.ico",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "max-age=0"
+						}
+					],
+					"count": "1",
+					"solution": "",
+					"otherinfo": "",
+					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
+					"cweid": "524",
+					"wascid": "13",
+					"sourceid": "27"
+				}
+			]
+		}
+	]
+}
