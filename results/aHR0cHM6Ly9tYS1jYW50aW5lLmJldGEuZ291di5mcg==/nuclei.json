@@ -1,31 +1,527 @@
 [
   {
-    "template": "miscellaneous/options-method.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/miscellaneous/options-method.yaml",
-    "template-id": "options-method",
+    "template": "network/cowrie-honeypot-detect.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/network/cowrie-honeypot-detect.yaml",
+    "template-id": "cowrie-honeypot-detect",
     "info": {
-      "name": "Allowed Options Method",
+      "name": "Cowrie SSH Honeypot Detect",
+      "author": [
+        "thesubtlety"
+      ],
+      "tags": [
+        "network",
+        "ssh",
+        "honeypot"
+      ],
+      "reference": [
+        "https://web.archive.org/web/20170826075224/https://morris.sc/detecting-kippo-ssh-honeypots/",
+        "https://github.com/blazeinfosec/detect-kippo-cowrie/blob/master/detectkippocowrie.py",
+        "https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/scanner/ssh/detect_kippo.rb"
+      ],
+      "severity": "info"
+    },
+    "type": "network",
+    "host": "https://ma-cantine.beta.gouv.fr",
+    "matched-at": "ma-cantine.beta.gouv.fr:22",
+    "request": "\n",
+    "response": "SSH-2.0-OpenSSH_9.0\r\nInvalid SSH identification string.\r\n",
+    "ip": "185.42.117.109",
+    "timestamp": "2022-05-30T21:48:26.396692148Z",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "dns/mx-fingerprint.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/dns/mx-fingerprint.yaml",
+    "template-id": "mx-fingerprint",
+    "info": {
+      "name": "MX Record Detection",
       "author": [
         "pdteam"
       ],
       "tags": [
-        "misc",
-        "generic"
+        "dns",
+        "mx"
       ],
-      "reference": null,
-      "severity": "info"
+      "description": "An MX record was detected. MX records direct emails to a mail exchange server.",
+      "reference": [
+        "https://www.cloudflare.com/learning/dns/dns-records/dns-mx-record/",
+        "https://mxtoolbox.com/"
+      ],
+      "severity": "info",
+      "classification": {
+        "cve-id": null,
+        "cwe-id": [
+          "cwe-200"
+        ]
+      }
     },
-    "type": "http",
+    "type": "dns",
     "host": "https://ma-cantine.beta.gouv.fr",
     "matched-at": "https://ma-cantine.beta.gouv.fr",
     "extracted-results": [
-      "GET, HEAD, OPTIONS"
+      "20 mx2.alwaysdata.com.",
+      "10 mx1.alwaysdata.com."
     ],
-    "request": "OPTIONS / HTTP/1.1\r\nHost: ma-cantine.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nAllow: GET, HEAD, OPTIONS\r\nContent-Security-Policy: connect-src 'self' stats.data.gouv.fr ws: api-adresse.data.gouv.fr client.crisp.chat entreprise.data.gouv.fr plateforme.adresse.data.gouv.fr; default-src 'self'; img-src 'self' cellar-c2.services.clever-cloud.com voxusagers.numerique.gouv.fr 'unsafe-inline' stats.data.gouv.fr www.w3.org data: image.crisp.chat jedonnemonavis.numerique.gouv.fr; script-src 'self' stats.data.gouv.fr 'unsafe-inline' client.crisp.chat; font-src 'self' client.crisp.chat; media-src 'self' cellar-c2.services.clever-cloud.com; style-src 'self' 'unsafe-inline' client.crisp.chat; frame-src 'self' ma-cantine.crisp.help; object-src 'self' cellar-c2.services.clever-cloud.com\r\nContent-Type: text/html; charset=utf-8\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Sun, 29 May 2022 05:33:13 GMT\r\nReferrer-Policy: same-origin\r\nSozu-Id: 01G474VQ8Q6C8RDW2WWVA8P9JT\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nContent-Length: 0\r\n\r\n",
+    "request": ";; opcode: QUERY, status: NOERROR, id: 2531\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 4096\n\n;; QUESTION SECTION:\n;ma-cantine.beta.gouv.fr.\tIN\t MX\n",
+    "response": ";; opcode: QUERY, status: NOERROR, id: 2531\n;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 512\n\n;; QUESTION SECTION:\n;ma-cantine.beta.gouv.fr.\tIN\t MX\n\n;; ANSWER SECTION:\nma-cantine.beta.gouv.fr.\t300\tIN\tMX\t10 mx1.alwaysdata.com.\nma-cantine.beta.gouv.fr.\t300\tIN\tMX\t20 mx2.alwaysdata.com.\n",
+    "timestamp": "2022-05-30T21:48:31.445050149Z",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "cross-origin-resource-policy",
+    "type": "http",
+    "host": "https://ma-cantine.beta.gouv.fr",
+    "matched-at": "https://ma-cantine.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: ma-cantine.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nTransfer-Encoding: chunked\r\nContent-Security-Policy: font-src 'self' client.crisp.chat; script-src 'self' stats.data.gouv.fr 'unsafe-inline' client.crisp.chat; default-src 'self'; style-src 'self' 'unsafe-inline' client.crisp.chat; media-src 'self' cellar-c2.services.clever-cloud.com; frame-src 'self' ma-cantine.crisp.help; connect-src 'self' stats.data.gouv.fr ws: api-adresse.data.gouv.fr client.crisp.chat entreprise.data.gouv.fr plateforme.adresse.data.gouv.fr; object-src 'self' cellar-c2.services.clever-cloud.com; img-src 'self' cellar-c2.services.clever-cloud.com voxusagers.numerique.gouv.fr 'unsafe-inline' stats.data.gouv.fr www.w3.org data: image.crisp.chat jedonnemonavis.numerique.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Mon, 30 May 2022 21:48:34 GMT\r\nReferrer-Policy: same-origin\r\nSet-Cookie: csrftoken=5KNTHYIYsq5wK85HsMFVkc06NL35gshx2MkhnO3F2MxE4P8KhtyC60Vzl6G6aLVT; expires=Mon, 29 May 2023 21:48:34 GMT; Max-Age=31449600; Path=/; SameSite=Lax\r\nSozu-Id: 01G4BF2C4QE7TPGSC1CY4FBSNK\r\nVary: Cookie\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\n\r\n\n\n\n\n\n<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n    <meta charset=\"utf-8\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n    <meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\">\n\n    <!-- Open graph (Facebook, Whatsapp...) meta tags -->\n    <meta property=\"og:title\" content=\"ma cantine\" />\n    <meta property=\"og:type\" content=\"website\" />\n    <meta property=\"og:url\" content=\"https://ma-cantine.beta.gouv.fr/\" />\n    <meta property=\"og:description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\" />\n    <meta property=\"og:image\" content=\"https://ma-cantine.beta.gouv.fr/static/images/card-social-media.png\" />\n\n    <!-- Twitter meta tags -->\n    <meta name=\"twitter:title\" content=\"ma cantine\">\n    <meta name=\"twitter:description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\">\n    <meta name=\"twitter:image\" content=\"https://ma-cantine.beta.gouv.fr/static/images/card-social-media.png\">\n    <meta name=\"twitter:card\" content=\"summary_large_image\">\n\n    <link rel=\"icon\" type=\"image/png\" href=\"/static/images/favicon-macantine.png\">\n\n    <title>ma-cantine.beta.gouv.fr</title>\n    <meta name=\"description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\">\n    <link rel=\"stylesheet\" href=\"/static/css/materialdesignicons.min.css\">\n    <script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"bnm0ybthjIIREIoAHXreykkA0ttXufta8pToe1OYT4aZYprDwEkVk8f3yO6Yoy7w\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n        window.ENABLE_XP_RESERVATION = \"True\" === \"True\"\n        window.ENABLE_XP_VEGE = \"False\" === \"True\"\n        window.ENABLE_PARTNERS = \"False\" === \"True\"\n    </script>\n\n    <script type=\"text/javascript\">\n        window.$crisp=[];\n        window.CRISP_WEBSITE_ID=\"071cca61-bd5f-4950-a5ed-c02238666a5c\";\n        (function(){\n            d=document;\n            s=d.createElement(\"script\");\n            s.src=\"https://client.crisp.chat/l.js\";\n            s.async=1;d.getElementsByTagName(\"head\")[0].appendChild(s);\n        })();\n    </script>\n    <style>\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Regular.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Regular.woff) format('woff'),\n                 url(/static/fonts/Marianne-Regular.ttf) format('truetype');\n            font-weight: 400;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Medium.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Medium.woff) format('woff');\n            font-weight: 500;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Light.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Light.woff) format('woff'),\n                 url(/static/fonts/Marianne-Light.ttf) format('truetype');\n            font-weight: 100 300;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Bold.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Bold.woff) format('woff'),\n                 url(/static/fonts/Marianne-Bold.ttf) format('truetype');\n            font-weight: 600 700;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-ExtraBold.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-ExtraBold.woff) format('woff'),\n                 url(/static/fonts/Marianne-ExtraBold.ttf) format('truetype');\n            font-weight: 800 900;\n        }\n    </style>\n</head>\n\n<body>\n    <noscript>\n        <strong>We're sorry but frontend doesn't work properly without JavaScript enabled. Please enable it to\n            continue.</strong>\n    </noscript>\n    <div id=\"app\">\n    </div>\n    <link href=\"/static/css/app.a10e5869.css\" rel=\"stylesheet\" />\n<script src=\"/static/js/app.f77d05ff.js\" ></script>\n    <!-- built files will be auto injected -->\n</body>\n\n</html>\n",
     "ip": "185.42.117.109",
-    "timestamp": "2022-05-29T05:33:13.12078888Z",
-    "curl-command": "curl -X 'OPTIONS' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://ma-cantine.beta.gouv.fr'",
+    "timestamp": "2022-05-30T21:48:34.590255243Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://ma-cantine.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-allow-origin",
+    "type": "http",
+    "host": "https://ma-cantine.beta.gouv.fr",
+    "matched-at": "https://ma-cantine.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: ma-cantine.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nTransfer-Encoding: chunked\r\nContent-Security-Policy: font-src 'self' client.crisp.chat; script-src 'self' stats.data.gouv.fr 'unsafe-inline' client.crisp.chat; default-src 'self'; style-src 'self' 'unsafe-inline' client.crisp.chat; media-src 'self' cellar-c2.services.clever-cloud.com; frame-src 'self' ma-cantine.crisp.help; connect-src 'self' stats.data.gouv.fr ws: api-adresse.data.gouv.fr client.crisp.chat entreprise.data.gouv.fr plateforme.adresse.data.gouv.fr; object-src 'self' cellar-c2.services.clever-cloud.com; img-src 'self' cellar-c2.services.clever-cloud.com voxusagers.numerique.gouv.fr 'unsafe-inline' stats.data.gouv.fr www.w3.org data: image.crisp.chat jedonnemonavis.numerique.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Mon, 30 May 2022 21:48:34 GMT\r\nReferrer-Policy: same-origin\r\nSet-Cookie: csrftoken=5KNTHYIYsq5wK85HsMFVkc06NL35gshx2MkhnO3F2MxE4P8KhtyC60Vzl6G6aLVT; expires=Mon, 29 May 2023 21:48:34 GMT; Max-Age=31449600; Path=/; SameSite=Lax\r\nSozu-Id: 01G4BF2C4QE7TPGSC1CY4FBSNK\r\nVary: Cookie\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\n\r\n\n\n\n\n\n<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n    <meta charset=\"utf-8\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n    <meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\">\n\n    <!-- Open graph (Facebook, Whatsapp...) meta tags -->\n    <meta property=\"og:title\" content=\"ma cantine\" />\n    <meta property=\"og:type\" content=\"website\" />\n    <meta property=\"og:url\" content=\"https://ma-cantine.beta.gouv.fr/\" />\n    <meta property=\"og:description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\" />\n    <meta property=\"og:image\" content=\"https://ma-cantine.beta.gouv.fr/static/images/card-social-media.png\" />\n\n    <!-- Twitter meta tags -->\n    <meta name=\"twitter:title\" content=\"ma cantine\">\n    <meta name=\"twitter:description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\">\n    <meta name=\"twitter:image\" content=\"https://ma-cantine.beta.gouv.fr/static/images/card-social-media.png\">\n    <meta name=\"twitter:card\" content=\"summary_large_image\">\n\n    <link rel=\"icon\" type=\"image/png\" href=\"/static/images/favicon-macantine.png\">\n\n    <title>ma-cantine.beta.gouv.fr</title>\n    <meta name=\"description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\">\n    <link rel=\"stylesheet\" href=\"/static/css/materialdesignicons.min.css\">\n    <script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"bnm0ybthjIIREIoAHXreykkA0ttXufta8pToe1OYT4aZYprDwEkVk8f3yO6Yoy7w\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n        window.ENABLE_XP_RESERVATION = \"True\" === \"True\"\n        window.ENABLE_XP_VEGE = \"False\" === \"True\"\n        window.ENABLE_PARTNERS = \"False\" === \"True\"\n    </script>\n\n    <script type=\"text/javascript\">\n        window.$crisp=[];\n        window.CRISP_WEBSITE_ID=\"071cca61-bd5f-4950-a5ed-c02238666a5c\";\n        (function(){\n            d=document;\n            s=d.createElement(\"script\");\n            s.src=\"https://client.crisp.chat/l.js\";\n            s.async=1;d.getElementsByTagName(\"head\")[0].appendChild(s);\n        })();\n    </script>\n    <style>\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Regular.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Regular.woff) format('woff'),\n                 url(/static/fonts/Marianne-Regular.ttf) format('truetype');\n            font-weight: 400;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Medium.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Medium.woff) format('woff');\n            font-weight: 500;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Light.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Light.woff) format('woff'),\n                 url(/static/fonts/Marianne-Light.ttf) format('truetype');\n            font-weight: 100 300;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Bold.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Bold.woff) format('woff'),\n                 url(/static/fonts/Marianne-Bold.ttf) format('truetype');\n            font-weight: 600 700;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-ExtraBold.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-ExtraBold.woff) format('woff'),\n                 url(/static/fonts/Marianne-ExtraBold.ttf) format('truetype');\n            font-weight: 800 900;\n        }\n    </style>\n</head>\n\n<body>\n    <noscript>\n        <strong>We're sorry but frontend doesn't work properly without JavaScript enabled. Please enable it to\n            continue.</strong>\n    </noscript>\n    <div id=\"app\">\n    </div>\n    <link href=\"/static/css/app.a10e5869.css\" rel=\"stylesheet\" />\n<script src=\"/static/js/app.f77d05ff.js\" ></script>\n    <!-- built files will be auto injected -->\n</body>\n\n</html>\n",
+    "ip": "185.42.117.109",
+    "timestamp": "2022-05-30T21:48:34.590376745Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://ma-cantine.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-allow-methods",
+    "type": "http",
+    "host": "https://ma-cantine.beta.gouv.fr",
+    "matched-at": "https://ma-cantine.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: ma-cantine.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nTransfer-Encoding: chunked\r\nContent-Security-Policy: font-src 'self' client.crisp.chat; script-src 'self' stats.data.gouv.fr 'unsafe-inline' client.crisp.chat; default-src 'self'; style-src 'self' 'unsafe-inline' client.crisp.chat; media-src 'self' cellar-c2.services.clever-cloud.com; frame-src 'self' ma-cantine.crisp.help; connect-src 'self' stats.data.gouv.fr ws: api-adresse.data.gouv.fr client.crisp.chat entreprise.data.gouv.fr plateforme.adresse.data.gouv.fr; object-src 'self' cellar-c2.services.clever-cloud.com; img-src 'self' cellar-c2.services.clever-cloud.com voxusagers.numerique.gouv.fr 'unsafe-inline' stats.data.gouv.fr www.w3.org data: image.crisp.chat jedonnemonavis.numerique.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Mon, 30 May 2022 21:48:34 GMT\r\nReferrer-Policy: same-origin\r\nSet-Cookie: csrftoken=5KNTHYIYsq5wK85HsMFVkc06NL35gshx2MkhnO3F2MxE4P8KhtyC60Vzl6G6aLVT; expires=Mon, 29 May 2023 21:48:34 GMT; Max-Age=31449600; Path=/; SameSite=Lax\r\nSozu-Id: 01G4BF2C4QE7TPGSC1CY4FBSNK\r\nVary: Cookie\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\n\r\n\n\n\n\n\n<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n    <meta charset=\"utf-8\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n    <meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\">\n\n    <!-- Open graph (Facebook, Whatsapp...) meta tags -->\n    <meta property=\"og:title\" content=\"ma cantine\" />\n    <meta property=\"og:type\" content=\"website\" />\n    <meta property=\"og:url\" content=\"https://ma-cantine.beta.gouv.fr/\" />\n    <meta property=\"og:description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\" />\n    <meta property=\"og:image\" content=\"https://ma-cantine.beta.gouv.fr/static/images/card-social-media.png\" />\n\n    <!-- Twitter meta tags -->\n    <meta name=\"twitter:title\" content=\"ma cantine\">\n    <meta name=\"twitter:description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\">\n    <meta name=\"twitter:image\" content=\"https://ma-cantine.beta.gouv.fr/static/images/card-social-media.png\">\n    <meta name=\"twitter:card\" content=\"summary_large_image\">\n\n    <link rel=\"icon\" type=\"image/png\" href=\"/static/images/favicon-macantine.png\">\n\n    <title>ma-cantine.beta.gouv.fr</title>\n    <meta name=\"description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\">\n    <link rel=\"stylesheet\" href=\"/static/css/materialdesignicons.min.css\">\n    <script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"bnm0ybthjIIREIoAHXreykkA0ttXufta8pToe1OYT4aZYprDwEkVk8f3yO6Yoy7w\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n        window.ENABLE_XP_RESERVATION = \"True\" === \"True\"\n        window.ENABLE_XP_VEGE = \"False\" === \"True\"\n        window.ENABLE_PARTNERS = \"False\" === \"True\"\n    </script>\n\n    <script type=\"text/javascript\">\n        window.$crisp=[];\n        window.CRISP_WEBSITE_ID=\"071cca61-bd5f-4950-a5ed-c02238666a5c\";\n        (function(){\n            d=document;\n            s=d.createElement(\"script\");\n            s.src=\"https://client.crisp.chat/l.js\";\n            s.async=1;d.getElementsByTagName(\"head\")[0].appendChild(s);\n        })();\n    </script>\n    <style>\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Regular.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Regular.woff) format('woff'),\n                 url(/static/fonts/Marianne-Regular.ttf) format('truetype');\n            font-weight: 400;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Medium.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Medium.woff) format('woff');\n            font-weight: 500;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Light.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Light.woff) format('woff'),\n                 url(/static/fonts/Marianne-Light.ttf) format('truetype');\n            font-weight: 100 300;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Bold.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Bold.woff) format('woff'),\n                 url(/static/fonts/Marianne-Bold.ttf) format('truetype');\n            font-weight: 600 700;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-ExtraBold.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-ExtraBold.woff) format('woff'),\n                 url(/static/fonts/Marianne-ExtraBold.ttf) format('truetype');\n            font-weight: 800 900;\n        }\n    </style>\n</head>\n\n<body>\n    <noscript>\n        <strong>We're sorry but frontend doesn't work properly without JavaScript enabled. Please enable it to\n            continue.</strong>\n    </noscript>\n    <div id=\"app\">\n    </div>\n    <link href=\"/static/css/app.a10e5869.css\" rel=\"stylesheet\" />\n<script src=\"/static/js/app.f77d05ff.js\" ></script>\n    <!-- built files will be auto injected -->\n</body>\n\n</html>\n",
+    "ip": "185.42.117.109",
+    "timestamp": "2022-05-30T21:48:34.590417245Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://ma-cantine.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-allow-headers",
+    "type": "http",
+    "host": "https://ma-cantine.beta.gouv.fr",
+    "matched-at": "https://ma-cantine.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: ma-cantine.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nTransfer-Encoding: chunked\r\nContent-Security-Policy: font-src 'self' client.crisp.chat; script-src 'self' stats.data.gouv.fr 'unsafe-inline' client.crisp.chat; default-src 'self'; style-src 'self' 'unsafe-inline' client.crisp.chat; media-src 'self' cellar-c2.services.clever-cloud.com; frame-src 'self' ma-cantine.crisp.help; connect-src 'self' stats.data.gouv.fr ws: api-adresse.data.gouv.fr client.crisp.chat entreprise.data.gouv.fr plateforme.adresse.data.gouv.fr; object-src 'self' cellar-c2.services.clever-cloud.com; img-src 'self' cellar-c2.services.clever-cloud.com voxusagers.numerique.gouv.fr 'unsafe-inline' stats.data.gouv.fr www.w3.org data: image.crisp.chat jedonnemonavis.numerique.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Mon, 30 May 2022 21:48:34 GMT\r\nReferrer-Policy: same-origin\r\nSet-Cookie: csrftoken=5KNTHYIYsq5wK85HsMFVkc06NL35gshx2MkhnO3F2MxE4P8KhtyC60Vzl6G6aLVT; expires=Mon, 29 May 2023 21:48:34 GMT; Max-Age=31449600; Path=/; SameSite=Lax\r\nSozu-Id: 01G4BF2C4QE7TPGSC1CY4FBSNK\r\nVary: Cookie\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\n\r\n\n\n\n\n\n<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n    <meta charset=\"utf-8\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n    <meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\">\n\n    <!-- Open graph (Facebook, Whatsapp...) meta tags -->\n    <meta property=\"og:title\" content=\"ma cantine\" />\n    <meta property=\"og:type\" content=\"website\" />\n    <meta property=\"og:url\" content=\"https://ma-cantine.beta.gouv.fr/\" />\n    <meta property=\"og:description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\" />\n    <meta property=\"og:image\" content=\"https://ma-cantine.beta.gouv.fr/static/images/card-social-media.png\" />\n\n    <!-- Twitter meta tags -->\n    <meta name=\"twitter:title\" content=\"ma cantine\">\n    <meta name=\"twitter:description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\">\n    <meta name=\"twitter:image\" content=\"https://ma-cantine.beta.gouv.fr/static/images/card-social-media.png\">\n    <meta name=\"twitter:card\" content=\"summary_large_image\">\n\n    <link rel=\"icon\" type=\"image/png\" href=\"/static/images/favicon-macantine.png\">\n\n    <title>ma-cantine.beta.gouv.fr</title>\n    <meta name=\"description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\">\n    <link rel=\"stylesheet\" href=\"/static/css/materialdesignicons.min.css\">\n    <script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"bnm0ybthjIIREIoAHXreykkA0ttXufta8pToe1OYT4aZYprDwEkVk8f3yO6Yoy7w\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n        window.ENABLE_XP_RESERVATION = \"True\" === \"True\"\n        window.ENABLE_XP_VEGE = \"False\" === \"True\"\n        window.ENABLE_PARTNERS = \"False\" === \"True\"\n    </script>\n\n    <script type=\"text/javascript\">\n        window.$crisp=[];\n        window.CRISP_WEBSITE_ID=\"071cca61-bd5f-4950-a5ed-c02238666a5c\";\n        (function(){\n            d=document;\n            s=d.createElement(\"script\");\n            s.src=\"https://client.crisp.chat/l.js\";\n            s.async=1;d.getElementsByTagName(\"head\")[0].appendChild(s);\n        })();\n    </script>\n    <style>\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Regular.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Regular.woff) format('woff'),\n                 url(/static/fonts/Marianne-Regular.ttf) format('truetype');\n            font-weight: 400;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Medium.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Medium.woff) format('woff');\n            font-weight: 500;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Light.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Light.woff) format('woff'),\n                 url(/static/fonts/Marianne-Light.ttf) format('truetype');\n            font-weight: 100 300;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Bold.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Bold.woff) format('woff'),\n                 url(/static/fonts/Marianne-Bold.ttf) format('truetype');\n            font-weight: 600 700;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-ExtraBold.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-ExtraBold.woff) format('woff'),\n                 url(/static/fonts/Marianne-ExtraBold.ttf) format('truetype');\n            font-weight: 800 900;\n        }\n    </style>\n</head>\n\n<body>\n    <noscript>\n        <strong>We're sorry but frontend doesn't work properly without JavaScript enabled. Please enable it to\n            continue.</strong>\n    </noscript>\n    <div id=\"app\">\n    </div>\n    <link href=\"/static/css/app.a10e5869.css\" rel=\"stylesheet\" />\n<script src=\"/static/js/app.f77d05ff.js\" ></script>\n    <!-- built files will be auto injected -->\n</body>\n\n</html>\n",
+    "ip": "185.42.117.109",
+    "timestamp": "2022-05-30T21:48:34.599837958Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://ma-cantine.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "strict-transport-security",
+    "type": "http",
+    "host": "https://ma-cantine.beta.gouv.fr",
+    "matched-at": "https://ma-cantine.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: ma-cantine.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nTransfer-Encoding: chunked\r\nContent-Security-Policy: font-src 'self' client.crisp.chat; script-src 'self' stats.data.gouv.fr 'unsafe-inline' client.crisp.chat; default-src 'self'; style-src 'self' 'unsafe-inline' client.crisp.chat; media-src 'self' cellar-c2.services.clever-cloud.com; frame-src 'self' ma-cantine.crisp.help; connect-src 'self' stats.data.gouv.fr ws: api-adresse.data.gouv.fr client.crisp.chat entreprise.data.gouv.fr plateforme.adresse.data.gouv.fr; object-src 'self' cellar-c2.services.clever-cloud.com; img-src 'self' cellar-c2.services.clever-cloud.com voxusagers.numerique.gouv.fr 'unsafe-inline' stats.data.gouv.fr www.w3.org data: image.crisp.chat jedonnemonavis.numerique.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Mon, 30 May 2022 21:48:34 GMT\r\nReferrer-Policy: same-origin\r\nSet-Cookie: csrftoken=5KNTHYIYsq5wK85HsMFVkc06NL35gshx2MkhnO3F2MxE4P8KhtyC60Vzl6G6aLVT; expires=Mon, 29 May 2023 21:48:34 GMT; Max-Age=31449600; Path=/; SameSite=Lax\r\nSozu-Id: 01G4BF2C4QE7TPGSC1CY4FBSNK\r\nVary: Cookie\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\n\r\n\n\n\n\n\n<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n    <meta charset=\"utf-8\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n    <meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\">\n\n    <!-- Open graph (Facebook, Whatsapp...) meta tags -->\n    <meta property=\"og:title\" content=\"ma cantine\" />\n    <meta property=\"og:type\" content=\"website\" />\n    <meta property=\"og:url\" content=\"https://ma-cantine.beta.gouv.fr/\" />\n    <meta property=\"og:description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\" />\n    <meta property=\"og:image\" content=\"https://ma-cantine.beta.gouv.fr/static/images/card-social-media.png\" />\n\n    <!-- Twitter meta tags -->\n    <meta name=\"twitter:title\" content=\"ma cantine\">\n    <meta name=\"twitter:description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\">\n    <meta name=\"twitter:image\" content=\"https://ma-cantine.beta.gouv.fr/static/images/card-social-media.png\">\n    <meta name=\"twitter:card\" content=\"summary_large_image\">\n\n    <link rel=\"icon\" type=\"image/png\" href=\"/static/images/favicon-macantine.png\">\n\n    <title>ma-cantine.beta.gouv.fr</title>\n    <meta name=\"description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\">\n    <link rel=\"stylesheet\" href=\"/static/css/materialdesignicons.min.css\">\n    <script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"bnm0ybthjIIREIoAHXreykkA0ttXufta8pToe1OYT4aZYprDwEkVk8f3yO6Yoy7w\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n        window.ENABLE_XP_RESERVATION = \"True\" === \"True\"\n        window.ENABLE_XP_VEGE = \"False\" === \"True\"\n        window.ENABLE_PARTNERS = \"False\" === \"True\"\n    </script>\n\n    <script type=\"text/javascript\">\n        window.$crisp=[];\n        window.CRISP_WEBSITE_ID=\"071cca61-bd5f-4950-a5ed-c02238666a5c\";\n        (function(){\n            d=document;\n            s=d.createElement(\"script\");\n            s.src=\"https://client.crisp.chat/l.js\";\n            s.async=1;d.getElementsByTagName(\"head\")[0].appendChild(s);\n        })();\n    </script>\n    <style>\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Regular.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Regular.woff) format('woff'),\n                 url(/static/fonts/Marianne-Regular.ttf) format('truetype');\n            font-weight: 400;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Medium.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Medium.woff) format('woff');\n            font-weight: 500;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Light.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Light.woff) format('woff'),\n                 url(/static/fonts/Marianne-Light.ttf) format('truetype');\n            font-weight: 100 300;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Bold.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Bold.woff) format('woff'),\n                 url(/static/fonts/Marianne-Bold.ttf) format('truetype');\n            font-weight: 600 700;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-ExtraBold.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-ExtraBold.woff) format('woff'),\n                 url(/static/fonts/Marianne-ExtraBold.ttf) format('truetype');\n            font-weight: 800 900;\n        }\n    </style>\n</head>\n\n<body>\n    <noscript>\n        <strong>We're sorry but frontend doesn't work properly without JavaScript enabled. Please enable it to\n            continue.</strong>\n    </noscript>\n    <div id=\"app\">\n    </div>\n    <link href=\"/static/css/app.a10e5869.css\" rel=\"stylesheet\" />\n<script src=\"/static/js/app.f77d05ff.js\" ></script>\n    <!-- built files will be auto injected -->\n</body>\n\n</html>\n",
+    "ip": "185.42.117.109",
+    "timestamp": "2022-05-30T21:48:34.599910558Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://ma-cantine.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "permission-policy",
+    "type": "http",
+    "host": "https://ma-cantine.beta.gouv.fr",
+    "matched-at": "https://ma-cantine.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: ma-cantine.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nTransfer-Encoding: chunked\r\nContent-Security-Policy: font-src 'self' client.crisp.chat; script-src 'self' stats.data.gouv.fr 'unsafe-inline' client.crisp.chat; default-src 'self'; style-src 'self' 'unsafe-inline' client.crisp.chat; media-src 'self' cellar-c2.services.clever-cloud.com; frame-src 'self' ma-cantine.crisp.help; connect-src 'self' stats.data.gouv.fr ws: api-adresse.data.gouv.fr client.crisp.chat entreprise.data.gouv.fr plateforme.adresse.data.gouv.fr; object-src 'self' cellar-c2.services.clever-cloud.com; img-src 'self' cellar-c2.services.clever-cloud.com voxusagers.numerique.gouv.fr 'unsafe-inline' stats.data.gouv.fr www.w3.org data: image.crisp.chat jedonnemonavis.numerique.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Mon, 30 May 2022 21:48:34 GMT\r\nReferrer-Policy: same-origin\r\nSet-Cookie: csrftoken=5KNTHYIYsq5wK85HsMFVkc06NL35gshx2MkhnO3F2MxE4P8KhtyC60Vzl6G6aLVT; expires=Mon, 29 May 2023 21:48:34 GMT; Max-Age=31449600; Path=/; SameSite=Lax\r\nSozu-Id: 01G4BF2C4QE7TPGSC1CY4FBSNK\r\nVary: Cookie\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\n\r\n\n\n\n\n\n<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n    <meta charset=\"utf-8\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n    <meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\">\n\n    <!-- Open graph (Facebook, Whatsapp...) meta tags -->\n    <meta property=\"og:title\" content=\"ma cantine\" />\n    <meta property=\"og:type\" content=\"website\" />\n    <meta property=\"og:url\" content=\"https://ma-cantine.beta.gouv.fr/\" />\n    <meta property=\"og:description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\" />\n    <meta property=\"og:image\" content=\"https://ma-cantine.beta.gouv.fr/static/images/card-social-media.png\" />\n\n    <!-- Twitter meta tags -->\n    <meta name=\"twitter:title\" content=\"ma cantine\">\n    <meta name=\"twitter:description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\">\n    <meta name=\"twitter:image\" content=\"https://ma-cantine.beta.gouv.fr/static/images/card-social-media.png\">\n    <meta name=\"twitter:card\" content=\"summary_large_image\">\n\n    <link rel=\"icon\" type=\"image/png\" href=\"/static/images/favicon-macantine.png\">\n\n    <title>ma-cantine.beta.gouv.fr</title>\n    <meta name=\"description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\">\n    <link rel=\"stylesheet\" href=\"/static/css/materialdesignicons.min.css\">\n    <script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"bnm0ybthjIIREIoAHXreykkA0ttXufta8pToe1OYT4aZYprDwEkVk8f3yO6Yoy7w\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n        window.ENABLE_XP_RESERVATION = \"True\" === \"True\"\n        window.ENABLE_XP_VEGE = \"False\" === \"True\"\n        window.ENABLE_PARTNERS = \"False\" === \"True\"\n    </script>\n\n    <script type=\"text/javascript\">\n        window.$crisp=[];\n        window.CRISP_WEBSITE_ID=\"071cca61-bd5f-4950-a5ed-c02238666a5c\";\n        (function(){\n            d=document;\n            s=d.createElement(\"script\");\n            s.src=\"https://client.crisp.chat/l.js\";\n            s.async=1;d.getElementsByTagName(\"head\")[0].appendChild(s);\n        })();\n    </script>\n    <style>\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Regular.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Regular.woff) format('woff'),\n                 url(/static/fonts/Marianne-Regular.ttf) format('truetype');\n            font-weight: 400;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Medium.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Medium.woff) format('woff');\n            font-weight: 500;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Light.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Light.woff) format('woff'),\n                 url(/static/fonts/Marianne-Light.ttf) format('truetype');\n            font-weight: 100 300;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Bold.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Bold.woff) format('woff'),\n                 url(/static/fonts/Marianne-Bold.ttf) format('truetype');\n            font-weight: 600 700;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-ExtraBold.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-ExtraBold.woff) format('woff'),\n                 url(/static/fonts/Marianne-ExtraBold.ttf) format('truetype');\n            font-weight: 800 900;\n        }\n    </style>\n</head>\n\n<body>\n    <noscript>\n        <strong>We're sorry but frontend doesn't work properly without JavaScript enabled. Please enable it to\n            continue.</strong>\n    </noscript>\n    <div id=\"app\">\n    </div>\n    <link href=\"/static/css/app.a10e5869.css\" rel=\"stylesheet\" />\n<script src=\"/static/js/app.f77d05ff.js\" ></script>\n    <!-- built files will be auto injected -->\n</body>\n\n</html>\n",
+    "ip": "185.42.117.109",
+    "timestamp": "2022-05-30T21:48:34.599947759Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://ma-cantine.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "cross-origin-embedder-policy",
+    "type": "http",
+    "host": "https://ma-cantine.beta.gouv.fr",
+    "matched-at": "https://ma-cantine.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: ma-cantine.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nTransfer-Encoding: chunked\r\nContent-Security-Policy: font-src 'self' client.crisp.chat; script-src 'self' stats.data.gouv.fr 'unsafe-inline' client.crisp.chat; default-src 'self'; style-src 'self' 'unsafe-inline' client.crisp.chat; media-src 'self' cellar-c2.services.clever-cloud.com; frame-src 'self' ma-cantine.crisp.help; connect-src 'self' stats.data.gouv.fr ws: api-adresse.data.gouv.fr client.crisp.chat entreprise.data.gouv.fr plateforme.adresse.data.gouv.fr; object-src 'self' cellar-c2.services.clever-cloud.com; img-src 'self' cellar-c2.services.clever-cloud.com voxusagers.numerique.gouv.fr 'unsafe-inline' stats.data.gouv.fr www.w3.org data: image.crisp.chat jedonnemonavis.numerique.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Mon, 30 May 2022 21:48:34 GMT\r\nReferrer-Policy: same-origin\r\nSet-Cookie: csrftoken=5KNTHYIYsq5wK85HsMFVkc06NL35gshx2MkhnO3F2MxE4P8KhtyC60Vzl6G6aLVT; expires=Mon, 29 May 2023 21:48:34 GMT; Max-Age=31449600; Path=/; SameSite=Lax\r\nSozu-Id: 01G4BF2C4QE7TPGSC1CY4FBSNK\r\nVary: Cookie\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\n\r\n\n\n\n\n\n<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n    <meta charset=\"utf-8\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n    <meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\">\n\n    <!-- Open graph (Facebook, Whatsapp...) meta tags -->\n    <meta property=\"og:title\" content=\"ma cantine\" />\n    <meta property=\"og:type\" content=\"website\" />\n    <meta property=\"og:url\" content=\"https://ma-cantine.beta.gouv.fr/\" />\n    <meta property=\"og:description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\" />\n    <meta property=\"og:image\" content=\"https://ma-cantine.beta.gouv.fr/static/images/card-social-media.png\" />\n\n    <!-- Twitter meta tags -->\n    <meta name=\"twitter:title\" content=\"ma cantine\">\n    <meta name=\"twitter:description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\">\n    <meta name=\"twitter:image\" content=\"https://ma-cantine.beta.gouv.fr/static/images/card-social-media.png\">\n    <meta name=\"twitter:card\" content=\"summary_large_image\">\n\n    <link rel=\"icon\" type=\"image/png\" href=\"/static/images/favicon-macantine.png\">\n\n    <title>ma-cantine.beta.gouv.fr</title>\n    <meta name=\"description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\">\n    <link rel=\"stylesheet\" href=\"/static/css/materialdesignicons.min.css\">\n    <script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"bnm0ybthjIIREIoAHXreykkA0ttXufta8pToe1OYT4aZYprDwEkVk8f3yO6Yoy7w\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n        window.ENABLE_XP_RESERVATION = \"True\" === \"True\"\n        window.ENABLE_XP_VEGE = \"False\" === \"True\"\n        window.ENABLE_PARTNERS = \"False\" === \"True\"\n    </script>\n\n    <script type=\"text/javascript\">\n        window.$crisp=[];\n        window.CRISP_WEBSITE_ID=\"071cca61-bd5f-4950-a5ed-c02238666a5c\";\n        (function(){\n            d=document;\n            s=d.createElement(\"script\");\n            s.src=\"https://client.crisp.chat/l.js\";\n            s.async=1;d.getElementsByTagName(\"head\")[0].appendChild(s);\n        })();\n    </script>\n    <style>\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Regular.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Regular.woff) format('woff'),\n                 url(/static/fonts/Marianne-Regular.ttf) format('truetype');\n            font-weight: 400;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Medium.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Medium.woff) format('woff');\n            font-weight: 500;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Light.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Light.woff) format('woff'),\n                 url(/static/fonts/Marianne-Light.ttf) format('truetype');\n            font-weight: 100 300;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Bold.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Bold.woff) format('woff'),\n                 url(/static/fonts/Marianne-Bold.ttf) format('truetype');\n            font-weight: 600 700;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-ExtraBold.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-ExtraBold.woff) format('woff'),\n                 url(/static/fonts/Marianne-ExtraBold.ttf) format('truetype');\n            font-weight: 800 900;\n        }\n    </style>\n</head>\n\n<body>\n    <noscript>\n        <strong>We're sorry but frontend doesn't work properly without JavaScript enabled. Please enable it to\n            continue.</strong>\n    </noscript>\n    <div id=\"app\">\n    </div>\n    <link href=\"/static/css/app.a10e5869.css\" rel=\"stylesheet\" />\n<script src=\"/static/js/app.f77d05ff.js\" ></script>\n    <!-- built files will be auto injected -->\n</body>\n\n</html>\n",
+    "ip": "185.42.117.109",
+    "timestamp": "2022-05-30T21:48:34.599986459Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://ma-cantine.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-expose-headers",
+    "type": "http",
+    "host": "https://ma-cantine.beta.gouv.fr",
+    "matched-at": "https://ma-cantine.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: ma-cantine.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nTransfer-Encoding: chunked\r\nContent-Security-Policy: font-src 'self' client.crisp.chat; script-src 'self' stats.data.gouv.fr 'unsafe-inline' client.crisp.chat; default-src 'self'; style-src 'self' 'unsafe-inline' client.crisp.chat; media-src 'self' cellar-c2.services.clever-cloud.com; frame-src 'self' ma-cantine.crisp.help; connect-src 'self' stats.data.gouv.fr ws: api-adresse.data.gouv.fr client.crisp.chat entreprise.data.gouv.fr plateforme.adresse.data.gouv.fr; object-src 'self' cellar-c2.services.clever-cloud.com; img-src 'self' cellar-c2.services.clever-cloud.com voxusagers.numerique.gouv.fr 'unsafe-inline' stats.data.gouv.fr www.w3.org data: image.crisp.chat jedonnemonavis.numerique.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Mon, 30 May 2022 21:48:34 GMT\r\nReferrer-Policy: same-origin\r\nSet-Cookie: csrftoken=5KNTHYIYsq5wK85HsMFVkc06NL35gshx2MkhnO3F2MxE4P8KhtyC60Vzl6G6aLVT; expires=Mon, 29 May 2023 21:48:34 GMT; Max-Age=31449600; Path=/; SameSite=Lax\r\nSozu-Id: 01G4BF2C4QE7TPGSC1CY4FBSNK\r\nVary: Cookie\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\n\r\n\n\n\n\n\n<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n    <meta charset=\"utf-8\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n    <meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\">\n\n    <!-- Open graph (Facebook, Whatsapp...) meta tags -->\n    <meta property=\"og:title\" content=\"ma cantine\" />\n    <meta property=\"og:type\" content=\"website\" />\n    <meta property=\"og:url\" content=\"https://ma-cantine.beta.gouv.fr/\" />\n    <meta property=\"og:description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\" />\n    <meta property=\"og:image\" content=\"https://ma-cantine.beta.gouv.fr/static/images/card-social-media.png\" />\n\n    <!-- Twitter meta tags -->\n    <meta name=\"twitter:title\" content=\"ma cantine\">\n    <meta name=\"twitter:description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\">\n    <meta name=\"twitter:image\" content=\"https://ma-cantine.beta.gouv.fr/static/images/card-social-media.png\">\n    <meta name=\"twitter:card\" content=\"summary_large_image\">\n\n    <link rel=\"icon\" type=\"image/png\" href=\"/static/images/favicon-macantine.png\">\n\n    <title>ma-cantine.beta.gouv.fr</title>\n    <meta name=\"description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\">\n    <link rel=\"stylesheet\" href=\"/static/css/materialdesignicons.min.css\">\n    <script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"bnm0ybthjIIREIoAHXreykkA0ttXufta8pToe1OYT4aZYprDwEkVk8f3yO6Yoy7w\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n        window.ENABLE_XP_RESERVATION = \"True\" === \"True\"\n        window.ENABLE_XP_VEGE = \"False\" === \"True\"\n        window.ENABLE_PARTNERS = \"False\" === \"True\"\n    </script>\n\n    <script type=\"text/javascript\">\n        window.$crisp=[];\n        window.CRISP_WEBSITE_ID=\"071cca61-bd5f-4950-a5ed-c02238666a5c\";\n        (function(){\n            d=document;\n            s=d.createElement(\"script\");\n            s.src=\"https://client.crisp.chat/l.js\";\n            s.async=1;d.getElementsByTagName(\"head\")[0].appendChild(s);\n        })();\n    </script>\n    <style>\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Regular.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Regular.woff) format('woff'),\n                 url(/static/fonts/Marianne-Regular.ttf) format('truetype');\n            font-weight: 400;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Medium.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Medium.woff) format('woff');\n            font-weight: 500;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Light.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Light.woff) format('woff'),\n                 url(/static/fonts/Marianne-Light.ttf) format('truetype');\n            font-weight: 100 300;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Bold.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Bold.woff) format('woff'),\n                 url(/static/fonts/Marianne-Bold.ttf) format('truetype');\n            font-weight: 600 700;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-ExtraBold.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-ExtraBold.woff) format('woff'),\n                 url(/static/fonts/Marianne-ExtraBold.ttf) format('truetype');\n            font-weight: 800 900;\n        }\n    </style>\n</head>\n\n<body>\n    <noscript>\n        <strong>We're sorry but frontend doesn't work properly without JavaScript enabled. Please enable it to\n            continue.</strong>\n    </noscript>\n    <div id=\"app\">\n    </div>\n    <link href=\"/static/css/app.a10e5869.css\" rel=\"stylesheet\" />\n<script src=\"/static/js/app.f77d05ff.js\" ></script>\n    <!-- built files will be auto injected -->\n</body>\n\n</html>\n",
+    "ip": "185.42.117.109",
+    "timestamp": "2022-05-30T21:48:34.60001956Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://ma-cantine.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-max-age",
+    "type": "http",
+    "host": "https://ma-cantine.beta.gouv.fr",
+    "matched-at": "https://ma-cantine.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: ma-cantine.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nTransfer-Encoding: chunked\r\nContent-Security-Policy: font-src 'self' client.crisp.chat; script-src 'self' stats.data.gouv.fr 'unsafe-inline' client.crisp.chat; default-src 'self'; style-src 'self' 'unsafe-inline' client.crisp.chat; media-src 'self' cellar-c2.services.clever-cloud.com; frame-src 'self' ma-cantine.crisp.help; connect-src 'self' stats.data.gouv.fr ws: api-adresse.data.gouv.fr client.crisp.chat entreprise.data.gouv.fr plateforme.adresse.data.gouv.fr; object-src 'self' cellar-c2.services.clever-cloud.com; img-src 'self' cellar-c2.services.clever-cloud.com voxusagers.numerique.gouv.fr 'unsafe-inline' stats.data.gouv.fr www.w3.org data: image.crisp.chat jedonnemonavis.numerique.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Mon, 30 May 2022 21:48:34 GMT\r\nReferrer-Policy: same-origin\r\nSet-Cookie: csrftoken=5KNTHYIYsq5wK85HsMFVkc06NL35gshx2MkhnO3F2MxE4P8KhtyC60Vzl6G6aLVT; expires=Mon, 29 May 2023 21:48:34 GMT; Max-Age=31449600; Path=/; SameSite=Lax\r\nSozu-Id: 01G4BF2C4QE7TPGSC1CY4FBSNK\r\nVary: Cookie\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\n\r\n\n\n\n\n\n<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n    <meta charset=\"utf-8\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n    <meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\">\n\n    <!-- Open graph (Facebook, Whatsapp...) meta tags -->\n    <meta property=\"og:title\" content=\"ma cantine\" />\n    <meta property=\"og:type\" content=\"website\" />\n    <meta property=\"og:url\" content=\"https://ma-cantine.beta.gouv.fr/\" />\n    <meta property=\"og:description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\" />\n    <meta property=\"og:image\" content=\"https://ma-cantine.beta.gouv.fr/static/images/card-social-media.png\" />\n\n    <!-- Twitter meta tags -->\n    <meta name=\"twitter:title\" content=\"ma cantine\">\n    <meta name=\"twitter:description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\">\n    <meta name=\"twitter:image\" content=\"https://ma-cantine.beta.gouv.fr/static/images/card-social-media.png\">\n    <meta name=\"twitter:card\" content=\"summary_large_image\">\n\n    <link rel=\"icon\" type=\"image/png\" href=\"/static/images/favicon-macantine.png\">\n\n    <title>ma-cantine.beta.gouv.fr</title>\n    <meta name=\"description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\">\n    <link rel=\"stylesheet\" href=\"/static/css/materialdesignicons.min.css\">\n    <script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"bnm0ybthjIIREIoAHXreykkA0ttXufta8pToe1OYT4aZYprDwEkVk8f3yO6Yoy7w\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n        window.ENABLE_XP_RESERVATION = \"True\" === \"True\"\n        window.ENABLE_XP_VEGE = \"False\" === \"True\"\n        window.ENABLE_PARTNERS = \"False\" === \"True\"\n    </script>\n\n    <script type=\"text/javascript\">\n        window.$crisp=[];\n        window.CRISP_WEBSITE_ID=\"071cca61-bd5f-4950-a5ed-c02238666a5c\";\n        (function(){\n            d=document;\n            s=d.createElement(\"script\");\n            s.src=\"https://client.crisp.chat/l.js\";\n            s.async=1;d.getElementsByTagName(\"head\")[0].appendChild(s);\n        })();\n    </script>\n    <style>\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Regular.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Regular.woff) format('woff'),\n                 url(/static/fonts/Marianne-Regular.ttf) format('truetype');\n            font-weight: 400;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Medium.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Medium.woff) format('woff');\n            font-weight: 500;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Light.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Light.woff) format('woff'),\n                 url(/static/fonts/Marianne-Light.ttf) format('truetype');\n            font-weight: 100 300;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Bold.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Bold.woff) format('woff'),\n                 url(/static/fonts/Marianne-Bold.ttf) format('truetype');\n            font-weight: 600 700;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-ExtraBold.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-ExtraBold.woff) format('woff'),\n                 url(/static/fonts/Marianne-ExtraBold.ttf) format('truetype');\n            font-weight: 800 900;\n        }\n    </style>\n</head>\n\n<body>\n    <noscript>\n        <strong>We're sorry but frontend doesn't work properly without JavaScript enabled. Please enable it to\n            continue.</strong>\n    </noscript>\n    <div id=\"app\">\n    </div>\n    <link href=\"/static/css/app.a10e5869.css\" rel=\"stylesheet\" />\n<script src=\"/static/js/app.f77d05ff.js\" ></script>\n    <!-- built files will be auto injected -->\n</body>\n\n</html>\n",
+    "ip": "185.42.117.109",
+    "timestamp": "2022-05-30T21:48:34.60005596Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://ma-cantine.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "x-permitted-cross-domain-policies",
+    "type": "http",
+    "host": "https://ma-cantine.beta.gouv.fr",
+    "matched-at": "https://ma-cantine.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: ma-cantine.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nTransfer-Encoding: chunked\r\nContent-Security-Policy: font-src 'self' client.crisp.chat; script-src 'self' stats.data.gouv.fr 'unsafe-inline' client.crisp.chat; default-src 'self'; style-src 'self' 'unsafe-inline' client.crisp.chat; media-src 'self' cellar-c2.services.clever-cloud.com; frame-src 'self' ma-cantine.crisp.help; connect-src 'self' stats.data.gouv.fr ws: api-adresse.data.gouv.fr client.crisp.chat entreprise.data.gouv.fr plateforme.adresse.data.gouv.fr; object-src 'self' cellar-c2.services.clever-cloud.com; img-src 'self' cellar-c2.services.clever-cloud.com voxusagers.numerique.gouv.fr 'unsafe-inline' stats.data.gouv.fr www.w3.org data: image.crisp.chat jedonnemonavis.numerique.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Mon, 30 May 2022 21:48:34 GMT\r\nReferrer-Policy: same-origin\r\nSet-Cookie: csrftoken=5KNTHYIYsq5wK85HsMFVkc06NL35gshx2MkhnO3F2MxE4P8KhtyC60Vzl6G6aLVT; expires=Mon, 29 May 2023 21:48:34 GMT; Max-Age=31449600; Path=/; SameSite=Lax\r\nSozu-Id: 01G4BF2C4QE7TPGSC1CY4FBSNK\r\nVary: Cookie\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\n\r\n\n\n\n\n\n<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n    <meta charset=\"utf-8\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n    <meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\">\n\n    <!-- Open graph (Facebook, Whatsapp...) meta tags -->\n    <meta property=\"og:title\" content=\"ma cantine\" />\n    <meta property=\"og:type\" content=\"website\" />\n    <meta property=\"og:url\" content=\"https://ma-cantine.beta.gouv.fr/\" />\n    <meta property=\"og:description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\" />\n    <meta property=\"og:image\" content=\"https://ma-cantine.beta.gouv.fr/static/images/card-social-media.png\" />\n\n    <!-- Twitter meta tags -->\n    <meta name=\"twitter:title\" content=\"ma cantine\">\n    <meta name=\"twitter:description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\">\n    <meta name=\"twitter:image\" content=\"https://ma-cantine.beta.gouv.fr/static/images/card-social-media.png\">\n    <meta name=\"twitter:card\" content=\"summary_large_image\">\n\n    <link rel=\"icon\" type=\"image/png\" href=\"/static/images/favicon-macantine.png\">\n\n    <title>ma-cantine.beta.gouv.fr</title>\n    <meta name=\"description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\">\n    <link rel=\"stylesheet\" href=\"/static/css/materialdesignicons.min.css\">\n    <script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"bnm0ybthjIIREIoAHXreykkA0ttXufta8pToe1OYT4aZYprDwEkVk8f3yO6Yoy7w\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n        window.ENABLE_XP_RESERVATION = \"True\" === \"True\"\n        window.ENABLE_XP_VEGE = \"False\" === \"True\"\n        window.ENABLE_PARTNERS = \"False\" === \"True\"\n    </script>\n\n    <script type=\"text/javascript\">\n        window.$crisp=[];\n        window.CRISP_WEBSITE_ID=\"071cca61-bd5f-4950-a5ed-c02238666a5c\";\n        (function(){\n            d=document;\n            s=d.createElement(\"script\");\n            s.src=\"https://client.crisp.chat/l.js\";\n            s.async=1;d.getElementsByTagName(\"head\")[0].appendChild(s);\n        })();\n    </script>\n    <style>\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Regular.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Regular.woff) format('woff'),\n                 url(/static/fonts/Marianne-Regular.ttf) format('truetype');\n            font-weight: 400;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Medium.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Medium.woff) format('woff');\n            font-weight: 500;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Light.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Light.woff) format('woff'),\n                 url(/static/fonts/Marianne-Light.ttf) format('truetype');\n            font-weight: 100 300;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Bold.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Bold.woff) format('woff'),\n                 url(/static/fonts/Marianne-Bold.ttf) format('truetype');\n            font-weight: 600 700;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-ExtraBold.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-ExtraBold.woff) format('woff'),\n                 url(/static/fonts/Marianne-ExtraBold.ttf) format('truetype');\n            font-weight: 800 900;\n        }\n    </style>\n</head>\n\n<body>\n    <noscript>\n        <strong>We're sorry but frontend doesn't work properly without JavaScript enabled. Please enable it to\n            continue.</strong>\n    </noscript>\n    <div id=\"app\">\n    </div>\n    <link href=\"/static/css/app.a10e5869.css\" rel=\"stylesheet\" />\n<script src=\"/static/js/app.f77d05ff.js\" ></script>\n    <!-- built files will be auto injected -->\n</body>\n\n</html>\n",
+    "ip": "185.42.117.109",
+    "timestamp": "2022-05-30T21:48:34.600090661Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://ma-cantine.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "clear-site-data",
+    "type": "http",
+    "host": "https://ma-cantine.beta.gouv.fr",
+    "matched-at": "https://ma-cantine.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: ma-cantine.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nTransfer-Encoding: chunked\r\nContent-Security-Policy: font-src 'self' client.crisp.chat; script-src 'self' stats.data.gouv.fr 'unsafe-inline' client.crisp.chat; default-src 'self'; style-src 'self' 'unsafe-inline' client.crisp.chat; media-src 'self' cellar-c2.services.clever-cloud.com; frame-src 'self' ma-cantine.crisp.help; connect-src 'self' stats.data.gouv.fr ws: api-adresse.data.gouv.fr client.crisp.chat entreprise.data.gouv.fr plateforme.adresse.data.gouv.fr; object-src 'self' cellar-c2.services.clever-cloud.com; img-src 'self' cellar-c2.services.clever-cloud.com voxusagers.numerique.gouv.fr 'unsafe-inline' stats.data.gouv.fr www.w3.org data: image.crisp.chat jedonnemonavis.numerique.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Mon, 30 May 2022 21:48:34 GMT\r\nReferrer-Policy: same-origin\r\nSet-Cookie: csrftoken=5KNTHYIYsq5wK85HsMFVkc06NL35gshx2MkhnO3F2MxE4P8KhtyC60Vzl6G6aLVT; expires=Mon, 29 May 2023 21:48:34 GMT; Max-Age=31449600; Path=/; SameSite=Lax\r\nSozu-Id: 01G4BF2C4QE7TPGSC1CY4FBSNK\r\nVary: Cookie\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\n\r\n\n\n\n\n\n<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n    <meta charset=\"utf-8\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n    <meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\">\n\n    <!-- Open graph (Facebook, Whatsapp...) meta tags -->\n    <meta property=\"og:title\" content=\"ma cantine\" />\n    <meta property=\"og:type\" content=\"website\" />\n    <meta property=\"og:url\" content=\"https://ma-cantine.beta.gouv.fr/\" />\n    <meta property=\"og:description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\" />\n    <meta property=\"og:image\" content=\"https://ma-cantine.beta.gouv.fr/static/images/card-social-media.png\" />\n\n    <!-- Twitter meta tags -->\n    <meta name=\"twitter:title\" content=\"ma cantine\">\n    <meta name=\"twitter:description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\">\n    <meta name=\"twitter:image\" content=\"https://ma-cantine.beta.gouv.fr/static/images/card-social-media.png\">\n    <meta name=\"twitter:card\" content=\"summary_large_image\">\n\n    <link rel=\"icon\" type=\"image/png\" href=\"/static/images/favicon-macantine.png\">\n\n    <title>ma-cantine.beta.gouv.fr</title>\n    <meta name=\"description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\">\n    <link rel=\"stylesheet\" href=\"/static/css/materialdesignicons.min.css\">\n    <script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"bnm0ybthjIIREIoAHXreykkA0ttXufta8pToe1OYT4aZYprDwEkVk8f3yO6Yoy7w\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n        window.ENABLE_XP_RESERVATION = \"True\" === \"True\"\n        window.ENABLE_XP_VEGE = \"False\" === \"True\"\n        window.ENABLE_PARTNERS = \"False\" === \"True\"\n    </script>\n\n    <script type=\"text/javascript\">\n        window.$crisp=[];\n        window.CRISP_WEBSITE_ID=\"071cca61-bd5f-4950-a5ed-c02238666a5c\";\n        (function(){\n            d=document;\n            s=d.createElement(\"script\");\n            s.src=\"https://client.crisp.chat/l.js\";\n            s.async=1;d.getElementsByTagName(\"head\")[0].appendChild(s);\n        })();\n    </script>\n    <style>\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Regular.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Regular.woff) format('woff'),\n                 url(/static/fonts/Marianne-Regular.ttf) format('truetype');\n            font-weight: 400;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Medium.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Medium.woff) format('woff');\n            font-weight: 500;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Light.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Light.woff) format('woff'),\n                 url(/static/fonts/Marianne-Light.ttf) format('truetype');\n            font-weight: 100 300;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Bold.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Bold.woff) format('woff'),\n                 url(/static/fonts/Marianne-Bold.ttf) format('truetype');\n            font-weight: 600 700;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-ExtraBold.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-ExtraBold.woff) format('woff'),\n                 url(/static/fonts/Marianne-ExtraBold.ttf) format('truetype');\n            font-weight: 800 900;\n        }\n    </style>\n</head>\n\n<body>\n    <noscript>\n        <strong>We're sorry but frontend doesn't work properly without JavaScript enabled. Please enable it to\n            continue.</strong>\n    </noscript>\n    <div id=\"app\">\n    </div>\n    <link href=\"/static/css/app.a10e5869.css\" rel=\"stylesheet\" />\n<script src=\"/static/js/app.f77d05ff.js\" ></script>\n    <!-- built files will be auto injected -->\n</body>\n\n</html>\n",
+    "ip": "185.42.117.109",
+    "timestamp": "2022-05-30T21:48:34.600127261Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://ma-cantine.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-allow-credentials",
+    "type": "http",
+    "host": "https://ma-cantine.beta.gouv.fr",
+    "matched-at": "https://ma-cantine.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: ma-cantine.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nTransfer-Encoding: chunked\r\nContent-Security-Policy: font-src 'self' client.crisp.chat; script-src 'self' stats.data.gouv.fr 'unsafe-inline' client.crisp.chat; default-src 'self'; style-src 'self' 'unsafe-inline' client.crisp.chat; media-src 'self' cellar-c2.services.clever-cloud.com; frame-src 'self' ma-cantine.crisp.help; connect-src 'self' stats.data.gouv.fr ws: api-adresse.data.gouv.fr client.crisp.chat entreprise.data.gouv.fr plateforme.adresse.data.gouv.fr; object-src 'self' cellar-c2.services.clever-cloud.com; img-src 'self' cellar-c2.services.clever-cloud.com voxusagers.numerique.gouv.fr 'unsafe-inline' stats.data.gouv.fr www.w3.org data: image.crisp.chat jedonnemonavis.numerique.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Mon, 30 May 2022 21:48:34 GMT\r\nReferrer-Policy: same-origin\r\nSet-Cookie: csrftoken=5KNTHYIYsq5wK85HsMFVkc06NL35gshx2MkhnO3F2MxE4P8KhtyC60Vzl6G6aLVT; expires=Mon, 29 May 2023 21:48:34 GMT; Max-Age=31449600; Path=/; SameSite=Lax\r\nSozu-Id: 01G4BF2C4QE7TPGSC1CY4FBSNK\r\nVary: Cookie\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\n\r\n\n\n\n\n\n<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n    <meta charset=\"utf-8\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n    <meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\">\n\n    <!-- Open graph (Facebook, Whatsapp...) meta tags -->\n    <meta property=\"og:title\" content=\"ma cantine\" />\n    <meta property=\"og:type\" content=\"website\" />\n    <meta property=\"og:url\" content=\"https://ma-cantine.beta.gouv.fr/\" />\n    <meta property=\"og:description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\" />\n    <meta property=\"og:image\" content=\"https://ma-cantine.beta.gouv.fr/static/images/card-social-media.png\" />\n\n    <!-- Twitter meta tags -->\n    <meta name=\"twitter:title\" content=\"ma cantine\">\n    <meta name=\"twitter:description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\">\n    <meta name=\"twitter:image\" content=\"https://ma-cantine.beta.gouv.fr/static/images/card-social-media.png\">\n    <meta name=\"twitter:card\" content=\"summary_large_image\">\n\n    <link rel=\"icon\" type=\"image/png\" href=\"/static/images/favicon-macantine.png\">\n\n    <title>ma-cantine.beta.gouv.fr</title>\n    <meta name=\"description\" content=\"Pour une alimentation saine, de qualité et plus durable dans nos assiettes grâce à EGAlim\">\n    <link rel=\"stylesheet\" href=\"/static/css/materialdesignicons.min.css\">\n    <script type=\"text/javascript\">\n        window.CSRF_TOKEN = \"bnm0ybthjIIREIoAHXreykkA0ttXufta8pToe1OYT4aZYprDwEkVk8f3yO6Yoy7w\";\n        window.MATOMO_ID = \"162\";\n        window.ENVIRONMENT = \"None\"\n        window.ENABLE_XP_RESERVATION = \"True\" === \"True\"\n        window.ENABLE_XP_VEGE = \"False\" === \"True\"\n        window.ENABLE_PARTNERS = \"False\" === \"True\"\n    </script>\n\n    <script type=\"text/javascript\">\n        window.$crisp=[];\n        window.CRISP_WEBSITE_ID=\"071cca61-bd5f-4950-a5ed-c02238666a5c\";\n        (function(){\n            d=document;\n            s=d.createElement(\"script\");\n            s.src=\"https://client.crisp.chat/l.js\";\n            s.async=1;d.getElementsByTagName(\"head\")[0].appendChild(s);\n        })();\n    </script>\n    <style>\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Regular.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Regular.woff) format('woff'),\n                 url(/static/fonts/Marianne-Regular.ttf) format('truetype');\n            font-weight: 400;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Medium.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Medium.woff) format('woff');\n            font-weight: 500;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Light.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Light.woff) format('woff'),\n                 url(/static/fonts/Marianne-Light.ttf) format('truetype');\n            font-weight: 100 300;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-Bold.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-Bold.woff) format('woff'),\n                 url(/static/fonts/Marianne-Bold.ttf) format('truetype');\n            font-weight: 600 700;\n        }\n        @font-face {\n            font-family: 'Marianne';\n            src: url(/static/fonts/Marianne-ExtraBold.woff2) format('woff2'),\n                 url(/static/fonts/Marianne-ExtraBold.woff) format('woff'),\n                 url(/static/fonts/Marianne-ExtraBold.ttf) format('truetype');\n            font-weight: 800 900;\n        }\n    </style>\n</head>\n\n<body>\n    <noscript>\n        <strong>We're sorry but frontend doesn't work properly without JavaScript enabled. Please enable it to\n            continue.</strong>\n    </noscript>\n    <div id=\"app\">\n    </div>\n    <link href=\"/static/css/app.a10e5869.css\" rel=\"stylesheet\" />\n<script src=\"/static/js/app.f77d05ff.js\" ></script>\n    <!-- built files will be auto injected -->\n</body>\n\n</html>\n",
+    "ip": "185.42.117.109",
+    "timestamp": "2022-05-30T21:48:34.600158761Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://ma-cantine.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "dns/nameserver-fingerprint.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/dns/nameserver-fingerprint.yaml",
+    "template-id": "nameserver-fingerprint",
+    "info": {
+      "name": "NS Record Detection",
+      "author": [
+        "pdteam"
+      ],
+      "tags": [
+        "dns",
+        "ns"
+      ],
+      "description": "An NS record was detected. An NS record delegates a subdomain to a set of name servers.",
+      "reference": null,
+      "severity": "info",
+      "classification": {
+        "cve-id": null,
+        "cwe-id": [
+          "cwe-200"
+        ]
+      }
+    },
+    "type": "dns",
+    "host": "https://ma-cantine.beta.gouv.fr",
+    "matched-at": "https://ma-cantine.beta.gouv.fr",
+    "extracted-results": [
+      "dns2.alwaysdata.com.",
+      "dns1.alwaysdata.com."
+    ],
+    "request": ";; opcode: QUERY, status: NOERROR, id: 21546\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 4096\n\n;; QUESTION SECTION:\n;ma-cantine.beta.gouv.fr.\tIN\t NS\n",
+    "response": ";; opcode: QUERY, status: NOERROR, id: 21546\n;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 512\n\n;; QUESTION SECTION:\n;ma-cantine.beta.gouv.fr.\tIN\t NS\n\n;; ANSWER SECTION:\nma-cantine.beta.gouv.fr.\t300\tIN\tNS\tdns2.alwaysdata.com.\nma-cantine.beta.gouv.fr.\t300\tIN\tNS\tdns1.alwaysdata.com.\n",
+    "timestamp": "2022-05-30T21:48:38.498544491Z",
     "matcher-status": true,
     "matched-line": null
   },
@@ -51,33 +547,123 @@
       "TLS13"
     ],
     "ip": "185.42.117.109",
-    "timestamp": "2022-05-29T05:34:17.708175282Z",
+    "timestamp": "2022-05-30T21:48:47.240238035Z",
     "matcher-status": true,
     "matched-line": null
   },
   {
-    "template": "ssl/ssl-dns-names.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/ssl/ssl-dns-names.yaml",
-    "template-id": "ssl-dns-names",
+    "template": "technologies/waf-detect.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/technologies/waf-detect.yaml",
+    "template-id": "waf-detect",
     "info": {
-      "name": "SSL DNS Names",
+      "name": "WAF Detection",
+      "author": [
+        "dwisiswant0",
+        "lu4nx"
+      ],
+      "tags": [
+        "waf",
+        "tech",
+        "misc"
+      ],
+      "description": "A web application firewall was detected.",
+      "reference": [
+        "https://github.com/ekultek/whatwaf"
+      ],
+      "severity": "info",
+      "classification": {
+        "cve-id": null,
+        "cwe-id": [
+          "cwe-200"
+        ]
+      }
+    },
+    "matcher-name": "ats",
+    "type": "http",
+    "host": "https://ma-cantine.beta.gouv.fr",
+    "matched-at": "https://ma-cantine.beta.gouv.fr/",
+    "request": "POST / HTTP/1.1\r\nHost: ma-cantine.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nContent-Length: 27\r\nContent-Type: application/x-www-form-urlencoded\r\nAccept-Encoding: gzip\r\n\r\n_=<script>alert(1)</script>",
+    "response": "HTTP/1.1 403 Forbidden\r\nTransfer-Encoding: chunked\r\nContent-Security-Policy: font-src 'self' client.crisp.chat; script-src 'self' stats.data.gouv.fr 'unsafe-inline' client.crisp.chat; default-src 'self'; style-src 'self' 'unsafe-inline' client.crisp.chat; media-src 'self' cellar-c2.services.clever-cloud.com; frame-src 'self' ma-cantine.crisp.help; connect-src 'self' stats.data.gouv.fr ws: api-adresse.data.gouv.fr client.crisp.chat entreprise.data.gouv.fr plateforme.adresse.data.gouv.fr; object-src 'self' cellar-c2.services.clever-cloud.com; img-src 'self' cellar-c2.services.clever-cloud.com voxusagers.numerique.gouv.fr 'unsafe-inline' stats.data.gouv.fr www.w3.org data: image.crisp.chat jedonnemonavis.numerique.gouv.fr\r\nContent-Type: text/html\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Mon, 30 May 2022 21:49:23 GMT\r\nReferrer-Policy: same-origin\r\nSozu-Id: 01G4BF3VXFQC63BDASWYT6WZAS\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\n\r\n\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n  <meta name=\"robots\" content=\"NONE,NOARCHIVE\">\n  <title>403 Forbidden</title>\n  <style type=\"text/css\">\n    html * { padding:0; margin:0; }\n    body * { padding:10px 20px; }\n    body * * { padding:0; }\n    body { font:small sans-serif; background:#eee; color:#000; }\n    body>div { border-bottom:1px solid #ddd; }\n    h1 { font-weight:normal; margin-bottom:.4em; }\n    h1 span { font-size:60%; color:#666; font-weight:normal; }\n    #info { background:#f6f6f6; }\n    #info ul { margin: 0.5em 4em; }\n    #info p, #summary p { padding-top:10px; }\n    #summary { background: #ffc; }\n    #explanation { background:#eee; border-bottom: 0px none; }\n  </style>\n</head>\n<body>\n<div id=\"summary\">\n  <h1>Interdit <span>(403)</span></h1>\n  <p>La vérification CSRF a échoué. La requête a été interrompue.</p>\n\n  <p>Vous voyez ce message parce que ce site HTTPS exige que le navigateur web envoie un en-tête « Referer », ce qu’il n&#x27;a pas fait. Cet en-tête est exigé pour des raisons de sécurité, afin de s’assurer que le navigateur n’ait pas été piraté par un intervenant externe.</p>\n  <p>Si vous avez désactivé l’envoi des en-têtes « Referer » par votre navigateur, veuillez les réactiver, au moins pour ce site ou pour les connexions HTTPS, ou encore pour les requêtes de même origine (« same-origin »).</p>\n  <p>Si vous utilisez la balise &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt; ou que vous incluez l’en-tête « Referrer-Policy: no-referrer », il est préférable de les enlever. La protection CSRF exige que l’en-tête ``Referer`` effectue un contrôle de référant strict. Si vous vous souciez de la confidentialité, utilisez des alternatives comme &lt;a rel=&quot;noreferrer&quot; …&gt; pour les liens vers des sites tiers.</p>\n\n\n</div>\n\n<div id=\"explanation\">\n  <p><small>Des informations plus détaillées sont affichées lorsque la variable DEBUG vaut True.</small></p>\n</div>\n\n</body>\n</html>\n",
+    "ip": "185.42.117.109",
+    "timestamp": "2022-05-30T21:49:23.545336255Z",
+    "curl-command": "curl -X 'POST' -d '_=<script>alert(1)</script>' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Host: ma-cantine.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://ma-cantine.beta.gouv.fr/'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "technologies/waf-detect.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/technologies/waf-detect.yaml",
+    "template-id": "waf-detect",
+    "info": {
+      "name": "WAF Detection",
+      "author": [
+        "dwisiswant0",
+        "lu4nx"
+      ],
+      "tags": [
+        "waf",
+        "tech",
+        "misc"
+      ],
+      "description": "A web application firewall was detected.",
+      "reference": [
+        "https://github.com/ekultek/whatwaf"
+      ],
+      "severity": "info",
+      "classification": {
+        "cve-id": null,
+        "cwe-id": [
+          "cwe-200"
+        ]
+      }
+    },
+    "matcher-name": "apachegeneric",
+    "type": "http",
+    "host": "https://ma-cantine.beta.gouv.fr",
+    "matched-at": "https://ma-cantine.beta.gouv.fr/",
+    "request": "POST / HTTP/1.1\r\nHost: ma-cantine.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nContent-Length: 27\r\nContent-Type: application/x-www-form-urlencoded\r\nAccept-Encoding: gzip\r\n\r\n_=<script>alert(1)</script>",
+    "response": "HTTP/1.1 403 Forbidden\r\nTransfer-Encoding: chunked\r\nContent-Security-Policy: font-src 'self' client.crisp.chat; script-src 'self' stats.data.gouv.fr 'unsafe-inline' client.crisp.chat; default-src 'self'; style-src 'self' 'unsafe-inline' client.crisp.chat; media-src 'self' cellar-c2.services.clever-cloud.com; frame-src 'self' ma-cantine.crisp.help; connect-src 'self' stats.data.gouv.fr ws: api-adresse.data.gouv.fr client.crisp.chat entreprise.data.gouv.fr plateforme.adresse.data.gouv.fr; object-src 'self' cellar-c2.services.clever-cloud.com; img-src 'self' cellar-c2.services.clever-cloud.com voxusagers.numerique.gouv.fr 'unsafe-inline' stats.data.gouv.fr www.w3.org data: image.crisp.chat jedonnemonavis.numerique.gouv.fr\r\nContent-Type: text/html\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Mon, 30 May 2022 21:49:23 GMT\r\nReferrer-Policy: same-origin\r\nSozu-Id: 01G4BF3VXFQC63BDASWYT6WZAS\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\n\r\n\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n  <meta name=\"robots\" content=\"NONE,NOARCHIVE\">\n  <title>403 Forbidden</title>\n  <style type=\"text/css\">\n    html * { padding:0; margin:0; }\n    body * { padding:10px 20px; }\n    body * * { padding:0; }\n    body { font:small sans-serif; background:#eee; color:#000; }\n    body>div { border-bottom:1px solid #ddd; }\n    h1 { font-weight:normal; margin-bottom:.4em; }\n    h1 span { font-size:60%; color:#666; font-weight:normal; }\n    #info { background:#f6f6f6; }\n    #info ul { margin: 0.5em 4em; }\n    #info p, #summary p { padding-top:10px; }\n    #summary { background: #ffc; }\n    #explanation { background:#eee; border-bottom: 0px none; }\n  </style>\n</head>\n<body>\n<div id=\"summary\">\n  <h1>Interdit <span>(403)</span></h1>\n  <p>La vérification CSRF a échoué. La requête a été interrompue.</p>\n\n  <p>Vous voyez ce message parce que ce site HTTPS exige que le navigateur web envoie un en-tête « Referer », ce qu’il n&#x27;a pas fait. Cet en-tête est exigé pour des raisons de sécurité, afin de s’assurer que le navigateur n’ait pas été piraté par un intervenant externe.</p>\n  <p>Si vous avez désactivé l’envoi des en-têtes « Referer » par votre navigateur, veuillez les réactiver, au moins pour ce site ou pour les connexions HTTPS, ou encore pour les requêtes de même origine (« same-origin »).</p>\n  <p>Si vous utilisez la balise &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt; ou que vous incluez l’en-tête « Referrer-Policy: no-referrer », il est préférable de les enlever. La protection CSRF exige que l’en-tête ``Referer`` effectue un contrôle de référant strict. Si vous vous souciez de la confidentialité, utilisez des alternatives comme &lt;a rel=&quot;noreferrer&quot; …&gt; pour les liens vers des sites tiers.</p>\n\n\n</div>\n\n<div id=\"explanation\">\n  <p><small>Des informations plus détaillées sont affichées lorsque la variable DEBUG vaut True.</small></p>\n</div>\n\n</body>\n</html>\n",
+    "ip": "185.42.117.109",
+    "timestamp": "2022-05-30T21:49:23.545451557Z",
+    "curl-command": "curl -X 'POST' -d '_=<script>alert(1)</script>' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Host: ma-cantine.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://ma-cantine.beta.gouv.fr/'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "dns/txt-fingerprint.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/dns/txt-fingerprint.yaml",
+    "template-id": "txt-fingerprint",
+    "info": {
+      "name": "DNS TXT Record Detected",
       "author": [
         "pdteam"
       ],
       "tags": [
-        "ssl"
+        "dns",
+        "txt"
       ],
-      "reference": null,
-      "severity": "info"
+      "description": "A DNS TXT record was detected. The TXT record lets a domain admin leave notes on a DNS server.",
+      "reference": [
+        "https://www.netspi.com/blog/technical/network-penetration-testing/analyzing-dns-txt-records-to-fingerprint-service-providers/"
+      ],
+      "severity": "info",
+      "classification": {
+        "cve-id": null,
+        "cwe-id": [
+          "cwe-200"
+        ]
+      }
     },
-    "type": "ssl",
+    "type": "dns",
     "host": "https://ma-cantine.beta.gouv.fr",
     "matched-at": "https://ma-cantine.beta.gouv.fr",
     "extracted-results": [
-      "ma-cantine.beta.gouv.fr"
+      "\"google-site-verification=TPNd34csuYY9cnh2BJ3WToeKO9fCUr8-71aeohSpZgM\"",
+      "\"v=spf1 include:_spf.alwaysdata.com ?all\""
     ],
-    "ip": "185.42.117.109",
-    "timestamp": "2022-05-29T05:34:19.29721252Z",
+    "request": ";; opcode: QUERY, status: NOERROR, id: 57259\n;; flags: rd ad; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 4096\n\n;; QUESTION SECTION:\n;ma-cantine.beta.gouv.fr.\tIN\t TXT\n",
+    "response": ";; opcode: QUERY, status: NOERROR, id: 57259\n;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 1232\n\n;; QUESTION SECTION:\n;ma-cantine.beta.gouv.fr.\tIN\t TXT\n\n;; ANSWER SECTION:\nma-cantine.beta.gouv.fr.\t300\tIN\tTXT\t\"google-site-verification=TPNd34csuYY9cnh2BJ3WToeKO9fCUr8-71aeohSpZgM\"\nma-cantine.beta.gouv.fr.\t300\tIN\tTXT\t\"v=spf1 include:_spf.alwaysdata.com ?all\"\n",
+    "timestamp": "2022-05-30T21:49:48.41496283Z",
     "matcher-status": true,
     "matched-line": null
   }
