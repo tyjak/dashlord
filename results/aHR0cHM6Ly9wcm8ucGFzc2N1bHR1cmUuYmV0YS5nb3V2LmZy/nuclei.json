@@ -1,74 +1,27 @@
 [
   {
-    "template": "technologies/waf-detect.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/technologies/waf-detect.yaml",
-    "template-id": "waf-detect",
+    "template": "ssl/ssl-dns-names.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/ssl/ssl-dns-names.yaml",
+    "template-id": "ssl-dns-names",
     "info": {
-      "name": "WAF Detection",
+      "name": "SSL DNS Names",
       "author": [
-        "dwisiswant0",
-        "lu4nx"
+        "pdteam"
       ],
       "tags": [
-        "waf",
-        "tech",
-        "misc"
+        "ssl"
       ],
-      "description": "A web application firewall was detected.",
-      "reference": [
-        "https://github.com/ekultek/whatwaf"
-      ],
-      "severity": "info",
-      "classification": {
-        "cve-id": null,
-        "cwe-id": [
-          "cwe-200"
-        ]
-      }
-    },
-    "matcher-name": "nginxgeneric",
-    "type": "http",
-    "host": "https://pro.passculture.beta.gouv.fr",
-    "matched-at": "https://pro.passculture.beta.gouv.fr/",
-    "request": "POST / HTTP/1.1\r\nHost: pro.passculture.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nContent-Length: 27\r\nContent-Type: application/x-www-form-urlencoded\r\nAccept-Encoding: gzip\r\n\r\n_=<script>alert(1)</script>",
-    "response": "HTTP/1.1 301 Moved Permanently\r\nConnection: close\r\nContent-Length: 162\r\nContent-Type: text/html\r\nDate: Sun, 10 Jul 2022 07:00:55 GMT\r\nLocation: https://passculture.pro/?redirect=true\r\nX-Request-Id: b57a6d3d-80a4-4c7a-b35b-e1e8f79ccedc\r\n\r\n<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301 Moved Permanently</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html>\r\n",
-    "ip": "5.104.101.30",
-    "timestamp": "2022-07-10T07:00:55.185686541Z",
-    "curl-command": "curl -X 'POST' -d '_=<script>alert(1)</script>' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Host: pro.passculture.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://pro.passculture.beta.gouv.fr/'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "dns/dns-waf-detect.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/dns/dns-waf-detect.yaml",
-    "template-id": "dns-waf-detect",
-    "info": {
-      "name": "DNS WAF Detection",
-      "author": [
-        "lu4nx"
-      ],
-      "tags": [
-        "tech",
-        "waf",
-        "dns"
-      ],
-      "description": "A DNS WAF was detected.",
       "reference": null,
-      "severity": "info",
-      "classification": {
-        "cve-id": null,
-        "cwe-id": [
-          "cwe-200"
-        ]
-      }
+      "severity": "info"
     },
-    "matcher-name": "cloudflare",
-    "type": "dns",
+    "type": "ssl",
     "host": "https://pro.passculture.beta.gouv.fr",
     "matched-at": "https://pro.passculture.beta.gouv.fr",
-    "request": ";; opcode: QUERY, status: NOERROR, id: 33368\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 4096\n\n;; QUESTION SECTION:\n;pro.passculture.beta.gouv.fr.\tIN\t NS\n",
-    "response": ";; opcode: QUERY, status: NOERROR, id: 33368\n;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 1, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 512\n\n;; QUESTION SECTION:\n;pro.passculture.beta.gouv.fr.\tIN\t NS\n\n;; ANSWER SECTION:\npro.passculture.beta.gouv.fr.\t27\tIN\tCNAME\tbetagouv-redirections.osc-fr1.scalingo.io.\nbetagouv-redirections.osc-fr1.scalingo.io.\t267\tIN\tCNAME\tsc-lb-pool-01.osc-fr1.scalingo-network.com.\n\n;; AUTHORITY SECTION:\nscalingo-network.com.\t1800\tIN\tSOA\tburt.ns.cloudflare.com. dns.cloudflare.com. 2277339532 10000 2400 604800 3600\n",
-    "timestamp": "2022-07-10T07:01:14.260259632Z",
+    "extracted-results": [
+      "pro.passculture.beta.gouv.fr"
+    ],
+    "ip": "5.104.101.30",
+    "timestamp": "2022-07-17T07:10:07.85300762Z",
     "matcher-status": true,
     "matched-line": null
   },
@@ -95,14 +48,14 @@
       "reference": null,
       "severity": "info"
     },
-    "matcher-name": "x-permitted-cross-domain-policies",
+    "matcher-name": "referrer-policy",
     "type": "http",
     "host": "https://pro.passculture.beta.gouv.fr",
     "matched-at": "https://passculture.pro/?redirect=true",
     "request": "GET / HTTP/1.1\r\nHost: pro.passculture.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 512\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 10 Jul 2022 06:52:42 GMT\r\nEtag: \"97c58dd420ceb65d061d9c78dbb166ee\"\r\nLast-Modified: Mon, 04 Jul 2022 12:37:58 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Tue, 04 Jul 2023 12:37:58 GMT\r\nX-Goog-Generation: 1656938278166999\r\nX-Goog-Hash: crc32c=GVUMiA==\r\nX-Goog-Hash: md5=l8WN1CDOtl0GHZx427Fm7g==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1656938256\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdsR43wL4CfKjx13Q0SJPj-6FUhZfF7rCgEo7OTr0-2OxAMm4mV-4ShhtLeUN8JLj6ibTbZL-wPYQEdLOUKJyLqm\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.136df02a.js\"></script><link href=\"/static/css/main.964278cc.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 21\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 17 Jul 2022 07:10:03 GMT\r\nEtag: \"8b32800f6c13ab4737d86b12780f58cf\"\r\nLast-Modified: Wed, 13 Jul 2022 10:08:27 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Thu, 13 Jul 2023 10:08:27 GMT\r\nX-Goog-Generation: 1657706907721055\r\nX-Goog-Hash: crc32c=QlUkSg==\r\nX-Goog-Hash: md5=izKAD2wTq0c32GsSeA9Yzw==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1657706885\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdv4zRvFxZg1bnJjcP53L9PQD8mDaWhvGZZOh5Pi6gLTInerE0jL9x_aeqT27RHXSqzOzcWrTA3lNr8Rq7MngA4gdg\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.b7988223.js\"></script><link href=\"/static/css/main.2a624081.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
     "ip": "5.104.101.30",
-    "timestamp": "2022-07-10T07:01:14.709275663Z",
+    "timestamp": "2022-07-17T07:10:24.155654931Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://pro.passculture.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://passculture.pro/?redirect=true'",
     "matcher-status": true,
     "matched-line": null
@@ -135,324 +88,9 @@
     "host": "https://pro.passculture.beta.gouv.fr",
     "matched-at": "https://passculture.pro/?redirect=true",
     "request": "GET / HTTP/1.1\r\nHost: pro.passculture.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 512\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 10 Jul 2022 06:52:42 GMT\r\nEtag: \"97c58dd420ceb65d061d9c78dbb166ee\"\r\nLast-Modified: Mon, 04 Jul 2022 12:37:58 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Tue, 04 Jul 2023 12:37:58 GMT\r\nX-Goog-Generation: 1656938278166999\r\nX-Goog-Hash: crc32c=GVUMiA==\r\nX-Goog-Hash: md5=l8WN1CDOtl0GHZx427Fm7g==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1656938256\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdsR43wL4CfKjx13Q0SJPj-6FUhZfF7rCgEo7OTr0-2OxAMm4mV-4ShhtLeUN8JLj6ibTbZL-wPYQEdLOUKJyLqm\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.136df02a.js\"></script><link href=\"/static/css/main.964278cc.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 21\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 17 Jul 2022 07:10:03 GMT\r\nEtag: \"8b32800f6c13ab4737d86b12780f58cf\"\r\nLast-Modified: Wed, 13 Jul 2022 10:08:27 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Thu, 13 Jul 2023 10:08:27 GMT\r\nX-Goog-Generation: 1657706907721055\r\nX-Goog-Hash: crc32c=QlUkSg==\r\nX-Goog-Hash: md5=izKAD2wTq0c32GsSeA9Yzw==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1657706885\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdv4zRvFxZg1bnJjcP53L9PQD8mDaWhvGZZOh5Pi6gLTInerE0jL9x_aeqT27RHXSqzOzcWrTA3lNr8Rq7MngA4gdg\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.b7988223.js\"></script><link href=\"/static/css/main.2a624081.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
     "ip": "5.104.101.30",
-    "timestamp": "2022-07-10T07:01:14.709349764Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://pro.passculture.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://passculture.pro/?redirect=true'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "cross-origin-embedder-policy",
-    "type": "http",
-    "host": "https://pro.passculture.beta.gouv.fr",
-    "matched-at": "https://passculture.pro/?redirect=true",
-    "request": "GET / HTTP/1.1\r\nHost: pro.passculture.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 512\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 10 Jul 2022 06:52:42 GMT\r\nEtag: \"97c58dd420ceb65d061d9c78dbb166ee\"\r\nLast-Modified: Mon, 04 Jul 2022 12:37:58 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Tue, 04 Jul 2023 12:37:58 GMT\r\nX-Goog-Generation: 1656938278166999\r\nX-Goog-Hash: crc32c=GVUMiA==\r\nX-Goog-Hash: md5=l8WN1CDOtl0GHZx427Fm7g==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1656938256\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdsR43wL4CfKjx13Q0SJPj-6FUhZfF7rCgEo7OTr0-2OxAMm4mV-4ShhtLeUN8JLj6ibTbZL-wPYQEdLOUKJyLqm\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.136df02a.js\"></script><link href=\"/static/css/main.964278cc.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
-    "ip": "5.104.101.30",
-    "timestamp": "2022-07-10T07:01:14.709376464Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://pro.passculture.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://passculture.pro/?redirect=true'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "access-control-expose-headers",
-    "type": "http",
-    "host": "https://pro.passculture.beta.gouv.fr",
-    "matched-at": "https://passculture.pro/?redirect=true",
-    "request": "GET / HTTP/1.1\r\nHost: pro.passculture.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 512\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 10 Jul 2022 06:52:42 GMT\r\nEtag: \"97c58dd420ceb65d061d9c78dbb166ee\"\r\nLast-Modified: Mon, 04 Jul 2022 12:37:58 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Tue, 04 Jul 2023 12:37:58 GMT\r\nX-Goog-Generation: 1656938278166999\r\nX-Goog-Hash: crc32c=GVUMiA==\r\nX-Goog-Hash: md5=l8WN1CDOtl0GHZx427Fm7g==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1656938256\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdsR43wL4CfKjx13Q0SJPj-6FUhZfF7rCgEo7OTr0-2OxAMm4mV-4ShhtLeUN8JLj6ibTbZL-wPYQEdLOUKJyLqm\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.136df02a.js\"></script><link href=\"/static/css/main.964278cc.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
-    "ip": "5.104.101.30",
-    "timestamp": "2022-07-10T07:01:14.709400164Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://pro.passculture.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://passculture.pro/?redirect=true'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "access-control-allow-headers",
-    "type": "http",
-    "host": "https://pro.passculture.beta.gouv.fr",
-    "matched-at": "https://passculture.pro/?redirect=true",
-    "request": "GET / HTTP/1.1\r\nHost: pro.passculture.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 512\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 10 Jul 2022 06:52:42 GMT\r\nEtag: \"97c58dd420ceb65d061d9c78dbb166ee\"\r\nLast-Modified: Mon, 04 Jul 2022 12:37:58 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Tue, 04 Jul 2023 12:37:58 GMT\r\nX-Goog-Generation: 1656938278166999\r\nX-Goog-Hash: crc32c=GVUMiA==\r\nX-Goog-Hash: md5=l8WN1CDOtl0GHZx427Fm7g==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1656938256\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdsR43wL4CfKjx13Q0SJPj-6FUhZfF7rCgEo7OTr0-2OxAMm4mV-4ShhtLeUN8JLj6ibTbZL-wPYQEdLOUKJyLqm\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.136df02a.js\"></script><link href=\"/static/css/main.964278cc.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
-    "ip": "5.104.101.30",
-    "timestamp": "2022-07-10T07:01:14.709423664Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://pro.passculture.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://passculture.pro/?redirect=true'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "access-control-allow-origin",
-    "type": "http",
-    "host": "https://pro.passculture.beta.gouv.fr",
-    "matched-at": "https://passculture.pro/?redirect=true",
-    "request": "GET / HTTP/1.1\r\nHost: pro.passculture.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 512\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 10 Jul 2022 06:52:42 GMT\r\nEtag: \"97c58dd420ceb65d061d9c78dbb166ee\"\r\nLast-Modified: Mon, 04 Jul 2022 12:37:58 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Tue, 04 Jul 2023 12:37:58 GMT\r\nX-Goog-Generation: 1656938278166999\r\nX-Goog-Hash: crc32c=GVUMiA==\r\nX-Goog-Hash: md5=l8WN1CDOtl0GHZx427Fm7g==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1656938256\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdsR43wL4CfKjx13Q0SJPj-6FUhZfF7rCgEo7OTr0-2OxAMm4mV-4ShhtLeUN8JLj6ibTbZL-wPYQEdLOUKJyLqm\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.136df02a.js\"></script><link href=\"/static/css/main.964278cc.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
-    "ip": "5.104.101.30",
-    "timestamp": "2022-07-10T07:01:14.709444164Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://pro.passculture.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://passculture.pro/?redirect=true'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "access-control-allow-credentials",
-    "type": "http",
-    "host": "https://pro.passculture.beta.gouv.fr",
-    "matched-at": "https://passculture.pro/?redirect=true",
-    "request": "GET / HTTP/1.1\r\nHost: pro.passculture.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 512\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 10 Jul 2022 06:52:42 GMT\r\nEtag: \"97c58dd420ceb65d061d9c78dbb166ee\"\r\nLast-Modified: Mon, 04 Jul 2022 12:37:58 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Tue, 04 Jul 2023 12:37:58 GMT\r\nX-Goog-Generation: 1656938278166999\r\nX-Goog-Hash: crc32c=GVUMiA==\r\nX-Goog-Hash: md5=l8WN1CDOtl0GHZx427Fm7g==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1656938256\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdsR43wL4CfKjx13Q0SJPj-6FUhZfF7rCgEo7OTr0-2OxAMm4mV-4ShhtLeUN8JLj6ibTbZL-wPYQEdLOUKJyLqm\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.136df02a.js\"></script><link href=\"/static/css/main.964278cc.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
-    "ip": "5.104.101.30",
-    "timestamp": "2022-07-10T07:01:14.709465664Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://pro.passculture.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://passculture.pro/?redirect=true'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "access-control-allow-methods",
-    "type": "http",
-    "host": "https://pro.passculture.beta.gouv.fr",
-    "matched-at": "https://passculture.pro/?redirect=true",
-    "request": "GET / HTTP/1.1\r\nHost: pro.passculture.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 512\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 10 Jul 2022 06:52:42 GMT\r\nEtag: \"97c58dd420ceb65d061d9c78dbb166ee\"\r\nLast-Modified: Mon, 04 Jul 2022 12:37:58 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Tue, 04 Jul 2023 12:37:58 GMT\r\nX-Goog-Generation: 1656938278166999\r\nX-Goog-Hash: crc32c=GVUMiA==\r\nX-Goog-Hash: md5=l8WN1CDOtl0GHZx427Fm7g==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1656938256\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdsR43wL4CfKjx13Q0SJPj-6FUhZfF7rCgEo7OTr0-2OxAMm4mV-4ShhtLeUN8JLj6ibTbZL-wPYQEdLOUKJyLqm\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.136df02a.js\"></script><link href=\"/static/css/main.964278cc.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
-    "ip": "5.104.101.30",
-    "timestamp": "2022-07-10T07:01:14.709490964Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://pro.passculture.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://passculture.pro/?redirect=true'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "content-security-policy",
-    "type": "http",
-    "host": "https://pro.passculture.beta.gouv.fr",
-    "matched-at": "https://passculture.pro/?redirect=true",
-    "request": "GET / HTTP/1.1\r\nHost: pro.passculture.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 512\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 10 Jul 2022 06:52:42 GMT\r\nEtag: \"97c58dd420ceb65d061d9c78dbb166ee\"\r\nLast-Modified: Mon, 04 Jul 2022 12:37:58 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Tue, 04 Jul 2023 12:37:58 GMT\r\nX-Goog-Generation: 1656938278166999\r\nX-Goog-Hash: crc32c=GVUMiA==\r\nX-Goog-Hash: md5=l8WN1CDOtl0GHZx427Fm7g==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1656938256\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdsR43wL4CfKjx13Q0SJPj-6FUhZfF7rCgEo7OTr0-2OxAMm4mV-4ShhtLeUN8JLj6ibTbZL-wPYQEdLOUKJyLqm\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.136df02a.js\"></script><link href=\"/static/css/main.964278cc.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
-    "ip": "5.104.101.30",
-    "timestamp": "2022-07-10T07:01:14.709511964Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://pro.passculture.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://passculture.pro/?redirect=true'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "permission-policy",
-    "type": "http",
-    "host": "https://pro.passculture.beta.gouv.fr",
-    "matched-at": "https://passculture.pro/?redirect=true",
-    "request": "GET / HTTP/1.1\r\nHost: pro.passculture.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 512\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 10 Jul 2022 06:52:42 GMT\r\nEtag: \"97c58dd420ceb65d061d9c78dbb166ee\"\r\nLast-Modified: Mon, 04 Jul 2022 12:37:58 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Tue, 04 Jul 2023 12:37:58 GMT\r\nX-Goog-Generation: 1656938278166999\r\nX-Goog-Hash: crc32c=GVUMiA==\r\nX-Goog-Hash: md5=l8WN1CDOtl0GHZx427Fm7g==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1656938256\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdsR43wL4CfKjx13Q0SJPj-6FUhZfF7rCgEo7OTr0-2OxAMm4mV-4ShhtLeUN8JLj6ibTbZL-wPYQEdLOUKJyLqm\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.136df02a.js\"></script><link href=\"/static/css/main.964278cc.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
-    "ip": "5.104.101.30",
-    "timestamp": "2022-07-10T07:01:14.709531864Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://pro.passculture.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://passculture.pro/?redirect=true'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "clear-site-data",
-    "type": "http",
-    "host": "https://pro.passculture.beta.gouv.fr",
-    "matched-at": "https://passculture.pro/?redirect=true",
-    "request": "GET / HTTP/1.1\r\nHost: pro.passculture.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 512\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 10 Jul 2022 06:52:42 GMT\r\nEtag: \"97c58dd420ceb65d061d9c78dbb166ee\"\r\nLast-Modified: Mon, 04 Jul 2022 12:37:58 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Tue, 04 Jul 2023 12:37:58 GMT\r\nX-Goog-Generation: 1656938278166999\r\nX-Goog-Hash: crc32c=GVUMiA==\r\nX-Goog-Hash: md5=l8WN1CDOtl0GHZx427Fm7g==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1656938256\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdsR43wL4CfKjx13Q0SJPj-6FUhZfF7rCgEo7OTr0-2OxAMm4mV-4ShhtLeUN8JLj6ibTbZL-wPYQEdLOUKJyLqm\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.136df02a.js\"></script><link href=\"/static/css/main.964278cc.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
-    "ip": "5.104.101.30",
-    "timestamp": "2022-07-10T07:01:14.709558864Z",
+    "timestamp": "2022-07-17T07:10:24.155743031Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://pro.passculture.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://passculture.pro/?redirect=true'",
     "matcher-status": true,
     "matched-line": null
@@ -485,9 +123,9 @@
     "host": "https://pro.passculture.beta.gouv.fr",
     "matched-at": "https://passculture.pro/?redirect=true",
     "request": "GET / HTTP/1.1\r\nHost: pro.passculture.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 512\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 10 Jul 2022 06:52:42 GMT\r\nEtag: \"97c58dd420ceb65d061d9c78dbb166ee\"\r\nLast-Modified: Mon, 04 Jul 2022 12:37:58 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Tue, 04 Jul 2023 12:37:58 GMT\r\nX-Goog-Generation: 1656938278166999\r\nX-Goog-Hash: crc32c=GVUMiA==\r\nX-Goog-Hash: md5=l8WN1CDOtl0GHZx427Fm7g==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1656938256\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdsR43wL4CfKjx13Q0SJPj-6FUhZfF7rCgEo7OTr0-2OxAMm4mV-4ShhtLeUN8JLj6ibTbZL-wPYQEdLOUKJyLqm\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.136df02a.js\"></script><link href=\"/static/css/main.964278cc.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 21\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 17 Jul 2022 07:10:03 GMT\r\nEtag: \"8b32800f6c13ab4737d86b12780f58cf\"\r\nLast-Modified: Wed, 13 Jul 2022 10:08:27 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Thu, 13 Jul 2023 10:08:27 GMT\r\nX-Goog-Generation: 1657706907721055\r\nX-Goog-Hash: crc32c=QlUkSg==\r\nX-Goog-Hash: md5=izKAD2wTq0c32GsSeA9Yzw==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1657706885\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdv4zRvFxZg1bnJjcP53L9PQD8mDaWhvGZZOh5Pi6gLTInerE0jL9x_aeqT27RHXSqzOzcWrTA3lNr8Rq7MngA4gdg\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.b7988223.js\"></script><link href=\"/static/css/main.2a624081.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
     "ip": "5.104.101.30",
-    "timestamp": "2022-07-10T07:01:14.709578864Z",
+    "timestamp": "2022-07-17T07:10:24.15577053Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://pro.passculture.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://passculture.pro/?redirect=true'",
     "matcher-status": true,
     "matched-line": null
@@ -515,14 +153,189 @@
       "reference": null,
       "severity": "info"
     },
-    "matcher-name": "referrer-policy",
+    "matcher-name": "access-control-allow-origin",
     "type": "http",
     "host": "https://pro.passculture.beta.gouv.fr",
     "matched-at": "https://passculture.pro/?redirect=true",
     "request": "GET / HTTP/1.1\r\nHost: pro.passculture.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 512\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 10 Jul 2022 06:52:42 GMT\r\nEtag: \"97c58dd420ceb65d061d9c78dbb166ee\"\r\nLast-Modified: Mon, 04 Jul 2022 12:37:58 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Tue, 04 Jul 2023 12:37:58 GMT\r\nX-Goog-Generation: 1656938278166999\r\nX-Goog-Hash: crc32c=GVUMiA==\r\nX-Goog-Hash: md5=l8WN1CDOtl0GHZx427Fm7g==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1656938256\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdsR43wL4CfKjx13Q0SJPj-6FUhZfF7rCgEo7OTr0-2OxAMm4mV-4ShhtLeUN8JLj6ibTbZL-wPYQEdLOUKJyLqm\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.136df02a.js\"></script><link href=\"/static/css/main.964278cc.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 21\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 17 Jul 2022 07:10:03 GMT\r\nEtag: \"8b32800f6c13ab4737d86b12780f58cf\"\r\nLast-Modified: Wed, 13 Jul 2022 10:08:27 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Thu, 13 Jul 2023 10:08:27 GMT\r\nX-Goog-Generation: 1657706907721055\r\nX-Goog-Hash: crc32c=QlUkSg==\r\nX-Goog-Hash: md5=izKAD2wTq0c32GsSeA9Yzw==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1657706885\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdv4zRvFxZg1bnJjcP53L9PQD8mDaWhvGZZOh5Pi6gLTInerE0jL9x_aeqT27RHXSqzOzcWrTA3lNr8Rq7MngA4gdg\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.b7988223.js\"></script><link href=\"/static/css/main.2a624081.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
     "ip": "5.104.101.30",
-    "timestamp": "2022-07-10T07:01:14.709599764Z",
+    "timestamp": "2022-07-17T07:10:24.15579543Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://pro.passculture.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://passculture.pro/?redirect=true'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-expose-headers",
+    "type": "http",
+    "host": "https://pro.passculture.beta.gouv.fr",
+    "matched-at": "https://passculture.pro/?redirect=true",
+    "request": "GET / HTTP/1.1\r\nHost: pro.passculture.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 21\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 17 Jul 2022 07:10:03 GMT\r\nEtag: \"8b32800f6c13ab4737d86b12780f58cf\"\r\nLast-Modified: Wed, 13 Jul 2022 10:08:27 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Thu, 13 Jul 2023 10:08:27 GMT\r\nX-Goog-Generation: 1657706907721055\r\nX-Goog-Hash: crc32c=QlUkSg==\r\nX-Goog-Hash: md5=izKAD2wTq0c32GsSeA9Yzw==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1657706885\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdv4zRvFxZg1bnJjcP53L9PQD8mDaWhvGZZOh5Pi6gLTInerE0jL9x_aeqT27RHXSqzOzcWrTA3lNr8Rq7MngA4gdg\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.b7988223.js\"></script><link href=\"/static/css/main.2a624081.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
+    "ip": "5.104.101.30",
+    "timestamp": "2022-07-17T07:10:24.15581793Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://pro.passculture.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://passculture.pro/?redirect=true'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-allow-methods",
+    "type": "http",
+    "host": "https://pro.passculture.beta.gouv.fr",
+    "matched-at": "https://passculture.pro/?redirect=true",
+    "request": "GET / HTTP/1.1\r\nHost: pro.passculture.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 21\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 17 Jul 2022 07:10:03 GMT\r\nEtag: \"8b32800f6c13ab4737d86b12780f58cf\"\r\nLast-Modified: Wed, 13 Jul 2022 10:08:27 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Thu, 13 Jul 2023 10:08:27 GMT\r\nX-Goog-Generation: 1657706907721055\r\nX-Goog-Hash: crc32c=QlUkSg==\r\nX-Goog-Hash: md5=izKAD2wTq0c32GsSeA9Yzw==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1657706885\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdv4zRvFxZg1bnJjcP53L9PQD8mDaWhvGZZOh5Pi6gLTInerE0jL9x_aeqT27RHXSqzOzcWrTA3lNr8Rq7MngA4gdg\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.b7988223.js\"></script><link href=\"/static/css/main.2a624081.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
+    "ip": "5.104.101.30",
+    "timestamp": "2022-07-17T07:10:24.15583993Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://pro.passculture.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://passculture.pro/?redirect=true'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-allow-headers",
+    "type": "http",
+    "host": "https://pro.passculture.beta.gouv.fr",
+    "matched-at": "https://passculture.pro/?redirect=true",
+    "request": "GET / HTTP/1.1\r\nHost: pro.passculture.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 21\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 17 Jul 2022 07:10:03 GMT\r\nEtag: \"8b32800f6c13ab4737d86b12780f58cf\"\r\nLast-Modified: Wed, 13 Jul 2022 10:08:27 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Thu, 13 Jul 2023 10:08:27 GMT\r\nX-Goog-Generation: 1657706907721055\r\nX-Goog-Hash: crc32c=QlUkSg==\r\nX-Goog-Hash: md5=izKAD2wTq0c32GsSeA9Yzw==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1657706885\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdv4zRvFxZg1bnJjcP53L9PQD8mDaWhvGZZOh5Pi6gLTInerE0jL9x_aeqT27RHXSqzOzcWrTA3lNr8Rq7MngA4gdg\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.b7988223.js\"></script><link href=\"/static/css/main.2a624081.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
+    "ip": "5.104.101.30",
+    "timestamp": "2022-07-17T07:10:24.15586313Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://pro.passculture.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://passculture.pro/?redirect=true'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "permission-policy",
+    "type": "http",
+    "host": "https://pro.passculture.beta.gouv.fr",
+    "matched-at": "https://passculture.pro/?redirect=true",
+    "request": "GET / HTTP/1.1\r\nHost: pro.passculture.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 21\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 17 Jul 2022 07:10:03 GMT\r\nEtag: \"8b32800f6c13ab4737d86b12780f58cf\"\r\nLast-Modified: Wed, 13 Jul 2022 10:08:27 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Thu, 13 Jul 2023 10:08:27 GMT\r\nX-Goog-Generation: 1657706907721055\r\nX-Goog-Hash: crc32c=QlUkSg==\r\nX-Goog-Hash: md5=izKAD2wTq0c32GsSeA9Yzw==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1657706885\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdv4zRvFxZg1bnJjcP53L9PQD8mDaWhvGZZOh5Pi6gLTInerE0jL9x_aeqT27RHXSqzOzcWrTA3lNr8Rq7MngA4gdg\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.b7988223.js\"></script><link href=\"/static/css/main.2a624081.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
+    "ip": "5.104.101.30",
+    "timestamp": "2022-07-17T07:10:24.15588503Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://pro.passculture.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://passculture.pro/?redirect=true'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "cross-origin-embedder-policy",
+    "type": "http",
+    "host": "https://pro.passculture.beta.gouv.fr",
+    "matched-at": "https://passculture.pro/?redirect=true",
+    "request": "GET / HTTP/1.1\r\nHost: pro.passculture.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 21\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 17 Jul 2022 07:10:03 GMT\r\nEtag: \"8b32800f6c13ab4737d86b12780f58cf\"\r\nLast-Modified: Wed, 13 Jul 2022 10:08:27 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Thu, 13 Jul 2023 10:08:27 GMT\r\nX-Goog-Generation: 1657706907721055\r\nX-Goog-Hash: crc32c=QlUkSg==\r\nX-Goog-Hash: md5=izKAD2wTq0c32GsSeA9Yzw==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1657706885\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdv4zRvFxZg1bnJjcP53L9PQD8mDaWhvGZZOh5Pi6gLTInerE0jL9x_aeqT27RHXSqzOzcWrTA3lNr8Rq7MngA4gdg\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.b7988223.js\"></script><link href=\"/static/css/main.2a624081.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
+    "ip": "5.104.101.30",
+    "timestamp": "2022-07-17T07:10:24.15590613Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://pro.passculture.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://passculture.pro/?redirect=true'",
     "matcher-status": true,
     "matched-line": null
@@ -555,10 +368,223 @@
     "host": "https://pro.passculture.beta.gouv.fr",
     "matched-at": "https://passculture.pro/?redirect=true",
     "request": "GET / HTTP/1.1\r\nHost: pro.passculture.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 512\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 10 Jul 2022 06:52:42 GMT\r\nEtag: \"97c58dd420ceb65d061d9c78dbb166ee\"\r\nLast-Modified: Mon, 04 Jul 2022 12:37:58 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Tue, 04 Jul 2023 12:37:58 GMT\r\nX-Goog-Generation: 1656938278166999\r\nX-Goog-Hash: crc32c=GVUMiA==\r\nX-Goog-Hash: md5=l8WN1CDOtl0GHZx427Fm7g==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1656938256\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdsR43wL4CfKjx13Q0SJPj-6FUhZfF7rCgEo7OTr0-2OxAMm4mV-4ShhtLeUN8JLj6ibTbZL-wPYQEdLOUKJyLqm\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.136df02a.js\"></script><link href=\"/static/css/main.964278cc.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 21\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 17 Jul 2022 07:10:03 GMT\r\nEtag: \"8b32800f6c13ab4737d86b12780f58cf\"\r\nLast-Modified: Wed, 13 Jul 2022 10:08:27 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Thu, 13 Jul 2023 10:08:27 GMT\r\nX-Goog-Generation: 1657706907721055\r\nX-Goog-Hash: crc32c=QlUkSg==\r\nX-Goog-Hash: md5=izKAD2wTq0c32GsSeA9Yzw==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1657706885\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdv4zRvFxZg1bnJjcP53L9PQD8mDaWhvGZZOh5Pi6gLTInerE0jL9x_aeqT27RHXSqzOzcWrTA3lNr8Rq7MngA4gdg\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.b7988223.js\"></script><link href=\"/static/css/main.2a624081.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
     "ip": "5.104.101.30",
-    "timestamp": "2022-07-10T07:01:14.709621764Z",
+    "timestamp": "2022-07-17T07:10:24.15592733Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://pro.passculture.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://passculture.pro/?redirect=true'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "content-security-policy",
+    "type": "http",
+    "host": "https://pro.passculture.beta.gouv.fr",
+    "matched-at": "https://passculture.pro/?redirect=true",
+    "request": "GET / HTTP/1.1\r\nHost: pro.passculture.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 21\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 17 Jul 2022 07:10:03 GMT\r\nEtag: \"8b32800f6c13ab4737d86b12780f58cf\"\r\nLast-Modified: Wed, 13 Jul 2022 10:08:27 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Thu, 13 Jul 2023 10:08:27 GMT\r\nX-Goog-Generation: 1657706907721055\r\nX-Goog-Hash: crc32c=QlUkSg==\r\nX-Goog-Hash: md5=izKAD2wTq0c32GsSeA9Yzw==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1657706885\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdv4zRvFxZg1bnJjcP53L9PQD8mDaWhvGZZOh5Pi6gLTInerE0jL9x_aeqT27RHXSqzOzcWrTA3lNr8Rq7MngA4gdg\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.b7988223.js\"></script><link href=\"/static/css/main.2a624081.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
+    "ip": "5.104.101.30",
+    "timestamp": "2022-07-17T07:10:24.15594773Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://pro.passculture.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://passculture.pro/?redirect=true'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "x-permitted-cross-domain-policies",
+    "type": "http",
+    "host": "https://pro.passculture.beta.gouv.fr",
+    "matched-at": "https://passculture.pro/?redirect=true",
+    "request": "GET / HTTP/1.1\r\nHost: pro.passculture.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 21\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 17 Jul 2022 07:10:03 GMT\r\nEtag: \"8b32800f6c13ab4737d86b12780f58cf\"\r\nLast-Modified: Wed, 13 Jul 2022 10:08:27 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Thu, 13 Jul 2023 10:08:27 GMT\r\nX-Goog-Generation: 1657706907721055\r\nX-Goog-Hash: crc32c=QlUkSg==\r\nX-Goog-Hash: md5=izKAD2wTq0c32GsSeA9Yzw==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1657706885\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdv4zRvFxZg1bnJjcP53L9PQD8mDaWhvGZZOh5Pi6gLTInerE0jL9x_aeqT27RHXSqzOzcWrTA3lNr8Rq7MngA4gdg\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.b7988223.js\"></script><link href=\"/static/css/main.2a624081.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
+    "ip": "5.104.101.30",
+    "timestamp": "2022-07-17T07:10:24.15596853Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://pro.passculture.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://passculture.pro/?redirect=true'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "clear-site-data",
+    "type": "http",
+    "host": "https://pro.passculture.beta.gouv.fr",
+    "matched-at": "https://passculture.pro/?redirect=true",
+    "request": "GET / HTTP/1.1\r\nHost: pro.passculture.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 21\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 17 Jul 2022 07:10:03 GMT\r\nEtag: \"8b32800f6c13ab4737d86b12780f58cf\"\r\nLast-Modified: Wed, 13 Jul 2022 10:08:27 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Thu, 13 Jul 2023 10:08:27 GMT\r\nX-Goog-Generation: 1657706907721055\r\nX-Goog-Hash: crc32c=QlUkSg==\r\nX-Goog-Hash: md5=izKAD2wTq0c32GsSeA9Yzw==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1657706885\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdv4zRvFxZg1bnJjcP53L9PQD8mDaWhvGZZOh5Pi6gLTInerE0jL9x_aeqT27RHXSqzOzcWrTA3lNr8Rq7MngA4gdg\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.b7988223.js\"></script><link href=\"/static/css/main.2a624081.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
+    "ip": "5.104.101.30",
+    "timestamp": "2022-07-17T07:10:24.15598883Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://pro.passculture.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://passculture.pro/?redirect=true'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-allow-credentials",
+    "type": "http",
+    "host": "https://pro.passculture.beta.gouv.fr",
+    "matched-at": "https://passculture.pro/?redirect=true",
+    "request": "GET / HTTP/1.1\r\nHost: pro.passculture.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 1319\r\nAccept-Ranges: bytes\r\nAge: 21\r\nAlt-Svc: h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000\r\nCache-Control: public,max-age=3600\r\nContent-Type: text/html\r\nDate: Sun, 17 Jul 2022 07:10:03 GMT\r\nEtag: \"8b32800f6c13ab4737d86b12780f58cf\"\r\nLast-Modified: Wed, 13 Jul 2022 10:08:27 GMT\r\nServer: UploadServer\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Goog-Expiration: Thu, 13 Jul 2023 10:08:27 GMT\r\nX-Goog-Generation: 1657706907721055\r\nX-Goog-Hash: crc32c=QlUkSg==\r\nX-Goog-Hash: md5=izKAD2wTq0c32GsSeA9Yzw==\r\nX-Goog-Meta-Goog-Reserved-File-Mtime: 1657706885\r\nX-Goog-Metageneration: 1\r\nX-Goog-Storage-Class: STANDARD\r\nX-Goog-Stored-Content-Encoding: identity\r\nX-Goog-Stored-Content-Length: 1319\r\nX-Guploader-Uploadid: ADPycdv4zRvFxZg1bnJjcP53L9PQD8mDaWhvGZZOh5Pi6gLTInerE0jL9x_aeqT27RHXSqzOzcWrTA3lNr8Rq7MngA4gdg\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"version\" content=\"%VERSION%\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' blob: data: https: http: gap://ready https://*.hotjar.com:* https://*.hotjar.io wss://*.hotjar.com 'unsafe-inline';\"><script>!function(t,h,e,j,s,n){t.hj=t.hj||function(){(t.hj.q=t.hj.q||[]).push(arguments)},t._hjSettings={hjid:2925982,hjsv:6},s=h.getElementsByTagName(\"head\")[0],(n=h.createElement(\"script\")).async=1,n.src=\"https://static.hotjar.com/c/hotjar-\"+t._hjSettings.hjid+\".js?sv=\"+t._hjSettings.hjsv,s.appendChild(n)}(window,document)</script><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"shortcut icon\" href=\"/icon/app-icon-iphone.png\"><link rel=\"apple-touch-icon\" href=\"/icon/app-icon-iphone.png\"><title>pass Culture Pro</title><script defer=\"defer\" src=\"/static/js/main.b7988223.js\"></script><link href=\"/static/css/main.2a624081.css\" rel=\"stylesheet\"></head><body><div id=\"root\"></div><noscript>pass Culture Pro a besoin de JavaScript pour fonctionner.</noscript></body></html>",
+    "ip": "5.104.101.30",
+    "timestamp": "2022-07-17T07:10:24.15600903Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://pro.passculture.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://passculture.pro/?redirect=true'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "dns/dns-waf-detect.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/dns/dns-waf-detect.yaml",
+    "template-id": "dns-waf-detect",
+    "info": {
+      "name": "DNS WAF Detection",
+      "author": [
+        "lu4nx"
+      ],
+      "tags": [
+        "tech",
+        "waf",
+        "dns"
+      ],
+      "description": "A DNS WAF was detected.",
+      "reference": null,
+      "severity": "info",
+      "classification": {
+        "cve-id": null,
+        "cwe-id": [
+          "cwe-200"
+        ]
+      }
+    },
+    "matcher-name": "cloudflare",
+    "type": "dns",
+    "host": "https://pro.passculture.beta.gouv.fr",
+    "matched-at": "https://pro.passculture.beta.gouv.fr",
+    "request": ";; opcode: QUERY, status: NOERROR, id: 48576\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 4096\n\n;; QUESTION SECTION:\n;pro.passculture.beta.gouv.fr.\tIN\t NS\n",
+    "response": ";; opcode: QUERY, status: NOERROR, id: 48576\n;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 1, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 512\n\n;; QUESTION SECTION:\n;pro.passculture.beta.gouv.fr.\tIN\t NS\n\n;; ANSWER SECTION:\npro.passculture.beta.gouv.fr.\t33\tIN\tCNAME\tbetagouv-redirections.osc-fr1.scalingo.io.\nbetagouv-redirections.osc-fr1.scalingo.io.\t273\tIN\tCNAME\tsc-lb-pool-01.osc-fr1.scalingo-network.com.\n\n;; AUTHORITY SECTION:\nscalingo-network.com.\t1800\tIN\tSOA\tburt.ns.cloudflare.com. dns.cloudflare.com. 2277339532 10000 2400 604800 3600\n",
+    "timestamp": "2022-07-17T07:10:26.012022836Z",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "technologies/waf-detect.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/technologies/waf-detect.yaml",
+    "template-id": "waf-detect",
+    "info": {
+      "name": "WAF Detection",
+      "author": [
+        "dwisiswant0",
+        "lu4nx"
+      ],
+      "tags": [
+        "waf",
+        "tech",
+        "misc"
+      ],
+      "description": "A web application firewall was detected.",
+      "reference": [
+        "https://github.com/ekultek/whatwaf"
+      ],
+      "severity": "info",
+      "classification": {
+        "cve-id": null,
+        "cwe-id": [
+          "cwe-200"
+        ]
+      }
+    },
+    "matcher-name": "nginxgeneric",
+    "type": "http",
+    "host": "https://pro.passculture.beta.gouv.fr",
+    "matched-at": "https://pro.passculture.beta.gouv.fr/",
+    "request": "POST / HTTP/1.1\r\nHost: pro.passculture.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nContent-Length: 27\r\nContent-Type: application/x-www-form-urlencoded\r\nAccept-Encoding: gzip\r\n\r\n_=<script>alert(1)</script>",
+    "response": "HTTP/1.1 301 Moved Permanently\r\nConnection: close\r\nContent-Length: 162\r\nContent-Type: text/html\r\nDate: Sun, 17 Jul 2022 07:10:34 GMT\r\nLocation: https://passculture.pro/?redirect=true\r\nX-Request-Id: 3c593b33-0b70-49f9-9647-eeed8f71c4ac\r\n\r\n<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301 Moved Permanently</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html>\r\n",
+    "ip": "5.104.101.30",
+    "timestamp": "2022-07-17T07:10:34.754921566Z",
+    "curl-command": "curl -X 'POST' -d '_=<script>alert(1)</script>' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Host: pro.passculture.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://pro.passculture.beta.gouv.fr/'",
     "matcher-status": true,
     "matched-line": null
   },
@@ -584,7 +610,7 @@
       "TLS13"
     ],
     "ip": "5.104.101.30",
-    "timestamp": "2022-07-10T07:01:57.936663723Z",
+    "timestamp": "2022-07-17T07:10:44.77623116Z",
     "matcher-status": true,
     "matched-line": null
   }
