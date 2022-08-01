@@ -90,13 +90,10 @@ jobs:
       - name: Lighthouse scan
         if: ${{ matrix.sites.tools.lighthouse }}
         continue-on-error: true
-        timeout-minutes: 10
-        uses: treosh/lighthouse-ci-action@v8
+        timeout-minutes: 20
+        uses: SocialGouv/dashlord-actions/lhci@v1
         with:
-          urls: "${{ matrix.sites.url }}"
-          uploadArtifacts: false
-          temporaryPublicStorage: false
-          configPath: "./lighthouserc.json"
+          url: "${{ join(matrix.sites.subpages, ',') }}"
 
       - name: Mozilla HTTP Observatory
         if: ${{ matrix.sites.tools.http }}
@@ -195,6 +192,7 @@ jobs:
           output: scans/stats.json
           minExpectedRegex: ^stat
           exactExpectedRegex: ^stats$
+
       - name: Budget page
         continue-on-error: true
         timeout-minutes: 10
