@@ -1,6 +1,6 @@
 {
 	"@version": "2.11.1",
-	"@generated": "Sun, 31 Jul 2022 05:06:12",
+	"@generated": "Sun, 7 Aug 2022 05:01:25",
 	"site":[ 
 		{
 			"@name": "https://entreprise.api.gouv.fr",
@@ -201,6 +201,81 @@
 					"sourceid": "1"
 				},
 				{
+					"pluginid": "90022",
+					"alertRef": "90022",
+					"alert": "Application Error Disclosure",
+					"name": "Application Error Disclosure",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>This page contains an error/warning message that may disclose sensitive information like the location of the file that produced the unhandled exception. This information can be used to launch further attacks against the web application. The alert could be a false positive if the error message is found inside a documentation page.</p>",
+					"instances":[ 
+						{
+							"uri": "https://entreprise.api.gouv.fr/catalogue/adresse_etablissements_diffusibles",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "HTTP/1.1 500 Internal Server Error"
+						},
+						{
+							"uri": "https://entreprise.api.gouv.fr/catalogue/dgfip/www.impots.gouv.fr",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "HTTP/1.1 500 Internal Server Error"
+						},
+						{
+							"uri": "https://entreprise.api.gouv.fr/cgu/contact@api.gouv.fr",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "HTTP/1.1 500 Internal Server Error"
+						},
+						{
+							"uri": "https://entreprise.api.gouv.fr/cgu/support@entreprise.api.gouv.fr",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "HTTP/1.1 500 Internal Server Error"
+						},
+						{
+							"uri": "https://entreprise.api.gouv.fr/contact@api.gouv.fr",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "HTTP/1.1 500 Internal Server Error"
+						},
+						{
+							"uri": "https://entreprise.api.gouv.fr/sitemap.xml",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "HTTP/1.1 500 Internal Server Error"
+						},
+						{
+							"uri": "https://entreprise.api.gouv.fr/support@entreprise.api.gouv.fr",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "HTTP/1.1 500 Internal Server Error"
+						},
+						{
+							"uri": "https://entreprise.api.gouv.fr/TODO",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "HTTP/1.1 500 Internal Server Error"
+						}
+					],
+					"count": "8",
+					"solution": "<p>Review the source code of this page. Implement custom error pages. Consider implementing a mechanism to provide a unique error reference/identifier to the client (browser) while logging the details on the server side and not exposing them to the user.</p>",
+					"otherinfo": "",
+					"reference": "",
+					"cweid": "200",
+					"wascid": "13",
+					"sourceid": "511"
+				},
+				{
 					"pluginid": "10110",
 					"alertRef": "10110",
 					"alert": "Dangerous JS Functions",
@@ -224,7 +299,33 @@
 					"reference": "<p>https://angular.io/guide/security</p>",
 					"cweid": "749",
 					"wascid": "-1",
-					"sourceid": "193"
+					"sourceid": "194"
+				},
+				{
+					"pluginid": "10023",
+					"alertRef": "10023",
+					"alert": "Information Disclosure - Debug Error Messages",
+					"name": "Information Disclosure - Debug Error Messages",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>The response appeared to contain common error messages returned by platforms such as ASP.NET, and Web-servers such as IIS and Apache. You can configure the list of common debug messages.</p>",
+					"instances":[ 
+						{
+							"uri": "https://entreprise.api.gouv.fr/sitemap.xml",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Internal Server Error"
+						}
+					],
+					"count": "1",
+					"solution": "<p>Disable debugging messages before pushing to production.</p>",
+					"otherinfo": "",
+					"reference": "",
+					"cweid": "200",
+					"wascid": "13",
+					"sourceid": "10"
 				},
 				{
 					"pluginid": "10063",
@@ -525,27 +626,6 @@
 					"desc": "<p>A timestamp was disclosed by the application/web server - Unix</p>",
 					"instances":[ 
 						{
-							"uri": "https://entreprise.api.gouv.fr/assets/application-0535aea939edbd1789dd9c0584e5c0ba1b9d896967507dc44ccb4e31ce6c2226.css",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "23000091"
-						},
-						{
-							"uri": "https://entreprise.api.gouv.fr/assets/application-0535aea939edbd1789dd9c0584e5c0ba1b9d896967507dc44ccb4e31ce6c2226.css",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "23161616"
-						},
-						{
-							"uri": "https://entreprise.api.gouv.fr/assets/application-0535aea939edbd1789dd9c0584e5c0ba1b9d896967507dc44ccb4e31ce6c2226.css",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "23929292"
-						},
-						{
 							"uri": "https://entreprise.api.gouv.fr/assets/application-69390e0216692ccb31e3bcc64724aec6077285b83ff080dd613d3151defafbd1.js",
 							"method": "GET",
 							"param": "",
@@ -560,20 +640,55 @@
 							"evidence": "444444444"
 						},
 						{
-							"uri": "https://entreprise.api.gouv.fr/catalogue/inpi/modeles",
+							"uri": "https://entreprise.api.gouv.fr/catalogue/dgfip/attestations_fiscales",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "20203928"
+							"evidence": "1569139162"
+						},
+						{
+							"uri": "https://entreprise.api.gouv.fr/catalogue/dgfip/attestations_fiscales",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "20161207"
+						},
+						{
+							"uri": "https://entreprise.api.gouv.fr/catalogue/insee/adresse_etablissements_diffusibles",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "130025265"
+						},
+						{
+							"uri": "https://entreprise.api.gouv.fr/catalogue/insee/adresse_etablissements_diffusibles",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1618396818"
+						},
+						{
+							"uri": "https://entreprise.api.gouv.fr/catalogue/insee/adresse_etablissements_diffusibles",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "20100904"
+						},
+						{
+							"uri": "https://entreprise.api.gouv.fr/catalogue/urssaf/attestation_vigilance",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1569139162"
 						}
 					],
-					"count": "6",
+					"count": "8",
 					"solution": "<p>Manually confirm that the timestamp data is not sensitive, and that the data cannot be aggregated to disclose exploitable patterns.</p>",
-					"otherinfo": "<p>23000091, which evaluates to: 1970-09-24 04:54:51</p>",
+					"otherinfo": "<p>222789846, which evaluates to: 1977-01-22 14:04:06</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "192"
+					"sourceid": "193"
 				},
 				{
 					"pluginid": "10021",
@@ -586,7 +701,7 @@
 					"desc": "<p>The Anti-MIME-Sniffing header X-Content-Type-Options was not set to 'nosniff'. This allows older versions of Internet Explorer and Chrome to perform MIME-sniffing on the response body, potentially causing the response body to be interpreted and displayed as a content type other than the declared content type. Current (early 2014) and legacy versions of Firefox will use the declared content type (if one is set), rather than performing MIME-sniffing.</p>",
 					"instances":[ 
 						{
-							"uri": "https://entreprise.api.gouv.fr/assets/application-0535aea939edbd1789dd9c0584e5c0ba1b9d896967507dc44ccb4e31ce6c2226.css",
+							"uri": "https://entreprise.api.gouv.fr/assets/application-0d4b8a11baf715a516682c9f55a8015f67bec1207362a1949170df8111a6df4b.css",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -676,7 +791,7 @@
 					"reference": "<p>http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx</p><p>https://owasp.org/www-community/Security_Headers</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "192"
+					"sourceid": "195"
 				},
 				{
 					"pluginid": "10094",
@@ -693,93 +808,93 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2BwvvrV0eMJXy5vEhL5ivcolvpMr2U"
+							"evidence": "2B9JlJUVML7W6qERlg7K7yNYaI2sWCOTS8jfbYsawBmr0sRxJE"
 						},
 						{
 							"uri": "https://entreprise.api.gouv.fr",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2BxjB4tLjqFQLsCJSxyUDoYHa5Nymhhj6U3Y"
+							"evidence": "2FUHY1fjVcx8IG4AcIAjXP6QN2pv6t"
 						},
 						{
 							"uri": "https://entreprise.api.gouv.fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2FLzHJ5569uUGk7TSgBvtE4TThp7Dd80dkr3nU6M1Hfq"
+							"evidence": "2B9ut8QSEc7a2GDRZNW4XiYcJaktzURfVUx2LT3nOlUhliYjzh2t7eIyTH7NBQ98s5e3n7OdRfXWXDruw1x5F1FOUzmzyAya"
 						},
 						{
 							"uri": "https://entreprise.api.gouv.fr/catalogue",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "KqGQXPrWADS9JvjCi7ElrerDF2DUrFH302vMKNUOCpyP"
+							"evidence": "2FOEkwniN4jsPuggpsuLP1NNj91Yz8Zopy9KeS369nh1Vw2tK3fHFL5dldxrDKFBMSmwwctPmBQfxKfHu54u2S6libnaPWYgjuv"
 						},
 						{
 							"uri": "https://entreprise.api.gouv.fr/catalogue?Endpoint%5Bquery%5D=acoss",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2BdwpPoQJGUaqIXI9xSZQXGT8Yf4WvdRezxaMHN4K1LSvIuPJKxrISekvqpyLMwLxw3nU1i9228w"
+							"evidence": "2BysyQO0oKLtdcONnwZsx6S5dFuPUIGgrWio4jP2bkBwipl2w2Z1--HcPyZHeTkrqN4SoH--a10x29NKs4w6aNuYROtxew"
 						},
 						{
 							"uri": "https://entreprise.api.gouv.fr/catalogue?Endpoint%5Bquery%5D=dgfip",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "w5JMTDtUnfoMndlqSpvCgA1ypl5OvjkXGIWN7E16OoyyPBs1olTKq1Ripcc6yIcdgIT"
+							"evidence": "2BPloF3QOQsME426luRobdrK3skhryFhRTvCKqupHCE8nWz2ObvjVY1GKUxxMmsQ0fO9JPdWVaV1QhEsmg3xXAKFEvRQOwfRtojtYHP"
 						},
 						{
 							"uri": "https://entreprise.api.gouv.fr/catalogue?Endpoint%5Bquery%5D=infogreffe",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2Bvh0Y5cFQnpR1btFLOjjNTD4UadxfG"
+							"evidence": "6jPwpAtT2OxE3cjia9h5EegRHpBEzk8Tjw7aI8pFVx2DZFMrmimBcNQ3vzGpP7KnQk1l9uWHwD"
 						},
 						{
 							"uri": "https://entreprise.api.gouv.fr/catalogue?Endpoint%5Bquery%5D=insee",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2FiIiQoEXmF2IqmZDJaHRAn2UXhxrX0l4Ea5fy7LrHJF4sFq7SP"
+							"evidence": "Qg6GGwQYYXV1Kn6FloicVehywyDgZ4pt0db2zKnrCpXFcJs1kfj40c"
 						},
 						{
 							"uri": "https://entreprise.api.gouv.fr/cgu",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2F8PP2c969C5TnMO3v1sYesShunjc5gRCX"
+							"evidence": "SjtqREGxJSUEZ57p1n3AlGP4IKzH7wRNRBJY2Lo48ACpUI2cFc8DDRQ8Gc9ZX7NYuU1veKqfgSMlvKJedQYz1loaMnsYBY9tyaiaYCO"
 						},
 						{
 							"uri": "https://entreprise.api.gouv.fr/compte/se-connecter",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2FFW6muLQ6GJ1ocNyHjg3BZkJrqHc4EYQY0t8yPNYd5QrRa6tBRp"
+							"evidence": "2FiLiI1dSc3hTDL83Jh0r8KUEXPtygXOm8jxpXflAyueRapxDl3PL2MqFp6it4"
 						},
 						{
 							"uri": "https://entreprise.api.gouv.fr/developpeurs",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "7dgqkB6tVs4d2tDQGtz2S9zDaobfxHmX5Qp02lg6mNIBneHaKlXg"
+							"evidence": "2B8cKLOj8Vq3dxs7TEJkjM3HneDIjrzPUyvbBvHwXcEp3558LcX"
 						},
 						{
 							"uri": "https://entreprise.api.gouv.fr/faq",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2B2cBYK3VWkyT6OEHXlNABQAvSMAMbZAJ3l"
+							"evidence": "2BrDLKC0yDJPGLsnIgrMLcrBEo0RAI0GzfVAKrn23RUtY83KM4IUxHcO"
 						}
 					],
 					"count": "12",
 					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
-					"otherinfo": "<p>\uFFFD\\x001c/\uFFFD\uFFFDtx\uFFFDW\u02DB\u0104\uFFFDb\uFFFD\uFFFD%\uFFFD\uFFFD+\uFFFD</p>",
+					"otherinfo": "<p>\uFFFD\\x001fI\uFFFD\uFFFD\\x00150\uFFFD\uFFFD\uFFFD\\x0011\uFFFD\\x000e\uFFFD\uFFFD#Xh\uFFFD\uFFFDX#\uFFFDK\uFFFD\uFFFDm\uFFFD\\x001a\uFFFD\\x0019\uFFFD\uFFFD\uFFFDq$</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "7"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10019",
@@ -805,7 +920,7 @@
 					"reference": "<p>http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx</p>",
 					"cweid": "345",
 					"wascid": "12",
-					"sourceid": "221"
+					"sourceid": "223"
 				},
 				{
 					"pluginid": "10027",
@@ -1071,9 +1186,16 @@
 							"param": "",
 							"attack": "",
 							"evidence": "private"
+						},
+						{
+							"uri": "https://entreprise.api.gouv.fr/sitemap.xml",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "500"
 						}
 					],
-					"count": "9",
+					"count": "10",
 					"solution": "<p>The content may be marked as storable by ensuring that the following conditions are satisfied:</p><p>The request method must be understood by the cache and defined as being cacheable (\"GET\", \"HEAD\", and \"POST\" are currently defined as cacheable)</p><p>The response status code must be understood by the cache (one of the 1XX, 2XX, 3XX, 4XX, or 5XX response classes are generally understood)</p><p>The \"no-store\" cache directive must not appear in the request or response header fields</p><p>For caching by \"shared\" caches such as \"proxy\" caches, the \"private\" response directive must not appear in the response</p><p>For caching by \"shared\" caches such as \"proxy\" caches, the \"Authorization\" header field must not appear in the request, unless the response explicitly allows it (using one of the \"must-revalidate\", \"public\", or \"s-maxage\" Cache-Control response directives)</p><p>In addition to the conditions above, at least one of the following conditions must also be satisfied by the response:</p><p>It must contain an \"Expires\" header field</p><p>It must contain a \"max-age\" response directive</p><p>For \"shared\" caches such as \"proxy\" caches, it must contain a \"s-maxage\" response directive</p><p>It must contain a \"Cache Control Extension\" that allows it to be cached</p><p>It must have a status code that is defined as cacheable by default (200, 203, 204, 206, 300, 301, 404, 405, 410, 414, 501).   </p>",
 					"otherinfo": "",
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
@@ -1193,16 +1315,9 @@
 							"param": "",
 							"attack": "",
 							"evidence": ""
-						},
-						{
-							"uri": "https://entreprise.api.gouv.fr/sitemap.xml",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
 						}
 					],
-					"count": "2",
+					"count": "1",
 					"solution": "<p>Validate that the response does not contain sensitive, personal or user-specific information.  If it does, consider the use of the following HTTP response headers, to limit, or prevent the content being stored and retrieved from the cache by another user:</p><p>Cache-Control: no-cache, no-store, must-revalidate, private</p><p>Pragma: no-cache</p><p>Expires: 0</p><p>This configuration directs both HTTP 1.0 and HTTP 1.1 compliant caching servers to not store the response, and to not retrieve the response (without validation) from the cache, in response to a similar request. </p>",
 					"otherinfo": "<p>In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.</p>",
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
