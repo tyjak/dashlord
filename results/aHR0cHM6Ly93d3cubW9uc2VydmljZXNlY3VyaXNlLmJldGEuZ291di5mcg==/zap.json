@@ -1,6 +1,6 @@
 {
 	"@version": "2.11.1",
-	"@generated": "Sun, 31 Jul 2022 15:11:12",
+	"@generated": "Sun, 7 Aug 2022 17:04:03",
 	"site":[ 
 		{
 			"@name": "https://www.monservicesecurise.beta.gouv.fr",
@@ -8,6 +8,53 @@
 			"@port": "443",
 			"@ssl": "true",
 			"alerts": [ 
+				{
+					"pluginid": "10202",
+					"alertRef": "10202",
+					"alert": "Absence of Anti-CSRF Tokens",
+					"name": "Absence of Anti-CSRF Tokens",
+					"riskcode": "2",
+					"confidence": "1",
+					"riskdesc": "Medium (Low)",
+					"desc": "<p>No Anti-CSRF tokens were found in a HTML submission form.</p><p>A cross-site request forgery is an attack that involves forcing a victim to send an HTTP request to a target destination without their knowledge or intent in order to perform an action as the victim. The underlying cause is application functionality using predictable URL/form actions in a repeatable way. The nature of the attack is that CSRF exploits the trust that a web site has for a user. By contrast, cross-site scripting (XSS) exploits the trust that a user has for a web site. Like XSS, CSRF attacks are not necessarily cross-site, but they can be. Cross-site request forgery is also known as CSRF, XSRF, one-click attack, session riding, confused deputy, and sea surf.</p><p></p><p>CSRF attacks are effective in a number of situations, including:</p><p>    * The victim has an active session on the target site.</p><p>    * The victim is authenticated via HTTP auth on the target site.</p><p>    * The victim is on the same local network as the target site.</p><p></p><p>CSRF has primarily been used to perform an action against a target site using the victim's privileges, but recent techniques have been discovered to disclose information by gaining access to the response. The risk of information disclosure is dramatically increased when the target site is vulnerable to XSS, because XSS can be used as a platform for CSRF, allowing the attack to operate within the bounds of the same-origin policy.</p>",
+					"instances":[ 
+						{
+							"uri": "https://www.monservicesecurise.beta.gouv.fr/connexion",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form class=\"etroit\">"
+						},
+						{
+							"uri": "https://www.monservicesecurise.beta.gouv.fr/inscription",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form class=\"etroit\" id=\"inscription\">"
+						},
+						{
+							"uri": "https://www.monservicesecurise.beta.gouv.fr/inscription?cguAcceptees=on&delegueProtectionDonnees=oui&rssi=oui",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form class=\"etroit\" id=\"inscription\">"
+						},
+						{
+							"uri": "https://www.monservicesecurise.beta.gouv.fr/reinitialisationMotDePasse",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form class=\"etroit\">"
+						}
+					],
+					"count": "4",
+					"solution": "<p>Phase: Architecture and Design</p><p>Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid.</p><p>For example, use anti-CSRF packages such as the OWASP CSRFGuard.</p><p></p><p>Phase: Implementation</p><p>Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.</p><p></p><p>Phase: Architecture and Design</p><p>Generate a unique nonce for each form, place the nonce into the form, and verify the nonce upon receipt of the form. Be sure that the nonce is not predictable (CWE-330).</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Identify especially dangerous operations. When the user performs a dangerous operation, send a separate confirmation request to ensure that the user intended to perform that operation.</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Use the ESAPI Session Management control.</p><p>This control includes a component for CSRF.</p><p></p><p>Do not use the GET method for any request that triggers a state change.</p><p></p><p>Phase: Implementation</p><p>Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.</p>",
+					"otherinfo": "<p>No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"login\" \"mot-de-passe\" ].</p>",
+					"reference": "<p>http://projects.webappsec.org/Cross-Site-Request-Forgery</p><p>http://cwe.mitre.org/data/definitions/352.html</p>",
+					"cweid": "352",
+					"wascid": "9",
+					"sourceid": "70"
+				},
 				{
 					"pluginid": "10055",
 					"alertRef": "10055-4",
@@ -54,6 +101,13 @@
 							"evidence": "default-src 'self'; img-src 'self' data:;  script-src 'self'"
 						},
 						{
+							"uri": "https://www.monservicesecurise.beta.gouv.fr/inscription",
+							"method": "GET",
+							"param": "content-security-policy",
+							"attack": "",
+							"evidence": "default-src 'self'; img-src 'self' data:;  script-src 'self'"
+						},
+						{
 							"uri": "https://www.monservicesecurise.beta.gouv.fr/mentionsLegales",
 							"method": "GET",
 							"param": "content-security-policy",
@@ -89,7 +143,7 @@
 							"evidence": "default-src 'self'; img-src 'self' data:;  script-src 'self'"
 						}
 					],
-					"count": "10",
+					"count": "11",
 					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is properly configured to set the Content-Security-Policy header.</p>",
 					"otherinfo": "<p>The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: </p><p>frame-ancestors, form-action</p><p></p><p>The directive(s): frame-ancestors, form-action are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything.</p>",
 					"reference": "<p>http://www.w3.org/TR/CSP2/</p><p>http://www.w3.org/TR/CSP/</p><p>http://caniuse.com/#search=content+security+policy</p><p>http://content-security-policy.com/</p><p>https://github.com/shapesecurity/salvation</p><p>https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources</p>",
@@ -121,7 +175,7 @@
 					"reference": "<p>https://angular.io/guide/security</p>",
 					"cweid": "749",
 					"wascid": "-1",
-					"sourceid": "59"
+					"sourceid": "67"
 				},
 				{
 					"pluginid": "10063",
@@ -155,13 +209,6 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://www.monservicesecurise.beta.gouv.fr/bibliotheques/axios.min.js",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
-						},
-						{
 							"uri": "https://www.monservicesecurise.beta.gouv.fr/cgu",
 							"method": "GET",
 							"param": "",
@@ -170,6 +217,13 @@
 						},
 						{
 							"uri": "https://www.monservicesecurise.beta.gouv.fr/confidentialite",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://www.monservicesecurise.beta.gouv.fr/inscription",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -229,13 +283,6 @@
 					"riskdesc": "Low (Low)",
 					"desc": "<p>A timestamp was disclosed by the application/web server - Unix</p>",
 					"instances":[ 
-						{
-							"uri": "https://www.monservicesecurise.beta.gouv.fr/cgu",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "25336789"
-						},
 						{
 							"uri": "https://www.monservicesecurise.beta.gouv.fr/statique/exempleDossierHomologation.pdf",
 							"method": "GET",
@@ -405,13 +452,13 @@
 							"evidence": "0000569534"
 						}
 					],
-					"count": "25",
+					"count": "24",
 					"solution": "<p>Manually confirm that the timestamp data is not sensitive, and that the data cannot be aggregated to disclose exploitable patterns.</p>",
-					"otherinfo": "<p>25336789, which evaluates to: 1970-10-21 05:59:49</p>",
+					"otherinfo": "<p>0000000015, which evaluates to: 1970-01-01 00:00:15</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "35"
+					"sourceid": "42"
 				},
 				{
 					"pluginid": "10094",
@@ -428,14 +475,14 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1afa-roXzR/2RjQzJVPSuBXnYxcWh8As"
+							"evidence": "1ab4-MKJJXaR8/BZMd+335YIDPilvWWA"
 						},
 						{
 							"uri": "https://www.monservicesecurise.beta.gouv.fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1afa-roXzR/2RjQzJVPSuBXnYxcWh8As"
+							"evidence": "1ab4-MKJJXaR8/BZMd+335YIDPilvWWA"
 						},
 						{
 							"uri": "https://www.monservicesecurise.beta.gouv.fr/aPropos",
@@ -452,13 +499,6 @@
 							"evidence": "511b-FCNxITHKHBRxCXquG/QTMqrMtJE"
 						},
 						{
-							"uri": "https://www.monservicesecurise.beta.gouv.fr/bibliotheques/moment",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "e8da-OCi/NwO/Lf3EMK3MrLeUmFWwW7I"
-						},
-						{
 							"uri": "https://www.monservicesecurise.beta.gouv.fr/cgu",
 							"method": "GET",
 							"param": "",
@@ -471,6 +511,13 @@
 							"param": "",
 							"attack": "",
 							"evidence": "365c-h5aXIQDhOtdX17VNGs4nT5pKfkE"
+						},
+						{
+							"uri": "https://www.monservicesecurise.beta.gouv.fr/inscription",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "23b7-mGk469M5QG35+sbhs8UHWdGVuFI"
 						},
 						{
 							"uri": "https://www.monservicesecurise.beta.gouv.fr/mentionsLegales",
@@ -491,7 +538,7 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "eyJtYWludGVuYW50IjoyNzY1NDY3MX0="
+							"evidence": "eyJtYWludGVuYW50IjoyNzY2NDg2M30="
 						},
 						{
 							"uri": "https://www.monservicesecurise.beta.gouv.fr/statistiques",
@@ -503,7 +550,7 @@
 					],
 					"count": "11",
 					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
-					"otherinfo": "<p>\u0567\uFFFD\uFFFD\uFFFD\\x0017\uFFFD\\x001f\uFFFDF43%S\u04B8\\x0015\uFFFDc\\x0017\\x0016\uFFFD\uFFFD,</p>",
+					"otherinfo": "<p>\u0566\uFFFD\uFFFD\u0089%v\uFFFD\uFFFD\uFFFDY1\u07F7\u07D6\\x0008\\x000c\uFFFD\uFFFD\uFFFDe\uFFFD</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
@@ -555,6 +602,20 @@
 							"evidence": "TODO"
 						},
 						{
+							"uri": "https://www.monservicesecurise.beta.gouv.fr/statique/inscription.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "from"
+						},
+						{
+							"uri": "https://www.monservicesecurise.beta.gouv.fr/statique/inscription.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "select"
+						},
+						{
 							"uri": "https://www.monservicesecurise.beta.gouv.fr/statique/statistiques.js",
 							"method": "GET",
 							"param": "",
@@ -562,13 +623,13 @@
 							"evidence": "from"
 						}
 					],
-					"count": "6",
+					"count": "8",
 					"solution": "<p>Remove all comments that return information that may help an attacker and fix any underlying problems they refer to.</p>",
 					"otherinfo": "<p>The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"!function(e,t){\"object\"==typeof exports&&\"object\"==typeof module?module.exports=t():\"function\"==typeof define&&define.amd?define\", see evidence field for the suspicious comment/snippet.</p>",
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "57"
+					"sourceid": "64"
 				},
 				{
 					"pluginid": "10109",
@@ -594,7 +655,7 @@
 					"reference": "",
 					"cweid": "-1",
 					"wascid": "-1",
-					"sourceid": "59"
+					"sourceid": "67"
 				},
 				{
 					"pluginid": "10015",
@@ -642,6 +703,27 @@
 							"evidence": ""
 						},
 						{
+							"uri": "https://www.monservicesecurise.beta.gouv.fr/connexion",
+							"method": "GET",
+							"param": "Cache-Control",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://www.monservicesecurise.beta.gouv.fr/inscription",
+							"method": "GET",
+							"param": "Cache-Control",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://www.monservicesecurise.beta.gouv.fr/inscription?cguAcceptees=on&delegueProtectionDonnees=oui&rssi=oui",
+							"method": "GET",
+							"param": "Cache-Control",
+							"attack": "",
+							"evidence": ""
+						},
+						{
 							"uri": "https://www.monservicesecurise.beta.gouv.fr/mentionsLegales",
 							"method": "GET",
 							"param": "Cache-Control",
@@ -663,7 +745,7 @@
 							"evidence": ""
 						}
 					],
-					"count": "8",
+					"count": "11",
 					"solution": "<p>For secure content, ensure the cache-control HTTP header is set with \"no-cache, no-store, must-revalidate\". If an asset should be cached consider setting the directives \"public, max-age, immutable\".</p>",
 					"otherinfo": "",
 					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching</p><p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control</p>",
@@ -717,6 +799,13 @@
 							"evidence": ""
 						},
 						{
+							"uri": "https://www.monservicesecurise.beta.gouv.fr/inscription",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
 							"uri": "https://www.monservicesecurise.beta.gouv.fr/mentionsLegales",
 							"method": "GET",
 							"param": "",
@@ -739,13 +828,6 @@
 						},
 						{
 							"uri": "https://www.monservicesecurise.beta.gouv.fr/sitemap.xml",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://www.monservicesecurise.beta.gouv.fr/statistiques",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -784,7 +866,40 @@
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "43"
+					"sourceid": "42"
+				},
+				{
+					"pluginid": "10031",
+					"alertRef": "10031",
+					"alert": "User Controllable HTML Element Attribute (Potential XSS)",
+					"name": "User Controllable HTML Element Attribute (Potential XSS)",
+					"riskcode": "0",
+					"confidence": "1",
+					"riskdesc": "Informational (Low)",
+					"desc": "<p>This check looks at user-supplied input in query string parameters and POST data to identify where certain HTML attribute values might be controlled. This provides hot-spot detection for XSS (cross-site scripting) that will require further review by a security analyst to determine exploitability.</p>",
+					"instances":[ 
+						{
+							"uri": "https://www.monservicesecurise.beta.gouv.fr/inscription?cguAcceptees=on&delegueProtectionDonnees=oui&rssi=oui",
+							"method": "GET",
+							"param": "delegueProtectionDonnees",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://www.monservicesecurise.beta.gouv.fr/inscription?cguAcceptees=on&delegueProtectionDonnees=oui&rssi=oui",
+							"method": "GET",
+							"param": "rssi",
+							"attack": "",
+							"evidence": ""
+						}
+					],
+					"count": "2",
+					"solution": "<p>Validate all input and sanitize output it before writing to any HTML attributes.</p>",
+					"otherinfo": "<p>User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:</p><p></p><p>https://www.monservicesecurise.beta.gouv.fr/inscription?cguAcceptees=on&delegueProtectionDonnees=oui&rssi=oui</p><p></p><p>appears to include user input in: </p><p></p><p>a(n) [input] tag [value] attribute </p><p></p><p>The user input found was:</p><p>delegueProtectionDonnees=oui</p><p></p><p>The user-controlled value was:</p><p>oui</p>",
+					"reference": "<p>http://websecuritytool.codeplex.com/wikipage?title=Checks#user-controlled-html-attribute</p>",
+					"cweid": "20",
+					"wascid": "20",
+					"sourceid": "76"
 				}
 			]
 		}
