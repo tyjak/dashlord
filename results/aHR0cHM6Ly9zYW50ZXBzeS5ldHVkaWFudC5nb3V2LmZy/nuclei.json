@@ -1,74 +1,55 @@
 [
   {
-    "template": "dns/cname-fingerprint.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/dns/cname-fingerprint.yaml",
-    "template-id": "cname-fingerprint",
+    "template": "technologies/tech-detect.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/technologies/tech-detect.yaml",
+    "template-id": "tech-detect",
     "info": {
-      "name": "CNAME Fingerprint",
+      "name": "Wappalyzer Technology Detection",
       "author": [
-        "pdteam"
+        "hakluke"
       ],
       "tags": [
-        "dns",
-        "cname"
-      ],
-      "description": "A CNAME DNS record was discovered.",
-      "reference": [
-        "https://www.theregister.com/2021/02/24/dns_cname_tracking/",
-        "https://www.ionos.com/digitalguide/hosting/technical-matters/cname-record/"
-      ],
-      "severity": "info",
-      "classification": {
-        "cve-id": null,
-        "cwe-id": [
-          "cwe-200"
-        ]
-      }
-    },
-    "type": "dns",
-    "host": "https://santepsy.etudiant.gouv.fr",
-    "matched-at": "https://santepsy.etudiant.gouv.fr",
-    "extracted-results": [
-      "vip01.tandem-proxy.menesr.ate.info."
-    ],
-    "request": ";; opcode: QUERY, status: NOERROR, id: 14559\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 4096\n\n;; QUESTION SECTION:\n;santepsy.etudiant.gouv.fr.\tIN\t CNAME\n",
-    "response": ";; opcode: QUERY, status: NOERROR, id: 14559\n;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 512\n\n;; QUESTION SECTION:\n;santepsy.etudiant.gouv.fr.\tIN\t CNAME\n\n;; ANSWER SECTION:\nsantepsy.etudiant.gouv.fr.\t3595\tIN\tCNAME\tvip01.tandem-proxy.menesr.ate.info.\n",
-    "timestamp": "2022-07-31T08:49:11.145999412Z",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "ssl/ssl-dns-names.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/ssl/ssl-dns-names.yaml",
-    "template-id": "ssl-dns-names",
-    "info": {
-      "name": "SSL DNS Names",
-      "author": [
-        "pdteam"
-      ],
-      "tags": [
-        "ssl"
+        "tech"
       ],
       "reference": null,
       "severity": "info"
     },
-    "type": "ssl",
+    "matcher-name": "jsdelivr",
+    "type": "http",
     "host": "https://santepsy.etudiant.gouv.fr",
     "matched-at": "https://santepsy.etudiant.gouv.fr",
-    "extracted-results": [
-      "back.etudiant.gouv.fr",
-      "etudiants.gouv.fr",
-      "isoprod.etudiant.gouv.fr",
-      "santepsy.etudiant.gouv.fr",
-      "test.back.etudiant.gouv.fr",
-      "etudiant.gouv.fr",
-      "isoprod.back.etudiant.gouv.fr",
-      "test.etudiant.gouv.fr",
-      "www.etudiant.gouv.fr",
-      "www.etudiants.gouv.fr"
-    ],
+    "request": "GET / HTTP/1.1\r\nHost: santepsy.etudiant.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccept-Ranges: bytes\r\nCache-Control: no-cache, no-store, must-revalidate\r\nContent-Security-Policy: default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' https://stats.data.gouv.fr/ https://*.tile.openstreetmap.org/ https://axeptio.imgix.net https://www.google.com/ https://www.google.fr/ https://www.facebook.com https://googleads.g.doubleclick.net data:;object-src 'none';script-src 'self' https://stats.data.gouv.fr/ 'sha256-4sJsjD6jok0r8RIemFeNZ1nEQfYv6qdzYIaUCTrSIhs=' https://static.axept.io/ https://connect.facebook.net https://www.googletagmanager.com/ https://www.googleadservices.com/ https://googleads.g.doubleclick.net;script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests;frame-src https://santepsy-metabase.osc-secnum-fr1.scalingo.io https://stats.santepsyetudiant.beta.gouv.fr https://bid.g.doubleclick.net/;connect-src 'self' https://nominatim.openstreetmap.org https://stats.data.gouv.fr/ https://client.axept.io/\r\nContent-Type: text/html; charset=UTF-8\r\nCross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Resource-Policy: same-origin\r\nDate: Sun, 07 Aug 2022 08:48:31 GMT\r\nEtag: W/\"66b-181f87d0d90\"\r\nExpect-Ct: max-age=0\r\nExpires: 0\r\nFeature-Policy: geolocation 'self'\r\nLast-Modified: Wed, 13 Jul 2022 16:55:54 GMT\r\nOrigin-Agent-Cluster: ?1\r\nPermissions-Policy: geolocation=(self), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()\r\nPragma: no-cache\r\nReferrer-Policy: no-referrer\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubdomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Request-Id: b5f11ff4-9415-43e0-8ba7-35ca9a54b814\r\nX-Xss-Protection: 0\r\n\r\n<!doctype html><html lang=\"fr\" data-fr-reset><head><meta charset=\"utf-8\"><meta name=\"description\" content=\"Étudiants, parlez de vos difficultés et consultez un psychologue gratuitement\"/><meta name=\"facebook-domain-verification\" content=\"vk0pttx7ns8byvu7jccghodb0mf0qr\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon.ico\"><link rel=\"preload\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\" as=\"style\" onload=\"this.onload=null;this.rel='stylesheet'\"><noscript><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\"></noscript><script>var _paq = window._paq || [];\n    (function() {\n      var u=\"https://stats.data.gouv.fr/\";\n      _paq.push(['setTrackerUrl', u+'matomo.php']);\n      _paq.push(['setSiteId', 160]);\n      _paq.push(['setCookieSameSite', 'None']);\n      _paq.push(['setSecureCookie', true]);\n      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n      g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);\n    })();</script><link rel=\"stylesheet\" href=\"/styles/leaflet.css\"/><script src=\"/scripts/leaflet.js\" async></script><script defer=\"defer\" src=\"/manifest.cba584210ccca5fcd505.bundle.js\"></script><script defer=\"defer\" src=\"/vendors.2878324a8ba18bd2030d.bundle.js\"></script><script defer=\"defer\" src=\"/main.19f12706736818bcd3e8.bundle.js\"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\" style=\"height:100%\"></div></body></html>",
     "ip": "185.75.143.93",
-    "timestamp": "2022-07-31T08:49:11.280468843Z",
+    "timestamp": "2022-08-07T08:48:31.584166275Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://santepsy.etudiant.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "technologies/tech-detect.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/technologies/tech-detect.yaml",
+    "template-id": "tech-detect",
+    "info": {
+      "name": "Wappalyzer Technology Detection",
+      "author": [
+        "hakluke"
+      ],
+      "tags": [
+        "tech"
+      ],
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "nginx",
+    "type": "http",
+    "host": "https://santepsy.etudiant.gouv.fr",
+    "matched-at": "https://santepsy.etudiant.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: santepsy.etudiant.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccept-Ranges: bytes\r\nCache-Control: no-cache, no-store, must-revalidate\r\nContent-Security-Policy: default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' https://stats.data.gouv.fr/ https://*.tile.openstreetmap.org/ https://axeptio.imgix.net https://www.google.com/ https://www.google.fr/ https://www.facebook.com https://googleads.g.doubleclick.net data:;object-src 'none';script-src 'self' https://stats.data.gouv.fr/ 'sha256-4sJsjD6jok0r8RIemFeNZ1nEQfYv6qdzYIaUCTrSIhs=' https://static.axept.io/ https://connect.facebook.net https://www.googletagmanager.com/ https://www.googleadservices.com/ https://googleads.g.doubleclick.net;script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests;frame-src https://santepsy-metabase.osc-secnum-fr1.scalingo.io https://stats.santepsyetudiant.beta.gouv.fr https://bid.g.doubleclick.net/;connect-src 'self' https://nominatim.openstreetmap.org https://stats.data.gouv.fr/ https://client.axept.io/\r\nContent-Type: text/html; charset=UTF-8\r\nCross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Resource-Policy: same-origin\r\nDate: Sun, 07 Aug 2022 08:48:31 GMT\r\nEtag: W/\"66b-181f87d0d90\"\r\nExpect-Ct: max-age=0\r\nExpires: 0\r\nFeature-Policy: geolocation 'self'\r\nLast-Modified: Wed, 13 Jul 2022 16:55:54 GMT\r\nOrigin-Agent-Cluster: ?1\r\nPermissions-Policy: geolocation=(self), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()\r\nPragma: no-cache\r\nReferrer-Policy: no-referrer\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubdomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Request-Id: b5f11ff4-9415-43e0-8ba7-35ca9a54b814\r\nX-Xss-Protection: 0\r\n\r\n<!doctype html><html lang=\"fr\" data-fr-reset><head><meta charset=\"utf-8\"><meta name=\"description\" content=\"Étudiants, parlez de vos difficultés et consultez un psychologue gratuitement\"/><meta name=\"facebook-domain-verification\" content=\"vk0pttx7ns8byvu7jccghodb0mf0qr\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon.ico\"><link rel=\"preload\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\" as=\"style\" onload=\"this.onload=null;this.rel='stylesheet'\"><noscript><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\"></noscript><script>var _paq = window._paq || [];\n    (function() {\n      var u=\"https://stats.data.gouv.fr/\";\n      _paq.push(['setTrackerUrl', u+'matomo.php']);\n      _paq.push(['setSiteId', 160]);\n      _paq.push(['setCookieSameSite', 'None']);\n      _paq.push(['setSecureCookie', true]);\n      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n      g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);\n    })();</script><link rel=\"stylesheet\" href=\"/styles/leaflet.css\"/><script src=\"/scripts/leaflet.js\" async></script><script defer=\"defer\" src=\"/manifest.cba584210ccca5fcd505.bundle.js\"></script><script defer=\"defer\" src=\"/vendors.2878324a8ba18bd2030d.bundle.js\"></script><script defer=\"defer\" src=\"/main.19f12706736818bcd3e8.bundle.js\"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\" style=\"height:100%\"></div></body></html>",
+    "ip": "185.75.143.93",
+    "timestamp": "2022-08-07T08:48:31.584602084Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://santepsy.etudiant.gouv.fr'",
     "matcher-status": true,
     "matched-line": null
   },
@@ -100,79 +81,9 @@
     "host": "https://santepsy.etudiant.gouv.fr",
     "matched-at": "https://santepsy.etudiant.gouv.fr",
     "request": "GET / HTTP/1.1\r\nHost: santepsy.etudiant.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccept-Ranges: bytes\r\nCache-Control: no-cache, no-store, must-revalidate\r\nContent-Security-Policy: default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' https://stats.data.gouv.fr/ https://*.tile.openstreetmap.org/ https://axeptio.imgix.net https://www.google.com/ https://www.google.fr/ https://www.facebook.com https://googleads.g.doubleclick.net data:;object-src 'none';script-src 'self' https://stats.data.gouv.fr/ 'sha256-4sJsjD6jok0r8RIemFeNZ1nEQfYv6qdzYIaUCTrSIhs=' https://static.axept.io/ https://connect.facebook.net https://www.googletagmanager.com/ https://www.googleadservices.com/ https://googleads.g.doubleclick.net;script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests;frame-src https://santepsy-metabase.osc-secnum-fr1.scalingo.io https://stats.santepsyetudiant.beta.gouv.fr https://bid.g.doubleclick.net/;connect-src 'self' https://nominatim.openstreetmap.org https://stats.data.gouv.fr/ https://client.axept.io/\r\nContent-Type: text/html; charset=UTF-8\r\nCross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Resource-Policy: same-origin\r\nDate: Sun, 31 Jul 2022 08:49:13 GMT\r\nEtag: W/\"66b-181f87d0d90\"\r\nExpect-Ct: max-age=0\r\nExpires: 0\r\nFeature-Policy: geolocation 'self'\r\nLast-Modified: Wed, 13 Jul 2022 16:55:54 GMT\r\nOrigin-Agent-Cluster: ?1\r\nPermissions-Policy: geolocation=(self), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()\r\nPragma: no-cache\r\nReferrer-Policy: no-referrer\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubdomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Request-Id: 5353e6ed-d28a-4ced-a972-6a5f0d62cf63\r\nX-Xss-Protection: 0\r\n\r\n<!doctype html><html lang=\"fr\" data-fr-reset><head><meta charset=\"utf-8\"><meta name=\"description\" content=\"Étudiants, parlez de vos difficultés et consultez un psychologue gratuitement\"/><meta name=\"facebook-domain-verification\" content=\"vk0pttx7ns8byvu7jccghodb0mf0qr\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon.ico\"><link rel=\"preload\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\" as=\"style\" onload=\"this.onload=null;this.rel='stylesheet'\"><noscript><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\"></noscript><script>var _paq = window._paq || [];\n    (function() {\n      var u=\"https://stats.data.gouv.fr/\";\n      _paq.push(['setTrackerUrl', u+'matomo.php']);\n      _paq.push(['setSiteId', 160]);\n      _paq.push(['setCookieSameSite', 'None']);\n      _paq.push(['setSecureCookie', true]);\n      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n      g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);\n    })();</script><link rel=\"stylesheet\" href=\"/styles/leaflet.css\"/><script src=\"/scripts/leaflet.js\" async></script><script defer=\"defer\" src=\"/manifest.cba584210ccca5fcd505.bundle.js\"></script><script defer=\"defer\" src=\"/vendors.2878324a8ba18bd2030d.bundle.js\"></script><script defer=\"defer\" src=\"/main.19f12706736818bcd3e8.bundle.js\"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\" style=\"height:100%\"></div></body></html>",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccept-Ranges: bytes\r\nCache-Control: no-cache, no-store, must-revalidate\r\nContent-Security-Policy: default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' https://stats.data.gouv.fr/ https://*.tile.openstreetmap.org/ https://axeptio.imgix.net https://www.google.com/ https://www.google.fr/ https://www.facebook.com https://googleads.g.doubleclick.net data:;object-src 'none';script-src 'self' https://stats.data.gouv.fr/ 'sha256-4sJsjD6jok0r8RIemFeNZ1nEQfYv6qdzYIaUCTrSIhs=' https://static.axept.io/ https://connect.facebook.net https://www.googletagmanager.com/ https://www.googleadservices.com/ https://googleads.g.doubleclick.net;script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests;frame-src https://santepsy-metabase.osc-secnum-fr1.scalingo.io https://stats.santepsyetudiant.beta.gouv.fr https://bid.g.doubleclick.net/;connect-src 'self' https://nominatim.openstreetmap.org https://stats.data.gouv.fr/ https://client.axept.io/\r\nContent-Type: text/html; charset=UTF-8\r\nCross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Resource-Policy: same-origin\r\nDate: Sun, 07 Aug 2022 08:48:45 GMT\r\nEtag: W/\"66b-181f87d0d90\"\r\nExpect-Ct: max-age=0\r\nExpires: 0\r\nFeature-Policy: geolocation 'self'\r\nLast-Modified: Wed, 13 Jul 2022 16:55:54 GMT\r\nOrigin-Agent-Cluster: ?1\r\nPermissions-Policy: geolocation=(self), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()\r\nPragma: no-cache\r\nReferrer-Policy: no-referrer\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubdomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Request-Id: 5606d59e-79c4-4afd-8798-add7c19e773c\r\nX-Xss-Protection: 0\r\n\r\n<!doctype html><html lang=\"fr\" data-fr-reset><head><meta charset=\"utf-8\"><meta name=\"description\" content=\"Étudiants, parlez de vos difficultés et consultez un psychologue gratuitement\"/><meta name=\"facebook-domain-verification\" content=\"vk0pttx7ns8byvu7jccghodb0mf0qr\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon.ico\"><link rel=\"preload\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\" as=\"style\" onload=\"this.onload=null;this.rel='stylesheet'\"><noscript><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\"></noscript><script>var _paq = window._paq || [];\n    (function() {\n      var u=\"https://stats.data.gouv.fr/\";\n      _paq.push(['setTrackerUrl', u+'matomo.php']);\n      _paq.push(['setSiteId', 160]);\n      _paq.push(['setCookieSameSite', 'None']);\n      _paq.push(['setSecureCookie', true]);\n      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n      g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);\n    })();</script><link rel=\"stylesheet\" href=\"/styles/leaflet.css\"/><script src=\"/scripts/leaflet.js\" async></script><script defer=\"defer\" src=\"/manifest.cba584210ccca5fcd505.bundle.js\"></script><script defer=\"defer\" src=\"/vendors.2878324a8ba18bd2030d.bundle.js\"></script><script defer=\"defer\" src=\"/main.19f12706736818bcd3e8.bundle.js\"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\" style=\"height:100%\"></div></body></html>",
     "ip": "185.75.143.93",
-    "timestamp": "2022-07-31T08:49:13.982025571Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://santepsy.etudiant.gouv.fr'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "access-control-allow-credentials",
-    "type": "http",
-    "host": "https://santepsy.etudiant.gouv.fr",
-    "matched-at": "https://santepsy.etudiant.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: santepsy.etudiant.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccept-Ranges: bytes\r\nCache-Control: no-cache, no-store, must-revalidate\r\nContent-Security-Policy: default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' https://stats.data.gouv.fr/ https://*.tile.openstreetmap.org/ https://axeptio.imgix.net https://www.google.com/ https://www.google.fr/ https://www.facebook.com https://googleads.g.doubleclick.net data:;object-src 'none';script-src 'self' https://stats.data.gouv.fr/ 'sha256-4sJsjD6jok0r8RIemFeNZ1nEQfYv6qdzYIaUCTrSIhs=' https://static.axept.io/ https://connect.facebook.net https://www.googletagmanager.com/ https://www.googleadservices.com/ https://googleads.g.doubleclick.net;script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests;frame-src https://santepsy-metabase.osc-secnum-fr1.scalingo.io https://stats.santepsyetudiant.beta.gouv.fr https://bid.g.doubleclick.net/;connect-src 'self' https://nominatim.openstreetmap.org https://stats.data.gouv.fr/ https://client.axept.io/\r\nContent-Type: text/html; charset=UTF-8\r\nCross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Resource-Policy: same-origin\r\nDate: Sun, 31 Jul 2022 08:49:13 GMT\r\nEtag: W/\"66b-181f87d0d90\"\r\nExpect-Ct: max-age=0\r\nExpires: 0\r\nFeature-Policy: geolocation 'self'\r\nLast-Modified: Wed, 13 Jul 2022 16:55:54 GMT\r\nOrigin-Agent-Cluster: ?1\r\nPermissions-Policy: geolocation=(self), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()\r\nPragma: no-cache\r\nReferrer-Policy: no-referrer\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubdomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Request-Id: 5353e6ed-d28a-4ced-a972-6a5f0d62cf63\r\nX-Xss-Protection: 0\r\n\r\n<!doctype html><html lang=\"fr\" data-fr-reset><head><meta charset=\"utf-8\"><meta name=\"description\" content=\"Étudiants, parlez de vos difficultés et consultez un psychologue gratuitement\"/><meta name=\"facebook-domain-verification\" content=\"vk0pttx7ns8byvu7jccghodb0mf0qr\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon.ico\"><link rel=\"preload\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\" as=\"style\" onload=\"this.onload=null;this.rel='stylesheet'\"><noscript><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\"></noscript><script>var _paq = window._paq || [];\n    (function() {\n      var u=\"https://stats.data.gouv.fr/\";\n      _paq.push(['setTrackerUrl', u+'matomo.php']);\n      _paq.push(['setSiteId', 160]);\n      _paq.push(['setCookieSameSite', 'None']);\n      _paq.push(['setSecureCookie', true]);\n      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n      g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);\n    })();</script><link rel=\"stylesheet\" href=\"/styles/leaflet.css\"/><script src=\"/scripts/leaflet.js\" async></script><script defer=\"defer\" src=\"/manifest.cba584210ccca5fcd505.bundle.js\"></script><script defer=\"defer\" src=\"/vendors.2878324a8ba18bd2030d.bundle.js\"></script><script defer=\"defer\" src=\"/main.19f12706736818bcd3e8.bundle.js\"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\" style=\"height:100%\"></div></body></html>",
-    "ip": "185.75.143.93",
-    "timestamp": "2022-07-31T08:49:13.98216418Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://santepsy.etudiant.gouv.fr'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "access-control-expose-headers",
-    "type": "http",
-    "host": "https://santepsy.etudiant.gouv.fr",
-    "matched-at": "https://santepsy.etudiant.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: santepsy.etudiant.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccept-Ranges: bytes\r\nCache-Control: no-cache, no-store, must-revalidate\r\nContent-Security-Policy: default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' https://stats.data.gouv.fr/ https://*.tile.openstreetmap.org/ https://axeptio.imgix.net https://www.google.com/ https://www.google.fr/ https://www.facebook.com https://googleads.g.doubleclick.net data:;object-src 'none';script-src 'self' https://stats.data.gouv.fr/ 'sha256-4sJsjD6jok0r8RIemFeNZ1nEQfYv6qdzYIaUCTrSIhs=' https://static.axept.io/ https://connect.facebook.net https://www.googletagmanager.com/ https://www.googleadservices.com/ https://googleads.g.doubleclick.net;script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests;frame-src https://santepsy-metabase.osc-secnum-fr1.scalingo.io https://stats.santepsyetudiant.beta.gouv.fr https://bid.g.doubleclick.net/;connect-src 'self' https://nominatim.openstreetmap.org https://stats.data.gouv.fr/ https://client.axept.io/\r\nContent-Type: text/html; charset=UTF-8\r\nCross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Resource-Policy: same-origin\r\nDate: Sun, 31 Jul 2022 08:49:13 GMT\r\nEtag: W/\"66b-181f87d0d90\"\r\nExpect-Ct: max-age=0\r\nExpires: 0\r\nFeature-Policy: geolocation 'self'\r\nLast-Modified: Wed, 13 Jul 2022 16:55:54 GMT\r\nOrigin-Agent-Cluster: ?1\r\nPermissions-Policy: geolocation=(self), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()\r\nPragma: no-cache\r\nReferrer-Policy: no-referrer\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubdomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Request-Id: 5353e6ed-d28a-4ced-a972-6a5f0d62cf63\r\nX-Xss-Protection: 0\r\n\r\n<!doctype html><html lang=\"fr\" data-fr-reset><head><meta charset=\"utf-8\"><meta name=\"description\" content=\"Étudiants, parlez de vos difficultés et consultez un psychologue gratuitement\"/><meta name=\"facebook-domain-verification\" content=\"vk0pttx7ns8byvu7jccghodb0mf0qr\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon.ico\"><link rel=\"preload\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\" as=\"style\" onload=\"this.onload=null;this.rel='stylesheet'\"><noscript><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\"></noscript><script>var _paq = window._paq || [];\n    (function() {\n      var u=\"https://stats.data.gouv.fr/\";\n      _paq.push(['setTrackerUrl', u+'matomo.php']);\n      _paq.push(['setSiteId', 160]);\n      _paq.push(['setCookieSameSite', 'None']);\n      _paq.push(['setSecureCookie', true]);\n      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n      g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);\n    })();</script><link rel=\"stylesheet\" href=\"/styles/leaflet.css\"/><script src=\"/scripts/leaflet.js\" async></script><script defer=\"defer\" src=\"/manifest.cba584210ccca5fcd505.bundle.js\"></script><script defer=\"defer\" src=\"/vendors.2878324a8ba18bd2030d.bundle.js\"></script><script defer=\"defer\" src=\"/main.19f12706736818bcd3e8.bundle.js\"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\" style=\"height:100%\"></div></body></html>",
-    "ip": "185.75.143.93",
-    "timestamp": "2022-07-31T08:49:13.982387995Z",
+    "timestamp": "2022-08-07T08:48:46.049159771Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://santepsy.etudiant.gouv.fr'",
     "matcher-status": true,
     "matched-line": null
@@ -205,44 +116,9 @@
     "host": "https://santepsy.etudiant.gouv.fr",
     "matched-at": "https://santepsy.etudiant.gouv.fr",
     "request": "GET / HTTP/1.1\r\nHost: santepsy.etudiant.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccept-Ranges: bytes\r\nCache-Control: no-cache, no-store, must-revalidate\r\nContent-Security-Policy: default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' https://stats.data.gouv.fr/ https://*.tile.openstreetmap.org/ https://axeptio.imgix.net https://www.google.com/ https://www.google.fr/ https://www.facebook.com https://googleads.g.doubleclick.net data:;object-src 'none';script-src 'self' https://stats.data.gouv.fr/ 'sha256-4sJsjD6jok0r8RIemFeNZ1nEQfYv6qdzYIaUCTrSIhs=' https://static.axept.io/ https://connect.facebook.net https://www.googletagmanager.com/ https://www.googleadservices.com/ https://googleads.g.doubleclick.net;script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests;frame-src https://santepsy-metabase.osc-secnum-fr1.scalingo.io https://stats.santepsyetudiant.beta.gouv.fr https://bid.g.doubleclick.net/;connect-src 'self' https://nominatim.openstreetmap.org https://stats.data.gouv.fr/ https://client.axept.io/\r\nContent-Type: text/html; charset=UTF-8\r\nCross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Resource-Policy: same-origin\r\nDate: Sun, 31 Jul 2022 08:49:13 GMT\r\nEtag: W/\"66b-181f87d0d90\"\r\nExpect-Ct: max-age=0\r\nExpires: 0\r\nFeature-Policy: geolocation 'self'\r\nLast-Modified: Wed, 13 Jul 2022 16:55:54 GMT\r\nOrigin-Agent-Cluster: ?1\r\nPermissions-Policy: geolocation=(self), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()\r\nPragma: no-cache\r\nReferrer-Policy: no-referrer\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubdomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Request-Id: 5353e6ed-d28a-4ced-a972-6a5f0d62cf63\r\nX-Xss-Protection: 0\r\n\r\n<!doctype html><html lang=\"fr\" data-fr-reset><head><meta charset=\"utf-8\"><meta name=\"description\" content=\"Étudiants, parlez de vos difficultés et consultez un psychologue gratuitement\"/><meta name=\"facebook-domain-verification\" content=\"vk0pttx7ns8byvu7jccghodb0mf0qr\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon.ico\"><link rel=\"preload\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\" as=\"style\" onload=\"this.onload=null;this.rel='stylesheet'\"><noscript><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\"></noscript><script>var _paq = window._paq || [];\n    (function() {\n      var u=\"https://stats.data.gouv.fr/\";\n      _paq.push(['setTrackerUrl', u+'matomo.php']);\n      _paq.push(['setSiteId', 160]);\n      _paq.push(['setCookieSameSite', 'None']);\n      _paq.push(['setSecureCookie', true]);\n      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n      g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);\n    })();</script><link rel=\"stylesheet\" href=\"/styles/leaflet.css\"/><script src=\"/scripts/leaflet.js\" async></script><script defer=\"defer\" src=\"/manifest.cba584210ccca5fcd505.bundle.js\"></script><script defer=\"defer\" src=\"/vendors.2878324a8ba18bd2030d.bundle.js\"></script><script defer=\"defer\" src=\"/main.19f12706736818bcd3e8.bundle.js\"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\" style=\"height:100%\"></div></body></html>",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccept-Ranges: bytes\r\nCache-Control: no-cache, no-store, must-revalidate\r\nContent-Security-Policy: default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' https://stats.data.gouv.fr/ https://*.tile.openstreetmap.org/ https://axeptio.imgix.net https://www.google.com/ https://www.google.fr/ https://www.facebook.com https://googleads.g.doubleclick.net data:;object-src 'none';script-src 'self' https://stats.data.gouv.fr/ 'sha256-4sJsjD6jok0r8RIemFeNZ1nEQfYv6qdzYIaUCTrSIhs=' https://static.axept.io/ https://connect.facebook.net https://www.googletagmanager.com/ https://www.googleadservices.com/ https://googleads.g.doubleclick.net;script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests;frame-src https://santepsy-metabase.osc-secnum-fr1.scalingo.io https://stats.santepsyetudiant.beta.gouv.fr https://bid.g.doubleclick.net/;connect-src 'self' https://nominatim.openstreetmap.org https://stats.data.gouv.fr/ https://client.axept.io/\r\nContent-Type: text/html; charset=UTF-8\r\nCross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Resource-Policy: same-origin\r\nDate: Sun, 07 Aug 2022 08:48:45 GMT\r\nEtag: W/\"66b-181f87d0d90\"\r\nExpect-Ct: max-age=0\r\nExpires: 0\r\nFeature-Policy: geolocation 'self'\r\nLast-Modified: Wed, 13 Jul 2022 16:55:54 GMT\r\nOrigin-Agent-Cluster: ?1\r\nPermissions-Policy: geolocation=(self), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()\r\nPragma: no-cache\r\nReferrer-Policy: no-referrer\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubdomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Request-Id: 5606d59e-79c4-4afd-8798-add7c19e773c\r\nX-Xss-Protection: 0\r\n\r\n<!doctype html><html lang=\"fr\" data-fr-reset><head><meta charset=\"utf-8\"><meta name=\"description\" content=\"Étudiants, parlez de vos difficultés et consultez un psychologue gratuitement\"/><meta name=\"facebook-domain-verification\" content=\"vk0pttx7ns8byvu7jccghodb0mf0qr\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon.ico\"><link rel=\"preload\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\" as=\"style\" onload=\"this.onload=null;this.rel='stylesheet'\"><noscript><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\"></noscript><script>var _paq = window._paq || [];\n    (function() {\n      var u=\"https://stats.data.gouv.fr/\";\n      _paq.push(['setTrackerUrl', u+'matomo.php']);\n      _paq.push(['setSiteId', 160]);\n      _paq.push(['setCookieSameSite', 'None']);\n      _paq.push(['setSecureCookie', true]);\n      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n      g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);\n    })();</script><link rel=\"stylesheet\" href=\"/styles/leaflet.css\"/><script src=\"/scripts/leaflet.js\" async></script><script defer=\"defer\" src=\"/manifest.cba584210ccca5fcd505.bundle.js\"></script><script defer=\"defer\" src=\"/vendors.2878324a8ba18bd2030d.bundle.js\"></script><script defer=\"defer\" src=\"/main.19f12706736818bcd3e8.bundle.js\"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\" style=\"height:100%\"></div></body></html>",
     "ip": "185.75.143.93",
-    "timestamp": "2022-07-31T08:49:13.982439498Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://santepsy.etudiant.gouv.fr'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "access-control-allow-headers",
-    "type": "http",
-    "host": "https://santepsy.etudiant.gouv.fr",
-    "matched-at": "https://santepsy.etudiant.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: santepsy.etudiant.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccept-Ranges: bytes\r\nCache-Control: no-cache, no-store, must-revalidate\r\nContent-Security-Policy: default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' https://stats.data.gouv.fr/ https://*.tile.openstreetmap.org/ https://axeptio.imgix.net https://www.google.com/ https://www.google.fr/ https://www.facebook.com https://googleads.g.doubleclick.net data:;object-src 'none';script-src 'self' https://stats.data.gouv.fr/ 'sha256-4sJsjD6jok0r8RIemFeNZ1nEQfYv6qdzYIaUCTrSIhs=' https://static.axept.io/ https://connect.facebook.net https://www.googletagmanager.com/ https://www.googleadservices.com/ https://googleads.g.doubleclick.net;script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests;frame-src https://santepsy-metabase.osc-secnum-fr1.scalingo.io https://stats.santepsyetudiant.beta.gouv.fr https://bid.g.doubleclick.net/;connect-src 'self' https://nominatim.openstreetmap.org https://stats.data.gouv.fr/ https://client.axept.io/\r\nContent-Type: text/html; charset=UTF-8\r\nCross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Resource-Policy: same-origin\r\nDate: Sun, 31 Jul 2022 08:49:13 GMT\r\nEtag: W/\"66b-181f87d0d90\"\r\nExpect-Ct: max-age=0\r\nExpires: 0\r\nFeature-Policy: geolocation 'self'\r\nLast-Modified: Wed, 13 Jul 2022 16:55:54 GMT\r\nOrigin-Agent-Cluster: ?1\r\nPermissions-Policy: geolocation=(self), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()\r\nPragma: no-cache\r\nReferrer-Policy: no-referrer\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubdomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Request-Id: 5353e6ed-d28a-4ced-a972-6a5f0d62cf63\r\nX-Xss-Protection: 0\r\n\r\n<!doctype html><html lang=\"fr\" data-fr-reset><head><meta charset=\"utf-8\"><meta name=\"description\" content=\"Étudiants, parlez de vos difficultés et consultez un psychologue gratuitement\"/><meta name=\"facebook-domain-verification\" content=\"vk0pttx7ns8byvu7jccghodb0mf0qr\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon.ico\"><link rel=\"preload\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\" as=\"style\" onload=\"this.onload=null;this.rel='stylesheet'\"><noscript><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\"></noscript><script>var _paq = window._paq || [];\n    (function() {\n      var u=\"https://stats.data.gouv.fr/\";\n      _paq.push(['setTrackerUrl', u+'matomo.php']);\n      _paq.push(['setSiteId', 160]);\n      _paq.push(['setCookieSameSite', 'None']);\n      _paq.push(['setSecureCookie', true]);\n      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n      g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);\n    })();</script><link rel=\"stylesheet\" href=\"/styles/leaflet.css\"/><script src=\"/scripts/leaflet.js\" async></script><script defer=\"defer\" src=\"/manifest.cba584210ccca5fcd505.bundle.js\"></script><script defer=\"defer\" src=\"/vendors.2878324a8ba18bd2030d.bundle.js\"></script><script defer=\"defer\" src=\"/main.19f12706736818bcd3e8.bundle.js\"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\" style=\"height:100%\"></div></body></html>",
-    "ip": "185.75.143.93",
-    "timestamp": "2022-07-31T08:49:13.982487001Z",
+    "timestamp": "2022-08-07T08:48:46.049282673Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://santepsy.etudiant.gouv.fr'",
     "matcher-status": true,
     "matched-line": null
@@ -275,9 +151,9 @@
     "host": "https://santepsy.etudiant.gouv.fr",
     "matched-at": "https://santepsy.etudiant.gouv.fr",
     "request": "GET / HTTP/1.1\r\nHost: santepsy.etudiant.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccept-Ranges: bytes\r\nCache-Control: no-cache, no-store, must-revalidate\r\nContent-Security-Policy: default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' https://stats.data.gouv.fr/ https://*.tile.openstreetmap.org/ https://axeptio.imgix.net https://www.google.com/ https://www.google.fr/ https://www.facebook.com https://googleads.g.doubleclick.net data:;object-src 'none';script-src 'self' https://stats.data.gouv.fr/ 'sha256-4sJsjD6jok0r8RIemFeNZ1nEQfYv6qdzYIaUCTrSIhs=' https://static.axept.io/ https://connect.facebook.net https://www.googletagmanager.com/ https://www.googleadservices.com/ https://googleads.g.doubleclick.net;script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests;frame-src https://santepsy-metabase.osc-secnum-fr1.scalingo.io https://stats.santepsyetudiant.beta.gouv.fr https://bid.g.doubleclick.net/;connect-src 'self' https://nominatim.openstreetmap.org https://stats.data.gouv.fr/ https://client.axept.io/\r\nContent-Type: text/html; charset=UTF-8\r\nCross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Resource-Policy: same-origin\r\nDate: Sun, 31 Jul 2022 08:49:13 GMT\r\nEtag: W/\"66b-181f87d0d90\"\r\nExpect-Ct: max-age=0\r\nExpires: 0\r\nFeature-Policy: geolocation 'self'\r\nLast-Modified: Wed, 13 Jul 2022 16:55:54 GMT\r\nOrigin-Agent-Cluster: ?1\r\nPermissions-Policy: geolocation=(self), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()\r\nPragma: no-cache\r\nReferrer-Policy: no-referrer\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubdomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Request-Id: 5353e6ed-d28a-4ced-a972-6a5f0d62cf63\r\nX-Xss-Protection: 0\r\n\r\n<!doctype html><html lang=\"fr\" data-fr-reset><head><meta charset=\"utf-8\"><meta name=\"description\" content=\"Étudiants, parlez de vos difficultés et consultez un psychologue gratuitement\"/><meta name=\"facebook-domain-verification\" content=\"vk0pttx7ns8byvu7jccghodb0mf0qr\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon.ico\"><link rel=\"preload\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\" as=\"style\" onload=\"this.onload=null;this.rel='stylesheet'\"><noscript><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\"></noscript><script>var _paq = window._paq || [];\n    (function() {\n      var u=\"https://stats.data.gouv.fr/\";\n      _paq.push(['setTrackerUrl', u+'matomo.php']);\n      _paq.push(['setSiteId', 160]);\n      _paq.push(['setCookieSameSite', 'None']);\n      _paq.push(['setSecureCookie', true]);\n      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n      g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);\n    })();</script><link rel=\"stylesheet\" href=\"/styles/leaflet.css\"/><script src=\"/scripts/leaflet.js\" async></script><script defer=\"defer\" src=\"/manifest.cba584210ccca5fcd505.bundle.js\"></script><script defer=\"defer\" src=\"/vendors.2878324a8ba18bd2030d.bundle.js\"></script><script defer=\"defer\" src=\"/main.19f12706736818bcd3e8.bundle.js\"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\" style=\"height:100%\"></div></body></html>",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccept-Ranges: bytes\r\nCache-Control: no-cache, no-store, must-revalidate\r\nContent-Security-Policy: default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' https://stats.data.gouv.fr/ https://*.tile.openstreetmap.org/ https://axeptio.imgix.net https://www.google.com/ https://www.google.fr/ https://www.facebook.com https://googleads.g.doubleclick.net data:;object-src 'none';script-src 'self' https://stats.data.gouv.fr/ 'sha256-4sJsjD6jok0r8RIemFeNZ1nEQfYv6qdzYIaUCTrSIhs=' https://static.axept.io/ https://connect.facebook.net https://www.googletagmanager.com/ https://www.googleadservices.com/ https://googleads.g.doubleclick.net;script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests;frame-src https://santepsy-metabase.osc-secnum-fr1.scalingo.io https://stats.santepsyetudiant.beta.gouv.fr https://bid.g.doubleclick.net/;connect-src 'self' https://nominatim.openstreetmap.org https://stats.data.gouv.fr/ https://client.axept.io/\r\nContent-Type: text/html; charset=UTF-8\r\nCross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Resource-Policy: same-origin\r\nDate: Sun, 07 Aug 2022 08:48:45 GMT\r\nEtag: W/\"66b-181f87d0d90\"\r\nExpect-Ct: max-age=0\r\nExpires: 0\r\nFeature-Policy: geolocation 'self'\r\nLast-Modified: Wed, 13 Jul 2022 16:55:54 GMT\r\nOrigin-Agent-Cluster: ?1\r\nPermissions-Policy: geolocation=(self), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()\r\nPragma: no-cache\r\nReferrer-Policy: no-referrer\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubdomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Request-Id: 5606d59e-79c4-4afd-8798-add7c19e773c\r\nX-Xss-Protection: 0\r\n\r\n<!doctype html><html lang=\"fr\" data-fr-reset><head><meta charset=\"utf-8\"><meta name=\"description\" content=\"Étudiants, parlez de vos difficultés et consultez un psychologue gratuitement\"/><meta name=\"facebook-domain-verification\" content=\"vk0pttx7ns8byvu7jccghodb0mf0qr\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon.ico\"><link rel=\"preload\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\" as=\"style\" onload=\"this.onload=null;this.rel='stylesheet'\"><noscript><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\"></noscript><script>var _paq = window._paq || [];\n    (function() {\n      var u=\"https://stats.data.gouv.fr/\";\n      _paq.push(['setTrackerUrl', u+'matomo.php']);\n      _paq.push(['setSiteId', 160]);\n      _paq.push(['setCookieSameSite', 'None']);\n      _paq.push(['setSecureCookie', true]);\n      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n      g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);\n    })();</script><link rel=\"stylesheet\" href=\"/styles/leaflet.css\"/><script src=\"/scripts/leaflet.js\" async></script><script defer=\"defer\" src=\"/manifest.cba584210ccca5fcd505.bundle.js\"></script><script defer=\"defer\" src=\"/vendors.2878324a8ba18bd2030d.bundle.js\"></script><script defer=\"defer\" src=\"/main.19f12706736818bcd3e8.bundle.js\"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\" style=\"height:100%\"></div></body></html>",
     "ip": "185.75.143.93",
-    "timestamp": "2022-07-31T08:49:13.982528304Z",
+    "timestamp": "2022-08-07T08:48:46.049316874Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://santepsy.etudiant.gouv.fr'",
     "matcher-status": true,
     "matched-line": null
@@ -310,9 +186,9 @@
     "host": "https://santepsy.etudiant.gouv.fr",
     "matched-at": "https://santepsy.etudiant.gouv.fr",
     "request": "GET / HTTP/1.1\r\nHost: santepsy.etudiant.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccept-Ranges: bytes\r\nCache-Control: no-cache, no-store, must-revalidate\r\nContent-Security-Policy: default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' https://stats.data.gouv.fr/ https://*.tile.openstreetmap.org/ https://axeptio.imgix.net https://www.google.com/ https://www.google.fr/ https://www.facebook.com https://googleads.g.doubleclick.net data:;object-src 'none';script-src 'self' https://stats.data.gouv.fr/ 'sha256-4sJsjD6jok0r8RIemFeNZ1nEQfYv6qdzYIaUCTrSIhs=' https://static.axept.io/ https://connect.facebook.net https://www.googletagmanager.com/ https://www.googleadservices.com/ https://googleads.g.doubleclick.net;script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests;frame-src https://santepsy-metabase.osc-secnum-fr1.scalingo.io https://stats.santepsyetudiant.beta.gouv.fr https://bid.g.doubleclick.net/;connect-src 'self' https://nominatim.openstreetmap.org https://stats.data.gouv.fr/ https://client.axept.io/\r\nContent-Type: text/html; charset=UTF-8\r\nCross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Resource-Policy: same-origin\r\nDate: Sun, 31 Jul 2022 08:49:13 GMT\r\nEtag: W/\"66b-181f87d0d90\"\r\nExpect-Ct: max-age=0\r\nExpires: 0\r\nFeature-Policy: geolocation 'self'\r\nLast-Modified: Wed, 13 Jul 2022 16:55:54 GMT\r\nOrigin-Agent-Cluster: ?1\r\nPermissions-Policy: geolocation=(self), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()\r\nPragma: no-cache\r\nReferrer-Policy: no-referrer\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubdomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Request-Id: 5353e6ed-d28a-4ced-a972-6a5f0d62cf63\r\nX-Xss-Protection: 0\r\n\r\n<!doctype html><html lang=\"fr\" data-fr-reset><head><meta charset=\"utf-8\"><meta name=\"description\" content=\"Étudiants, parlez de vos difficultés et consultez un psychologue gratuitement\"/><meta name=\"facebook-domain-verification\" content=\"vk0pttx7ns8byvu7jccghodb0mf0qr\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon.ico\"><link rel=\"preload\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\" as=\"style\" onload=\"this.onload=null;this.rel='stylesheet'\"><noscript><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\"></noscript><script>var _paq = window._paq || [];\n    (function() {\n      var u=\"https://stats.data.gouv.fr/\";\n      _paq.push(['setTrackerUrl', u+'matomo.php']);\n      _paq.push(['setSiteId', 160]);\n      _paq.push(['setCookieSameSite', 'None']);\n      _paq.push(['setSecureCookie', true]);\n      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n      g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);\n    })();</script><link rel=\"stylesheet\" href=\"/styles/leaflet.css\"/><script src=\"/scripts/leaflet.js\" async></script><script defer=\"defer\" src=\"/manifest.cba584210ccca5fcd505.bundle.js\"></script><script defer=\"defer\" src=\"/vendors.2878324a8ba18bd2030d.bundle.js\"></script><script defer=\"defer\" src=\"/main.19f12706736818bcd3e8.bundle.js\"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\" style=\"height:100%\"></div></body></html>",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccept-Ranges: bytes\r\nCache-Control: no-cache, no-store, must-revalidate\r\nContent-Security-Policy: default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' https://stats.data.gouv.fr/ https://*.tile.openstreetmap.org/ https://axeptio.imgix.net https://www.google.com/ https://www.google.fr/ https://www.facebook.com https://googleads.g.doubleclick.net data:;object-src 'none';script-src 'self' https://stats.data.gouv.fr/ 'sha256-4sJsjD6jok0r8RIemFeNZ1nEQfYv6qdzYIaUCTrSIhs=' https://static.axept.io/ https://connect.facebook.net https://www.googletagmanager.com/ https://www.googleadservices.com/ https://googleads.g.doubleclick.net;script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests;frame-src https://santepsy-metabase.osc-secnum-fr1.scalingo.io https://stats.santepsyetudiant.beta.gouv.fr https://bid.g.doubleclick.net/;connect-src 'self' https://nominatim.openstreetmap.org https://stats.data.gouv.fr/ https://client.axept.io/\r\nContent-Type: text/html; charset=UTF-8\r\nCross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Resource-Policy: same-origin\r\nDate: Sun, 07 Aug 2022 08:48:45 GMT\r\nEtag: W/\"66b-181f87d0d90\"\r\nExpect-Ct: max-age=0\r\nExpires: 0\r\nFeature-Policy: geolocation 'self'\r\nLast-Modified: Wed, 13 Jul 2022 16:55:54 GMT\r\nOrigin-Agent-Cluster: ?1\r\nPermissions-Policy: geolocation=(self), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()\r\nPragma: no-cache\r\nReferrer-Policy: no-referrer\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubdomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Request-Id: 5606d59e-79c4-4afd-8798-add7c19e773c\r\nX-Xss-Protection: 0\r\n\r\n<!doctype html><html lang=\"fr\" data-fr-reset><head><meta charset=\"utf-8\"><meta name=\"description\" content=\"Étudiants, parlez de vos difficultés et consultez un psychologue gratuitement\"/><meta name=\"facebook-domain-verification\" content=\"vk0pttx7ns8byvu7jccghodb0mf0qr\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon.ico\"><link rel=\"preload\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\" as=\"style\" onload=\"this.onload=null;this.rel='stylesheet'\"><noscript><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\"></noscript><script>var _paq = window._paq || [];\n    (function() {\n      var u=\"https://stats.data.gouv.fr/\";\n      _paq.push(['setTrackerUrl', u+'matomo.php']);\n      _paq.push(['setSiteId', 160]);\n      _paq.push(['setCookieSameSite', 'None']);\n      _paq.push(['setSecureCookie', true]);\n      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n      g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);\n    })();</script><link rel=\"stylesheet\" href=\"/styles/leaflet.css\"/><script src=\"/scripts/leaflet.js\" async></script><script defer=\"defer\" src=\"/manifest.cba584210ccca5fcd505.bundle.js\"></script><script defer=\"defer\" src=\"/vendors.2878324a8ba18bd2030d.bundle.js\"></script><script defer=\"defer\" src=\"/main.19f12706736818bcd3e8.bundle.js\"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\" style=\"height:100%\"></div></body></html>",
     "ip": "185.75.143.93",
-    "timestamp": "2022-07-31T08:49:13.982572507Z",
+    "timestamp": "2022-08-07T08:48:46.049347075Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://santepsy.etudiant.gouv.fr'",
     "matcher-status": true,
     "matched-line": null
@@ -345,9 +221,79 @@
     "host": "https://santepsy.etudiant.gouv.fr",
     "matched-at": "https://santepsy.etudiant.gouv.fr",
     "request": "GET / HTTP/1.1\r\nHost: santepsy.etudiant.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccept-Ranges: bytes\r\nCache-Control: no-cache, no-store, must-revalidate\r\nContent-Security-Policy: default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' https://stats.data.gouv.fr/ https://*.tile.openstreetmap.org/ https://axeptio.imgix.net https://www.google.com/ https://www.google.fr/ https://www.facebook.com https://googleads.g.doubleclick.net data:;object-src 'none';script-src 'self' https://stats.data.gouv.fr/ 'sha256-4sJsjD6jok0r8RIemFeNZ1nEQfYv6qdzYIaUCTrSIhs=' https://static.axept.io/ https://connect.facebook.net https://www.googletagmanager.com/ https://www.googleadservices.com/ https://googleads.g.doubleclick.net;script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests;frame-src https://santepsy-metabase.osc-secnum-fr1.scalingo.io https://stats.santepsyetudiant.beta.gouv.fr https://bid.g.doubleclick.net/;connect-src 'self' https://nominatim.openstreetmap.org https://stats.data.gouv.fr/ https://client.axept.io/\r\nContent-Type: text/html; charset=UTF-8\r\nCross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Resource-Policy: same-origin\r\nDate: Sun, 31 Jul 2022 08:49:13 GMT\r\nEtag: W/\"66b-181f87d0d90\"\r\nExpect-Ct: max-age=0\r\nExpires: 0\r\nFeature-Policy: geolocation 'self'\r\nLast-Modified: Wed, 13 Jul 2022 16:55:54 GMT\r\nOrigin-Agent-Cluster: ?1\r\nPermissions-Policy: geolocation=(self), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()\r\nPragma: no-cache\r\nReferrer-Policy: no-referrer\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubdomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Request-Id: 5353e6ed-d28a-4ced-a972-6a5f0d62cf63\r\nX-Xss-Protection: 0\r\n\r\n<!doctype html><html lang=\"fr\" data-fr-reset><head><meta charset=\"utf-8\"><meta name=\"description\" content=\"Étudiants, parlez de vos difficultés et consultez un psychologue gratuitement\"/><meta name=\"facebook-domain-verification\" content=\"vk0pttx7ns8byvu7jccghodb0mf0qr\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon.ico\"><link rel=\"preload\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\" as=\"style\" onload=\"this.onload=null;this.rel='stylesheet'\"><noscript><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\"></noscript><script>var _paq = window._paq || [];\n    (function() {\n      var u=\"https://stats.data.gouv.fr/\";\n      _paq.push(['setTrackerUrl', u+'matomo.php']);\n      _paq.push(['setSiteId', 160]);\n      _paq.push(['setCookieSameSite', 'None']);\n      _paq.push(['setSecureCookie', true]);\n      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n      g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);\n    })();</script><link rel=\"stylesheet\" href=\"/styles/leaflet.css\"/><script src=\"/scripts/leaflet.js\" async></script><script defer=\"defer\" src=\"/manifest.cba584210ccca5fcd505.bundle.js\"></script><script defer=\"defer\" src=\"/vendors.2878324a8ba18bd2030d.bundle.js\"></script><script defer=\"defer\" src=\"/main.19f12706736818bcd3e8.bundle.js\"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\" style=\"height:100%\"></div></body></html>",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccept-Ranges: bytes\r\nCache-Control: no-cache, no-store, must-revalidate\r\nContent-Security-Policy: default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' https://stats.data.gouv.fr/ https://*.tile.openstreetmap.org/ https://axeptio.imgix.net https://www.google.com/ https://www.google.fr/ https://www.facebook.com https://googleads.g.doubleclick.net data:;object-src 'none';script-src 'self' https://stats.data.gouv.fr/ 'sha256-4sJsjD6jok0r8RIemFeNZ1nEQfYv6qdzYIaUCTrSIhs=' https://static.axept.io/ https://connect.facebook.net https://www.googletagmanager.com/ https://www.googleadservices.com/ https://googleads.g.doubleclick.net;script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests;frame-src https://santepsy-metabase.osc-secnum-fr1.scalingo.io https://stats.santepsyetudiant.beta.gouv.fr https://bid.g.doubleclick.net/;connect-src 'self' https://nominatim.openstreetmap.org https://stats.data.gouv.fr/ https://client.axept.io/\r\nContent-Type: text/html; charset=UTF-8\r\nCross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Resource-Policy: same-origin\r\nDate: Sun, 07 Aug 2022 08:48:45 GMT\r\nEtag: W/\"66b-181f87d0d90\"\r\nExpect-Ct: max-age=0\r\nExpires: 0\r\nFeature-Policy: geolocation 'self'\r\nLast-Modified: Wed, 13 Jul 2022 16:55:54 GMT\r\nOrigin-Agent-Cluster: ?1\r\nPermissions-Policy: geolocation=(self), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()\r\nPragma: no-cache\r\nReferrer-Policy: no-referrer\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubdomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Request-Id: 5606d59e-79c4-4afd-8798-add7c19e773c\r\nX-Xss-Protection: 0\r\n\r\n<!doctype html><html lang=\"fr\" data-fr-reset><head><meta charset=\"utf-8\"><meta name=\"description\" content=\"Étudiants, parlez de vos difficultés et consultez un psychologue gratuitement\"/><meta name=\"facebook-domain-verification\" content=\"vk0pttx7ns8byvu7jccghodb0mf0qr\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon.ico\"><link rel=\"preload\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\" as=\"style\" onload=\"this.onload=null;this.rel='stylesheet'\"><noscript><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\"></noscript><script>var _paq = window._paq || [];\n    (function() {\n      var u=\"https://stats.data.gouv.fr/\";\n      _paq.push(['setTrackerUrl', u+'matomo.php']);\n      _paq.push(['setSiteId', 160]);\n      _paq.push(['setCookieSameSite', 'None']);\n      _paq.push(['setSecureCookie', true]);\n      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n      g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);\n    })();</script><link rel=\"stylesheet\" href=\"/styles/leaflet.css\"/><script src=\"/scripts/leaflet.js\" async></script><script defer=\"defer\" src=\"/manifest.cba584210ccca5fcd505.bundle.js\"></script><script defer=\"defer\" src=\"/vendors.2878324a8ba18bd2030d.bundle.js\"></script><script defer=\"defer\" src=\"/main.19f12706736818bcd3e8.bundle.js\"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\" style=\"height:100%\"></div></body></html>",
     "ip": "185.75.143.93",
-    "timestamp": "2022-07-31T08:49:13.98261521Z",
+    "timestamp": "2022-08-07T08:48:46.049497178Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://santepsy.etudiant.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-allow-credentials",
+    "type": "http",
+    "host": "https://santepsy.etudiant.gouv.fr",
+    "matched-at": "https://santepsy.etudiant.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: santepsy.etudiant.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccept-Ranges: bytes\r\nCache-Control: no-cache, no-store, must-revalidate\r\nContent-Security-Policy: default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' https://stats.data.gouv.fr/ https://*.tile.openstreetmap.org/ https://axeptio.imgix.net https://www.google.com/ https://www.google.fr/ https://www.facebook.com https://googleads.g.doubleclick.net data:;object-src 'none';script-src 'self' https://stats.data.gouv.fr/ 'sha256-4sJsjD6jok0r8RIemFeNZ1nEQfYv6qdzYIaUCTrSIhs=' https://static.axept.io/ https://connect.facebook.net https://www.googletagmanager.com/ https://www.googleadservices.com/ https://googleads.g.doubleclick.net;script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests;frame-src https://santepsy-metabase.osc-secnum-fr1.scalingo.io https://stats.santepsyetudiant.beta.gouv.fr https://bid.g.doubleclick.net/;connect-src 'self' https://nominatim.openstreetmap.org https://stats.data.gouv.fr/ https://client.axept.io/\r\nContent-Type: text/html; charset=UTF-8\r\nCross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Resource-Policy: same-origin\r\nDate: Sun, 07 Aug 2022 08:48:45 GMT\r\nEtag: W/\"66b-181f87d0d90\"\r\nExpect-Ct: max-age=0\r\nExpires: 0\r\nFeature-Policy: geolocation 'self'\r\nLast-Modified: Wed, 13 Jul 2022 16:55:54 GMT\r\nOrigin-Agent-Cluster: ?1\r\nPermissions-Policy: geolocation=(self), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()\r\nPragma: no-cache\r\nReferrer-Policy: no-referrer\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubdomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Request-Id: 5606d59e-79c4-4afd-8798-add7c19e773c\r\nX-Xss-Protection: 0\r\n\r\n<!doctype html><html lang=\"fr\" data-fr-reset><head><meta charset=\"utf-8\"><meta name=\"description\" content=\"Étudiants, parlez de vos difficultés et consultez un psychologue gratuitement\"/><meta name=\"facebook-domain-verification\" content=\"vk0pttx7ns8byvu7jccghodb0mf0qr\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon.ico\"><link rel=\"preload\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\" as=\"style\" onload=\"this.onload=null;this.rel='stylesheet'\"><noscript><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\"></noscript><script>var _paq = window._paq || [];\n    (function() {\n      var u=\"https://stats.data.gouv.fr/\";\n      _paq.push(['setTrackerUrl', u+'matomo.php']);\n      _paq.push(['setSiteId', 160]);\n      _paq.push(['setCookieSameSite', 'None']);\n      _paq.push(['setSecureCookie', true]);\n      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n      g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);\n    })();</script><link rel=\"stylesheet\" href=\"/styles/leaflet.css\"/><script src=\"/scripts/leaflet.js\" async></script><script defer=\"defer\" src=\"/manifest.cba584210ccca5fcd505.bundle.js\"></script><script defer=\"defer\" src=\"/vendors.2878324a8ba18bd2030d.bundle.js\"></script><script defer=\"defer\" src=\"/main.19f12706736818bcd3e8.bundle.js\"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\" style=\"height:100%\"></div></body></html>",
+    "ip": "185.75.143.93",
+    "timestamp": "2022-08-07T08:48:46.049536979Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://santepsy.etudiant.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-expose-headers",
+    "type": "http",
+    "host": "https://santepsy.etudiant.gouv.fr",
+    "matched-at": "https://santepsy.etudiant.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: santepsy.etudiant.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccept-Ranges: bytes\r\nCache-Control: no-cache, no-store, must-revalidate\r\nContent-Security-Policy: default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' https://stats.data.gouv.fr/ https://*.tile.openstreetmap.org/ https://axeptio.imgix.net https://www.google.com/ https://www.google.fr/ https://www.facebook.com https://googleads.g.doubleclick.net data:;object-src 'none';script-src 'self' https://stats.data.gouv.fr/ 'sha256-4sJsjD6jok0r8RIemFeNZ1nEQfYv6qdzYIaUCTrSIhs=' https://static.axept.io/ https://connect.facebook.net https://www.googletagmanager.com/ https://www.googleadservices.com/ https://googleads.g.doubleclick.net;script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests;frame-src https://santepsy-metabase.osc-secnum-fr1.scalingo.io https://stats.santepsyetudiant.beta.gouv.fr https://bid.g.doubleclick.net/;connect-src 'self' https://nominatim.openstreetmap.org https://stats.data.gouv.fr/ https://client.axept.io/\r\nContent-Type: text/html; charset=UTF-8\r\nCross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Resource-Policy: same-origin\r\nDate: Sun, 07 Aug 2022 08:48:45 GMT\r\nEtag: W/\"66b-181f87d0d90\"\r\nExpect-Ct: max-age=0\r\nExpires: 0\r\nFeature-Policy: geolocation 'self'\r\nLast-Modified: Wed, 13 Jul 2022 16:55:54 GMT\r\nOrigin-Agent-Cluster: ?1\r\nPermissions-Policy: geolocation=(self), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()\r\nPragma: no-cache\r\nReferrer-Policy: no-referrer\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubdomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Request-Id: 5606d59e-79c4-4afd-8798-add7c19e773c\r\nX-Xss-Protection: 0\r\n\r\n<!doctype html><html lang=\"fr\" data-fr-reset><head><meta charset=\"utf-8\"><meta name=\"description\" content=\"Étudiants, parlez de vos difficultés et consultez un psychologue gratuitement\"/><meta name=\"facebook-domain-verification\" content=\"vk0pttx7ns8byvu7jccghodb0mf0qr\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon.ico\"><link rel=\"preload\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\" as=\"style\" onload=\"this.onload=null;this.rel='stylesheet'\"><noscript><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\"></noscript><script>var _paq = window._paq || [];\n    (function() {\n      var u=\"https://stats.data.gouv.fr/\";\n      _paq.push(['setTrackerUrl', u+'matomo.php']);\n      _paq.push(['setSiteId', 160]);\n      _paq.push(['setCookieSameSite', 'None']);\n      _paq.push(['setSecureCookie', true]);\n      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n      g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);\n    })();</script><link rel=\"stylesheet\" href=\"/styles/leaflet.css\"/><script src=\"/scripts/leaflet.js\" async></script><script defer=\"defer\" src=\"/manifest.cba584210ccca5fcd505.bundle.js\"></script><script defer=\"defer\" src=\"/vendors.2878324a8ba18bd2030d.bundle.js\"></script><script defer=\"defer\" src=\"/main.19f12706736818bcd3e8.bundle.js\"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\" style=\"height:100%\"></div></body></html>",
+    "ip": "185.75.143.93",
+    "timestamp": "2022-08-07T08:48:46.049579979Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://santepsy.etudiant.gouv.fr'",
     "matcher-status": true,
     "matched-line": null
@@ -380,99 +326,95 @@
     "host": "https://santepsy.etudiant.gouv.fr",
     "matched-at": "https://santepsy.etudiant.gouv.fr",
     "request": "GET / HTTP/1.1\r\nHost: santepsy.etudiant.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccept-Ranges: bytes\r\nCache-Control: no-cache, no-store, must-revalidate\r\nContent-Security-Policy: default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' https://stats.data.gouv.fr/ https://*.tile.openstreetmap.org/ https://axeptio.imgix.net https://www.google.com/ https://www.google.fr/ https://www.facebook.com https://googleads.g.doubleclick.net data:;object-src 'none';script-src 'self' https://stats.data.gouv.fr/ 'sha256-4sJsjD6jok0r8RIemFeNZ1nEQfYv6qdzYIaUCTrSIhs=' https://static.axept.io/ https://connect.facebook.net https://www.googletagmanager.com/ https://www.googleadservices.com/ https://googleads.g.doubleclick.net;script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests;frame-src https://santepsy-metabase.osc-secnum-fr1.scalingo.io https://stats.santepsyetudiant.beta.gouv.fr https://bid.g.doubleclick.net/;connect-src 'self' https://nominatim.openstreetmap.org https://stats.data.gouv.fr/ https://client.axept.io/\r\nContent-Type: text/html; charset=UTF-8\r\nCross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Resource-Policy: same-origin\r\nDate: Sun, 31 Jul 2022 08:49:13 GMT\r\nEtag: W/\"66b-181f87d0d90\"\r\nExpect-Ct: max-age=0\r\nExpires: 0\r\nFeature-Policy: geolocation 'self'\r\nLast-Modified: Wed, 13 Jul 2022 16:55:54 GMT\r\nOrigin-Agent-Cluster: ?1\r\nPermissions-Policy: geolocation=(self), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()\r\nPragma: no-cache\r\nReferrer-Policy: no-referrer\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubdomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Request-Id: 5353e6ed-d28a-4ced-a972-6a5f0d62cf63\r\nX-Xss-Protection: 0\r\n\r\n<!doctype html><html lang=\"fr\" data-fr-reset><head><meta charset=\"utf-8\"><meta name=\"description\" content=\"Étudiants, parlez de vos difficultés et consultez un psychologue gratuitement\"/><meta name=\"facebook-domain-verification\" content=\"vk0pttx7ns8byvu7jccghodb0mf0qr\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon.ico\"><link rel=\"preload\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\" as=\"style\" onload=\"this.onload=null;this.rel='stylesheet'\"><noscript><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\"></noscript><script>var _paq = window._paq || [];\n    (function() {\n      var u=\"https://stats.data.gouv.fr/\";\n      _paq.push(['setTrackerUrl', u+'matomo.php']);\n      _paq.push(['setSiteId', 160]);\n      _paq.push(['setCookieSameSite', 'None']);\n      _paq.push(['setSecureCookie', true]);\n      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n      g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);\n    })();</script><link rel=\"stylesheet\" href=\"/styles/leaflet.css\"/><script src=\"/scripts/leaflet.js\" async></script><script defer=\"defer\" src=\"/manifest.cba584210ccca5fcd505.bundle.js\"></script><script defer=\"defer\" src=\"/vendors.2878324a8ba18bd2030d.bundle.js\"></script><script defer=\"defer\" src=\"/main.19f12706736818bcd3e8.bundle.js\"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\" style=\"height:100%\"></div></body></html>",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccept-Ranges: bytes\r\nCache-Control: no-cache, no-store, must-revalidate\r\nContent-Security-Policy: default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' https://stats.data.gouv.fr/ https://*.tile.openstreetmap.org/ https://axeptio.imgix.net https://www.google.com/ https://www.google.fr/ https://www.facebook.com https://googleads.g.doubleclick.net data:;object-src 'none';script-src 'self' https://stats.data.gouv.fr/ 'sha256-4sJsjD6jok0r8RIemFeNZ1nEQfYv6qdzYIaUCTrSIhs=' https://static.axept.io/ https://connect.facebook.net https://www.googletagmanager.com/ https://www.googleadservices.com/ https://googleads.g.doubleclick.net;script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests;frame-src https://santepsy-metabase.osc-secnum-fr1.scalingo.io https://stats.santepsyetudiant.beta.gouv.fr https://bid.g.doubleclick.net/;connect-src 'self' https://nominatim.openstreetmap.org https://stats.data.gouv.fr/ https://client.axept.io/\r\nContent-Type: text/html; charset=UTF-8\r\nCross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Resource-Policy: same-origin\r\nDate: Sun, 07 Aug 2022 08:48:45 GMT\r\nEtag: W/\"66b-181f87d0d90\"\r\nExpect-Ct: max-age=0\r\nExpires: 0\r\nFeature-Policy: geolocation 'self'\r\nLast-Modified: Wed, 13 Jul 2022 16:55:54 GMT\r\nOrigin-Agent-Cluster: ?1\r\nPermissions-Policy: geolocation=(self), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()\r\nPragma: no-cache\r\nReferrer-Policy: no-referrer\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubdomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Request-Id: 5606d59e-79c4-4afd-8798-add7c19e773c\r\nX-Xss-Protection: 0\r\n\r\n<!doctype html><html lang=\"fr\" data-fr-reset><head><meta charset=\"utf-8\"><meta name=\"description\" content=\"Étudiants, parlez de vos difficultés et consultez un psychologue gratuitement\"/><meta name=\"facebook-domain-verification\" content=\"vk0pttx7ns8byvu7jccghodb0mf0qr\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon.ico\"><link rel=\"preload\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\" as=\"style\" onload=\"this.onload=null;this.rel='stylesheet'\"><noscript><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\"></noscript><script>var _paq = window._paq || [];\n    (function() {\n      var u=\"https://stats.data.gouv.fr/\";\n      _paq.push(['setTrackerUrl', u+'matomo.php']);\n      _paq.push(['setSiteId', 160]);\n      _paq.push(['setCookieSameSite', 'None']);\n      _paq.push(['setSecureCookie', true]);\n      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n      g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);\n    })();</script><link rel=\"stylesheet\" href=\"/styles/leaflet.css\"/><script src=\"/scripts/leaflet.js\" async></script><script defer=\"defer\" src=\"/manifest.cba584210ccca5fcd505.bundle.js\"></script><script defer=\"defer\" src=\"/vendors.2878324a8ba18bd2030d.bundle.js\"></script><script defer=\"defer\" src=\"/main.19f12706736818bcd3e8.bundle.js\"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\" style=\"height:100%\"></div></body></html>",
     "ip": "185.75.143.93",
-    "timestamp": "2022-07-31T08:49:13.982654412Z",
+    "timestamp": "2022-08-07T08:48:46.04960938Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://santepsy.etudiant.gouv.fr'",
     "matcher-status": true,
     "matched-line": null
   },
   {
-    "template": "ssl/deprecated-tls.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/ssl/deprecated-tls.yaml",
-    "template-id": "deprecated-tls",
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
     "info": {
-      "name": "Deprecated TLS Detection (TLS 1.1 or SSLv3)",
+      "name": "HTTP Missing Security Headers",
       "author": [
-        "righettod",
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
         "forgedhallpass"
       ],
       "tags": [
-        "ssl"
+        "misconfig",
+        "generic"
       ],
-      "description": "Both TLS 1.1 and SSLv3 are deprecated in favor of stronger encryption.\n",
-      "reference": [
-        "https://ssl-config.mozilla.org/#config=intermediate"
-      ],
-      "severity": "info",
-      "metadata": {
-        "shodan-query": "ssl.version:sslv2 ssl.version:sslv3 ssl.version:tlsv1 ssl.version:tlsv1.1"
-      },
-      "remediation": "Update the web server's TLS configuration to disable TLS 1.1 and SSLv3.\n"
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
     },
-    "type": "ssl",
+    "matcher-name": "access-control-allow-headers",
+    "type": "http",
     "host": "https://santepsy.etudiant.gouv.fr",
     "matched-at": "https://santepsy.etudiant.gouv.fr",
-    "extracted-results": [
-      "TLS10"
-    ],
+    "request": "GET / HTTP/1.1\r\nHost: santepsy.etudiant.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccept-Ranges: bytes\r\nCache-Control: no-cache, no-store, must-revalidate\r\nContent-Security-Policy: default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' https://stats.data.gouv.fr/ https://*.tile.openstreetmap.org/ https://axeptio.imgix.net https://www.google.com/ https://www.google.fr/ https://www.facebook.com https://googleads.g.doubleclick.net data:;object-src 'none';script-src 'self' https://stats.data.gouv.fr/ 'sha256-4sJsjD6jok0r8RIemFeNZ1nEQfYv6qdzYIaUCTrSIhs=' https://static.axept.io/ https://connect.facebook.net https://www.googletagmanager.com/ https://www.googleadservices.com/ https://googleads.g.doubleclick.net;script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests;frame-src https://santepsy-metabase.osc-secnum-fr1.scalingo.io https://stats.santepsyetudiant.beta.gouv.fr https://bid.g.doubleclick.net/;connect-src 'self' https://nominatim.openstreetmap.org https://stats.data.gouv.fr/ https://client.axept.io/\r\nContent-Type: text/html; charset=UTF-8\r\nCross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Resource-Policy: same-origin\r\nDate: Sun, 07 Aug 2022 08:48:45 GMT\r\nEtag: W/\"66b-181f87d0d90\"\r\nExpect-Ct: max-age=0\r\nExpires: 0\r\nFeature-Policy: geolocation 'self'\r\nLast-Modified: Wed, 13 Jul 2022 16:55:54 GMT\r\nOrigin-Agent-Cluster: ?1\r\nPermissions-Policy: geolocation=(self), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()\r\nPragma: no-cache\r\nReferrer-Policy: no-referrer\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubdomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Request-Id: 5606d59e-79c4-4afd-8798-add7c19e773c\r\nX-Xss-Protection: 0\r\n\r\n<!doctype html><html lang=\"fr\" data-fr-reset><head><meta charset=\"utf-8\"><meta name=\"description\" content=\"Étudiants, parlez de vos difficultés et consultez un psychologue gratuitement\"/><meta name=\"facebook-domain-verification\" content=\"vk0pttx7ns8byvu7jccghodb0mf0qr\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon.ico\"><link rel=\"preload\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\" as=\"style\" onload=\"this.onload=null;this.rel='stylesheet'\"><noscript><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\"></noscript><script>var _paq = window._paq || [];\n    (function() {\n      var u=\"https://stats.data.gouv.fr/\";\n      _paq.push(['setTrackerUrl', u+'matomo.php']);\n      _paq.push(['setSiteId', 160]);\n      _paq.push(['setCookieSameSite', 'None']);\n      _paq.push(['setSecureCookie', true]);\n      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n      g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);\n    })();</script><link rel=\"stylesheet\" href=\"/styles/leaflet.css\"/><script src=\"/scripts/leaflet.js\" async></script><script defer=\"defer\" src=\"/manifest.cba584210ccca5fcd505.bundle.js\"></script><script defer=\"defer\" src=\"/vendors.2878324a8ba18bd2030d.bundle.js\"></script><script defer=\"defer\" src=\"/main.19f12706736818bcd3e8.bundle.js\"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\" style=\"height:100%\"></div></body></html>",
     "ip": "185.75.143.93",
-    "timestamp": "2022-07-31T08:49:28.540356276Z",
+    "timestamp": "2022-08-07T08:48:46.049638281Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://santepsy.etudiant.gouv.fr'",
     "matcher-status": true,
     "matched-line": null
   },
   {
-    "template": "ssl/deprecated-tls.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/ssl/deprecated-tls.yaml",
-    "template-id": "deprecated-tls",
+    "template": "miscellaneous/options-method.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/miscellaneous/options-method.yaml",
+    "template-id": "options-method",
     "info": {
-      "name": "Deprecated TLS Detection (TLS 1.1 or SSLv3)",
+      "name": "Allowed Options Method",
       "author": [
-        "righettod",
-        "forgedhallpass"
+        "pdteam"
       ],
       "tags": [
-        "ssl"
+        "misc",
+        "generic"
       ],
-      "description": "Both TLS 1.1 and SSLv3 are deprecated in favor of stronger encryption.\n",
-      "reference": [
-        "https://ssl-config.mozilla.org/#config=intermediate"
-      ],
-      "severity": "info",
-      "metadata": {
-        "shodan-query": "ssl.version:sslv2 ssl.version:sslv3 ssl.version:tlsv1 ssl.version:tlsv1.1"
-      },
-      "remediation": "Update the web server's TLS configuration to disable TLS 1.1 and SSLv3.\n"
+      "reference": null,
+      "severity": "info"
     },
-    "type": "ssl",
+    "type": "http",
     "host": "https://santepsy.etudiant.gouv.fr",
     "matched-at": "https://santepsy.etudiant.gouv.fr",
     "extracted-results": [
-      "TLS11"
+      "GET,HEAD"
     ],
+    "request": "OPTIONS / HTTP/1.1\r\nHost: santepsy.etudiant.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 8\r\nAllow: GET,HEAD\r\nContent-Security-Policy: default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' https://stats.data.gouv.fr/ https://*.tile.openstreetmap.org/ https://axeptio.imgix.net https://www.google.com/ https://www.google.fr/ https://www.facebook.com https://googleads.g.doubleclick.net data:;object-src 'none';script-src 'self' https://stats.data.gouv.fr/ 'sha256-4sJsjD6jok0r8RIemFeNZ1nEQfYv6qdzYIaUCTrSIhs=' https://static.axept.io/ https://connect.facebook.net https://www.googletagmanager.com/ https://www.googleadservices.com/ https://googleads.g.doubleclick.net;script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests;frame-src https://santepsy-metabase.osc-secnum-fr1.scalingo.io https://stats.santepsyetudiant.beta.gouv.fr https://bid.g.doubleclick.net/;connect-src 'self' https://nominatim.openstreetmap.org https://stats.data.gouv.fr/ https://client.axept.io/\r\nContent-Type: text/html; charset=utf-8\r\nCross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Resource-Policy: same-origin\r\nDate: Sun, 07 Aug 2022 08:48:50 GMT\r\nEtag: W/\"8-ZRAf8oNBS3Bjb/SU2GYZCmbtmXg\"\r\nExpect-Ct: max-age=0\r\nFeature-Policy: geolocation 'self'\r\nOrigin-Agent-Cluster: ?1\r\nPermissions-Policy: geolocation=(self), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()\r\nReferrer-Policy: no-referrer\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubdomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Ratelimit-Limit: 1000\r\nX-Ratelimit-Remaining: 966\r\nX-Ratelimit-Reset: 1659862346\r\nX-Request-Id: f72b4da7-2b06-47cb-8fe6-3f2d921b4d6e\r\nX-Xss-Protection: 0\r\n\r\nGET,HEAD",
     "ip": "185.75.143.93",
-    "timestamp": "2022-07-31T08:49:29.008312685Z",
+    "timestamp": "2022-08-07T08:48:50.995423362Z",
+    "curl-command": "curl -X 'OPTIONS' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://santepsy.etudiant.gouv.fr'",
     "matcher-status": true,
     "matched-line": null
   },
   {
-    "template": "technologies/waf-detect.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/technologies/waf-detect.yaml",
-    "template-id": "waf-detect",
+    "template": "dns/cname-fingerprint.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/dns/cname-fingerprint.yaml",
+    "template-id": "cname-fingerprint",
     "info": {
-      "name": "WAF Detection",
+      "name": "CNAME Fingerprint",
       "author": [
-        "dwisiswant0",
-        "lu4nx"
+        "pdteam"
       ],
       "tags": [
-        "waf",
-        "tech",
-        "misc"
+        "dns",
+        "cname"
       ],
-      "description": "A web application firewall was detected.",
+      "description": "A CNAME DNS record was discovered.",
       "reference": [
-        "https://github.com/ekultek/whatwaf"
+        "https://www.theregister.com/2021/02/24/dns_cname_tracking/",
+        "https://www.ionos.com/digitalguide/hosting/technical-matters/cname-record/"
       ],
       "severity": "info",
       "classification": {
@@ -482,15 +424,41 @@
         ]
       }
     },
-    "matcher-name": "nginxgeneric",
-    "type": "http",
+    "type": "dns",
     "host": "https://santepsy.etudiant.gouv.fr",
-    "matched-at": "https://santepsy.etudiant.gouv.fr/",
-    "request": "POST / HTTP/1.1\r\nHost: santepsy.etudiant.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nContent-Length: 27\r\nContent-Type: application/x-www-form-urlencoded\r\nAccept-Encoding: gzip\r\n\r\n_=<script>alert(1)</script>",
-    "response": "HTTP/1.1 404 Not Found\r\nConnection: close\r\nContent-Length: 140\r\nContent-Security-Policy: default-src 'none'\r\nContent-Type: text/html; charset=utf-8\r\nCross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Resource-Policy: same-origin\r\nDate: Sun, 31 Jul 2022 08:51:02 GMT\r\nExpect-Ct: max-age=0\r\nFeature-Policy: geolocation 'self'\r\nOrigin-Agent-Cluster: ?1\r\nPermissions-Policy: geolocation=(self), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()\r\nReferrer-Policy: no-referrer\r\nServer: nginx\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Ratelimit-Limit: 1000\r\nX-Ratelimit-Remaining: 955\r\nX-Ratelimit-Reset: 1659257542\r\nX-Request-Id: 64312763-fa45-4e5f-a226-b59633c22c4d\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /</pre>\n</body>\n</html>\n",
+    "matched-at": "https://santepsy.etudiant.gouv.fr",
+    "extracted-results": [
+      "vip01.tandem-proxy.menesr.ate.info."
+    ],
+    "request": ";; opcode: QUERY, status: NOERROR, id: 6777\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 4096\n\n;; QUESTION SECTION:\n;santepsy.etudiant.gouv.fr.\tIN\t CNAME\n",
+    "response": ";; opcode: QUERY, status: NOERROR, id: 6777\n;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 512\n\n;; QUESTION SECTION:\n;santepsy.etudiant.gouv.fr.\tIN\t CNAME\n\n;; ANSWER SECTION:\nsantepsy.etudiant.gouv.fr.\t3540\tIN\tCNAME\tvip01.tandem-proxy.menesr.ate.info.\n",
+    "timestamp": "2022-08-07T08:49:29.034445284Z",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "ssl/tls-version.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/ssl/tls-version.yaml",
+    "template-id": "tls-version",
+    "info": {
+      "name": "TLS Version",
+      "author": [
+        "pdteam"
+      ],
+      "tags": [
+        "ssl"
+      ],
+      "reference": null,
+      "severity": "info"
+    },
+    "type": "ssl",
+    "host": "https://santepsy.etudiant.gouv.fr",
+    "matched-at": "https://santepsy.etudiant.gouv.fr",
+    "extracted-results": [
+      "TLS12"
+    ],
     "ip": "185.75.143.93",
-    "timestamp": "2022-07-31T08:51:02.886024308Z",
-    "curl-command": "curl -X 'POST' -d '_=<script>alert(1)</script>' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Host: santepsy.etudiant.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://santepsy.etudiant.gouv.fr/'",
+    "timestamp": "2022-08-07T08:50:32.690447124Z",
     "matcher-status": true,
     "matched-line": null
   },
@@ -526,44 +494,58 @@
     "host": "https://santepsy.etudiant.gouv.fr",
     "matched-at": "https://santepsy.etudiant.gouv.fr/",
     "request": "POST / HTTP/1.1\r\nHost: santepsy.etudiant.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nContent-Length: 27\r\nContent-Type: application/x-www-form-urlencoded\r\nAccept-Encoding: gzip\r\n\r\n_=<script>alert(1)</script>",
-    "response": "HTTP/1.1 404 Not Found\r\nConnection: close\r\nContent-Length: 140\r\nContent-Security-Policy: default-src 'none'\r\nContent-Type: text/html; charset=utf-8\r\nCross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Resource-Policy: same-origin\r\nDate: Sun, 31 Jul 2022 08:51:02 GMT\r\nExpect-Ct: max-age=0\r\nFeature-Policy: geolocation 'self'\r\nOrigin-Agent-Cluster: ?1\r\nPermissions-Policy: geolocation=(self), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()\r\nReferrer-Policy: no-referrer\r\nServer: nginx\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Ratelimit-Limit: 1000\r\nX-Ratelimit-Remaining: 955\r\nX-Ratelimit-Reset: 1659257542\r\nX-Request-Id: 64312763-fa45-4e5f-a226-b59633c22c4d\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /</pre>\n</body>\n</html>\n",
+    "response": "HTTP/1.1 404 Not Found\r\nConnection: close\r\nContent-Length: 140\r\nContent-Security-Policy: default-src 'none'\r\nContent-Type: text/html; charset=utf-8\r\nCross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Resource-Policy: same-origin\r\nDate: Sun, 07 Aug 2022 08:50:52 GMT\r\nExpect-Ct: max-age=0\r\nFeature-Policy: geolocation 'self'\r\nOrigin-Agent-Cluster: ?1\r\nPermissions-Policy: geolocation=(self), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()\r\nReferrer-Policy: no-referrer\r\nServer: nginx\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Ratelimit-Limit: 1000\r\nX-Ratelimit-Remaining: 894\r\nX-Ratelimit-Reset: 1659862346\r\nX-Request-Id: 6a8a384a-10dd-4db3-b099-6e9c21c79208\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /</pre>\n</body>\n</html>\n",
     "ip": "185.75.143.93",
-    "timestamp": "2022-07-31T08:51:02.886131415Z",
+    "timestamp": "2022-08-07T08:50:52.984688601Z",
     "curl-command": "curl -X 'POST' -d '_=<script>alert(1)</script>' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Host: santepsy.etudiant.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://santepsy.etudiant.gouv.fr/'",
     "matcher-status": true,
     "matched-line": null
   },
   {
-    "template": "miscellaneous/robots-txt-endpoint.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/miscellaneous/robots-txt-endpoint.yaml",
-    "template-id": "robots-txt-endpoint",
+    "template": "technologies/waf-detect.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/technologies/waf-detect.yaml",
+    "template-id": "waf-detect",
     "info": {
-      "name": "robots.txt endpoint prober",
+      "name": "WAF Detection",
       "author": [
-        "caspergn",
-        "pdteam"
+        "dwisiswant0",
+        "lu4nx"
       ],
-      "tags": null,
-      "reference": null,
-      "severity": "info"
+      "tags": [
+        "waf",
+        "tech",
+        "misc"
+      ],
+      "description": "A web application firewall was detected.",
+      "reference": [
+        "https://github.com/ekultek/whatwaf"
+      ],
+      "severity": "info",
+      "classification": {
+        "cve-id": null,
+        "cwe-id": [
+          "cwe-200"
+        ]
+      }
     },
+    "matcher-name": "nginxgeneric",
     "type": "http",
     "host": "https://santepsy.etudiant.gouv.fr",
-    "matched-at": "https://santepsy.etudiant.gouv.fr/robots.txt",
-    "request": "GET /robots.txt HTTP/1.1\r\nHost: santepsy.etudiant.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccept-Ranges: bytes\r\nCache-Control: no-cache, no-store, must-revalidate\r\nContent-Security-Policy: default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' https://stats.data.gouv.fr/ https://*.tile.openstreetmap.org/ https://axeptio.imgix.net https://www.google.com/ https://www.google.fr/ https://www.facebook.com https://googleads.g.doubleclick.net data:;object-src 'none';script-src 'self' https://stats.data.gouv.fr/ 'sha256-4sJsjD6jok0r8RIemFeNZ1nEQfYv6qdzYIaUCTrSIhs=' https://static.axept.io/ https://connect.facebook.net https://www.googletagmanager.com/ https://www.googleadservices.com/ https://googleads.g.doubleclick.net;script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests;frame-src https://santepsy-metabase.osc-secnum-fr1.scalingo.io https://stats.santepsyetudiant.beta.gouv.fr https://bid.g.doubleclick.net/;connect-src 'self' https://nominatim.openstreetmap.org https://stats.data.gouv.fr/ https://client.axept.io/\r\nContent-Type: text/html; charset=UTF-8\r\nCross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Resource-Policy: same-origin\r\nDate: Sun, 31 Jul 2022 08:51:04 GMT\r\nEtag: W/\"66b-181f87d0d90\"\r\nExpect-Ct: max-age=0\r\nExpires: 0\r\nFeature-Policy: geolocation 'self'\r\nLast-Modified: Wed, 13 Jul 2022 16:55:54 GMT\r\nOrigin-Agent-Cluster: ?1\r\nPermissions-Policy: geolocation=(self), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()\r\nPragma: no-cache\r\nReferrer-Policy: no-referrer\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubdomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Ratelimit-Limit: 1000\r\nX-Ratelimit-Remaining: 945\r\nX-Ratelimit-Reset: 1659257545\r\nX-Request-Id: abd33f81-1042-4f68-b439-1868b05ae1d6\r\nX-Xss-Protection: 0\r\n\r\n<!doctype html><html lang=\"fr\" data-fr-reset><head><meta charset=\"utf-8\"><meta name=\"description\" content=\"Étudiants, parlez de vos difficultés et consultez un psychologue gratuitement\"/><meta name=\"facebook-domain-verification\" content=\"vk0pttx7ns8byvu7jccghodb0mf0qr\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon.ico\"><link rel=\"preload\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\" as=\"style\" onload=\"this.onload=null;this.rel='stylesheet'\"><noscript><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\"></noscript><script>var _paq = window._paq || [];\n    (function() {\n      var u=\"https://stats.data.gouv.fr/\";\n      _paq.push(['setTrackerUrl', u+'matomo.php']);\n      _paq.push(['setSiteId', 160]);\n      _paq.push(['setCookieSameSite', 'None']);\n      _paq.push(['setSecureCookie', true]);\n      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n      g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);\n    })();</script><link rel=\"stylesheet\" href=\"/styles/leaflet.css\"/><script src=\"/scripts/leaflet.js\" async></script><script defer=\"defer\" src=\"/manifest.cba584210ccca5fcd505.bundle.js\"></script><script defer=\"defer\" src=\"/vendors.2878324a8ba18bd2030d.bundle.js\"></script><script defer=\"defer\" src=\"/main.19f12706736818bcd3e8.bundle.js\"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\" style=\"height:100%\"></div></body></html>",
+    "matched-at": "https://santepsy.etudiant.gouv.fr/",
+    "request": "POST / HTTP/1.1\r\nHost: santepsy.etudiant.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nContent-Length: 27\r\nContent-Type: application/x-www-form-urlencoded\r\nAccept-Encoding: gzip\r\n\r\n_=<script>alert(1)</script>",
+    "response": "HTTP/1.1 404 Not Found\r\nConnection: close\r\nContent-Length: 140\r\nContent-Security-Policy: default-src 'none'\r\nContent-Type: text/html; charset=utf-8\r\nCross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Resource-Policy: same-origin\r\nDate: Sun, 07 Aug 2022 08:50:52 GMT\r\nExpect-Ct: max-age=0\r\nFeature-Policy: geolocation 'self'\r\nOrigin-Agent-Cluster: ?1\r\nPermissions-Policy: geolocation=(self), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()\r\nReferrer-Policy: no-referrer\r\nServer: nginx\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Ratelimit-Limit: 1000\r\nX-Ratelimit-Remaining: 894\r\nX-Ratelimit-Reset: 1659862346\r\nX-Request-Id: 6a8a384a-10dd-4db3-b099-6e9c21c79208\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /</pre>\n</body>\n</html>\n",
     "ip": "185.75.143.93",
-    "timestamp": "2022-07-31T08:51:04.774887495Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://santepsy.etudiant.gouv.fr/robots.txt'",
+    "timestamp": "2022-08-07T08:50:52.984785503Z",
+    "curl-command": "curl -X 'POST' -d '_=<script>alert(1)</script>' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Host: santepsy.etudiant.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://santepsy.etudiant.gouv.fr/'",
     "matcher-status": true,
     "matched-line": null
   },
   {
-    "template": "ssl/tls-version.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/ssl/tls-version.yaml",
-    "template-id": "tls-version",
+    "template": "ssl/ssl-dns-names.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/ssl/ssl-dns-names.yaml",
+    "template-id": "ssl-dns-names",
     "info": {
-      "name": "TLS Version",
+      "name": "SSL DNS Names",
       "author": [
         "pdteam"
       ],
@@ -577,10 +559,19 @@
     "host": "https://santepsy.etudiant.gouv.fr",
     "matched-at": "https://santepsy.etudiant.gouv.fr",
     "extracted-results": [
-      "TLS12"
+      "back.etudiant.gouv.fr",
+      "isoprod.back.etudiant.gouv.fr",
+      "isoprod.etudiant.gouv.fr",
+      "test.back.etudiant.gouv.fr",
+      "test.etudiant.gouv.fr",
+      "etudiant.gouv.fr",
+      "etudiants.gouv.fr",
+      "santepsy.etudiant.gouv.fr",
+      "www.etudiant.gouv.fr",
+      "www.etudiants.gouv.fr"
     ],
     "ip": "185.75.143.93",
-    "timestamp": "2022-07-31T08:51:16.999534357Z",
+    "timestamp": "2022-08-07T08:52:38.255180419Z",
     "matcher-status": true,
     "matched-line": null
   }
