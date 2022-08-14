@@ -1,6 +1,6 @@
 {
 	"@version": "2.11.1",
-	"@generated": "Sun, 7 Aug 2022 05:09:53",
+	"@generated": "Sun, 14 Aug 2022 05:16:42",
 	"site":[ 
 		{
 			"@name": "https://eva.beta.gouv.fr",
@@ -19,7 +19,7 @@
 					"desc": "<p>The response contains Personally Identifiable Information, such as CC number, SSN and similar sensitive data.</p>",
 					"instances":[ 
 						{
-							"uri": "https://eva.beta.gouv.fr/jeu/js/index_2a9e07d750bff8827371.js",
+							"uri": "https://eva.beta.gouv.fr/jeu/js/index_8bd9ecbb29163c154d93.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -39,7 +39,7 @@
 					"reference": "",
 					"cweid": "359",
 					"wascid": "13",
-					"sourceid": "563"
+					"sourceid": "560"
 				},
 				{
 					"pluginid": "10202",
@@ -67,6 +67,13 @@
 						},
 						{
 							"uri": "https://eva.beta.gouv.fr/articles/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form id=\"mc4wp-form-1\" class=\"mc4wp-form mc4wp-form-705 mc4wp-form-basic\" method=\"post\" data-id=\"705\" data-name=\"\" >"
+						},
+						{
+							"uri": "https://eva.beta.gouv.fr/cgu/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -109,13 +116,6 @@
 						},
 						{
 							"uri": "https://eva.beta.gouv.fr/qui-sommes-nous/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<form id=\"mc4wp-form-1\" class=\"mc4wp-form mc4wp-form-705 mc4wp-form-basic\" method=\"post\" data-id=\"705\" data-name=\"\" >"
-						},
-						{
-							"uri": "https://eva.beta.gouv.fr/statistiques/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -265,6 +265,13 @@
 							"evidence": ""
 						},
 						{
+							"uri": "https://eva.beta.gouv.fr/cgu/",
+							"method": "GET",
+							"param": "X-Frame-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
 							"uri": "https://eva.beta.gouv.fr/en-savoir-plus-sur-les-referentiels-devaluation/",
 							"method": "GET",
 							"param": "X-Frame-Options",
@@ -301,13 +308,6 @@
 						},
 						{
 							"uri": "https://eva.beta.gouv.fr/qui-sommes-nous/",
-							"method": "GET",
-							"param": "X-Frame-Options",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://eva.beta.gouv.fr/statistiques/",
 							"method": "GET",
 							"param": "X-Frame-Options",
 							"attack": "",
@@ -412,6 +412,72 @@
 					"sourceid": "1"
 				},
 				{
+					"pluginid": "10010",
+					"alertRef": "10010",
+					"alert": "Cookie No HttpOnly Flag",
+					"name": "Cookie No HttpOnly Flag",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>A cookie has been set without the HttpOnly flag, which means that the cookie can be accessed by JavaScript. If a malicious script can be run on this page then the cookie will be accessible and can be transmitted to another site. If this is a session cookie then session hijacking may be possible.</p>",
+					"instances":[ 
+						{
+							"uri": "https://eva.beta.gouv.fr/wp-login.php?action=postpass",
+							"method": "POST",
+							"param": "wordpress_test_cookie",
+							"attack": "",
+							"evidence": "set-cookie: wordpress_test_cookie"
+						},
+						{
+							"uri": "https://eva.beta.gouv.fr/wp-login.php?action=postpass",
+							"method": "POST",
+							"param": "wp-postpass_d35de6973eab64864ee13fb596a0d75d",
+							"attack": "",
+							"evidence": "set-cookie: wp-postpass_d35de6973eab64864ee13fb596a0d75d"
+						}
+					],
+					"count": "2",
+					"solution": "<p>Ensure that the HttpOnly flag is set for all cookies.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://owasp.org/www-community/HttpOnly</p>",
+					"cweid": "1004",
+					"wascid": "13",
+					"sourceid": "1213"
+				},
+				{
+					"pluginid": "10054",
+					"alertRef": "10054",
+					"alert": "Cookie without SameSite Attribute",
+					"name": "Cookie without SameSite Attribute",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>A cookie has been set without the SameSite attribute, which means that the cookie can be sent as a result of a 'cross-site' request. The SameSite attribute is an effective counter measure to cross-site request forgery, cross-site script inclusion, and timing attacks.</p>",
+					"instances":[ 
+						{
+							"uri": "https://eva.beta.gouv.fr/wp-login.php?action=postpass",
+							"method": "POST",
+							"param": "wordpress_test_cookie",
+							"attack": "",
+							"evidence": "set-cookie: wordpress_test_cookie"
+						},
+						{
+							"uri": "https://eva.beta.gouv.fr/wp-login.php?action=postpass",
+							"method": "POST",
+							"param": "wp-postpass_d35de6973eab64864ee13fb596a0d75d",
+							"attack": "",
+							"evidence": "set-cookie: wp-postpass_d35de6973eab64864ee13fb596a0d75d"
+						}
+					],
+					"count": "2",
+					"solution": "<p>Ensure that the SameSite attribute is set to either 'lax' or ideally 'strict' for all cookies.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site</p>",
+					"cweid": "1275",
+					"wascid": "13",
+					"sourceid": "1213"
+				},
+				{
 					"pluginid": "10110",
 					"alertRef": "10110",
 					"alert": "Dangerous JS Functions",
@@ -422,7 +488,7 @@
 					"desc": "<p>A dangerous JS function seems to be in use that would leave the site vulnerable.</p>",
 					"instances":[ 
 						{
-							"uri": "https://eva.beta.gouv.fr/jeu/js/index_2a9e07d750bff8827371.js",
+							"uri": "https://eva.beta.gouv.fr/jeu/js/index_8bd9ecbb29163c154d93.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -456,7 +522,7 @@
 					"reference": "<p>https://angular.io/guide/security</p>",
 					"cweid": "749",
 					"wascid": "-1",
-					"sourceid": "563"
+					"sourceid": "560"
 				},
 				{
 					"pluginid": "10063",
@@ -655,7 +721,7 @@
 					"reference": "<p>http://blogs.msdn.com/b/varunm/archive/2013/04/23/remove-unwanted-http-response-headers.aspx</p><p>http://www.troyhunt.com/2012/02/shhh-dont-let-your-response-headers.html</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "121"
+					"sourceid": "120"
 				},
 				{
 					"pluginid": "10035",
@@ -768,47 +834,54 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1658959659"
+							"evidence": "1659952920"
 						},
 						{
 							"uri": "https://eva.beta.gouv.fr",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1659848920"
+							"evidence": "1659953262"
 						},
 						{
 							"uri": "https://eva.beta.gouv.fr",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1659848922"
+							"evidence": "1660454125"
+						},
+						{
+							"uri": "https://eva.beta.gouv.fr",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1660454127"
 						},
 						{
 							"uri": "https://eva.beta.gouv.fr/qui-sommes-nous/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1658959659"
+							"evidence": "1659952920"
 						},
 						{
 							"uri": "https://eva.beta.gouv.fr/qui-sommes-nous/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1658996920"
+							"evidence": "1659963191"
 						},
 						{
 							"uri": "https://eva.beta.gouv.fr/qui-sommes-nous/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1659848923"
+							"evidence": "1660454127"
 						}
 					],
-					"count": "6",
+					"count": "7",
 					"solution": "<p>Manually confirm that the timestamp data is not sensitive, and that the data cannot be aggregated to disclose exploitable patterns.</p>",
-					"otherinfo": "<p>1658959659, which evaluates to: 2022-07-27 22:07:39</p>",
+					"otherinfo": "<p>1659952920, which evaluates to: 2022-08-08 10:02:00</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
@@ -942,6 +1015,13 @@
 							"evidence": "fr/wp-content/uploads/2021/05/1200px-Republique-francaise-logo"
 						},
 						{
+							"uri": "https://eva.beta.gouv.fr/cgu/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "fr/wp-content/uploads/2021/05/1200px-Republique-francaise-logo"
+						},
+						{
 							"uri": "https://eva.beta.gouv.fr/en-savoir-plus-sur-les-referentiels-devaluation/",
 							"method": "GET",
 							"param": "",
@@ -974,17 +1054,10 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "RyjrhlMA3vQPeggtkdjBNG2cHEZ0mVzTk25hotRUdkxLiSkJow6ICsIUHVtlUd"
+							"evidence": "onanET7KAfcWdfmH0uh9avMdyERbwr7yGr7HMR5cLJGNiOfbNsYz8v9slfZepa9Hh9usTSpzrVhLd2tkXNlXMmMCTHSJWbN46Y"
 						},
 						{
 							"uri": "https://eva.beta.gouv.fr/qui-sommes-nous/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "fr/wp-content/uploads/2021/05/1200px-Republique-francaise-logo"
-						},
-						{
-							"uri": "https://eva.beta.gouv.fr/statistiques/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1107,7 +1180,7 @@
 					"reference": "<p>http://code.google.com/p/browsersec/wiki/Part2#Character_set_handling_and_detection</p>",
 					"cweid": "436",
 					"wascid": "15",
-					"sourceid": "338"
+					"sourceid": "317"
 				},
 				{
 					"pluginid": "10019",
@@ -1133,7 +1206,7 @@
 					"reference": "<p>http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx</p>",
 					"cweid": "345",
 					"wascid": "12",
-					"sourceid": "343"
+					"sourceid": "322"
 				},
 				{
 					"pluginid": "10027",
@@ -1522,7 +1595,7 @@
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "121"
+					"sourceid": "120"
 				},
 				{
 					"pluginid": "10031",
@@ -1563,6 +1636,34 @@
 							"evidence": ""
 						},
 						{
+							"uri": "https://eva.beta.gouv.fr/faq/",
+							"method": "POST",
+							"param": "_mc4wp_form_element_id",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://eva.beta.gouv.fr/faq/",
+							"method": "POST",
+							"param": "_mc4wp_form_element_id",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://eva.beta.gouv.fr/faq/",
+							"method": "POST",
+							"param": "_mc4wp_form_id",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://eva.beta.gouv.fr/faq/",
+							"method": "POST",
+							"param": "_mc4wp_form_id",
+							"attack": "",
+							"evidence": ""
+						},
+						{
 							"uri": "https://eva.beta.gouv.fr/qui-sommes-nous/",
 							"method": "POST",
 							"param": "_mc4wp_form_element_id",
@@ -1591,13 +1692,13 @@
 							"evidence": ""
 						}
 					],
-					"count": "8",
+					"count": "12",
 					"solution": "<p>Validate all input and sanitize output it before writing to any HTML attributes.</p>",
 					"otherinfo": "<p>User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:</p><p></p><p>https://eva.beta.gouv.fr/</p><p></p><p>appears to include user input in: </p><p></p><p>a(n) [form] tag [id] attribute </p><p></p><p>The user input found was:</p><p>_mc4wp_form_element_id=mc4wp-form-1</p><p></p><p>The user-controlled value was:</p><p>mc4wp-form-1</p>",
 					"reference": "<p>http://websecuritytool.codeplex.com/wikipage?title=Checks#user-controlled-html-attribute</p>",
 					"cweid": "20",
 					"wascid": "20",
-					"sourceid": "395"
+					"sourceid": "394"
 				}
 			]
 		}
