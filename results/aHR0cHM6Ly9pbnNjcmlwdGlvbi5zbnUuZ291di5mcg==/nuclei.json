@@ -1,141 +1,95 @@
 [
   {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
+    "template": "network/openssh-detection.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/network/openssh-detection.yaml",
+    "template-id": "openssh-detection",
     "info": {
-      "name": "HTTP Missing Security Headers",
+      "name": "OpenSSH Detection",
       "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
+        "r3dg33k",
+        "daffainfo",
+        "iamthefrogy"
       ],
       "tags": [
-        "misconfig",
-        "generic"
+        "network",
+        "ssh",
+        "openssh"
       ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
+      "reference": [
+        "http://www.openwall.com/lists/oss-security/2016/08/01/2",
+        "http://www.openwall.com/lists/oss-security/2018/08/15/5",
+        "https://nvd.nist.gov/vuln/detail/cve-2016-6210",
+        "https://nvd.nist.gov/vuln/detail/cve-2018-15473",
+        "http://seclists.org/fulldisclosure/2016/jul/51"
+      ],
       "severity": "info"
     },
-    "matcher-name": "content-security-policy",
-    "type": "http",
+    "type": "network",
     "host": "https://inscription.snu.gouv.fr",
-    "matched-at": "https://moncompte.snu.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: inscription.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nContent-Length: 1550\r\nAccept-Ranges: bytes\r\nCache-Control: public, max-age=0\r\nContent-Type: text/html; charset=UTF-8\r\nDate: Sun, 07 Aug 2022 10:27:31 GMT\r\nEtag: W/\"60e-1826d7a08f5\"\r\nExpect-Ct: max-age=0\r\nKeep-Alive: timeout=5\r\nLast-Modified: Fri, 05 Aug 2022 10:08:10 GMT\r\nReferrer-Policy: no-referrer\r\nSozu-Id: 01G9VXGY1T8TX1XQ9714QX4SXT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html><html lang=fr class=notranslate translate=no><head><meta charset=utf-8><meta name=viewport content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><meta name=google content=notranslate><title>SNU</title><script src=https://code.jquery.com/jquery-2.1.4.min.js></script><script>/*\n    window.axeptioSettings = {\n      clientId: \"5fec5b2a5558222597c2fd85\",\n      cookiesVersion: \"snu app-base\",\n    };\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script async defer=defer data-domain=moncompte.snu.gouv.fr src=https://plausible.io/js/plausible.js></script><script>window.plausible =\n        window.plausible ||\n        function () {\n          (window.plausible.q = window.plausible.q || []).push(arguments);\n        };</script><link rel=icon href=/favicon.ico></head><body><noscript>You need to enable JavaScript to run this app.</noscript><noscript></noscript><div id=root></div><script>/*\n    window.axeptioSettings = {\n      clientId: \"606c516d6ac944450f1e899d\",\n      cookiesVersion: \"snu-base\",\n    };\n\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script defer=defer src=/7804bde3689e5ee9fe8f.index.js></script></body></html>",
-    "ip": "46.252.181.104",
-    "timestamp": "2022-08-07T10:27:31.809111401Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://inscription.snu.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://moncompte.snu.gouv.fr'",
+    "matched-at": "inscription.snu.gouv.fr:22",
+    "extracted-results": [
+      "SSH-2.0-OpenSSH_9.0"
+    ],
+    "response": "SSH-2.0-OpenSSH_9.0\r\n",
+    "ip": "46.252.181.103",
+    "timestamp": "2022-08-14T11:02:58.945261493Z",
     "matcher-status": true,
     "matched-line": null
   },
   {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
+    "template": "ssl/tls-version.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/ssl/tls-version.yaml",
+    "template-id": "tls-version",
     "info": {
-      "name": "HTTP Missing Security Headers",
+      "name": "TLS Version",
       "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
+        "pdteam"
       ],
       "tags": [
-        "misconfig",
-        "generic"
+        "ssl"
       ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
       "reference": null,
       "severity": "info"
     },
-    "matcher-name": "clear-site-data",
-    "type": "http",
+    "type": "ssl",
     "host": "https://inscription.snu.gouv.fr",
-    "matched-at": "https://moncompte.snu.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: inscription.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nContent-Length: 1550\r\nAccept-Ranges: bytes\r\nCache-Control: public, max-age=0\r\nContent-Type: text/html; charset=UTF-8\r\nDate: Sun, 07 Aug 2022 10:27:31 GMT\r\nEtag: W/\"60e-1826d7a08f5\"\r\nExpect-Ct: max-age=0\r\nKeep-Alive: timeout=5\r\nLast-Modified: Fri, 05 Aug 2022 10:08:10 GMT\r\nReferrer-Policy: no-referrer\r\nSozu-Id: 01G9VXGY1T8TX1XQ9714QX4SXT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html><html lang=fr class=notranslate translate=no><head><meta charset=utf-8><meta name=viewport content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><meta name=google content=notranslate><title>SNU</title><script src=https://code.jquery.com/jquery-2.1.4.min.js></script><script>/*\n    window.axeptioSettings = {\n      clientId: \"5fec5b2a5558222597c2fd85\",\n      cookiesVersion: \"snu app-base\",\n    };\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script async defer=defer data-domain=moncompte.snu.gouv.fr src=https://plausible.io/js/plausible.js></script><script>window.plausible =\n        window.plausible ||\n        function () {\n          (window.plausible.q = window.plausible.q || []).push(arguments);\n        };</script><link rel=icon href=/favicon.ico></head><body><noscript>You need to enable JavaScript to run this app.</noscript><noscript></noscript><div id=root></div><script>/*\n    window.axeptioSettings = {\n      clientId: \"606c516d6ac944450f1e899d\",\n      cookiesVersion: \"snu-base\",\n    };\n\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script defer=defer src=/7804bde3689e5ee9fe8f.index.js></script></body></html>",
-    "ip": "46.252.181.104",
-    "timestamp": "2022-08-07T10:27:31.810517422Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://inscription.snu.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://moncompte.snu.gouv.fr'",
+    "matched-at": "https://inscription.snu.gouv.fr",
+    "extracted-results": [
+      "TLS13"
+    ],
+    "ip": "46.252.181.103",
+    "timestamp": "2022-08-14T11:03:11.767263858Z",
     "matcher-status": true,
     "matched-line": null
   },
   {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
+    "template": "network/cowrie-honeypot-detect.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/network/cowrie-honeypot-detect.yaml",
+    "template-id": "cowrie-honeypot-detect",
     "info": {
-      "name": "HTTP Missing Security Headers",
+      "name": "Cowrie SSH Honeypot Detect",
       "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
+        "thesubtlety"
       ],
       "tags": [
-        "misconfig",
-        "generic"
+        "network",
+        "ssh",
+        "honeypot"
       ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
+      "reference": [
+        "https://web.archive.org/web/20170826075224/https://morris.sc/detecting-kippo-ssh-honeypots/",
+        "https://github.com/blazeinfosec/detect-kippo-cowrie/blob/master/detectkippocowrie.py",
+        "https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/scanner/ssh/detect_kippo.rb"
+      ],
       "severity": "info"
     },
-    "matcher-name": "cross-origin-embedder-policy",
-    "type": "http",
+    "type": "network",
     "host": "https://inscription.snu.gouv.fr",
-    "matched-at": "https://moncompte.snu.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: inscription.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nContent-Length: 1550\r\nAccept-Ranges: bytes\r\nCache-Control: public, max-age=0\r\nContent-Type: text/html; charset=UTF-8\r\nDate: Sun, 07 Aug 2022 10:27:31 GMT\r\nEtag: W/\"60e-1826d7a08f5\"\r\nExpect-Ct: max-age=0\r\nKeep-Alive: timeout=5\r\nLast-Modified: Fri, 05 Aug 2022 10:08:10 GMT\r\nReferrer-Policy: no-referrer\r\nSozu-Id: 01G9VXGY1T8TX1XQ9714QX4SXT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html><html lang=fr class=notranslate translate=no><head><meta charset=utf-8><meta name=viewport content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><meta name=google content=notranslate><title>SNU</title><script src=https://code.jquery.com/jquery-2.1.4.min.js></script><script>/*\n    window.axeptioSettings = {\n      clientId: \"5fec5b2a5558222597c2fd85\",\n      cookiesVersion: \"snu app-base\",\n    };\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script async defer=defer data-domain=moncompte.snu.gouv.fr src=https://plausible.io/js/plausible.js></script><script>window.plausible =\n        window.plausible ||\n        function () {\n          (window.plausible.q = window.plausible.q || []).push(arguments);\n        };</script><link rel=icon href=/favicon.ico></head><body><noscript>You need to enable JavaScript to run this app.</noscript><noscript></noscript><div id=root></div><script>/*\n    window.axeptioSettings = {\n      clientId: \"606c516d6ac944450f1e899d\",\n      cookiesVersion: \"snu-base\",\n    };\n\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script defer=defer src=/7804bde3689e5ee9fe8f.index.js></script></body></html>",
-    "ip": "46.252.181.104",
-    "timestamp": "2022-08-07T10:27:31.810554223Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://inscription.snu.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://moncompte.snu.gouv.fr'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "cross-origin-resource-policy",
-    "type": "http",
-    "host": "https://inscription.snu.gouv.fr",
-    "matched-at": "https://moncompte.snu.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: inscription.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nContent-Length: 1550\r\nAccept-Ranges: bytes\r\nCache-Control: public, max-age=0\r\nContent-Type: text/html; charset=UTF-8\r\nDate: Sun, 07 Aug 2022 10:27:31 GMT\r\nEtag: W/\"60e-1826d7a08f5\"\r\nExpect-Ct: max-age=0\r\nKeep-Alive: timeout=5\r\nLast-Modified: Fri, 05 Aug 2022 10:08:10 GMT\r\nReferrer-Policy: no-referrer\r\nSozu-Id: 01G9VXGY1T8TX1XQ9714QX4SXT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html><html lang=fr class=notranslate translate=no><head><meta charset=utf-8><meta name=viewport content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><meta name=google content=notranslate><title>SNU</title><script src=https://code.jquery.com/jquery-2.1.4.min.js></script><script>/*\n    window.axeptioSettings = {\n      clientId: \"5fec5b2a5558222597c2fd85\",\n      cookiesVersion: \"snu app-base\",\n    };\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script async defer=defer data-domain=moncompte.snu.gouv.fr src=https://plausible.io/js/plausible.js></script><script>window.plausible =\n        window.plausible ||\n        function () {\n          (window.plausible.q = window.plausible.q || []).push(arguments);\n        };</script><link rel=icon href=/favicon.ico></head><body><noscript>You need to enable JavaScript to run this app.</noscript><noscript></noscript><div id=root></div><script>/*\n    window.axeptioSettings = {\n      clientId: \"606c516d6ac944450f1e899d\",\n      cookiesVersion: \"snu-base\",\n    };\n\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script defer=defer src=/7804bde3689e5ee9fe8f.index.js></script></body></html>",
-    "ip": "46.252.181.104",
-    "timestamp": "2022-08-07T10:27:31.810706725Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://inscription.snu.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://moncompte.snu.gouv.fr'",
+    "matched-at": "inscription.snu.gouv.fr:22",
+    "request": "\n",
+    "response": "SSH-2.0-OpenSSH_9.0\r\nInvalid SSH identification string.\r\n",
+    "ip": "185.42.117.109",
+    "timestamp": "2022-08-14T11:03:23.146345528Z",
     "matcher-status": true,
     "matched-line": null
   },
@@ -167,114 +121,9 @@
     "host": "https://inscription.snu.gouv.fr",
     "matched-at": "https://moncompte.snu.gouv.fr",
     "request": "GET / HTTP/1.1\r\nHost: inscription.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nContent-Length: 1550\r\nAccept-Ranges: bytes\r\nCache-Control: public, max-age=0\r\nContent-Type: text/html; charset=UTF-8\r\nDate: Sun, 07 Aug 2022 10:27:31 GMT\r\nEtag: W/\"60e-1826d7a08f5\"\r\nExpect-Ct: max-age=0\r\nKeep-Alive: timeout=5\r\nLast-Modified: Fri, 05 Aug 2022 10:08:10 GMT\r\nReferrer-Policy: no-referrer\r\nSozu-Id: 01G9VXGY1T8TX1XQ9714QX4SXT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html><html lang=fr class=notranslate translate=no><head><meta charset=utf-8><meta name=viewport content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><meta name=google content=notranslate><title>SNU</title><script src=https://code.jquery.com/jquery-2.1.4.min.js></script><script>/*\n    window.axeptioSettings = {\n      clientId: \"5fec5b2a5558222597c2fd85\",\n      cookiesVersion: \"snu app-base\",\n    };\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script async defer=defer data-domain=moncompte.snu.gouv.fr src=https://plausible.io/js/plausible.js></script><script>window.plausible =\n        window.plausible ||\n        function () {\n          (window.plausible.q = window.plausible.q || []).push(arguments);\n        };</script><link rel=icon href=/favicon.ico></head><body><noscript>You need to enable JavaScript to run this app.</noscript><noscript></noscript><div id=root></div><script>/*\n    window.axeptioSettings = {\n      clientId: \"606c516d6ac944450f1e899d\",\n      cookiesVersion: \"snu-base\",\n    };\n\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script defer=defer src=/7804bde3689e5ee9fe8f.index.js></script></body></html>",
-    "ip": "46.252.181.104",
-    "timestamp": "2022-08-07T10:27:31.810745726Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://inscription.snu.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://moncompte.snu.gouv.fr'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "access-control-expose-headers",
-    "type": "http",
-    "host": "https://inscription.snu.gouv.fr",
-    "matched-at": "https://moncompte.snu.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: inscription.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nContent-Length: 1550\r\nAccept-Ranges: bytes\r\nCache-Control: public, max-age=0\r\nContent-Type: text/html; charset=UTF-8\r\nDate: Sun, 07 Aug 2022 10:27:31 GMT\r\nEtag: W/\"60e-1826d7a08f5\"\r\nExpect-Ct: max-age=0\r\nKeep-Alive: timeout=5\r\nLast-Modified: Fri, 05 Aug 2022 10:08:10 GMT\r\nReferrer-Policy: no-referrer\r\nSozu-Id: 01G9VXGY1T8TX1XQ9714QX4SXT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html><html lang=fr class=notranslate translate=no><head><meta charset=utf-8><meta name=viewport content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><meta name=google content=notranslate><title>SNU</title><script src=https://code.jquery.com/jquery-2.1.4.min.js></script><script>/*\n    window.axeptioSettings = {\n      clientId: \"5fec5b2a5558222597c2fd85\",\n      cookiesVersion: \"snu app-base\",\n    };\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script async defer=defer data-domain=moncompte.snu.gouv.fr src=https://plausible.io/js/plausible.js></script><script>window.plausible =\n        window.plausible ||\n        function () {\n          (window.plausible.q = window.plausible.q || []).push(arguments);\n        };</script><link rel=icon href=/favicon.ico></head><body><noscript>You need to enable JavaScript to run this app.</noscript><noscript></noscript><div id=root></div><script>/*\n    window.axeptioSettings = {\n      clientId: \"606c516d6ac944450f1e899d\",\n      cookiesVersion: \"snu-base\",\n    };\n\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script defer=defer src=/7804bde3689e5ee9fe8f.index.js></script></body></html>",
-    "ip": "46.252.181.104",
-    "timestamp": "2022-08-07T10:27:31.810832527Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://inscription.snu.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://moncompte.snu.gouv.fr'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "permission-policy",
-    "type": "http",
-    "host": "https://inscription.snu.gouv.fr",
-    "matched-at": "https://moncompte.snu.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: inscription.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nContent-Length: 1550\r\nAccept-Ranges: bytes\r\nCache-Control: public, max-age=0\r\nContent-Type: text/html; charset=UTF-8\r\nDate: Sun, 07 Aug 2022 10:27:31 GMT\r\nEtag: W/\"60e-1826d7a08f5\"\r\nExpect-Ct: max-age=0\r\nKeep-Alive: timeout=5\r\nLast-Modified: Fri, 05 Aug 2022 10:08:10 GMT\r\nReferrer-Policy: no-referrer\r\nSozu-Id: 01G9VXGY1T8TX1XQ9714QX4SXT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html><html lang=fr class=notranslate translate=no><head><meta charset=utf-8><meta name=viewport content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><meta name=google content=notranslate><title>SNU</title><script src=https://code.jquery.com/jquery-2.1.4.min.js></script><script>/*\n    window.axeptioSettings = {\n      clientId: \"5fec5b2a5558222597c2fd85\",\n      cookiesVersion: \"snu app-base\",\n    };\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script async defer=defer data-domain=moncompte.snu.gouv.fr src=https://plausible.io/js/plausible.js></script><script>window.plausible =\n        window.plausible ||\n        function () {\n          (window.plausible.q = window.plausible.q || []).push(arguments);\n        };</script><link rel=icon href=/favicon.ico></head><body><noscript>You need to enable JavaScript to run this app.</noscript><noscript></noscript><div id=root></div><script>/*\n    window.axeptioSettings = {\n      clientId: \"606c516d6ac944450f1e899d\",\n      cookiesVersion: \"snu-base\",\n    };\n\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script defer=defer src=/7804bde3689e5ee9fe8f.index.js></script></body></html>",
-    "ip": "46.252.181.104",
-    "timestamp": "2022-08-07T10:27:31.810864128Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://inscription.snu.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://moncompte.snu.gouv.fr'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "cross-origin-opener-policy",
-    "type": "http",
-    "host": "https://inscription.snu.gouv.fr",
-    "matched-at": "https://moncompte.snu.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: inscription.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nContent-Length: 1550\r\nAccept-Ranges: bytes\r\nCache-Control: public, max-age=0\r\nContent-Type: text/html; charset=UTF-8\r\nDate: Sun, 07 Aug 2022 10:27:31 GMT\r\nEtag: W/\"60e-1826d7a08f5\"\r\nExpect-Ct: max-age=0\r\nKeep-Alive: timeout=5\r\nLast-Modified: Fri, 05 Aug 2022 10:08:10 GMT\r\nReferrer-Policy: no-referrer\r\nSozu-Id: 01G9VXGY1T8TX1XQ9714QX4SXT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html><html lang=fr class=notranslate translate=no><head><meta charset=utf-8><meta name=viewport content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><meta name=google content=notranslate><title>SNU</title><script src=https://code.jquery.com/jquery-2.1.4.min.js></script><script>/*\n    window.axeptioSettings = {\n      clientId: \"5fec5b2a5558222597c2fd85\",\n      cookiesVersion: \"snu app-base\",\n    };\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script async defer=defer data-domain=moncompte.snu.gouv.fr src=https://plausible.io/js/plausible.js></script><script>window.plausible =\n        window.plausible ||\n        function () {\n          (window.plausible.q = window.plausible.q || []).push(arguments);\n        };</script><link rel=icon href=/favicon.ico></head><body><noscript>You need to enable JavaScript to run this app.</noscript><noscript></noscript><div id=root></div><script>/*\n    window.axeptioSettings = {\n      clientId: \"606c516d6ac944450f1e899d\",\n      cookiesVersion: \"snu-base\",\n    };\n\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script defer=defer src=/7804bde3689e5ee9fe8f.index.js></script></body></html>",
-    "ip": "46.252.181.104",
-    "timestamp": "2022-08-07T10:27:31.810890328Z",
+    "response": "HTTP/1.1 200 OK\r\nContent-Length: 1550\r\nAccept-Ranges: bytes\r\nCache-Control: public, max-age=0\r\nContent-Type: text/html; charset=UTF-8\r\nDate: Sun, 14 Aug 2022 11:03:25 GMT\r\nEtag: W/\"60e-1828347eaed\"\r\nExpect-Ct: max-age=0\r\nKeep-Alive: timeout=5\r\nLast-Modified: Tue, 09 Aug 2022 15:45:04 GMT\r\nReferrer-Policy: no-referrer\r\nSozu-Id: 01GAE0BPFWNPSDRB8BWWDQFJWJ\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html><html lang=fr class=notranslate translate=no><head><meta charset=utf-8><meta name=viewport content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><meta name=google content=notranslate><title>SNU</title><script src=https://code.jquery.com/jquery-2.1.4.min.js></script><script>/*\n    window.axeptioSettings = {\n      clientId: \"5fec5b2a5558222597c2fd85\",\n      cookiesVersion: \"snu app-base\",\n    };\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script async defer=defer data-domain=moncompte.snu.gouv.fr src=https://plausible.io/js/plausible.js></script><script>window.plausible =\n        window.plausible ||\n        function () {\n          (window.plausible.q = window.plausible.q || []).push(arguments);\n        };</script><link rel=icon href=/favicon.ico></head><body><noscript>You need to enable JavaScript to run this app.</noscript><noscript></noscript><div id=root></div><script>/*\n    window.axeptioSettings = {\n      clientId: \"606c516d6ac944450f1e899d\",\n      cookiesVersion: \"snu-base\",\n    };\n\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script defer=defer src=/79f4aa2c59a21819aef0.index.js></script></body></html>",
+    "ip": "46.252.181.103",
+    "timestamp": "2022-08-14T11:03:25.767423833Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://inscription.snu.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://moncompte.snu.gouv.fr'",
     "matcher-status": true,
     "matched-line": null
@@ -307,9 +156,9 @@
     "host": "https://inscription.snu.gouv.fr",
     "matched-at": "https://moncompte.snu.gouv.fr",
     "request": "GET / HTTP/1.1\r\nHost: inscription.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nContent-Length: 1550\r\nAccept-Ranges: bytes\r\nCache-Control: public, max-age=0\r\nContent-Type: text/html; charset=UTF-8\r\nDate: Sun, 07 Aug 2022 10:27:31 GMT\r\nEtag: W/\"60e-1826d7a08f5\"\r\nExpect-Ct: max-age=0\r\nKeep-Alive: timeout=5\r\nLast-Modified: Fri, 05 Aug 2022 10:08:10 GMT\r\nReferrer-Policy: no-referrer\r\nSozu-Id: 01G9VXGY1T8TX1XQ9714QX4SXT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html><html lang=fr class=notranslate translate=no><head><meta charset=utf-8><meta name=viewport content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><meta name=google content=notranslate><title>SNU</title><script src=https://code.jquery.com/jquery-2.1.4.min.js></script><script>/*\n    window.axeptioSettings = {\n      clientId: \"5fec5b2a5558222597c2fd85\",\n      cookiesVersion: \"snu app-base\",\n    };\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script async defer=defer data-domain=moncompte.snu.gouv.fr src=https://plausible.io/js/plausible.js></script><script>window.plausible =\n        window.plausible ||\n        function () {\n          (window.plausible.q = window.plausible.q || []).push(arguments);\n        };</script><link rel=icon href=/favicon.ico></head><body><noscript>You need to enable JavaScript to run this app.</noscript><noscript></noscript><div id=root></div><script>/*\n    window.axeptioSettings = {\n      clientId: \"606c516d6ac944450f1e899d\",\n      cookiesVersion: \"snu-base\",\n    };\n\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script defer=defer src=/7804bde3689e5ee9fe8f.index.js></script></body></html>",
-    "ip": "46.252.181.104",
-    "timestamp": "2022-08-07T10:27:31.810923628Z",
+    "response": "HTTP/1.1 200 OK\r\nContent-Length: 1550\r\nAccept-Ranges: bytes\r\nCache-Control: public, max-age=0\r\nContent-Type: text/html; charset=UTF-8\r\nDate: Sun, 14 Aug 2022 11:03:25 GMT\r\nEtag: W/\"60e-1828347eaed\"\r\nExpect-Ct: max-age=0\r\nKeep-Alive: timeout=5\r\nLast-Modified: Tue, 09 Aug 2022 15:45:04 GMT\r\nReferrer-Policy: no-referrer\r\nSozu-Id: 01GAE0BPFWNPSDRB8BWWDQFJWJ\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html><html lang=fr class=notranslate translate=no><head><meta charset=utf-8><meta name=viewport content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><meta name=google content=notranslate><title>SNU</title><script src=https://code.jquery.com/jquery-2.1.4.min.js></script><script>/*\n    window.axeptioSettings = {\n      clientId: \"5fec5b2a5558222597c2fd85\",\n      cookiesVersion: \"snu app-base\",\n    };\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script async defer=defer data-domain=moncompte.snu.gouv.fr src=https://plausible.io/js/plausible.js></script><script>window.plausible =\n        window.plausible ||\n        function () {\n          (window.plausible.q = window.plausible.q || []).push(arguments);\n        };</script><link rel=icon href=/favicon.ico></head><body><noscript>You need to enable JavaScript to run this app.</noscript><noscript></noscript><div id=root></div><script>/*\n    window.axeptioSettings = {\n      clientId: \"606c516d6ac944450f1e899d\",\n      cookiesVersion: \"snu-base\",\n    };\n\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script defer=defer src=/79f4aa2c59a21819aef0.index.js></script></body></html>",
+    "ip": "46.252.181.103",
+    "timestamp": "2022-08-14T11:03:25.769903661Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://inscription.snu.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://moncompte.snu.gouv.fr'",
     "matcher-status": true,
     "matched-line": null
@@ -337,14 +186,14 @@
       "reference": null,
       "severity": "info"
     },
-    "matcher-name": "access-control-max-age",
+    "matcher-name": "access-control-expose-headers",
     "type": "http",
     "host": "https://inscription.snu.gouv.fr",
     "matched-at": "https://moncompte.snu.gouv.fr",
     "request": "GET / HTTP/1.1\r\nHost: inscription.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nContent-Length: 1550\r\nAccept-Ranges: bytes\r\nCache-Control: public, max-age=0\r\nContent-Type: text/html; charset=UTF-8\r\nDate: Sun, 07 Aug 2022 10:27:31 GMT\r\nEtag: W/\"60e-1826d7a08f5\"\r\nExpect-Ct: max-age=0\r\nKeep-Alive: timeout=5\r\nLast-Modified: Fri, 05 Aug 2022 10:08:10 GMT\r\nReferrer-Policy: no-referrer\r\nSozu-Id: 01G9VXGY1T8TX1XQ9714QX4SXT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html><html lang=fr class=notranslate translate=no><head><meta charset=utf-8><meta name=viewport content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><meta name=google content=notranslate><title>SNU</title><script src=https://code.jquery.com/jquery-2.1.4.min.js></script><script>/*\n    window.axeptioSettings = {\n      clientId: \"5fec5b2a5558222597c2fd85\",\n      cookiesVersion: \"snu app-base\",\n    };\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script async defer=defer data-domain=moncompte.snu.gouv.fr src=https://plausible.io/js/plausible.js></script><script>window.plausible =\n        window.plausible ||\n        function () {\n          (window.plausible.q = window.plausible.q || []).push(arguments);\n        };</script><link rel=icon href=/favicon.ico></head><body><noscript>You need to enable JavaScript to run this app.</noscript><noscript></noscript><div id=root></div><script>/*\n    window.axeptioSettings = {\n      clientId: \"606c516d6ac944450f1e899d\",\n      cookiesVersion: \"snu-base\",\n    };\n\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script defer=defer src=/7804bde3689e5ee9fe8f.index.js></script></body></html>",
-    "ip": "46.252.181.104",
-    "timestamp": "2022-08-07T10:27:31.811073031Z",
+    "response": "HTTP/1.1 200 OK\r\nContent-Length: 1550\r\nAccept-Ranges: bytes\r\nCache-Control: public, max-age=0\r\nContent-Type: text/html; charset=UTF-8\r\nDate: Sun, 14 Aug 2022 11:03:25 GMT\r\nEtag: W/\"60e-1828347eaed\"\r\nExpect-Ct: max-age=0\r\nKeep-Alive: timeout=5\r\nLast-Modified: Tue, 09 Aug 2022 15:45:04 GMT\r\nReferrer-Policy: no-referrer\r\nSozu-Id: 01GAE0BPFWNPSDRB8BWWDQFJWJ\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html><html lang=fr class=notranslate translate=no><head><meta charset=utf-8><meta name=viewport content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><meta name=google content=notranslate><title>SNU</title><script src=https://code.jquery.com/jquery-2.1.4.min.js></script><script>/*\n    window.axeptioSettings = {\n      clientId: \"5fec5b2a5558222597c2fd85\",\n      cookiesVersion: \"snu app-base\",\n    };\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script async defer=defer data-domain=moncompte.snu.gouv.fr src=https://plausible.io/js/plausible.js></script><script>window.plausible =\n        window.plausible ||\n        function () {\n          (window.plausible.q = window.plausible.q || []).push(arguments);\n        };</script><link rel=icon href=/favicon.ico></head><body><noscript>You need to enable JavaScript to run this app.</noscript><noscript></noscript><div id=root></div><script>/*\n    window.axeptioSettings = {\n      clientId: \"606c516d6ac944450f1e899d\",\n      cookiesVersion: \"snu-base\",\n    };\n\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script defer=defer src=/79f4aa2c59a21819aef0.index.js></script></body></html>",
+    "ip": "46.252.181.103",
+    "timestamp": "2022-08-14T11:03:25.772298687Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://inscription.snu.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://moncompte.snu.gouv.fr'",
     "matcher-status": true,
     "matched-line": null
@@ -372,14 +221,154 @@
       "reference": null,
       "severity": "info"
     },
-    "matcher-name": "access-control-allow-methods",
+    "matcher-name": "content-security-policy",
     "type": "http",
     "host": "https://inscription.snu.gouv.fr",
     "matched-at": "https://moncompte.snu.gouv.fr",
     "request": "GET / HTTP/1.1\r\nHost: inscription.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nContent-Length: 1550\r\nAccept-Ranges: bytes\r\nCache-Control: public, max-age=0\r\nContent-Type: text/html; charset=UTF-8\r\nDate: Sun, 07 Aug 2022 10:27:31 GMT\r\nEtag: W/\"60e-1826d7a08f5\"\r\nExpect-Ct: max-age=0\r\nKeep-Alive: timeout=5\r\nLast-Modified: Fri, 05 Aug 2022 10:08:10 GMT\r\nReferrer-Policy: no-referrer\r\nSozu-Id: 01G9VXGY1T8TX1XQ9714QX4SXT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html><html lang=fr class=notranslate translate=no><head><meta charset=utf-8><meta name=viewport content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><meta name=google content=notranslate><title>SNU</title><script src=https://code.jquery.com/jquery-2.1.4.min.js></script><script>/*\n    window.axeptioSettings = {\n      clientId: \"5fec5b2a5558222597c2fd85\",\n      cookiesVersion: \"snu app-base\",\n    };\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script async defer=defer data-domain=moncompte.snu.gouv.fr src=https://plausible.io/js/plausible.js></script><script>window.plausible =\n        window.plausible ||\n        function () {\n          (window.plausible.q = window.plausible.q || []).push(arguments);\n        };</script><link rel=icon href=/favicon.ico></head><body><noscript>You need to enable JavaScript to run this app.</noscript><noscript></noscript><div id=root></div><script>/*\n    window.axeptioSettings = {\n      clientId: \"606c516d6ac944450f1e899d\",\n      cookiesVersion: \"snu-base\",\n    };\n\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script defer=defer src=/7804bde3689e5ee9fe8f.index.js></script></body></html>",
-    "ip": "46.252.181.104",
-    "timestamp": "2022-08-07T10:27:31.811103931Z",
+    "response": "HTTP/1.1 200 OK\r\nContent-Length: 1550\r\nAccept-Ranges: bytes\r\nCache-Control: public, max-age=0\r\nContent-Type: text/html; charset=UTF-8\r\nDate: Sun, 14 Aug 2022 11:03:25 GMT\r\nEtag: W/\"60e-1828347eaed\"\r\nExpect-Ct: max-age=0\r\nKeep-Alive: timeout=5\r\nLast-Modified: Tue, 09 Aug 2022 15:45:04 GMT\r\nReferrer-Policy: no-referrer\r\nSozu-Id: 01GAE0BPFWNPSDRB8BWWDQFJWJ\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html><html lang=fr class=notranslate translate=no><head><meta charset=utf-8><meta name=viewport content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><meta name=google content=notranslate><title>SNU</title><script src=https://code.jquery.com/jquery-2.1.4.min.js></script><script>/*\n    window.axeptioSettings = {\n      clientId: \"5fec5b2a5558222597c2fd85\",\n      cookiesVersion: \"snu app-base\",\n    };\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script async defer=defer data-domain=moncompte.snu.gouv.fr src=https://plausible.io/js/plausible.js></script><script>window.plausible =\n        window.plausible ||\n        function () {\n          (window.plausible.q = window.plausible.q || []).push(arguments);\n        };</script><link rel=icon href=/favicon.ico></head><body><noscript>You need to enable JavaScript to run this app.</noscript><noscript></noscript><div id=root></div><script>/*\n    window.axeptioSettings = {\n      clientId: \"606c516d6ac944450f1e899d\",\n      cookiesVersion: \"snu-base\",\n    };\n\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script defer=defer src=/79f4aa2c59a21819aef0.index.js></script></body></html>",
+    "ip": "46.252.181.103",
+    "timestamp": "2022-08-14T11:03:25.774710414Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://inscription.snu.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://moncompte.snu.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "permission-policy",
+    "type": "http",
+    "host": "https://inscription.snu.gouv.fr",
+    "matched-at": "https://moncompte.snu.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: inscription.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nContent-Length: 1550\r\nAccept-Ranges: bytes\r\nCache-Control: public, max-age=0\r\nContent-Type: text/html; charset=UTF-8\r\nDate: Sun, 14 Aug 2022 11:03:25 GMT\r\nEtag: W/\"60e-1828347eaed\"\r\nExpect-Ct: max-age=0\r\nKeep-Alive: timeout=5\r\nLast-Modified: Tue, 09 Aug 2022 15:45:04 GMT\r\nReferrer-Policy: no-referrer\r\nSozu-Id: 01GAE0BPFWNPSDRB8BWWDQFJWJ\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html><html lang=fr class=notranslate translate=no><head><meta charset=utf-8><meta name=viewport content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><meta name=google content=notranslate><title>SNU</title><script src=https://code.jquery.com/jquery-2.1.4.min.js></script><script>/*\n    window.axeptioSettings = {\n      clientId: \"5fec5b2a5558222597c2fd85\",\n      cookiesVersion: \"snu app-base\",\n    };\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script async defer=defer data-domain=moncompte.snu.gouv.fr src=https://plausible.io/js/plausible.js></script><script>window.plausible =\n        window.plausible ||\n        function () {\n          (window.plausible.q = window.plausible.q || []).push(arguments);\n        };</script><link rel=icon href=/favicon.ico></head><body><noscript>You need to enable JavaScript to run this app.</noscript><noscript></noscript><div id=root></div><script>/*\n    window.axeptioSettings = {\n      clientId: \"606c516d6ac944450f1e899d\",\n      cookiesVersion: \"snu-base\",\n    };\n\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script defer=defer src=/79f4aa2c59a21819aef0.index.js></script></body></html>",
+    "ip": "46.252.181.103",
+    "timestamp": "2022-08-14T11:03:25.774855816Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://inscription.snu.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://moncompte.snu.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "clear-site-data",
+    "type": "http",
+    "host": "https://inscription.snu.gouv.fr",
+    "matched-at": "https://moncompte.snu.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: inscription.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nContent-Length: 1550\r\nAccept-Ranges: bytes\r\nCache-Control: public, max-age=0\r\nContent-Type: text/html; charset=UTF-8\r\nDate: Sun, 14 Aug 2022 11:03:25 GMT\r\nEtag: W/\"60e-1828347eaed\"\r\nExpect-Ct: max-age=0\r\nKeep-Alive: timeout=5\r\nLast-Modified: Tue, 09 Aug 2022 15:45:04 GMT\r\nReferrer-Policy: no-referrer\r\nSozu-Id: 01GAE0BPFWNPSDRB8BWWDQFJWJ\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html><html lang=fr class=notranslate translate=no><head><meta charset=utf-8><meta name=viewport content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><meta name=google content=notranslate><title>SNU</title><script src=https://code.jquery.com/jquery-2.1.4.min.js></script><script>/*\n    window.axeptioSettings = {\n      clientId: \"5fec5b2a5558222597c2fd85\",\n      cookiesVersion: \"snu app-base\",\n    };\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script async defer=defer data-domain=moncompte.snu.gouv.fr src=https://plausible.io/js/plausible.js></script><script>window.plausible =\n        window.plausible ||\n        function () {\n          (window.plausible.q = window.plausible.q || []).push(arguments);\n        };</script><link rel=icon href=/favicon.ico></head><body><noscript>You need to enable JavaScript to run this app.</noscript><noscript></noscript><div id=root></div><script>/*\n    window.axeptioSettings = {\n      clientId: \"606c516d6ac944450f1e899d\",\n      cookiesVersion: \"snu-base\",\n    };\n\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script defer=defer src=/79f4aa2c59a21819aef0.index.js></script></body></html>",
+    "ip": "46.252.181.103",
+    "timestamp": "2022-08-14T11:03:25.774886716Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://inscription.snu.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://moncompte.snu.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "cross-origin-embedder-policy",
+    "type": "http",
+    "host": "https://inscription.snu.gouv.fr",
+    "matched-at": "https://moncompte.snu.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: inscription.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nContent-Length: 1550\r\nAccept-Ranges: bytes\r\nCache-Control: public, max-age=0\r\nContent-Type: text/html; charset=UTF-8\r\nDate: Sun, 14 Aug 2022 11:03:25 GMT\r\nEtag: W/\"60e-1828347eaed\"\r\nExpect-Ct: max-age=0\r\nKeep-Alive: timeout=5\r\nLast-Modified: Tue, 09 Aug 2022 15:45:04 GMT\r\nReferrer-Policy: no-referrer\r\nSozu-Id: 01GAE0BPFWNPSDRB8BWWDQFJWJ\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html><html lang=fr class=notranslate translate=no><head><meta charset=utf-8><meta name=viewport content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><meta name=google content=notranslate><title>SNU</title><script src=https://code.jquery.com/jquery-2.1.4.min.js></script><script>/*\n    window.axeptioSettings = {\n      clientId: \"5fec5b2a5558222597c2fd85\",\n      cookiesVersion: \"snu app-base\",\n    };\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script async defer=defer data-domain=moncompte.snu.gouv.fr src=https://plausible.io/js/plausible.js></script><script>window.plausible =\n        window.plausible ||\n        function () {\n          (window.plausible.q = window.plausible.q || []).push(arguments);\n        };</script><link rel=icon href=/favicon.ico></head><body><noscript>You need to enable JavaScript to run this app.</noscript><noscript></noscript><div id=root></div><script>/*\n    window.axeptioSettings = {\n      clientId: \"606c516d6ac944450f1e899d\",\n      cookiesVersion: \"snu-base\",\n    };\n\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script defer=defer src=/79f4aa2c59a21819aef0.index.js></script></body></html>",
+    "ip": "46.252.181.103",
+    "timestamp": "2022-08-14T11:03:25.774914017Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://inscription.snu.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://moncompte.snu.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "cross-origin-opener-policy",
+    "type": "http",
+    "host": "https://inscription.snu.gouv.fr",
+    "matched-at": "https://moncompte.snu.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: inscription.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nContent-Length: 1550\r\nAccept-Ranges: bytes\r\nCache-Control: public, max-age=0\r\nContent-Type: text/html; charset=UTF-8\r\nDate: Sun, 14 Aug 2022 11:03:25 GMT\r\nEtag: W/\"60e-1828347eaed\"\r\nExpect-Ct: max-age=0\r\nKeep-Alive: timeout=5\r\nLast-Modified: Tue, 09 Aug 2022 15:45:04 GMT\r\nReferrer-Policy: no-referrer\r\nSozu-Id: 01GAE0BPFWNPSDRB8BWWDQFJWJ\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html><html lang=fr class=notranslate translate=no><head><meta charset=utf-8><meta name=viewport content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><meta name=google content=notranslate><title>SNU</title><script src=https://code.jquery.com/jquery-2.1.4.min.js></script><script>/*\n    window.axeptioSettings = {\n      clientId: \"5fec5b2a5558222597c2fd85\",\n      cookiesVersion: \"snu app-base\",\n    };\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script async defer=defer data-domain=moncompte.snu.gouv.fr src=https://plausible.io/js/plausible.js></script><script>window.plausible =\n        window.plausible ||\n        function () {\n          (window.plausible.q = window.plausible.q || []).push(arguments);\n        };</script><link rel=icon href=/favicon.ico></head><body><noscript>You need to enable JavaScript to run this app.</noscript><noscript></noscript><div id=root></div><script>/*\n    window.axeptioSettings = {\n      clientId: \"606c516d6ac944450f1e899d\",\n      cookiesVersion: \"snu-base\",\n    };\n\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script defer=defer src=/79f4aa2c59a21819aef0.index.js></script></body></html>",
+    "ip": "46.252.181.103",
+    "timestamp": "2022-08-14T11:03:25.774938117Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://inscription.snu.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://moncompte.snu.gouv.fr'",
     "matcher-status": true,
     "matched-line": null
@@ -412,9 +401,114 @@
     "host": "https://inscription.snu.gouv.fr",
     "matched-at": "https://moncompte.snu.gouv.fr",
     "request": "GET / HTTP/1.1\r\nHost: inscription.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nContent-Length: 1550\r\nAccept-Ranges: bytes\r\nCache-Control: public, max-age=0\r\nContent-Type: text/html; charset=UTF-8\r\nDate: Sun, 07 Aug 2022 10:27:31 GMT\r\nEtag: W/\"60e-1826d7a08f5\"\r\nExpect-Ct: max-age=0\r\nKeep-Alive: timeout=5\r\nLast-Modified: Fri, 05 Aug 2022 10:08:10 GMT\r\nReferrer-Policy: no-referrer\r\nSozu-Id: 01G9VXGY1T8TX1XQ9714QX4SXT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html><html lang=fr class=notranslate translate=no><head><meta charset=utf-8><meta name=viewport content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><meta name=google content=notranslate><title>SNU</title><script src=https://code.jquery.com/jquery-2.1.4.min.js></script><script>/*\n    window.axeptioSettings = {\n      clientId: \"5fec5b2a5558222597c2fd85\",\n      cookiesVersion: \"snu app-base\",\n    };\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script async defer=defer data-domain=moncompte.snu.gouv.fr src=https://plausible.io/js/plausible.js></script><script>window.plausible =\n        window.plausible ||\n        function () {\n          (window.plausible.q = window.plausible.q || []).push(arguments);\n        };</script><link rel=icon href=/favicon.ico></head><body><noscript>You need to enable JavaScript to run this app.</noscript><noscript></noscript><div id=root></div><script>/*\n    window.axeptioSettings = {\n      clientId: \"606c516d6ac944450f1e899d\",\n      cookiesVersion: \"snu-base\",\n    };\n\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script defer=defer src=/7804bde3689e5ee9fe8f.index.js></script></body></html>",
-    "ip": "46.252.181.104",
-    "timestamp": "2022-08-07T10:27:31.811129732Z",
+    "response": "HTTP/1.1 200 OK\r\nContent-Length: 1550\r\nAccept-Ranges: bytes\r\nCache-Control: public, max-age=0\r\nContent-Type: text/html; charset=UTF-8\r\nDate: Sun, 14 Aug 2022 11:03:25 GMT\r\nEtag: W/\"60e-1828347eaed\"\r\nExpect-Ct: max-age=0\r\nKeep-Alive: timeout=5\r\nLast-Modified: Tue, 09 Aug 2022 15:45:04 GMT\r\nReferrer-Policy: no-referrer\r\nSozu-Id: 01GAE0BPFWNPSDRB8BWWDQFJWJ\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html><html lang=fr class=notranslate translate=no><head><meta charset=utf-8><meta name=viewport content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><meta name=google content=notranslate><title>SNU</title><script src=https://code.jquery.com/jquery-2.1.4.min.js></script><script>/*\n    window.axeptioSettings = {\n      clientId: \"5fec5b2a5558222597c2fd85\",\n      cookiesVersion: \"snu app-base\",\n    };\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script async defer=defer data-domain=moncompte.snu.gouv.fr src=https://plausible.io/js/plausible.js></script><script>window.plausible =\n        window.plausible ||\n        function () {\n          (window.plausible.q = window.plausible.q || []).push(arguments);\n        };</script><link rel=icon href=/favicon.ico></head><body><noscript>You need to enable JavaScript to run this app.</noscript><noscript></noscript><div id=root></div><script>/*\n    window.axeptioSettings = {\n      clientId: \"606c516d6ac944450f1e899d\",\n      cookiesVersion: \"snu-base\",\n    };\n\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script defer=defer src=/79f4aa2c59a21819aef0.index.js></script></body></html>",
+    "ip": "46.252.181.103",
+    "timestamp": "2022-08-14T11:03:25.774964617Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://inscription.snu.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://moncompte.snu.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "cross-origin-resource-policy",
+    "type": "http",
+    "host": "https://inscription.snu.gouv.fr",
+    "matched-at": "https://moncompte.snu.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: inscription.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nContent-Length: 1550\r\nAccept-Ranges: bytes\r\nCache-Control: public, max-age=0\r\nContent-Type: text/html; charset=UTF-8\r\nDate: Sun, 14 Aug 2022 11:03:25 GMT\r\nEtag: W/\"60e-1828347eaed\"\r\nExpect-Ct: max-age=0\r\nKeep-Alive: timeout=5\r\nLast-Modified: Tue, 09 Aug 2022 15:45:04 GMT\r\nReferrer-Policy: no-referrer\r\nSozu-Id: 01GAE0BPFWNPSDRB8BWWDQFJWJ\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html><html lang=fr class=notranslate translate=no><head><meta charset=utf-8><meta name=viewport content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><meta name=google content=notranslate><title>SNU</title><script src=https://code.jquery.com/jquery-2.1.4.min.js></script><script>/*\n    window.axeptioSettings = {\n      clientId: \"5fec5b2a5558222597c2fd85\",\n      cookiesVersion: \"snu app-base\",\n    };\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script async defer=defer data-domain=moncompte.snu.gouv.fr src=https://plausible.io/js/plausible.js></script><script>window.plausible =\n        window.plausible ||\n        function () {\n          (window.plausible.q = window.plausible.q || []).push(arguments);\n        };</script><link rel=icon href=/favicon.ico></head><body><noscript>You need to enable JavaScript to run this app.</noscript><noscript></noscript><div id=root></div><script>/*\n    window.axeptioSettings = {\n      clientId: \"606c516d6ac944450f1e899d\",\n      cookiesVersion: \"snu-base\",\n    };\n\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script defer=defer src=/79f4aa2c59a21819aef0.index.js></script></body></html>",
+    "ip": "46.252.181.103",
+    "timestamp": "2022-08-14T11:03:25.774985717Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://inscription.snu.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://moncompte.snu.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-max-age",
+    "type": "http",
+    "host": "https://inscription.snu.gouv.fr",
+    "matched-at": "https://moncompte.snu.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: inscription.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nContent-Length: 1550\r\nAccept-Ranges: bytes\r\nCache-Control: public, max-age=0\r\nContent-Type: text/html; charset=UTF-8\r\nDate: Sun, 14 Aug 2022 11:03:25 GMT\r\nEtag: W/\"60e-1828347eaed\"\r\nExpect-Ct: max-age=0\r\nKeep-Alive: timeout=5\r\nLast-Modified: Tue, 09 Aug 2022 15:45:04 GMT\r\nReferrer-Policy: no-referrer\r\nSozu-Id: 01GAE0BPFWNPSDRB8BWWDQFJWJ\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html><html lang=fr class=notranslate translate=no><head><meta charset=utf-8><meta name=viewport content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><meta name=google content=notranslate><title>SNU</title><script src=https://code.jquery.com/jquery-2.1.4.min.js></script><script>/*\n    window.axeptioSettings = {\n      clientId: \"5fec5b2a5558222597c2fd85\",\n      cookiesVersion: \"snu app-base\",\n    };\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script async defer=defer data-domain=moncompte.snu.gouv.fr src=https://plausible.io/js/plausible.js></script><script>window.plausible =\n        window.plausible ||\n        function () {\n          (window.plausible.q = window.plausible.q || []).push(arguments);\n        };</script><link rel=icon href=/favicon.ico></head><body><noscript>You need to enable JavaScript to run this app.</noscript><noscript></noscript><div id=root></div><script>/*\n    window.axeptioSettings = {\n      clientId: \"606c516d6ac944450f1e899d\",\n      cookiesVersion: \"snu-base\",\n    };\n\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script defer=defer src=/79f4aa2c59a21819aef0.index.js></script></body></html>",
+    "ip": "46.252.181.103",
+    "timestamp": "2022-08-14T11:03:25.775008318Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://inscription.snu.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://moncompte.snu.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-allow-methods",
+    "type": "http",
+    "host": "https://inscription.snu.gouv.fr",
+    "matched-at": "https://moncompte.snu.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: inscription.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nContent-Length: 1550\r\nAccept-Ranges: bytes\r\nCache-Control: public, max-age=0\r\nContent-Type: text/html; charset=UTF-8\r\nDate: Sun, 14 Aug 2022 11:03:25 GMT\r\nEtag: W/\"60e-1828347eaed\"\r\nExpect-Ct: max-age=0\r\nKeep-Alive: timeout=5\r\nLast-Modified: Tue, 09 Aug 2022 15:45:04 GMT\r\nReferrer-Policy: no-referrer\r\nSozu-Id: 01GAE0BPFWNPSDRB8BWWDQFJWJ\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Dns-Prefetch-Control: off\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html><html lang=fr class=notranslate translate=no><head><meta charset=utf-8><meta name=viewport content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><meta name=google content=notranslate><title>SNU</title><script src=https://code.jquery.com/jquery-2.1.4.min.js></script><script>/*\n    window.axeptioSettings = {\n      clientId: \"5fec5b2a5558222597c2fd85\",\n      cookiesVersion: \"snu app-base\",\n    };\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script async defer=defer data-domain=moncompte.snu.gouv.fr src=https://plausible.io/js/plausible.js></script><script>window.plausible =\n        window.plausible ||\n        function () {\n          (window.plausible.q = window.plausible.q || []).push(arguments);\n        };</script><link rel=icon href=/favicon.ico></head><body><noscript>You need to enable JavaScript to run this app.</noscript><noscript></noscript><div id=root></div><script>/*\n    window.axeptioSettings = {\n      clientId: \"606c516d6ac944450f1e899d\",\n      cookiesVersion: \"snu-base\",\n    };\n\n    (function (d, s) {\n      var t = d.getElementsByTagName(s)[0],\n        e = d.createElement(s);\n      e.async = true;\n      e.src = \"//static.axept.io/sdk.js\";\n      t.parentNode.insertBefore(e, t);\n    })(document, \"script\");\n    */</script><script defer=defer src=/79f4aa2c59a21819aef0.index.js></script></body></html>",
+    "ip": "46.252.181.103",
+    "timestamp": "2022-08-14T11:03:25.775029618Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Referer: https://inscription.snu.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://moncompte.snu.gouv.fr'",
     "matcher-status": true,
     "matched-line": null
@@ -447,72 +541,9 @@
     "type": "dns",
     "host": "https://inscription.snu.gouv.fr",
     "matched-at": "https://inscription.snu.gouv.fr",
-    "request": ";; opcode: QUERY, status: NOERROR, id: 46478\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 4096\n\n;; QUESTION SECTION:\n;inscription.snu.gouv.fr.\tIN\t NS\n",
-    "response": ";; opcode: QUERY, status: NOERROR, id: 46478\n;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 1, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 512\n\n;; QUESTION SECTION:\n;inscription.snu.gouv.fr.\tIN\t NS\n\n;; ANSWER SECTION:\ninscription.snu.gouv.fr.\t3595\tIN\tCNAME\tdomain.par.clever-cloud.com.\n\n;; AUTHORITY SECTION:\nclever-cloud.com.\t1800\tIN\tSOA\tangela.ns.cloudflare.com. dns.cloudflare.com. 2284689573 10000 2400 604800 3600\n",
-    "timestamp": "2022-08-07T10:27:35.777983293Z",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "ssl/tls-version.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/ssl/tls-version.yaml",
-    "template-id": "tls-version",
-    "info": {
-      "name": "TLS Version",
-      "author": [
-        "pdteam"
-      ],
-      "tags": [
-        "ssl"
-      ],
-      "reference": null,
-      "severity": "info"
-    },
-    "type": "ssl",
-    "host": "https://inscription.snu.gouv.fr",
-    "matched-at": "https://inscription.snu.gouv.fr",
-    "extracted-results": [
-      "TLS13"
-    ],
-    "ip": "46.252.181.104",
-    "timestamp": "2022-08-07T10:28:51.872311381Z",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "network/openssh-detection.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/network/openssh-detection.yaml",
-    "template-id": "openssh-detection",
-    "info": {
-      "name": "OpenSSH Detection",
-      "author": [
-        "r3dg33k",
-        "daffainfo",
-        "iamthefrogy"
-      ],
-      "tags": [
-        "network",
-        "ssh",
-        "openssh"
-      ],
-      "reference": [
-        "http://www.openwall.com/lists/oss-security/2016/08/01/2",
-        "http://www.openwall.com/lists/oss-security/2018/08/15/5",
-        "https://nvd.nist.gov/vuln/detail/cve-2016-6210",
-        "https://nvd.nist.gov/vuln/detail/cve-2018-15473",
-        "http://seclists.org/fulldisclosure/2016/jul/51"
-      ],
-      "severity": "info"
-    },
-    "type": "network",
-    "host": "https://inscription.snu.gouv.fr",
-    "matched-at": "inscription.snu.gouv.fr:22",
-    "extracted-results": [
-      "SSH-2.0-OpenSSH_9.0"
-    ],
-    "response": "SSH-2.0-OpenSSH_9.0\r\n",
-    "ip": "46.252.181.104",
-    "timestamp": "2022-08-07T10:28:52.636348674Z",
+    "request": ";; opcode: QUERY, status: NOERROR, id: 50836\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 4096\n\n;; QUESTION SECTION:\n;inscription.snu.gouv.fr.\tIN\t NS\n",
+    "response": ";; opcode: QUERY, status: NOERROR, id: 50836\n;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 1, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 1232\n\n;; QUESTION SECTION:\n;inscription.snu.gouv.fr.\tIN\t NS\n\n;; ANSWER SECTION:\ninscription.snu.gouv.fr.\t3600\tIN\tCNAME\tdomain.par.clever-cloud.com.\n\n;; AUTHORITY SECTION:\nclever-cloud.com.\t3600\tIN\tSOA\tangela.ns.cloudflare.com. dns.cloudflare.com. 2284689573 10000 2400 604800 3600\n",
+    "timestamp": "2022-08-14T11:04:55.263835074Z",
     "matcher-status": true,
     "matched-line": null
   },
@@ -548,9 +579,9 @@
     "extracted-results": [
       "domain.par.clever-cloud.com."
     ],
-    "request": ";; opcode: QUERY, status: NOERROR, id: 63252\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 4096\n\n;; QUESTION SECTION:\n;inscription.snu.gouv.fr.\tIN\t CNAME\n",
-    "response": ";; opcode: QUERY, status: NOERROR, id: 63252\n;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 1232\n\n;; QUESTION SECTION:\n;inscription.snu.gouv.fr.\tIN\t CNAME\n\n;; ANSWER SECTION:\ninscription.snu.gouv.fr.\t3600\tIN\tCNAME\tdomain.par.clever-cloud.com.\n",
-    "timestamp": "2022-08-07T10:31:00.371403973Z",
+    "request": ";; opcode: QUERY, status: NOERROR, id: 63309\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 4096\n\n;; QUESTION SECTION:\n;inscription.snu.gouv.fr.\tIN\t CNAME\n",
+    "response": ";; opcode: QUERY, status: NOERROR, id: 63309\n;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 1232\n\n;; QUESTION SECTION:\n;inscription.snu.gouv.fr.\tIN\t CNAME\n\n;; ANSWER SECTION:\ninscription.snu.gouv.fr.\t3600\tIN\tCNAME\tdomain.par.clever-cloud.com.\n",
+    "timestamp": "2022-08-14T11:06:50.547400943Z",
     "matcher-status": true,
     "matched-line": null
   },
@@ -575,8 +606,8 @@
     "extracted-results": [
       "inscription.snu.gouv.fr"
     ],
-    "ip": "46.252.181.104",
-    "timestamp": "2022-08-07T10:31:05.767405536Z",
+    "ip": "46.252.181.103",
+    "timestamp": "2022-08-14T11:07:31.668126392Z",
     "matcher-status": true,
     "matched-line": null
   }
