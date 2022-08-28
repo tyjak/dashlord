@@ -1,22 +1,20 @@
 [
   {
-    "template": "dns/cname-fingerprint.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/dns/cname-fingerprint.yaml",
-    "template-id": "cname-fingerprint",
+    "template": "dns/dns-waf-detect.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/dns/dns-waf-detect.yaml",
+    "template-id": "dns-waf-detect",
     "info": {
-      "name": "CNAME Fingerprint",
+      "name": "DNS WAF Detection",
       "author": [
-        "pdteam"
+        "lu4nx"
       ],
       "tags": [
-        "dns",
-        "cname"
+        "tech",
+        "waf",
+        "dns"
       ],
-      "description": "A CNAME DNS record was discovered.",
-      "reference": [
-        "https://www.theregister.com/2021/02/24/dns_cname_tracking/",
-        "https://www.ionos.com/digitalguide/hosting/technical-matters/cname-record/"
-      ],
+      "description": "A DNS WAF was detected.",
+      "reference": null,
       "severity": "info",
       "classification": {
         "cve-id": null,
@@ -25,15 +23,13 @@
         ]
       }
     },
+    "matcher-name": "cloudflare",
     "type": "dns",
     "host": "https://api.dora.fabrique.social.gouv.fr/ping/",
     "matched-at": "https://api.dora.fabrique.social.gouv.fr/ping/",
-    "extracted-results": [
-      "dora-back-prod.osc-secnum-fr1.scalingo.io."
-    ],
-    "request": ";; opcode: QUERY, status: NOERROR, id: 59203\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 4096\n\n;; QUESTION SECTION:\n;api.dora.fabrique.social.gouv.fr.\tIN\t CNAME\n",
-    "response": ";; opcode: QUERY, status: NOERROR, id: 59203\n;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 512\n\n;; QUESTION SECTION:\n;api.dora.fabrique.social.gouv.fr.\tIN\t CNAME\n\n;; ANSWER SECTION:\napi.dora.fabrique.social.gouv.fr.\t295\tIN\tCNAME\tdora-back-prod.osc-secnum-fr1.scalingo.io.\n",
-    "timestamp": "2022-08-21T16:20:52.315710804Z",
+    "request": ";; opcode: QUERY, status: NOERROR, id: 36303\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 4096\n\n;; QUESTION SECTION:\n;api.dora.fabrique.social.gouv.fr.\tIN\t NS\n",
+    "response": ";; opcode: QUERY, status: NOERROR, id: 36303\n;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 1, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 512\n\n;; QUESTION SECTION:\n;api.dora.fabrique.social.gouv.fr.\tIN\t NS\n\n;; ANSWER SECTION:\napi.dora.fabrique.social.gouv.fr.\t299\tIN\tCNAME\tdora-back-prod.osc-secnum-fr1.scalingo.io.\ndora-back-prod.osc-secnum-fr1.scalingo.io.\t299\tIN\tCNAME\tsc-lb-pool-01.osc-secnum-fr1.scalingo-network.com.\n\n;; AUTHORITY SECTION:\nscalingo-network.com.\t1800\tIN\tSOA\tburt.ns.cloudflare.com. dns.cloudflare.com. 2277339532 10000 2400 604800 3600\n",
+    "timestamp": "2022-08-28T15:48:45.457715503Z",
     "matcher-status": true,
     "matched-line": null
   },
@@ -60,49 +56,14 @@
       "reference": null,
       "severity": "info"
     },
-    "matcher-name": "access-control-expose-headers",
+    "matcher-name": "access-control-max-age",
     "type": "http",
     "host": "https://api.dora.fabrique.social.gouv.fr/ping/",
     "matched-at": "https://api.dora.fabrique.social.gouv.fr/ping/",
     "request": "GET /ping/ HTTP/1.1\r\nHost: api.dora.fabrique.social.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 4\r\nAllow: OPTIONS, GET\r\nContent-Security-Policy: default-src 'self'\r\nContent-Type: application/json\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Sun, 21 Aug 2022 16:21:01 GMT\r\nReferrer-Policy: same-origin\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Request-Id: efe989b6-ba50-43c5-bb7f-ffa8ce1c8724\r\n\r\n\"ok\"",
-    "ip": "185.21.194.105",
-    "timestamp": "2022-08-21T16:21:01.815246293Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://api.dora.fabrique.social.gouv.fr/ping/'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "access-control-allow-headers",
-    "type": "http",
-    "host": "https://api.dora.fabrique.social.gouv.fr/ping/",
-    "matched-at": "https://api.dora.fabrique.social.gouv.fr/ping/",
-    "request": "GET /ping/ HTTP/1.1\r\nHost: api.dora.fabrique.social.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 4\r\nAllow: OPTIONS, GET\r\nContent-Security-Policy: default-src 'self'\r\nContent-Type: application/json\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Sun, 21 Aug 2022 16:21:01 GMT\r\nReferrer-Policy: same-origin\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Request-Id: efe989b6-ba50-43c5-bb7f-ffa8ce1c8724\r\n\r\n\"ok\"",
-    "ip": "185.21.194.105",
-    "timestamp": "2022-08-21T16:21:01.815314094Z",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 4\r\nAllow: OPTIONS, GET\r\nContent-Security-Policy: default-src 'self'\r\nContent-Type: application/json\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Sun, 28 Aug 2022 15:48:55 GMT\r\nReferrer-Policy: same-origin\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Request-Id: d9520d82-f666-48ae-866e-436272a5ee29\r\n\r\n\"ok\"",
+    "ip": "148.253.96.193",
+    "timestamp": "2022-08-28T15:48:55.517350917Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://api.dora.fabrique.social.gouv.fr/ping/'",
     "matcher-status": true,
     "matched-line": null
@@ -135,184 +96,9 @@
     "host": "https://api.dora.fabrique.social.gouv.fr/ping/",
     "matched-at": "https://api.dora.fabrique.social.gouv.fr/ping/",
     "request": "GET /ping/ HTTP/1.1\r\nHost: api.dora.fabrique.social.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 4\r\nAllow: OPTIONS, GET\r\nContent-Security-Policy: default-src 'self'\r\nContent-Type: application/json\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Sun, 21 Aug 2022 16:21:01 GMT\r\nReferrer-Policy: same-origin\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Request-Id: efe989b6-ba50-43c5-bb7f-ffa8ce1c8724\r\n\r\n\"ok\"",
-    "ip": "185.21.194.105",
-    "timestamp": "2022-08-21T16:21:01.817009698Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://api.dora.fabrique.social.gouv.fr/ping/'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "clear-site-data",
-    "type": "http",
-    "host": "https://api.dora.fabrique.social.gouv.fr/ping/",
-    "matched-at": "https://api.dora.fabrique.social.gouv.fr/ping/",
-    "request": "GET /ping/ HTTP/1.1\r\nHost: api.dora.fabrique.social.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 4\r\nAllow: OPTIONS, GET\r\nContent-Security-Policy: default-src 'self'\r\nContent-Type: application/json\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Sun, 21 Aug 2022 16:21:01 GMT\r\nReferrer-Policy: same-origin\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Request-Id: efe989b6-ba50-43c5-bb7f-ffa8ce1c8724\r\n\r\n\"ok\"",
-    "ip": "185.21.194.105",
-    "timestamp": "2022-08-21T16:21:01.817310498Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://api.dora.fabrique.social.gouv.fr/ping/'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "access-control-allow-credentials",
-    "type": "http",
-    "host": "https://api.dora.fabrique.social.gouv.fr/ping/",
-    "matched-at": "https://api.dora.fabrique.social.gouv.fr/ping/",
-    "request": "GET /ping/ HTTP/1.1\r\nHost: api.dora.fabrique.social.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 4\r\nAllow: OPTIONS, GET\r\nContent-Security-Policy: default-src 'self'\r\nContent-Type: application/json\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Sun, 21 Aug 2022 16:21:01 GMT\r\nReferrer-Policy: same-origin\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Request-Id: efe989b6-ba50-43c5-bb7f-ffa8ce1c8724\r\n\r\n\"ok\"",
-    "ip": "185.21.194.105",
-    "timestamp": "2022-08-21T16:21:01.817587099Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://api.dora.fabrique.social.gouv.fr/ping/'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "access-control-allow-origin",
-    "type": "http",
-    "host": "https://api.dora.fabrique.social.gouv.fr/ping/",
-    "matched-at": "https://api.dora.fabrique.social.gouv.fr/ping/",
-    "request": "GET /ping/ HTTP/1.1\r\nHost: api.dora.fabrique.social.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 4\r\nAllow: OPTIONS, GET\r\nContent-Security-Policy: default-src 'self'\r\nContent-Type: application/json\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Sun, 21 Aug 2022 16:21:01 GMT\r\nReferrer-Policy: same-origin\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Request-Id: efe989b6-ba50-43c5-bb7f-ffa8ce1c8724\r\n\r\n\"ok\"",
-    "ip": "185.21.194.105",
-    "timestamp": "2022-08-21T16:21:01.817847Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://api.dora.fabrique.social.gouv.fr/ping/'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "access-control-max-age",
-    "type": "http",
-    "host": "https://api.dora.fabrique.social.gouv.fr/ping/",
-    "matched-at": "https://api.dora.fabrique.social.gouv.fr/ping/",
-    "request": "GET /ping/ HTTP/1.1\r\nHost: api.dora.fabrique.social.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 4\r\nAllow: OPTIONS, GET\r\nContent-Security-Policy: default-src 'self'\r\nContent-Type: application/json\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Sun, 21 Aug 2022 16:21:01 GMT\r\nReferrer-Policy: same-origin\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Request-Id: efe989b6-ba50-43c5-bb7f-ffa8ce1c8724\r\n\r\n\"ok\"",
-    "ip": "185.21.194.105",
-    "timestamp": "2022-08-21T16:21:01.8181091Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://api.dora.fabrique.social.gouv.fr/ping/'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "access-control-allow-methods",
-    "type": "http",
-    "host": "https://api.dora.fabrique.social.gouv.fr/ping/",
-    "matched-at": "https://api.dora.fabrique.social.gouv.fr/ping/",
-    "request": "GET /ping/ HTTP/1.1\r\nHost: api.dora.fabrique.social.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 4\r\nAllow: OPTIONS, GET\r\nContent-Security-Policy: default-src 'self'\r\nContent-Type: application/json\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Sun, 21 Aug 2022 16:21:01 GMT\r\nReferrer-Policy: same-origin\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Request-Id: efe989b6-ba50-43c5-bb7f-ffa8ce1c8724\r\n\r\n\"ok\"",
-    "ip": "185.21.194.105",
-    "timestamp": "2022-08-21T16:21:01.818373501Z",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 4\r\nAllow: OPTIONS, GET\r\nContent-Security-Policy: default-src 'self'\r\nContent-Type: application/json\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Sun, 28 Aug 2022 15:48:55 GMT\r\nReferrer-Policy: same-origin\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Request-Id: d9520d82-f666-48ae-866e-436272a5ee29\r\n\r\n\"ok\"",
+    "ip": "148.253.96.193",
+    "timestamp": "2022-08-28T15:48:55.517429419Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://api.dora.fabrique.social.gouv.fr/ping/'",
     "matcher-status": true,
     "matched-line": null
@@ -345,9 +131,44 @@
     "host": "https://api.dora.fabrique.social.gouv.fr/ping/",
     "matched-at": "https://api.dora.fabrique.social.gouv.fr/ping/",
     "request": "GET /ping/ HTTP/1.1\r\nHost: api.dora.fabrique.social.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 4\r\nAllow: OPTIONS, GET\r\nContent-Security-Policy: default-src 'self'\r\nContent-Type: application/json\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Sun, 21 Aug 2022 16:21:01 GMT\r\nReferrer-Policy: same-origin\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Request-Id: efe989b6-ba50-43c5-bb7f-ffa8ce1c8724\r\n\r\n\"ok\"",
-    "ip": "185.21.194.105",
-    "timestamp": "2022-08-21T16:21:01.818634302Z",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 4\r\nAllow: OPTIONS, GET\r\nContent-Security-Policy: default-src 'self'\r\nContent-Type: application/json\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Sun, 28 Aug 2022 15:48:55 GMT\r\nReferrer-Policy: same-origin\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Request-Id: d9520d82-f666-48ae-866e-436272a5ee29\r\n\r\n\"ok\"",
+    "ip": "148.253.96.193",
+    "timestamp": "2022-08-28T15:48:55.51746322Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://api.dora.fabrique.social.gouv.fr/ping/'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "clear-site-data",
+    "type": "http",
+    "host": "https://api.dora.fabrique.social.gouv.fr/ping/",
+    "matched-at": "https://api.dora.fabrique.social.gouv.fr/ping/",
+    "request": "GET /ping/ HTTP/1.1\r\nHost: api.dora.fabrique.social.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 4\r\nAllow: OPTIONS, GET\r\nContent-Security-Policy: default-src 'self'\r\nContent-Type: application/json\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Sun, 28 Aug 2022 15:48:55 GMT\r\nReferrer-Policy: same-origin\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Request-Id: d9520d82-f666-48ae-866e-436272a5ee29\r\n\r\n\"ok\"",
+    "ip": "148.253.96.193",
+    "timestamp": "2022-08-28T15:48:55.51747992Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://api.dora.fabrique.social.gouv.fr/ping/'",
     "matcher-status": true,
     "matched-line": null
@@ -380,9 +201,79 @@
     "host": "https://api.dora.fabrique.social.gouv.fr/ping/",
     "matched-at": "https://api.dora.fabrique.social.gouv.fr/ping/",
     "request": "GET /ping/ HTTP/1.1\r\nHost: api.dora.fabrique.social.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 4\r\nAllow: OPTIONS, GET\r\nContent-Security-Policy: default-src 'self'\r\nContent-Type: application/json\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Sun, 21 Aug 2022 16:21:01 GMT\r\nReferrer-Policy: same-origin\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Request-Id: efe989b6-ba50-43c5-bb7f-ffa8ce1c8724\r\n\r\n\"ok\"",
-    "ip": "185.21.194.105",
-    "timestamp": "2022-08-21T16:21:01.818895302Z",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 4\r\nAllow: OPTIONS, GET\r\nContent-Security-Policy: default-src 'self'\r\nContent-Type: application/json\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Sun, 28 Aug 2022 15:48:55 GMT\r\nReferrer-Policy: same-origin\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Request-Id: d9520d82-f666-48ae-866e-436272a5ee29\r\n\r\n\"ok\"",
+    "ip": "148.253.96.193",
+    "timestamp": "2022-08-28T15:48:55.517502921Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://api.dora.fabrique.social.gouv.fr/ping/'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-allow-origin",
+    "type": "http",
+    "host": "https://api.dora.fabrique.social.gouv.fr/ping/",
+    "matched-at": "https://api.dora.fabrique.social.gouv.fr/ping/",
+    "request": "GET /ping/ HTTP/1.1\r\nHost: api.dora.fabrique.social.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 4\r\nAllow: OPTIONS, GET\r\nContent-Security-Policy: default-src 'self'\r\nContent-Type: application/json\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Sun, 28 Aug 2022 15:48:55 GMT\r\nReferrer-Policy: same-origin\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Request-Id: d9520d82-f666-48ae-866e-436272a5ee29\r\n\r\n\"ok\"",
+    "ip": "148.253.96.193",
+    "timestamp": "2022-08-28T15:48:55.517518021Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://api.dora.fabrique.social.gouv.fr/ping/'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-allow-credentials",
+    "type": "http",
+    "host": "https://api.dora.fabrique.social.gouv.fr/ping/",
+    "matched-at": "https://api.dora.fabrique.social.gouv.fr/ping/",
+    "request": "GET /ping/ HTTP/1.1\r\nHost: api.dora.fabrique.social.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 4\r\nAllow: OPTIONS, GET\r\nContent-Security-Policy: default-src 'self'\r\nContent-Type: application/json\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Sun, 28 Aug 2022 15:48:55 GMT\r\nReferrer-Policy: same-origin\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Request-Id: d9520d82-f666-48ae-866e-436272a5ee29\r\n\r\n\"ok\"",
+    "ip": "148.253.96.193",
+    "timestamp": "2022-08-28T15:48:55.517537522Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://api.dora.fabrique.social.gouv.fr/ping/'",
     "matcher-status": true,
     "matched-line": null
@@ -415,70 +306,115 @@
     "host": "https://api.dora.fabrique.social.gouv.fr/ping/",
     "matched-at": "https://api.dora.fabrique.social.gouv.fr/ping/",
     "request": "GET /ping/ HTTP/1.1\r\nHost: api.dora.fabrique.social.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 4\r\nAllow: OPTIONS, GET\r\nContent-Security-Policy: default-src 'self'\r\nContent-Type: application/json\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Sun, 21 Aug 2022 16:21:01 GMT\r\nReferrer-Policy: same-origin\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Request-Id: efe989b6-ba50-43c5-bb7f-ffa8ce1c8724\r\n\r\n\"ok\"",
-    "ip": "185.21.194.105",
-    "timestamp": "2022-08-21T16:21:01.819152603Z",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 4\r\nAllow: OPTIONS, GET\r\nContent-Security-Policy: default-src 'self'\r\nContent-Type: application/json\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Sun, 28 Aug 2022 15:48:55 GMT\r\nReferrer-Policy: same-origin\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Request-Id: d9520d82-f666-48ae-866e-436272a5ee29\r\n\r\n\"ok\"",
+    "ip": "148.253.96.193",
+    "timestamp": "2022-08-28T15:48:55.517554022Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://api.dora.fabrique.social.gouv.fr/ping/'",
     "matcher-status": true,
     "matched-line": null
   },
   {
-    "template": "dns/dns-waf-detect.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/dns/dns-waf-detect.yaml",
-    "template-id": "dns-waf-detect",
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
     "info": {
-      "name": "DNS WAF Detection",
+      "name": "HTTP Missing Security Headers",
       "author": [
-        "lu4nx"
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
       ],
       "tags": [
-        "tech",
-        "waf",
-        "dns"
+        "misconfig",
+        "generic"
       ],
-      "description": "A DNS WAF was detected.",
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
       "reference": null,
-      "severity": "info",
-      "classification": {
-        "cve-id": null,
-        "cwe-id": [
-          "cwe-200"
-        ]
-      }
+      "severity": "info"
     },
-    "matcher-name": "cloudflare",
-    "type": "dns",
+    "matcher-name": "access-control-expose-headers",
+    "type": "http",
     "host": "https://api.dora.fabrique.social.gouv.fr/ping/",
     "matched-at": "https://api.dora.fabrique.social.gouv.fr/ping/",
-    "request": ";; opcode: QUERY, status: NOERROR, id: 8954\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 4096\n\n;; QUESTION SECTION:\n;api.dora.fabrique.social.gouv.fr.\tIN\t NS\n",
-    "response": ";; opcode: QUERY, status: NOERROR, id: 8954\n;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 1, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 512\n\n;; QUESTION SECTION:\n;api.dora.fabrique.social.gouv.fr.\tIN\t NS\n\n;; ANSWER SECTION:\napi.dora.fabrique.social.gouv.fr.\t269\tIN\tCNAME\tdora-back-prod.osc-secnum-fr1.scalingo.io.\ndora-back-prod.osc-secnum-fr1.scalingo.io.\t269\tIN\tCNAME\tsc-lb-pool-01.osc-secnum-fr1.scalingo-network.com.\n\n;; AUTHORITY SECTION:\nscalingo-network.com.\t1800\tIN\tSOA\tburt.ns.cloudflare.com. dns.cloudflare.com. 2277339532 10000 2400 604800 3600\n",
-    "timestamp": "2022-08-21T16:21:18.34507401Z",
+    "request": "GET /ping/ HTTP/1.1\r\nHost: api.dora.fabrique.social.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 4\r\nAllow: OPTIONS, GET\r\nContent-Security-Policy: default-src 'self'\r\nContent-Type: application/json\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Sun, 28 Aug 2022 15:48:55 GMT\r\nReferrer-Policy: same-origin\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Request-Id: d9520d82-f666-48ae-866e-436272a5ee29\r\n\r\n\"ok\"",
+    "ip": "148.253.96.193",
+    "timestamp": "2022-08-28T15:48:55.517571823Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://api.dora.fabrique.social.gouv.fr/ping/'",
     "matcher-status": true,
     "matched-line": null
   },
   {
-    "template": "ssl/ssl-dns-names.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/ssl/ssl-dns-names.yaml",
-    "template-id": "ssl-dns-names",
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
     "info": {
-      "name": "SSL DNS Names",
+      "name": "HTTP Missing Security Headers",
       "author": [
-        "pdteam"
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
       ],
       "tags": [
-        "ssl"
+        "misconfig",
+        "generic"
       ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
       "reference": null,
       "severity": "info"
     },
-    "type": "ssl",
+    "matcher-name": "access-control-allow-methods",
+    "type": "http",
     "host": "https://api.dora.fabrique.social.gouv.fr/ping/",
     "matched-at": "https://api.dora.fabrique.social.gouv.fr/ping/",
-    "extracted-results": [
-      "api.dora.fabrique.social.gouv.fr"
-    ],
-    "ip": "185.21.194.105",
-    "timestamp": "2022-08-21T16:21:27.709447994Z",
+    "request": "GET /ping/ HTTP/1.1\r\nHost: api.dora.fabrique.social.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 4\r\nAllow: OPTIONS, GET\r\nContent-Security-Policy: default-src 'self'\r\nContent-Type: application/json\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Sun, 28 Aug 2022 15:48:55 GMT\r\nReferrer-Policy: same-origin\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Request-Id: d9520d82-f666-48ae-866e-436272a5ee29\r\n\r\n\"ok\"",
+    "ip": "148.253.96.193",
+    "timestamp": "2022-08-28T15:48:55.517590223Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://api.dora.fabrique.social.gouv.fr/ping/'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-allow-headers",
+    "type": "http",
+    "host": "https://api.dora.fabrique.social.gouv.fr/ping/",
+    "matched-at": "https://api.dora.fabrique.social.gouv.fr/ping/",
+    "request": "GET /ping/ HTTP/1.1\r\nHost: api.dora.fabrique.social.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 4\r\nAllow: OPTIONS, GET\r\nContent-Security-Policy: default-src 'self'\r\nContent-Type: application/json\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Sun, 28 Aug 2022 15:48:55 GMT\r\nReferrer-Policy: same-origin\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Request-Id: d9520d82-f666-48ae-866e-436272a5ee29\r\n\r\n\"ok\"",
+    "ip": "148.253.96.193",
+    "timestamp": "2022-08-28T15:48:55.517606224Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://api.dora.fabrique.social.gouv.fr/ping/'",
     "matcher-status": true,
     "matched-line": null
   },
@@ -505,10 +441,74 @@
       "OPTIONS, GET"
     ],
     "request": "OPTIONS /ping/ HTTP/1.1\r\nHost: api.dora.fabrique.social.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 151\r\nAllow: OPTIONS, GET\r\nContent-Security-Policy: default-src 'self'\r\nContent-Type: application/json\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Sun, 21 Aug 2022 16:22:09 GMT\r\nReferrer-Policy: same-origin\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Request-Id: 82abde0d-2aeb-448b-81c1-11d76db6f4e7\r\n\r\n{\"name\":\"Ping\",\"description\":\"\",\"renders\":[\"application/json\"],\"parses\":[\"application/x-www-form-urlencoded\",\"multipart/form-data\",\"application/json\"]}",
-    "ip": "185.21.194.105",
-    "timestamp": "2022-08-21T16:22:09.579002067Z",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 151\r\nAllow: OPTIONS, GET\r\nContent-Security-Policy: default-src 'self'\r\nContent-Type: application/json\r\nCross-Origin-Opener-Policy: same-origin\r\nDate: Sun, 28 Aug 2022 15:48:56 GMT\r\nReferrer-Policy: same-origin\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Request-Id: 9fe72055-36af-4d8b-952b-fc3420fa1013\r\n\r\n{\"name\":\"Ping\",\"description\":\"\",\"renders\":[\"application/json\"],\"parses\":[\"application/x-www-form-urlencoded\",\"multipart/form-data\",\"application/json\"]}",
+    "ip": "148.253.96.193",
+    "timestamp": "2022-08-28T15:48:56.042378209Z",
     "curl-command": "curl -X 'OPTIONS' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://api.dora.fabrique.social.gouv.fr/ping/'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "ssl/ssl-dns-names.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/ssl/ssl-dns-names.yaml",
+    "template-id": "ssl-dns-names",
+    "info": {
+      "name": "SSL DNS Names",
+      "author": [
+        "pdteam"
+      ],
+      "tags": [
+        "ssl"
+      ],
+      "reference": null,
+      "severity": "info"
+    },
+    "type": "ssl",
+    "host": "https://api.dora.fabrique.social.gouv.fr/ping/",
+    "matched-at": "https://api.dora.fabrique.social.gouv.fr/ping/",
+    "extracted-results": [
+      "api.dora.fabrique.social.gouv.fr"
+    ],
+    "ip": "148.253.96.193",
+    "timestamp": "2022-08-28T15:50:35.759050176Z",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "dns/cname-fingerprint.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/dns/cname-fingerprint.yaml",
+    "template-id": "cname-fingerprint",
+    "info": {
+      "name": "CNAME Fingerprint",
+      "author": [
+        "pdteam"
+      ],
+      "tags": [
+        "dns",
+        "cname"
+      ],
+      "description": "A CNAME DNS record was discovered.",
+      "reference": [
+        "https://www.theregister.com/2021/02/24/dns_cname_tracking/",
+        "https://www.ionos.com/digitalguide/hosting/technical-matters/cname-record/"
+      ],
+      "severity": "info",
+      "classification": {
+        "cve-id": null,
+        "cwe-id": [
+          "cwe-200"
+        ]
+      }
+    },
+    "type": "dns",
+    "host": "https://api.dora.fabrique.social.gouv.fr/ping/",
+    "matched-at": "https://api.dora.fabrique.social.gouv.fr/ping/",
+    "extracted-results": [
+      "dora-back-prod.osc-secnum-fr1.scalingo.io."
+    ],
+    "request": ";; opcode: QUERY, status: NOERROR, id: 55176\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 4096\n\n;; QUESTION SECTION:\n;api.dora.fabrique.social.gouv.fr.\tIN\t CNAME\n",
+    "response": ";; opcode: QUERY, status: NOERROR, id: 55176\n;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 1232\n\n;; QUESTION SECTION:\n;api.dora.fabrique.social.gouv.fr.\tIN\t CNAME\n\n;; ANSWER SECTION:\napi.dora.fabrique.social.gouv.fr.\t300\tIN\tCNAME\tdora-back-prod.osc-secnum-fr1.scalingo.io.\n",
+    "timestamp": "2022-08-28T15:51:20.718568289Z",
     "matcher-status": true,
     "matched-line": null
   },
@@ -533,8 +533,8 @@
     "extracted-results": [
       "TLS13"
     ],
-    "ip": "148.253.96.193",
-    "timestamp": "2022-08-21T16:24:21.535214198Z",
+    "ip": "185.21.194.105",
+    "timestamp": "2022-08-28T15:51:58.424329613Z",
     "matcher-status": true,
     "matched-line": null
   }
