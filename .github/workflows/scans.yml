@@ -98,6 +98,16 @@ jobs:
       - name: Mozilla HTTP Observatory
         if: ${{ matrix.sites.tools.http }}
         continue-on-error: true
+        id: http
+        timeout-minutes: 10
+        uses: SocialGouv/httpobs-action@master
+        with:
+          url: "${{ matrix.sites.url }}"
+          output: "scans/http.json"
+          
+      - name: Mozilla HTTP Observatory retry
+        if: steps.http.outcome=='failure'
+        continue-on-error: true
         timeout-minutes: 10
         uses: SocialGouv/httpobs-action@master
         with:
