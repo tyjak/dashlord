@@ -4,7 +4,7 @@
     "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/xss-deprecated-header.yaml",
     "template-id": "xss-deprecated-header-detect",
     "info": {
-      "name": "Detect Deprecated XSS Protection Header",
+      "name": "XSS-Protection Header - Cross-Site Scripting",
       "author": [
         "joshlarsen"
       ],
@@ -13,12 +13,20 @@
         "misconfig",
         "generic"
       ],
-      "description": "Setting the XSS-Protection header is deprecated by most browsers. Setting the header to anything other than `0` can actually introduce an XSS vulnerability.",
+      "description": "XSS-Protection header in Explorer, Chrome, and Safari contains a cross-site scripting vulnerability if set to any value other than `0`.",
       "reference": [
         "https://developer.mozilla.org/en-us/docs/web/http/headers/x-xss-protection",
         "https://owasp.org/www-project-secure-headers/#x-xss-protection"
       ],
-      "severity": "info"
+      "severity": "info",
+      "classification": {
+        "cve-id": null,
+        "cwe-id": [
+          "cwe-79"
+        ],
+        "cvss-metrics": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:N",
+        "cvss-score": 7.2
+      }
     },
     "type": "http",
     "host": "https://mobilic.beta.gouv.fr",
@@ -27,315 +35,9 @@
       "1; mode=block"
     ],
     "request": "GET / HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 06:55:06 GMT\r\nEtag: W/\"632229f0-b46\"\r\nLast-Modified: Wed, 14 Sep 2022 19:22:24 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: c32e6079-fb44-4181-868c-44cf9be57e98\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.4e3a914b.js\"></script><script src=\"/static/js/vendors~main~playground.4afaecc1.chunk.js\"></script><script src=\"/static/js/vendors~main.dc8910c7.chunk.js\"></script><script src=\"/static/js/main.0bd34955.chunk.js\"></script></body></html>",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 06:50:54 GMT\r\nEtag: W/\"632b681a-b46\"\r\nLast-Modified: Wed, 21 Sep 2022 19:38:02 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: a87b7ffe-427e-4b87-83ac-b9fe6543e49d\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.86ba9f05.js\"></script><script src=\"/static/js/vendors~main~playground.75ca0943.chunk.js\"></script><script src=\"/static/js/vendors~main.7b0399bf.chunk.js\"></script><script src=\"/static/js/main.78bbe6d0.chunk.js\"></script></body></html>",
     "ip": "109.232.236.90",
-    "timestamp": "2022-09-18T06:55:06.180019911Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "ssl/tls-version.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/ssl/tls-version.yaml",
-    "template-id": "tls-version",
-    "info": {
-      "name": "TLS Version",
-      "author": [
-        "pdteam"
-      ],
-      "tags": [
-        "ssl"
-      ],
-      "reference": null,
-      "severity": "info"
-    },
-    "type": "ssl",
-    "host": "https://mobilic.beta.gouv.fr",
-    "matched-at": "https://mobilic.beta.gouv.fr",
-    "extracted-results": [
-      "TLS13"
-    ],
-    "ip": "109.232.236.90",
-    "timestamp": "2022-09-18T06:55:12.339613663Z",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "x-permitted-cross-domain-policies",
-    "type": "http",
-    "host": "https://mobilic.beta.gouv.fr",
-    "matched-at": "https://mobilic.beta.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 06:55:28 GMT\r\nEtag: W/\"632229f0-b46\"\r\nLast-Modified: Wed, 14 Sep 2022 19:22:24 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: 867359e2-3832-4ca2-8f8e-851aafa0e6cf\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.4e3a914b.js\"></script><script src=\"/static/js/vendors~main~playground.4afaecc1.chunk.js\"></script><script src=\"/static/js/vendors~main.dc8910c7.chunk.js\"></script><script src=\"/static/js/main.0bd34955.chunk.js\"></script></body></html>",
-    "ip": "109.232.236.90",
-    "timestamp": "2022-09-18T06:55:28.843098068Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "referrer-policy",
-    "type": "http",
-    "host": "https://mobilic.beta.gouv.fr",
-    "matched-at": "https://mobilic.beta.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 06:55:28 GMT\r\nEtag: W/\"632229f0-b46\"\r\nLast-Modified: Wed, 14 Sep 2022 19:22:24 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: 867359e2-3832-4ca2-8f8e-851aafa0e6cf\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.4e3a914b.js\"></script><script src=\"/static/js/vendors~main~playground.4afaecc1.chunk.js\"></script><script src=\"/static/js/vendors~main.dc8910c7.chunk.js\"></script><script src=\"/static/js/main.0bd34955.chunk.js\"></script></body></html>",
-    "ip": "109.232.236.90",
-    "timestamp": "2022-09-18T06:55:28.843237469Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "clear-site-data",
-    "type": "http",
-    "host": "https://mobilic.beta.gouv.fr",
-    "matched-at": "https://mobilic.beta.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 06:55:28 GMT\r\nEtag: W/\"632229f0-b46\"\r\nLast-Modified: Wed, 14 Sep 2022 19:22:24 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: 867359e2-3832-4ca2-8f8e-851aafa0e6cf\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.4e3a914b.js\"></script><script src=\"/static/js/vendors~main~playground.4afaecc1.chunk.js\"></script><script src=\"/static/js/vendors~main.dc8910c7.chunk.js\"></script><script src=\"/static/js/main.0bd34955.chunk.js\"></script></body></html>",
-    "ip": "109.232.236.90",
-    "timestamp": "2022-09-18T06:55:28.84328327Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "cross-origin-resource-policy",
-    "type": "http",
-    "host": "https://mobilic.beta.gouv.fr",
-    "matched-at": "https://mobilic.beta.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 06:55:28 GMT\r\nEtag: W/\"632229f0-b46\"\r\nLast-Modified: Wed, 14 Sep 2022 19:22:24 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: 867359e2-3832-4ca2-8f8e-851aafa0e6cf\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.4e3a914b.js\"></script><script src=\"/static/js/vendors~main~playground.4afaecc1.chunk.js\"></script><script src=\"/static/js/vendors~main.dc8910c7.chunk.js\"></script><script src=\"/static/js/main.0bd34955.chunk.js\"></script></body></html>",
-    "ip": "109.232.236.90",
-    "timestamp": "2022-09-18T06:55:28.849872433Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "access-control-max-age",
-    "type": "http",
-    "host": "https://mobilic.beta.gouv.fr",
-    "matched-at": "https://mobilic.beta.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 06:55:28 GMT\r\nEtag: W/\"632229f0-b46\"\r\nLast-Modified: Wed, 14 Sep 2022 19:22:24 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: 867359e2-3832-4ca2-8f8e-851aafa0e6cf\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.4e3a914b.js\"></script><script src=\"/static/js/vendors~main~playground.4afaecc1.chunk.js\"></script><script src=\"/static/js/vendors~main.dc8910c7.chunk.js\"></script><script src=\"/static/js/main.0bd34955.chunk.js\"></script></body></html>",
-    "ip": "109.232.236.90",
-    "timestamp": "2022-09-18T06:55:28.850162336Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "access-control-allow-methods",
-    "type": "http",
-    "host": "https://mobilic.beta.gouv.fr",
-    "matched-at": "https://mobilic.beta.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 06:55:28 GMT\r\nEtag: W/\"632229f0-b46\"\r\nLast-Modified: Wed, 14 Sep 2022 19:22:24 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: 867359e2-3832-4ca2-8f8e-851aafa0e6cf\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.4e3a914b.js\"></script><script src=\"/static/js/vendors~main~playground.4afaecc1.chunk.js\"></script><script src=\"/static/js/vendors~main.dc8910c7.chunk.js\"></script><script src=\"/static/js/main.0bd34955.chunk.js\"></script></body></html>",
-    "ip": "109.232.236.90",
-    "timestamp": "2022-09-18T06:55:28.850439539Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "access-control-allow-headers",
-    "type": "http",
-    "host": "https://mobilic.beta.gouv.fr",
-    "matched-at": "https://mobilic.beta.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 06:55:28 GMT\r\nEtag: W/\"632229f0-b46\"\r\nLast-Modified: Wed, 14 Sep 2022 19:22:24 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: 867359e2-3832-4ca2-8f8e-851aafa0e6cf\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.4e3a914b.js\"></script><script src=\"/static/js/vendors~main~playground.4afaecc1.chunk.js\"></script><script src=\"/static/js/vendors~main.dc8910c7.chunk.js\"></script><script src=\"/static/js/main.0bd34955.chunk.js\"></script></body></html>",
-    "ip": "109.232.236.90",
-    "timestamp": "2022-09-18T06:55:28.850724941Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "permission-policy",
-    "type": "http",
-    "host": "https://mobilic.beta.gouv.fr",
-    "matched-at": "https://mobilic.beta.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 06:55:28 GMT\r\nEtag: W/\"632229f0-b46\"\r\nLast-Modified: Wed, 14 Sep 2022 19:22:24 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: 867359e2-3832-4ca2-8f8e-851aafa0e6cf\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.4e3a914b.js\"></script><script src=\"/static/js/vendors~main~playground.4afaecc1.chunk.js\"></script><script src=\"/static/js/vendors~main.dc8910c7.chunk.js\"></script><script src=\"/static/js/main.0bd34955.chunk.js\"></script></body></html>",
-    "ip": "109.232.236.90",
-    "timestamp": "2022-09-18T06:55:28.850988844Z",
+    "timestamp": "2022-09-25T06:50:54.515933168Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr'",
     "matcher-status": true,
     "matched-line": null
@@ -368,9 +70,9 @@
     "host": "https://mobilic.beta.gouv.fr",
     "matched-at": "https://mobilic.beta.gouv.fr",
     "request": "GET / HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 06:55:28 GMT\r\nEtag: W/\"632229f0-b46\"\r\nLast-Modified: Wed, 14 Sep 2022 19:22:24 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: 867359e2-3832-4ca2-8f8e-851aafa0e6cf\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.4e3a914b.js\"></script><script src=\"/static/js/vendors~main~playground.4afaecc1.chunk.js\"></script><script src=\"/static/js/vendors~main.dc8910c7.chunk.js\"></script><script src=\"/static/js/main.0bd34955.chunk.js\"></script></body></html>",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 06:50:58 GMT\r\nEtag: W/\"632b681a-b46\"\r\nLast-Modified: Wed, 21 Sep 2022 19:38:02 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: d18cf313-2035-44f9-9674-45259ccf5c5d\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.86ba9f05.js\"></script><script src=\"/static/js/vendors~main~playground.75ca0943.chunk.js\"></script><script src=\"/static/js/vendors~main.7b0399bf.chunk.js\"></script><script src=\"/static/js/main.78bbe6d0.chunk.js\"></script></body></html>",
     "ip": "109.232.236.90",
-    "timestamp": "2022-09-18T06:55:28.857651408Z",
+    "timestamp": "2022-09-25T06:50:58.317931871Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr'",
     "matcher-status": true,
     "matched-line": null
@@ -398,84 +100,14 @@
       "reference": null,
       "severity": "info"
     },
-    "matcher-name": "cross-origin-opener-policy",
+    "matcher-name": "cross-origin-resource-policy",
     "type": "http",
     "host": "https://mobilic.beta.gouv.fr",
     "matched-at": "https://mobilic.beta.gouv.fr",
     "request": "GET / HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 06:55:28 GMT\r\nEtag: W/\"632229f0-b46\"\r\nLast-Modified: Wed, 14 Sep 2022 19:22:24 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: 867359e2-3832-4ca2-8f8e-851aafa0e6cf\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.4e3a914b.js\"></script><script src=\"/static/js/vendors~main~playground.4afaecc1.chunk.js\"></script><script src=\"/static/js/vendors~main.dc8910c7.chunk.js\"></script><script src=\"/static/js/main.0bd34955.chunk.js\"></script></body></html>",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 06:50:58 GMT\r\nEtag: W/\"632b681a-b46\"\r\nLast-Modified: Wed, 21 Sep 2022 19:38:02 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: d18cf313-2035-44f9-9674-45259ccf5c5d\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.86ba9f05.js\"></script><script src=\"/static/js/vendors~main~playground.75ca0943.chunk.js\"></script><script src=\"/static/js/vendors~main.7b0399bf.chunk.js\"></script><script src=\"/static/js/main.78bbe6d0.chunk.js\"></script></body></html>",
     "ip": "109.232.236.90",
-    "timestamp": "2022-09-18T06:55:28.857971211Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "access-control-allow-origin",
-    "type": "http",
-    "host": "https://mobilic.beta.gouv.fr",
-    "matched-at": "https://mobilic.beta.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 06:55:28 GMT\r\nEtag: W/\"632229f0-b46\"\r\nLast-Modified: Wed, 14 Sep 2022 19:22:24 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: 867359e2-3832-4ca2-8f8e-851aafa0e6cf\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.4e3a914b.js\"></script><script src=\"/static/js/vendors~main~playground.4afaecc1.chunk.js\"></script><script src=\"/static/js/vendors~main.dc8910c7.chunk.js\"></script><script src=\"/static/js/main.0bd34955.chunk.js\"></script></body></html>",
-    "ip": "109.232.236.90",
-    "timestamp": "2022-09-18T06:55:28.858239914Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "access-control-allow-credentials",
-    "type": "http",
-    "host": "https://mobilic.beta.gouv.fr",
-    "matched-at": "https://mobilic.beta.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 06:55:28 GMT\r\nEtag: W/\"632229f0-b46\"\r\nLast-Modified: Wed, 14 Sep 2022 19:22:24 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: 867359e2-3832-4ca2-8f8e-851aafa0e6cf\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.4e3a914b.js\"></script><script src=\"/static/js/vendors~main~playground.4afaecc1.chunk.js\"></script><script src=\"/static/js/vendors~main.dc8910c7.chunk.js\"></script><script src=\"/static/js/main.0bd34955.chunk.js\"></script></body></html>",
-    "ip": "109.232.236.90",
-    "timestamp": "2022-09-18T06:55:28.858519916Z",
+    "timestamp": "2022-09-25T06:50:58.31814497Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr'",
     "matcher-status": true,
     "matched-line": null
@@ -508,59 +140,404 @@
     "host": "https://mobilic.beta.gouv.fr",
     "matched-at": "https://mobilic.beta.gouv.fr",
     "request": "GET / HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 06:55:28 GMT\r\nEtag: W/\"632229f0-b46\"\r\nLast-Modified: Wed, 14 Sep 2022 19:22:24 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: 867359e2-3832-4ca2-8f8e-851aafa0e6cf\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.4e3a914b.js\"></script><script src=\"/static/js/vendors~main~playground.4afaecc1.chunk.js\"></script><script src=\"/static/js/vendors~main.dc8910c7.chunk.js\"></script><script src=\"/static/js/main.0bd34955.chunk.js\"></script></body></html>",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 06:50:58 GMT\r\nEtag: W/\"632b681a-b46\"\r\nLast-Modified: Wed, 21 Sep 2022 19:38:02 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: d18cf313-2035-44f9-9674-45259ccf5c5d\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.86ba9f05.js\"></script><script src=\"/static/js/vendors~main~playground.75ca0943.chunk.js\"></script><script src=\"/static/js/vendors~main.7b0399bf.chunk.js\"></script><script src=\"/static/js/main.78bbe6d0.chunk.js\"></script></body></html>",
     "ip": "109.232.236.90",
-    "timestamp": "2022-09-18T06:55:28.858790919Z",
+    "timestamp": "2022-09-25T06:50:58.322274549Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr'",
     "matcher-status": true,
     "matched-line": null
   },
   {
-    "template": "miscellaneous/robots-txt.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/miscellaneous/robots-txt.yaml",
-    "template-id": "robots-txt",
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
     "info": {
-      "name": "robots.txt file",
+      "name": "HTTP Missing Security Headers",
       "author": [
-        "caspergn",
-        "thezakman"
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
       ],
       "tags": [
-        "misc",
+        "misconfig",
         "generic"
       ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
       "reference": null,
       "severity": "info"
     },
+    "matcher-name": "access-control-max-age",
     "type": "http",
     "host": "https://mobilic.beta.gouv.fr",
-    "matched-at": "https://mobilic.beta.gouv.fr/robots.txt",
-    "request": "GET /robots.txt HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 183\r\nAccept-Ranges: bytes\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/plain; charset=utf-8\r\nDate: Sun, 18 Sep 2022 06:55:34 GMT\r\nEtag: \"63222911-b7\"\r\nLast-Modified: Wed, 14 Sep 2022 19:18:41 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: e7084f4c-b90f-46ba-a642-7ebf5fdfdc10\r\nX-Xss-Protection: 1; mode=block\r\n\r\n# https://www.robotstxt.org/robotstxt.html\nUser-agent: *\nDisallow: /developers/\nDisallow: /oauth/\nDisallow: /api/fc/\nDisallow: /fc-callback\nDisallow: /api/ac/\nDisallow: /ac-callback\n\n",
+    "matched-at": "https://mobilic.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 06:50:58 GMT\r\nEtag: W/\"632b681a-b46\"\r\nLast-Modified: Wed, 21 Sep 2022 19:38:02 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: d18cf313-2035-44f9-9674-45259ccf5c5d\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.86ba9f05.js\"></script><script src=\"/static/js/vendors~main~playground.75ca0943.chunk.js\"></script><script src=\"/static/js/vendors~main.7b0399bf.chunk.js\"></script><script src=\"/static/js/main.78bbe6d0.chunk.js\"></script></body></html>",
     "ip": "109.232.236.90",
-    "timestamp": "2022-09-18T06:55:34.928818367Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr/robots.txt'",
+    "timestamp": "2022-09-25T06:50:58.322395949Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr'",
     "matcher-status": true,
     "matched-line": null
   },
   {
-    "template": "dns/mx-fingerprint.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/dns/mx-fingerprint.yaml",
-    "template-id": "mx-fingerprint",
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
     "info": {
-      "name": "MX Record Detection",
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-allow-methods",
+    "type": "http",
+    "host": "https://mobilic.beta.gouv.fr",
+    "matched-at": "https://mobilic.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 06:50:58 GMT\r\nEtag: W/\"632b681a-b46\"\r\nLast-Modified: Wed, 21 Sep 2022 19:38:02 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: d18cf313-2035-44f9-9674-45259ccf5c5d\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.86ba9f05.js\"></script><script src=\"/static/js/vendors~main~playground.75ca0943.chunk.js\"></script><script src=\"/static/js/vendors~main.7b0399bf.chunk.js\"></script><script src=\"/static/js/main.78bbe6d0.chunk.js\"></script></body></html>",
+    "ip": "109.232.236.90",
+    "timestamp": "2022-09-25T06:50:58.322460948Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "x-permitted-cross-domain-policies",
+    "type": "http",
+    "host": "https://mobilic.beta.gouv.fr",
+    "matched-at": "https://mobilic.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 06:50:58 GMT\r\nEtag: W/\"632b681a-b46\"\r\nLast-Modified: Wed, 21 Sep 2022 19:38:02 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: d18cf313-2035-44f9-9674-45259ccf5c5d\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.86ba9f05.js\"></script><script src=\"/static/js/vendors~main~playground.75ca0943.chunk.js\"></script><script src=\"/static/js/vendors~main.7b0399bf.chunk.js\"></script><script src=\"/static/js/main.78bbe6d0.chunk.js\"></script></body></html>",
+    "ip": "109.232.236.90",
+    "timestamp": "2022-09-25T06:50:58.322512648Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "referrer-policy",
+    "type": "http",
+    "host": "https://mobilic.beta.gouv.fr",
+    "matched-at": "https://mobilic.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 06:50:58 GMT\r\nEtag: W/\"632b681a-b46\"\r\nLast-Modified: Wed, 21 Sep 2022 19:38:02 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: d18cf313-2035-44f9-9674-45259ccf5c5d\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.86ba9f05.js\"></script><script src=\"/static/js/vendors~main~playground.75ca0943.chunk.js\"></script><script src=\"/static/js/vendors~main.7b0399bf.chunk.js\"></script><script src=\"/static/js/main.78bbe6d0.chunk.js\"></script></body></html>",
+    "ip": "109.232.236.90",
+    "timestamp": "2022-09-25T06:50:58.322559748Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "cross-origin-opener-policy",
+    "type": "http",
+    "host": "https://mobilic.beta.gouv.fr",
+    "matched-at": "https://mobilic.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 06:50:58 GMT\r\nEtag: W/\"632b681a-b46\"\r\nLast-Modified: Wed, 21 Sep 2022 19:38:02 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: d18cf313-2035-44f9-9674-45259ccf5c5d\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.86ba9f05.js\"></script><script src=\"/static/js/vendors~main~playground.75ca0943.chunk.js\"></script><script src=\"/static/js/vendors~main.7b0399bf.chunk.js\"></script><script src=\"/static/js/main.78bbe6d0.chunk.js\"></script></body></html>",
+    "ip": "109.232.236.90",
+    "timestamp": "2022-09-25T06:50:58.322616047Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-allow-origin",
+    "type": "http",
+    "host": "https://mobilic.beta.gouv.fr",
+    "matched-at": "https://mobilic.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 06:50:58 GMT\r\nEtag: W/\"632b681a-b46\"\r\nLast-Modified: Wed, 21 Sep 2022 19:38:02 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: d18cf313-2035-44f9-9674-45259ccf5c5d\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.86ba9f05.js\"></script><script src=\"/static/js/vendors~main~playground.75ca0943.chunk.js\"></script><script src=\"/static/js/vendors~main.7b0399bf.chunk.js\"></script><script src=\"/static/js/main.78bbe6d0.chunk.js\"></script></body></html>",
+    "ip": "109.232.236.90",
+    "timestamp": "2022-09-25T06:50:58.322667647Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-allow-credentials",
+    "type": "http",
+    "host": "https://mobilic.beta.gouv.fr",
+    "matched-at": "https://mobilic.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 06:50:58 GMT\r\nEtag: W/\"632b681a-b46\"\r\nLast-Modified: Wed, 21 Sep 2022 19:38:02 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: d18cf313-2035-44f9-9674-45259ccf5c5d\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.86ba9f05.js\"></script><script src=\"/static/js/vendors~main~playground.75ca0943.chunk.js\"></script><script src=\"/static/js/vendors~main.7b0399bf.chunk.js\"></script><script src=\"/static/js/main.78bbe6d0.chunk.js\"></script></body></html>",
+    "ip": "109.232.236.90",
+    "timestamp": "2022-09-25T06:50:58.322711147Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-allow-headers",
+    "type": "http",
+    "host": "https://mobilic.beta.gouv.fr",
+    "matched-at": "https://mobilic.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 06:50:58 GMT\r\nEtag: W/\"632b681a-b46\"\r\nLast-Modified: Wed, 21 Sep 2022 19:38:02 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: d18cf313-2035-44f9-9674-45259ccf5c5d\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.86ba9f05.js\"></script><script src=\"/static/js/vendors~main~playground.75ca0943.chunk.js\"></script><script src=\"/static/js/vendors~main.7b0399bf.chunk.js\"></script><script src=\"/static/js/main.78bbe6d0.chunk.js\"></script></body></html>",
+    "ip": "109.232.236.90",
+    "timestamp": "2022-09-25T06:50:58.322766847Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "permission-policy",
+    "type": "http",
+    "host": "https://mobilic.beta.gouv.fr",
+    "matched-at": "https://mobilic.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 06:50:58 GMT\r\nEtag: W/\"632b681a-b46\"\r\nLast-Modified: Wed, 21 Sep 2022 19:38:02 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: d18cf313-2035-44f9-9674-45259ccf5c5d\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.86ba9f05.js\"></script><script src=\"/static/js/vendors~main~playground.75ca0943.chunk.js\"></script><script src=\"/static/js/vendors~main.7b0399bf.chunk.js\"></script><script src=\"/static/js/main.78bbe6d0.chunk.js\"></script></body></html>",
+    "ip": "109.232.236.90",
+    "timestamp": "2022-09-25T06:50:58.322806946Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "clear-site-data",
+    "type": "http",
+    "host": "https://mobilic.beta.gouv.fr",
+    "matched-at": "https://mobilic.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 06:50:58 GMT\r\nEtag: W/\"632b681a-b46\"\r\nLast-Modified: Wed, 21 Sep 2022 19:38:02 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: d18cf313-2035-44f9-9674-45259ccf5c5d\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.86ba9f05.js\"></script><script src=\"/static/js/vendors~main~playground.75ca0943.chunk.js\"></script><script src=\"/static/js/vendors~main.7b0399bf.chunk.js\"></script><script src=\"/static/js/main.78bbe6d0.chunk.js\"></script></body></html>",
+    "ip": "109.232.236.90",
+    "timestamp": "2022-09-25T06:50:58.322858646Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "ssl/detect-ssl-issuer.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/ssl/detect-ssl-issuer.yaml",
+    "template-id": "detect-ssl-issuer",
+    "info": {
+      "name": "Detect SSL Certificate Issuer",
+      "author": [
+        "lingtren"
+      ],
+      "tags": [
+        "ssl"
+      ],
+      "reference": null,
+      "severity": "info"
+    },
+    "type": "ssl",
+    "host": "https://mobilic.beta.gouv.fr",
+    "matched-at": "https://mobilic.beta.gouv.fr",
+    "extracted-results": [
+      "Let's Encrypt"
+    ],
+    "ip": "109.232.236.90",
+    "timestamp": "2022-09-25T06:51:10.166247826Z",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "dns/nameserver-fingerprint.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/dns/nameserver-fingerprint.yaml",
+    "template-id": "nameserver-fingerprint",
+    "info": {
+      "name": "NS Record Detection",
       "author": [
         "pdteam"
       ],
       "tags": [
         "dns",
-        "mx"
+        "ns"
       ],
-      "description": "An MX record was detected. MX records direct emails to a mail exchange server.",
-      "reference": [
-        "https://www.cloudflare.com/learning/dns/dns-records/dns-mx-record/",
-        "https://mxtoolbox.com/"
-      ],
+      "description": "An NS record was detected. An NS record delegates a subdomain to a set of name servers.",
+      "reference": null,
       "severity": "info",
       "classification": {
         "cve-id": null,
@@ -573,12 +550,68 @@
     "host": "https://mobilic.beta.gouv.fr",
     "matched-at": "https://mobilic.beta.gouv.fr",
     "extracted-results": [
-      "20 mx2.alwaysdata.com.",
-      "10 mx1.alwaysdata.com."
+      "dns1.alwaysdata.com.",
+      "dns2.alwaysdata.com."
     ],
-    "request": ";; opcode: QUERY, status: NOERROR, id: 2235\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 4096\n\n;; QUESTION SECTION:\n;mobilic.beta.gouv.fr.\tIN\t MX\n",
-    "response": ";; opcode: QUERY, status: NOERROR, id: 2235\n;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 1232\n\n;; QUESTION SECTION:\n;mobilic.beta.gouv.fr.\tIN\t MX\n\n;; ANSWER SECTION:\nmobilic.beta.gouv.fr.\t300\tIN\tMX\t20 mx2.alwaysdata.com.\nmobilic.beta.gouv.fr.\t300\tIN\tMX\t10 mx1.alwaysdata.com.\n",
-    "timestamp": "2022-09-18T06:55:40.376818688Z",
+    "request": ";; opcode: QUERY, status: NOERROR, id: 2977\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 4096\n\n;; QUESTION SECTION:\n;mobilic.beta.gouv.fr.\tIN\t NS\n",
+    "response": ";; opcode: QUERY, status: NOERROR, id: 2977\n;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 1232\n\n;; QUESTION SECTION:\n;mobilic.beta.gouv.fr.\tIN\t NS\n\n;; ANSWER SECTION:\nmobilic.beta.gouv.fr.\t300\tIN\tNS\tdns1.alwaysdata.com.\nmobilic.beta.gouv.fr.\t300\tIN\tNS\tdns2.alwaysdata.com.\n",
+    "timestamp": "2022-09-25T06:51:40.411771707Z",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "ssl/tls-version.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/ssl/tls-version.yaml",
+    "template-id": "tls-version",
+    "info": {
+      "name": "TLS Version",
+      "author": [
+        "pdteam"
+      ],
+      "tags": [
+        "ssl"
+      ],
+      "reference": null,
+      "severity": "info"
+    },
+    "type": "ssl",
+    "host": "https://mobilic.beta.gouv.fr",
+    "matched-at": "https://mobilic.beta.gouv.fr",
+    "extracted-results": [
+      "TLS13"
+    ],
+    "ip": "5.104.101.30",
+    "timestamp": "2022-09-25T06:52:55.933053126Z",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "technologies/graphql-detect.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/technologies/graphql-detect.yaml",
+    "template-id": "graphql-detect",
+    "info": {
+      "name": "GraphQL API Detection",
+      "author": [
+        "nkxxkn",
+        "elsfa7110",
+        "ofjaaah",
+        "exceed"
+      ],
+      "tags": [
+        "tech",
+        "graphql"
+      ],
+      "reference": null,
+      "severity": "info"
+    },
+    "type": "http",
+    "host": "https://mobilic.beta.gouv.fr",
+    "matched-at": "https://mobilic.beta.gouv.fr/api/graphql",
+    "request": "POST /api/graphql HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nContent-Length: 67\r\nAccept: */*\r\nAccept-Language: en\r\nContent-Type: application/json\r\nAccept-Encoding: gzip\r\n\r\n{\"query\":\"query IntrospectionQuery{__schema {queryType { name }}}\"}",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 54\r\nAccess-Control-Allow-Origin: *\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: application/json\r\nDate: Sun, 25 Sep 2022 06:53:22 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: da3bd521-a627-41d4-b617-7e1f041f21fd\r\nX-Request-Id: da3bd521-a627-41d4-b617-7e1f041f21fd\r\nX-Xss-Protection: 1; mode=block\r\n\r\n{\"data\":{\"__schema\":{\"queryType\":{\"name\":\"Queries\"}}}}",
+    "ip": "5.104.101.30",
+    "timestamp": "2022-09-25T06:53:22.781149567Z",
+    "curl-command": "curl -X 'POST' -d '{\"query\":\"query IntrospectionQuery{__schema {queryType { name }}}\"}' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Content-Type: application/json' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr/api/graphql'",
     "matcher-status": true,
     "matched-line": null
   },
@@ -604,40 +637,7 @@
       "mobilic.beta.gouv.fr"
     ],
     "ip": "5.104.101.30",
-    "timestamp": "2022-09-18T06:55:55.564897633Z",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/graphql/graphql-alias-batching.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/graphql/graphql-alias-batching.yaml",
-    "template-id": "graphql-alias-batching",
-    "info": {
-      "name": "GraphQL Alias-based Batching",
-      "author": [
-        "dolev farhi"
-      ],
-      "tags": [
-        "graphql"
-      ],
-      "description": "GraphQL supports aliasing of multiple sub-queries into a single queries. This allows users to request multiple objects or multiple instances of objects efficiently.\nHowever, an attacker can leverage this feature to evade many security measures, including rate limit.\n",
-      "reference": [
-        "https://github.com/dolevf/damn-vulnerable-graphql-application",
-        "https://cheatsheetseries.owasp.org/cheatsheets/graphql_cheat_sheet.html",
-        "https://graphql.security/",
-        "https://stackoverflow.com/questions/62421352/graphql-difference-between-using-alias-versus-multiple-query-objects-when-doin"
-      ],
-      "severity": "info",
-      "remediation": "Limit queries aliasing in your GraphQL Engine to ensure mitigation of aliasing-based attacks.\n"
-    },
-    "type": "http",
-    "host": "https://mobilic.beta.gouv.fr",
-    "matched-at": "https://mobilic.beta.gouv.fr/api/graphql",
-    "request": "POST /api/graphql HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nContent-Length: 155\r\nContent-Type: application/json\r\nAccept-Encoding: gzip\r\n\r\n{\"query\":\"query {\\n nuclei1:__typename \\n nuclei2:__typename \\n nuclei3:__typename \\n nuclei4:__typename \\n nuclei5:__typename \\n nuclei6:__typename \\n }\"}",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 130\r\nAccess-Control-Allow-Origin: *\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: application/json\r\nDate: Sun, 18 Sep 2022 06:58:45 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: 79d4bbfa-419c-442e-be82-0026f0a57708\r\nX-Request-Id: 79d4bbfa-419c-442e-be82-0026f0a57708\r\nX-Xss-Protection: 1; mode=block\r\n\r\n{\"data\":{\"nuclei1\":\"Queries\",\"nuclei2\":\"Queries\",\"nuclei3\":\"Queries\",\"nuclei4\":\"Queries\",\"nuclei5\":\"Queries\",\"nuclei6\":\"Queries\"}}",
-    "ip": "109.232.236.90",
-    "timestamp": "2022-09-18T06:58:45.949315763Z",
-    "curl-command": "curl -X 'POST' -d '{\"query\":\"query {\\n nuclei1:__typename \\n nuclei2:__typename \\n nuclei3:__typename \\n nuclei4:__typename \\n nuclei5:__typename \\n nuclei6:__typename \\n }\"}' -H 'Content-Type: application/json' -H 'Host: mobilic.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr/api/graphql'",
+    "timestamp": "2022-09-25T06:54:05.309578325Z",
     "matcher-status": true,
     "matched-line": null
   },
@@ -673,9 +673,9 @@
     "host": "https://mobilic.beta.gouv.fr",
     "matched-at": "https://mobilic.beta.gouv.fr/",
     "request": "POST / HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nContent-Length: 27\r\nContent-Type: application/x-www-form-urlencoded\r\nAccept-Encoding: gzip\r\n\r\n_=<script>alert(1)</script>",
-    "response": "HTTP/1.1 405 Not Allowed\r\nConnection: close\r\nContent-Length: 150\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 06:59:33 GMT\r\nX-Request-Id: 46861bd3-cc04-433c-8512-3817ffc7938a\r\n\r\n<html>\r\n<head><title>405 Not Allowed</title></head>\r\n<body>\r\n<center><h1>405 Not Allowed</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html>\r\n",
+    "response": "HTTP/1.1 405 Not Allowed\r\nConnection: close\r\nContent-Length: 150\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 06:55:13 GMT\r\nX-Request-Id: 2e98dc00-8391-4cad-a401-9b23c4a65a30\r\n\r\n<html>\r\n<head><title>405 Not Allowed</title></head>\r\n<body>\r\n<center><h1>405 Not Allowed</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html>\r\n",
     "ip": "109.232.236.90",
-    "timestamp": "2022-09-18T06:59:33.57546733Z",
+    "timestamp": "2022-09-25T06:55:13.841399993Z",
     "curl-command": "curl -X 'POST' -d '_=<script>alert(1)</script>' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Host: mobilic.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr/'",
     "matcher-status": true,
     "matched-line": null
@@ -711,157 +711,30 @@
     "extracted-results": [
       "\"v=spf1 include:_spf.alwaysdata.com ?all\""
     ],
-    "request": ";; opcode: QUERY, status: NOERROR, id: 57335\n;; flags: rd ad; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 4096\n\n;; QUESTION SECTION:\n;mobilic.beta.gouv.fr.\tIN\t TXT\n",
-    "response": ";; opcode: QUERY, status: NOERROR, id: 57335\n;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 1232\n\n;; QUESTION SECTION:\n;mobilic.beta.gouv.fr.\tIN\t TXT\n\n;; ANSWER SECTION:\nmobilic.beta.gouv.fr.\t300\tIN\tTXT\t\"v=spf1 include:_spf.alwaysdata.com ?all\"\n",
-    "timestamp": "2022-09-18T06:59:41.738290662Z",
+    "request": ";; opcode: QUERY, status: NOERROR, id: 12569\n;; flags: rd ad; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 4096\n\n;; QUESTION SECTION:\n;mobilic.beta.gouv.fr.\tIN\t TXT\n",
+    "response": ";; opcode: QUERY, status: NOERROR, id: 12569\n;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 1232\n\n;; QUESTION SECTION:\n;mobilic.beta.gouv.fr.\tIN\t TXT\n\n;; ANSWER SECTION:\nmobilic.beta.gouv.fr.\t300\tIN\tTXT\t\"v=spf1 include:_spf.alwaysdata.com ?all\"\n",
+    "timestamp": "2022-09-25T06:55:26.071371397Z",
     "matcher-status": true,
     "matched-line": null
   },
   {
-    "template": "technologies/graphql-detect.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/technologies/graphql-detect.yaml",
-    "template-id": "graphql-detect",
+    "template": "dns/mx-fingerprint.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/dns/mx-fingerprint.yaml",
+    "template-id": "mx-fingerprint",
     "info": {
-      "name": "GraphQL API Detection",
-      "author": [
-        "nkxxkn",
-        "elsfa7110",
-        "ofjaaah",
-        "exceed"
-      ],
-      "tags": [
-        "tech",
-        "graphql"
-      ],
-      "reference": null,
-      "severity": "info"
-    },
-    "type": "http",
-    "host": "https://mobilic.beta.gouv.fr",
-    "matched-at": "https://mobilic.beta.gouv.fr/api/graphql",
-    "request": "POST /api/graphql HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nContent-Length: 67\r\nAccept: */*\r\nAccept-Language: en\r\nContent-Type: application/json\r\nAccept-Encoding: gzip\r\n\r\n{\"query\":\"query IntrospectionQuery{__schema {queryType { name }}}\"}",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 54\r\nAccess-Control-Allow-Origin: *\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: application/json\r\nDate: Sun, 18 Sep 2022 06:59:49 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: bc05e28b-e2d6-40d5-adc3-f64c678464db\r\nX-Request-Id: bc05e28b-e2d6-40d5-adc3-f64c678464db\r\nX-Xss-Protection: 1; mode=block\r\n\r\n{\"data\":{\"__schema\":{\"queryType\":{\"name\":\"Queries\"}}}}",
-    "ip": "109.232.236.90",
-    "timestamp": "2022-09-18T06:59:49.446484961Z",
-    "curl-command": "curl -X 'POST' -d '{\"query\":\"query IntrospectionQuery{__schema {queryType { name }}}\"}' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Content-Type: application/json' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr/api/graphql'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "miscellaneous/robots-txt-endpoint.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/miscellaneous/robots-txt-endpoint.yaml",
-    "template-id": "robots-txt-endpoint",
-    "info": {
-      "name": "robots.txt endpoint prober",
-      "author": [
-        "caspergn",
-        "pdteam"
-      ],
-      "tags": null,
-      "reference": null,
-      "severity": "info"
-    },
-    "type": "http",
-    "host": "https://mobilic.beta.gouv.fr",
-    "matched-at": "https://mobilic.beta.gouv.fr/robots.txt",
-    "request": "GET /robots.txt HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 183\r\nAccept-Ranges: bytes\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/plain; charset=utf-8\r\nDate: Sun, 18 Sep 2022 06:59:53 GMT\r\nEtag: \"63222911-b7\"\r\nLast-Modified: Wed, 14 Sep 2022 19:18:41 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: b4a6a597-e575-412b-997f-9ec88a5fe90f\r\nX-Xss-Protection: 1; mode=block\r\n\r\n# https://www.robotstxt.org/robotstxt.html\nUser-agent: *\nDisallow: /developers/\nDisallow: /oauth/\nDisallow: /api/fc/\nDisallow: /fc-callback\nDisallow: /api/ac/\nDisallow: /ac-callback\n\n",
-    "ip": "109.232.236.90",
-    "timestamp": "2022-09-18T06:59:53.723791709Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr/robots.txt'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "miscellaneous/robots-txt-endpoint.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/miscellaneous/robots-txt-endpoint.yaml",
-    "template-id": "robots-txt-endpoint",
-    "info": {
-      "name": "robots.txt endpoint prober",
-      "author": [
-        "caspergn",
-        "pdteam"
-      ],
-      "tags": null,
-      "reference": null,
-      "severity": "info"
-    },
-    "type": "http",
-    "host": "https://mobilic.beta.gouv.fr",
-    "matched-at": "https://mobilic.beta.gouv.fr/oauth/",
-    "request": "GET /oauth/ HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 06:59:54 GMT\r\nEtag: W/\"632229f0-b46\"\r\nLast-Modified: Wed, 14 Sep 2022 19:22:24 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: 7245c67f-b8e8-463c-9624-3d9127c3010a\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.4e3a914b.js\"></script><script src=\"/static/js/vendors~main~playground.4afaecc1.chunk.js\"></script><script src=\"/static/js/vendors~main.dc8910c7.chunk.js\"></script><script src=\"/static/js/main.0bd34955.chunk.js\"></script></body></html>",
-    "ip": "109.232.236.90",
-    "timestamp": "2022-09-18T06:59:54.178720271Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr/oauth/'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "miscellaneous/robots-txt-endpoint.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/miscellaneous/robots-txt-endpoint.yaml",
-    "template-id": "robots-txt-endpoint",
-    "info": {
-      "name": "robots.txt endpoint prober",
-      "author": [
-        "caspergn",
-        "pdteam"
-      ],
-      "tags": null,
-      "reference": null,
-      "severity": "info"
-    },
-    "type": "http",
-    "host": "https://mobilic.beta.gouv.fr",
-    "matched-at": "https://mobilic.beta.gouv.fr/fc-callback",
-    "request": "GET /fc-callback HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 06:59:55 GMT\r\nEtag: W/\"632229f0-b46\"\r\nLast-Modified: Wed, 14 Sep 2022 19:22:24 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: eb20ed7c-d5b5-4ad9-87f6-2e316f546f4d\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.4e3a914b.js\"></script><script src=\"/static/js/vendors~main~playground.4afaecc1.chunk.js\"></script><script src=\"/static/js/vendors~main.dc8910c7.chunk.js\"></script><script src=\"/static/js/main.0bd34955.chunk.js\"></script></body></html>",
-    "ip": "109.232.236.90",
-    "timestamp": "2022-09-18T06:59:55.159217472Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr/fc-callback'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "miscellaneous/robots-txt-endpoint.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/miscellaneous/robots-txt-endpoint.yaml",
-    "template-id": "robots-txt-endpoint",
-    "info": {
-      "name": "robots.txt endpoint prober",
-      "author": [
-        "caspergn",
-        "pdteam"
-      ],
-      "tags": null,
-      "reference": null,
-      "severity": "info"
-    },
-    "type": "http",
-    "host": "https://mobilic.beta.gouv.fr",
-    "matched-at": "https://mobilic.beta.gouv.fr/ac-callback",
-    "request": "GET /ac-callback HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache; max-age=0\r\nContent-Security-Policy: object-src 'self'; connect-src 'self' https://client.crisp.chat https://api-adresse.data.gouv.fr https://*.ingest.sentry.io wss://client.relay.crisp.chat https://stats.data.gouv.fr; base-uri 'self'; default-src 'self'; script-src 'self' https://client.crisp.chat https://stats.data.gouv.fr; img-src 'self' data: https://client.crisp.chat https://stats.data.gouv.fr; style-src 'self' 'unsafe-inline' https://client.crisp.chat; font-src 'self' https://client.crisp.chat; frame-src https://metabase.mobilic.beta.gouv.fr https://www.youtube.com https://www.slideshare.net https://cgu.mobilic.beta.gouv.fr\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 06:59:56 GMT\r\nEtag: W/\"632229f0-b46\"\r\nLast-Modified: Wed, 14 Sep 2022 19:22:24 GMT\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: deny\r\nX-Request-Id: 04263c19-6254-4578-8c40-cf93373ff38b\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.svg\"/><link rel=\"mask-icon\" href=\"/safari-mask-icon.svg\" color=\"#3184FF\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,height=device-height,target-densitydpi=device-dpi\"/><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"/><meta name=\"theme-color\" content=\"#3184FF\"/><meta name=\"description\" content=\"Suivre son temps de travail sur la route et en-dehors\"/><link rel=\"apple-touch-icon\" href=\"/logos/logo180.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><link href=\"/splashscreens/iphone5_splash.png\" media=\"(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphone6_splash.png\" media=\"(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphoneplus_splash.png\" media=\"(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonex_splash.png\" media=\"(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexr_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/iphonexsmax_splash.png\" media=\"(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipad_splash.png\" media=\"(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro1_splash.png\" media=\"(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro3_splash.png\" media=\"(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><link href=\"/splashscreens/ipadpro2_splash.png\" media=\"(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)\" rel=\"apple-touch-startup-image\"/><title>Mobilic</title><link href=\"/static/css/vendors~main.019327fb.chunk.css\" rel=\"stylesheet\"><link href=\"/static/css/main.e97d1e03.chunk.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div><script src=\"/static/js/runtime-main.4e3a914b.js\"></script><script src=\"/static/js/vendors~main~playground.4afaecc1.chunk.js\"></script><script src=\"/static/js/vendors~main.dc8910c7.chunk.js\"></script><script src=\"/static/js/main.0bd34955.chunk.js\"></script></body></html>",
-    "ip": "109.232.236.90",
-    "timestamp": "2022-09-18T06:59:56.134777725Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr/ac-callback'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "dns/nameserver-fingerprint.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/dns/nameserver-fingerprint.yaml",
-    "template-id": "nameserver-fingerprint",
-    "info": {
-      "name": "NS Record Detection",
+      "name": "MX Record Detection",
       "author": [
         "pdteam"
       ],
       "tags": [
         "dns",
-        "ns"
+        "mx"
       ],
-      "description": "An NS record was detected. An NS record delegates a subdomain to a set of name servers.",
-      "reference": null,
+      "description": "An MX record was detected. MX records direct emails to a mail exchange server.",
+      "reference": [
+        "https://www.cloudflare.com/learning/dns/dns-records/dns-mx-record/",
+        "https://mxtoolbox.com/"
+      ],
       "severity": "info",
       "classification": {
         "cve-id": null,
@@ -874,12 +747,44 @@
     "host": "https://mobilic.beta.gouv.fr",
     "matched-at": "https://mobilic.beta.gouv.fr",
     "extracted-results": [
-      "dns2.alwaysdata.com.",
-      "dns1.alwaysdata.com."
+      "10 mx1.alwaysdata.com.",
+      "20 mx2.alwaysdata.com."
     ],
-    "request": ";; opcode: QUERY, status: NOERROR, id: 56091\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 4096\n\n;; QUESTION SECTION:\n;mobilic.beta.gouv.fr.\tIN\t NS\n",
-    "response": ";; opcode: QUERY, status: NOERROR, id: 56091\n;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 512\n\n;; QUESTION SECTION:\n;mobilic.beta.gouv.fr.\tIN\t NS\n\n;; ANSWER SECTION:\nmobilic.beta.gouv.fr.\t300\tIN\tNS\tdns2.alwaysdata.com.\nmobilic.beta.gouv.fr.\t300\tIN\tNS\tdns1.alwaysdata.com.\n",
-    "timestamp": "2022-09-18T06:59:56.405259818Z",
+    "request": ";; opcode: QUERY, status: NOERROR, id: 28689\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 4096\n\n;; QUESTION SECTION:\n;mobilic.beta.gouv.fr.\tIN\t MX\n",
+    "response": ";; opcode: QUERY, status: NOERROR, id: 28689\n;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags: ; udp: 512\n\n;; QUESTION SECTION:\n;mobilic.beta.gouv.fr.\tIN\t MX\n\n;; ANSWER SECTION:\nmobilic.beta.gouv.fr.\t300\tIN\tMX\t10 mx1.alwaysdata.com.\nmobilic.beta.gouv.fr.\t300\tIN\tMX\t20 mx2.alwaysdata.com.\n",
+    "timestamp": "2022-09-25T06:55:31.912252335Z",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/graphql/graphql-field-suggestion.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/graphql/graphql-field-suggestion.yaml",
+    "template-id": "graphql-field-suggestion",
+    "info": {
+      "name": "GraphQL Field Suggestion Information Disclosure",
+      "author": [
+        "dolev farhi"
+      ],
+      "tags": [
+        "graphql"
+      ],
+      "description": "If introspection is disabled on your target, Field Suggestion can allow users to still earn information on the GraphQL schema.\nBy default, GraphQL backends have a feature for fields and operations suggestions.\nIf you try to query a field but you have made a typo, GraphQL will attempt to suggest fields that are similar to the initial attempt.\n",
+      "reference": [
+        "https://github.com/webonyx/graphql-php/issues/454",
+        "https://github.com/dolevf/damn-vulnerable-graphql-application",
+        "https://cheatsheetseries.owasp.org/cheatsheets/graphql_cheat_sheet.html",
+        "https://graphql.security"
+      ],
+      "severity": "info"
+    },
+    "type": "http",
+    "host": "https://mobilic.beta.gouv.fr",
+    "matched-at": "https://mobilic.beta.gouv.fr/api/graphql",
+    "request": "POST /api/graphql HTTP/1.1\r\nHost: mobilic.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nContent-Length: 69\r\nContent-Type: application/json\r\nAccept-Encoding: gzip\r\n\r\n{\"query\":\"query {\\n  __schema {\\n directive\\n }\\n}\",\"variables\":null}",
+    "response": "HTTP/1.1 400 BAD REQUEST\r\nConnection: close\r\nContent-Length: 146\r\nAccess-Control-Allow-Origin: *\r\nContent-Type: application/json\r\nDate: Sun, 25 Sep 2022 06:55:49 GMT\r\nX-Request-Id: 8c1cfed8-2998-4f69-960c-8292432c1461\r\nX-Request-Id: 8c1cfed8-2998-4f69-960c-8292432c1461\r\n\r\n{\"errors\":[{\"message\":\"Cannot query field \\\"directive\\\" on type \\\"__Schema\\\". Did you mean \\\"directives\\\"?\",\"locations\":[{\"line\":3,\"column\":2}]}]}",
+    "ip": "109.232.236.90",
+    "timestamp": "2022-09-25T06:55:49.817346087Z",
+    "curl-command": "curl -X 'POST' -d '{\"query\":\"query {\\n  __schema {\\n directive\\n }\\n}\",\"variables\":null}' -H 'Content-Type: application/json' -H 'Host: mobilic.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://mobilic.beta.gouv.fr/api/graphql'",
     "matcher-status": true,
     "matched-line": null
   }
