@@ -4,7 +4,7 @@
     "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/xss-deprecated-header.yaml",
     "template-id": "xss-deprecated-header-detect",
     "info": {
-      "name": "Detect Deprecated XSS Protection Header",
+      "name": "XSS-Protection Header - Cross-Site Scripting",
       "author": [
         "joshlarsen"
       ],
@@ -13,12 +13,20 @@
         "misconfig",
         "generic"
       ],
-      "description": "Setting the XSS-Protection header is deprecated by most browsers. Setting the header to anything other than `0` can actually introduce an XSS vulnerability.",
+      "description": "XSS-Protection header in Explorer, Chrome, and Safari contains a cross-site scripting vulnerability if set to any value other than `0`.",
       "reference": [
         "https://developer.mozilla.org/en-us/docs/web/http/headers/x-xss-protection",
         "https://owasp.org/www-project-secure-headers/#x-xss-protection"
       ],
-      "severity": "info"
+      "severity": "info",
+      "classification": {
+        "cve-id": null,
+        "cwe-id": [
+          "cwe-79"
+        ],
+        "cvss-metrics": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:N",
+        "cvss-score": 7.2
+      }
     },
     "type": "http",
     "host": "https://adock.beta.gouv.fr",
@@ -27,9 +35,9 @@
       "1; mode=block"
     ],
     "request": "GET / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 02:56:30 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 02:48:57 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
     "ip": "176.31.253.20",
-    "timestamp": "2022-09-18T02:56:30.446036977Z",
+    "timestamp": "2022-09-25T02:48:57.482158275Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr'",
     "matcher-status": true,
     "matched-line": null
@@ -54,488 +62,9 @@
     "host": "https://adock.beta.gouv.fr",
     "matched-at": "https://adock.beta.gouv.fr",
     "request": "GET / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 02:56:30 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 02:48:57 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
     "ip": "176.31.253.20",
-    "timestamp": "2022-09-18T02:56:30.789074606Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "technologies/waf-detect.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/technologies/waf-detect.yaml",
-    "template-id": "waf-detect",
-    "info": {
-      "name": "WAF Detection",
-      "author": [
-        "dwisiswant0",
-        "lu4nx"
-      ],
-      "tags": [
-        "waf",
-        "tech",
-        "misc"
-      ],
-      "description": "A web application firewall was detected.",
-      "reference": [
-        "https://github.com/ekultek/whatwaf"
-      ],
-      "severity": "info",
-      "classification": {
-        "cve-id": null,
-        "cwe-id": [
-          "cwe-200"
-        ]
-      }
-    },
-    "matcher-name": "ats",
-    "type": "http",
-    "host": "https://adock.beta.gouv.fr",
-    "matched-at": "https://adock.beta.gouv.fr/",
-    "request": "POST / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nContent-Length: 27\r\nContent-Type: application/x-www-form-urlencoded\r\nAccept-Encoding: gzip\r\n\r\n_=<script>alert(1)</script>",
-    "response": "HTTP/1.1 405 Not Allowed\r\nConnection: close\r\nContent-Length: 166\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 02:56:32 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<html>\r\n<head><title>405 Not Allowed</title></head>\r\n<body bgcolor=\"white\">\r\n<center><h1>405 Not Allowed</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html>\r\n",
-    "ip": "176.31.253.20",
-    "timestamp": "2022-09-18T02:56:32.476585943Z",
-    "curl-command": "curl -X 'POST' -d '_=<script>alert(1)</script>' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Host: adock.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr/'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "technologies/waf-detect.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/technologies/waf-detect.yaml",
-    "template-id": "waf-detect",
-    "info": {
-      "name": "WAF Detection",
-      "author": [
-        "dwisiswant0",
-        "lu4nx"
-      ],
-      "tags": [
-        "waf",
-        "tech",
-        "misc"
-      ],
-      "description": "A web application firewall was detected.",
-      "reference": [
-        "https://github.com/ekultek/whatwaf"
-      ],
-      "severity": "info",
-      "classification": {
-        "cve-id": null,
-        "cwe-id": [
-          "cwe-200"
-        ]
-      }
-    },
-    "matcher-name": "nginxgeneric",
-    "type": "http",
-    "host": "https://adock.beta.gouv.fr",
-    "matched-at": "https://adock.beta.gouv.fr/",
-    "request": "POST / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nContent-Length: 27\r\nContent-Type: application/x-www-form-urlencoded\r\nAccept-Encoding: gzip\r\n\r\n_=<script>alert(1)</script>",
-    "response": "HTTP/1.1 405 Not Allowed\r\nConnection: close\r\nContent-Length: 166\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 02:56:32 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<html>\r\n<head><title>405 Not Allowed</title></head>\r\n<body bgcolor=\"white\">\r\n<center><h1>405 Not Allowed</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html>\r\n",
-    "ip": "176.31.253.20",
-    "timestamp": "2022-09-18T02:56:32.476656943Z",
-    "curl-command": "curl -X 'POST' -d '_=<script>alert(1)</script>' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Host: adock.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr/'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "ssl/tls-version.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/ssl/tls-version.yaml",
-    "template-id": "tls-version",
-    "info": {
-      "name": "TLS Version",
-      "author": [
-        "pdteam"
-      ],
-      "tags": [
-        "ssl"
-      ],
-      "reference": null,
-      "severity": "info"
-    },
-    "type": "ssl",
-    "host": "https://adock.beta.gouv.fr",
-    "matched-at": "https://adock.beta.gouv.fr",
-    "extracted-results": [
-      "TLS13"
-    ],
-    "ip": "176.31.253.20",
-    "timestamp": "2022-09-18T02:56:38.207779453Z",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "miscellaneous/robots-txt-endpoint.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/miscellaneous/robots-txt-endpoint.yaml",
-    "template-id": "robots-txt-endpoint",
-    "info": {
-      "name": "robots.txt endpoint prober",
-      "author": [
-        "caspergn",
-        "pdteam"
-      ],
-      "tags": null,
-      "reference": null,
-      "severity": "info"
-    },
-    "type": "http",
-    "host": "https://adock.beta.gouv.fr",
-    "matched-at": "https://adock.beta.gouv.fr/robots.txt",
-    "request": "GET /robots.txt HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 02:56:41 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
-    "ip": "176.31.253.20",
-    "timestamp": "2022-09-18T02:56:41.416547019Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr/robots.txt'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "referrer-policy",
-    "type": "http",
-    "host": "https://adock.beta.gouv.fr",
-    "matched-at": "https://adock.beta.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 02:56:43 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
-    "ip": "176.31.253.20",
-    "timestamp": "2022-09-18T02:56:43.714922274Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "access-control-allow-methods",
-    "type": "http",
-    "host": "https://adock.beta.gouv.fr",
-    "matched-at": "https://adock.beta.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 02:56:43 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
-    "ip": "176.31.253.20",
-    "timestamp": "2022-09-18T02:56:43.715001273Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "access-control-allow-headers",
-    "type": "http",
-    "host": "https://adock.beta.gouv.fr",
-    "matched-at": "https://adock.beta.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 02:56:43 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
-    "ip": "176.31.253.20",
-    "timestamp": "2022-09-18T02:56:43.715025373Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "access-control-allow-origin",
-    "type": "http",
-    "host": "https://adock.beta.gouv.fr",
-    "matched-at": "https://adock.beta.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 02:56:43 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
-    "ip": "176.31.253.20",
-    "timestamp": "2022-09-18T02:56:43.715048073Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "access-control-allow-credentials",
-    "type": "http",
-    "host": "https://adock.beta.gouv.fr",
-    "matched-at": "https://adock.beta.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 02:56:43 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
-    "ip": "176.31.253.20",
-    "timestamp": "2022-09-18T02:56:43.715065973Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "permission-policy",
-    "type": "http",
-    "host": "https://adock.beta.gouv.fr",
-    "matched-at": "https://adock.beta.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 02:56:43 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
-    "ip": "176.31.253.20",
-    "timestamp": "2022-09-18T02:56:43.715087873Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "x-permitted-cross-domain-policies",
-    "type": "http",
-    "host": "https://adock.beta.gouv.fr",
-    "matched-at": "https://adock.beta.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 02:56:43 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
-    "ip": "176.31.253.20",
-    "timestamp": "2022-09-18T02:56:43.715108073Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "clear-site-data",
-    "type": "http",
-    "host": "https://adock.beta.gouv.fr",
-    "matched-at": "https://adock.beta.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 02:56:43 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
-    "ip": "176.31.253.20",
-    "timestamp": "2022-09-18T02:56:43.715133073Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "cross-origin-embedder-policy",
-    "type": "http",
-    "host": "https://adock.beta.gouv.fr",
-    "matched-at": "https://adock.beta.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 02:56:43 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
-    "ip": "176.31.253.20",
-    "timestamp": "2022-09-18T02:56:43.715152873Z",
-    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr'",
-    "matcher-status": true,
-    "matched-line": null
-  },
-  {
-    "template": "misconfiguration/http-missing-security-headers.yaml",
-    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
-    "template-id": "http-missing-security-headers",
-    "info": {
-      "name": "HTTP Missing Security Headers",
-      "author": [
-        "socketz",
-        "geeknik",
-        "g4l1t0",
-        "convisoappsec",
-        "kurohost",
-        "dawid-czarnecki",
-        "forgedhallpass"
-      ],
-      "tags": [
-        "misconfig",
-        "generic"
-      ],
-      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-      "reference": null,
-      "severity": "info"
-    },
-    "matcher-name": "cross-origin-opener-policy",
-    "type": "http",
-    "host": "https://adock.beta.gouv.fr",
-    "matched-at": "https://adock.beta.gouv.fr",
-    "request": "GET / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 02:56:43 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
-    "ip": "176.31.253.20",
-    "timestamp": "2022-09-18T02:56:43.715182272Z",
+    "timestamp": "2022-09-25T02:48:58.145164378Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr'",
     "matcher-status": true,
     "matched-line": null
@@ -568,9 +97,9 @@
     "host": "https://adock.beta.gouv.fr",
     "matched-at": "https://adock.beta.gouv.fr",
     "request": "GET / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 02:56:43 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 02:49:02 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
     "ip": "176.31.253.20",
-    "timestamp": "2022-09-18T02:56:43.715202172Z",
+    "timestamp": "2022-09-25T02:49:03.078701537Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr'",
     "matcher-status": true,
     "matched-line": null
@@ -603,9 +132,9 @@
     "host": "https://adock.beta.gouv.fr",
     "matched-at": "https://adock.beta.gouv.fr",
     "request": "GET / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 02:56:43 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 02:49:02 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
     "ip": "176.31.253.20",
-    "timestamp": "2022-09-18T02:56:43.715224272Z",
+    "timestamp": "2022-09-25T02:49:03.078804238Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr'",
     "matcher-status": true,
     "matched-line": null
@@ -638,9 +167,359 @@
     "host": "https://adock.beta.gouv.fr",
     "matched-at": "https://adock.beta.gouv.fr",
     "request": "GET / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 18 Sep 2022 02:56:43 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 02:49:02 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
     "ip": "176.31.253.20",
-    "timestamp": "2022-09-18T02:56:43.715244472Z",
+    "timestamp": "2022-09-25T02:49:03.078838538Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-allow-methods",
+    "type": "http",
+    "host": "https://adock.beta.gouv.fr",
+    "matched-at": "https://adock.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 02:49:02 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
+    "ip": "176.31.253.20",
+    "timestamp": "2022-09-25T02:49:03.078982939Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "cross-origin-opener-policy",
+    "type": "http",
+    "host": "https://adock.beta.gouv.fr",
+    "matched-at": "https://adock.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 02:49:02 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
+    "ip": "176.31.253.20",
+    "timestamp": "2022-09-25T02:49:03.079019239Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-allow-origin",
+    "type": "http",
+    "host": "https://adock.beta.gouv.fr",
+    "matched-at": "https://adock.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 02:49:02 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
+    "ip": "176.31.253.20",
+    "timestamp": "2022-09-25T02:49:03.079044139Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-allow-credentials",
+    "type": "http",
+    "host": "https://adock.beta.gouv.fr",
+    "matched-at": "https://adock.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 02:49:02 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
+    "ip": "176.31.253.20",
+    "timestamp": "2022-09-25T02:49:03.079073239Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "permission-policy",
+    "type": "http",
+    "host": "https://adock.beta.gouv.fr",
+    "matched-at": "https://adock.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 02:49:02 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
+    "ip": "176.31.253.20",
+    "timestamp": "2022-09-25T02:49:03.079107839Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "x-permitted-cross-domain-policies",
+    "type": "http",
+    "host": "https://adock.beta.gouv.fr",
+    "matched-at": "https://adock.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 02:49:02 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
+    "ip": "176.31.253.20",
+    "timestamp": "2022-09-25T02:49:03.079137239Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "referrer-policy",
+    "type": "http",
+    "host": "https://adock.beta.gouv.fr",
+    "matched-at": "https://adock.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 02:49:02 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
+    "ip": "176.31.253.20",
+    "timestamp": "2022-09-25T02:49:03.079161739Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "clear-site-data",
+    "type": "http",
+    "host": "https://adock.beta.gouv.fr",
+    "matched-at": "https://adock.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 02:49:02 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
+    "ip": "176.31.253.20",
+    "timestamp": "2022-09-25T02:49:03.079188639Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "cross-origin-embedder-policy",
+    "type": "http",
+    "host": "https://adock.beta.gouv.fr",
+    "matched-at": "https://adock.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 02:49:02 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
+    "ip": "176.31.253.20",
+    "timestamp": "2022-09-25T02:49:03.079213339Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "misconfiguration/http-missing-security-headers.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/misconfiguration/http-missing-security-headers.yaml",
+    "template-id": "http-missing-security-headers",
+    "info": {
+      "name": "HTTP Missing Security Headers",
+      "author": [
+        "socketz",
+        "geeknik",
+        "g4l1t0",
+        "convisoappsec",
+        "kurohost",
+        "dawid-czarnecki",
+        "forgedhallpass"
+      ],
+      "tags": [
+        "misconfig",
+        "generic"
+      ],
+      "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+      "reference": null,
+      "severity": "info"
+    },
+    "matcher-name": "access-control-allow-headers",
+    "type": "http",
+    "host": "https://adock.beta.gouv.fr",
+    "matched-at": "https://adock.beta.gouv.fr",
+    "request": "GET / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 02:49:02 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
+    "ip": "176.31.253.20",
+    "timestamp": "2022-09-25T02:49:03.07924034Z",
     "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr'",
     "matcher-status": true,
     "matched-line": null
@@ -680,7 +559,58 @@
     ],
     "response": "SSH-2.0-OpenSSH_7.9p1 Debian-10+deb10u2\r\n",
     "ip": "176.31.253.20",
-    "timestamp": "2022-09-18T02:56:49.546392763Z",
+    "timestamp": "2022-09-25T02:49:18.34296302Z",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "miscellaneous/robots-txt-endpoint.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/miscellaneous/robots-txt-endpoint.yaml",
+    "template-id": "robots-txt-endpoint",
+    "info": {
+      "name": "robots.txt endpoint prober",
+      "author": [
+        "caspergn",
+        "pdteam"
+      ],
+      "tags": null,
+      "reference": null,
+      "severity": "info"
+    },
+    "type": "http",
+    "host": "https://adock.beta.gouv.fr",
+    "matched-at": "https://adock.beta.gouv.fr/robots.txt",
+    "request": "GET /robots.txt HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+    "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-transform\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 02:49:19 GMT\r\nEtag: W/\"612030eb-4f4\"\r\nLast-Modified: Fri, 20 Aug 2021 22:47:07 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nVary: Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Ua-Compatible: IE=Edge\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/favicon.ico\"><title>A Dock</title><link href=\"/js/chunk-22c07800.13eab677.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b6edb.55e33e0c.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0b9919.05e0c45b.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0bd39a.fad39561.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d0db095.e764a18d.js\" rel=\"prefetch\"><link href=\"/js/chunk-2d2248b6.d84473c1.js\" rel=\"prefetch\"><link href=\"/css/app.1cc66a26.css\" rel=\"preload\" as=\"style\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"preload\" as=\"style\"><link href=\"/js/app.baed62d9.js\" rel=\"preload\" as=\"script\"><link href=\"/js/chunk-vendors.f5ca6f36.js\" rel=\"preload\" as=\"script\"><link href=\"/css/chunk-vendors.ed68e012.css\" rel=\"stylesheet\"><link href=\"/css/app.1cc66a26.css\" rel=\"stylesheet\"></head><body><noscript><strong>Nous sommes désolés mais A Dock ne fonctionne pas correctement sans Javascript activé. Veuillez l'activer pour continuer.</strong></noscript><div id=\"app\"></div><script src=\"/js/chunk-vendors.f5ca6f36.js\"></script><script src=\"/js/app.baed62d9.js\"></script></body></html>",
+    "ip": "176.31.253.20",
+    "timestamp": "2022-09-25T02:49:19.834369816Z",
+    "curl-command": "curl -X 'GET' -d '' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr/robots.txt'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "ssl/detect-ssl-issuer.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/ssl/detect-ssl-issuer.yaml",
+    "template-id": "detect-ssl-issuer",
+    "info": {
+      "name": "Detect SSL Certificate Issuer",
+      "author": [
+        "lingtren"
+      ],
+      "tags": [
+        "ssl"
+      ],
+      "reference": null,
+      "severity": "info"
+    },
+    "type": "ssl",
+    "host": "https://adock.beta.gouv.fr",
+    "matched-at": "https://adock.beta.gouv.fr",
+    "extracted-results": [
+      "Let's Encrypt"
+    ],
+    "ip": "176.31.253.20",
+    "timestamp": "2022-09-25T02:49:31.244725357Z",
     "matcher-status": true,
     "matched-line": null
   },
@@ -706,7 +636,111 @@
       "adock.beta.gouv.fr"
     ],
     "ip": "176.31.253.20",
-    "timestamp": "2022-09-18T02:57:00.015793301Z",
+    "timestamp": "2022-09-25T02:49:42.722758192Z",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "technologies/waf-detect.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/technologies/waf-detect.yaml",
+    "template-id": "waf-detect",
+    "info": {
+      "name": "WAF Detection",
+      "author": [
+        "dwisiswant0",
+        "lu4nx"
+      ],
+      "tags": [
+        "waf",
+        "tech",
+        "misc"
+      ],
+      "description": "A web application firewall was detected.",
+      "reference": [
+        "https://github.com/ekultek/whatwaf"
+      ],
+      "severity": "info",
+      "classification": {
+        "cve-id": null,
+        "cwe-id": [
+          "cwe-200"
+        ]
+      }
+    },
+    "matcher-name": "ats",
+    "type": "http",
+    "host": "https://adock.beta.gouv.fr",
+    "matched-at": "https://adock.beta.gouv.fr/",
+    "request": "POST / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nContent-Length: 27\r\nContent-Type: application/x-www-form-urlencoded\r\nAccept-Encoding: gzip\r\n\r\n_=<script>alert(1)</script>",
+    "response": "HTTP/1.1 405 Not Allowed\r\nConnection: close\r\nContent-Length: 166\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 02:49:46 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<html>\r\n<head><title>405 Not Allowed</title></head>\r\n<body bgcolor=\"white\">\r\n<center><h1>405 Not Allowed</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html>\r\n",
+    "ip": "176.31.253.20",
+    "timestamp": "2022-09-25T02:49:46.266565539Z",
+    "curl-command": "curl -X 'POST' -d '_=<script>alert(1)</script>' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Host: adock.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr/'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "technologies/waf-detect.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/technologies/waf-detect.yaml",
+    "template-id": "waf-detect",
+    "info": {
+      "name": "WAF Detection",
+      "author": [
+        "dwisiswant0",
+        "lu4nx"
+      ],
+      "tags": [
+        "waf",
+        "tech",
+        "misc"
+      ],
+      "description": "A web application firewall was detected.",
+      "reference": [
+        "https://github.com/ekultek/whatwaf"
+      ],
+      "severity": "info",
+      "classification": {
+        "cve-id": null,
+        "cwe-id": [
+          "cwe-200"
+        ]
+      }
+    },
+    "matcher-name": "nginxgeneric",
+    "type": "http",
+    "host": "https://adock.beta.gouv.fr",
+    "matched-at": "https://adock.beta.gouv.fr/",
+    "request": "POST / HTTP/1.1\r\nHost: adock.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nContent-Length: 27\r\nContent-Type: application/x-www-form-urlencoded\r\nAccept-Encoding: gzip\r\n\r\n_=<script>alert(1)</script>",
+    "response": "HTTP/1.1 405 Not Allowed\r\nConnection: close\r\nContent-Length: 166\r\nContent-Security-Policy: default-src 'self' *.gouv.fr; report-uri https://sentry.io/api/1187894/security/?sentry_key=1405fd280ebd40c78c015655056fe213;  connect-src 'self' https://sentry.io/ https://api-adresse.data.gouv.fr/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com/ themes.googleusercontent.com data:; script-src 'self' https://stats.data.gouv.fr/; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' https: data:\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 25 Sep 2022 02:49:46 GMT\r\nServer: nginx\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<html>\r\n<head><title>405 Not Allowed</title></head>\r\n<body bgcolor=\"white\">\r\n<center><h1>405 Not Allowed</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html>\r\n",
+    "ip": "176.31.253.20",
+    "timestamp": "2022-09-25T02:49:46.26673734Z",
+    "curl-command": "curl -X 'POST' -d '_=<script>alert(1)</script>' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Host: adock.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://adock.beta.gouv.fr/'",
+    "matcher-status": true,
+    "matched-line": null
+  },
+  {
+    "template": "ssl/tls-version.yaml",
+    "template-url": "https://github.com/projectdiscovery/nuclei-templates/blob/master/ssl/tls-version.yaml",
+    "template-id": "tls-version",
+    "info": {
+      "name": "TLS Version",
+      "author": [
+        "pdteam"
+      ],
+      "tags": [
+        "ssl"
+      ],
+      "reference": null,
+      "severity": "info"
+    },
+    "type": "ssl",
+    "host": "https://adock.beta.gouv.fr",
+    "matched-at": "https://adock.beta.gouv.fr",
+    "extracted-results": [
+      "TLS13"
+    ],
+    "ip": "176.31.253.20",
+    "timestamp": "2022-09-25T02:50:09.727285918Z",
     "matcher-status": true,
     "matched-line": null
   }
