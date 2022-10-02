@@ -1,6 +1,6 @@
 {
 	"@version": "2.11.1",
-	"@generated": "Sun, 25 Sep 2022 05:31:49",
+	"@generated": "Sun, 2 Oct 2022 05:44:06",
 	"site":[ 
 		{
 			"@name": "https://eva.beta.gouv.fr",
@@ -320,7 +320,73 @@
 					"reference": "<p>https://nvd.nist.gov/vuln/detail/CVE-2022-31160</p><p>https://github.com/jquery/jquery-ui/security/advisories/GHSA-h6gj-6jjq-h8g9</p><p></p>",
 					"cweid": "829",
 					"wascid": "-1",
-					"sourceid": "360"
+					"sourceid": "355"
+				},
+				{
+					"pluginid": "10010",
+					"alertRef": "10010",
+					"alert": "Cookie No HttpOnly Flag",
+					"name": "Cookie No HttpOnly Flag",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>A cookie has been set without the HttpOnly flag, which means that the cookie can be accessed by JavaScript. If a malicious script can be run on this page then the cookie will be accessible and can be transmitted to another site. If this is a session cookie then session hijacking may be possible.</p>",
+					"instances":[ 
+						{
+							"uri": "https://eva.beta.gouv.fr/wp-login.php?action=postpass",
+							"method": "POST",
+							"param": "wordpress_test_cookie",
+							"attack": "",
+							"evidence": "set-cookie: wordpress_test_cookie"
+						},
+						{
+							"uri": "https://eva.beta.gouv.fr/wp-login.php?action=postpass",
+							"method": "POST",
+							"param": "wp-postpass_d35de6973eab64864ee13fb596a0d75d",
+							"attack": "",
+							"evidence": "set-cookie: wp-postpass_d35de6973eab64864ee13fb596a0d75d"
+						}
+					],
+					"count": "2",
+					"solution": "<p>Ensure that the HttpOnly flag is set for all cookies.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://owasp.org/www-community/HttpOnly</p>",
+					"cweid": "1004",
+					"wascid": "13",
+					"sourceid": "1213"
+				},
+				{
+					"pluginid": "10054",
+					"alertRef": "10054",
+					"alert": "Cookie without SameSite Attribute",
+					"name": "Cookie without SameSite Attribute",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>A cookie has been set without the SameSite attribute, which means that the cookie can be sent as a result of a 'cross-site' request. The SameSite attribute is an effective counter measure to cross-site request forgery, cross-site script inclusion, and timing attacks.</p>",
+					"instances":[ 
+						{
+							"uri": "https://eva.beta.gouv.fr/wp-login.php?action=postpass",
+							"method": "POST",
+							"param": "wordpress_test_cookie",
+							"attack": "",
+							"evidence": "set-cookie: wordpress_test_cookie"
+						},
+						{
+							"uri": "https://eva.beta.gouv.fr/wp-login.php?action=postpass",
+							"method": "POST",
+							"param": "wp-postpass_d35de6973eab64864ee13fb596a0d75d",
+							"attack": "",
+							"evidence": "set-cookie: wp-postpass_d35de6973eab64864ee13fb596a0d75d"
+						}
+					],
+					"count": "2",
+					"solution": "<p>Ensure that the SameSite attribute is set to either 'lax' or ideally 'strict' for all cookies.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site</p>",
+					"cweid": "1275",
+					"wascid": "13",
+					"sourceid": "1213"
 				},
 				{
 					"pluginid": "10037",
@@ -423,7 +489,7 @@
 					"reference": "<p>http://blogs.msdn.com/b/varunm/archive/2013/04/23/remove-unwanted-http-response-headers.aspx</p><p>http://www.troyhunt.com/2012/02/shhh-dont-let-your-response-headers.html</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "127"
+					"sourceid": "160"
 				},
 				{
 					"pluginid": "10096",
@@ -461,14 +527,14 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1664083836"
+							"evidence": "1664689372"
 						},
 						{
 							"uri": "https://eva.beta.gouv.fr",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1664083837"
+							"evidence": "1664689373"
 						},
 						{
 							"uri": "https://eva.beta.gouv.fr/",
@@ -496,7 +562,7 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1664083838"
+							"evidence": "1664689374"
 						}
 					],
 					"count": "9",
@@ -526,6 +592,13 @@
 						},
 						{
 							"uri": "https://eva.beta.gouv.fr/",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://eva.beta.gouv.fr/articles/",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -575,13 +648,6 @@
 						},
 						{
 							"uri": "https://eva.beta.gouv.fr/robots.txt",
-							"method": "GET",
-							"param": "X-Content-Type-Options",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://eva.beta.gouv.fr/sitemap_index.xml",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -704,7 +770,7 @@
 					"reference": "<p>http://code.google.com/p/browsersec/wiki/Part2#Character_set_handling_and_detection</p>",
 					"cweid": "436",
 					"wascid": "15",
-					"sourceid": "321"
+					"sourceid": "314"
 				},
 				{
 					"pluginid": "10019",
@@ -730,7 +796,7 @@
 					"reference": "<p>http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx</p>",
 					"cweid": "345",
 					"wascid": "12",
-					"sourceid": "326"
+					"sourceid": "321"
 				},
 				{
 					"pluginid": "10027",
@@ -839,6 +905,13 @@
 							"evidence": ""
 						},
 						{
+							"uri": "https://eva.beta.gouv.fr/en-savoir-plus-sur-les-referentiels-devaluation/",
+							"method": "GET",
+							"param": "Cache-Control",
+							"attack": "",
+							"evidence": ""
+						},
+						{
 							"uri": "https://eva.beta.gouv.fr/faq/",
 							"method": "GET",
 							"param": "Cache-Control",
@@ -882,13 +955,6 @@
 						},
 						{
 							"uri": "https://eva.beta.gouv.fr/robots.txt",
-							"method": "GET",
-							"param": "Cache-Control",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://eva.beta.gouv.fr/sitemap_index.xml",
 							"method": "GET",
 							"param": "Cache-Control",
 							"attack": "",
