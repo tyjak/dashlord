@@ -1,6 +1,6 @@
 {
 	"@version": "2.12.0",
-	"@generated": "Sun, 30 Oct 2022 15:36:19",
+	"@generated": "Sun, 6 Nov 2022 13:35:02",
 	"site":[ 
 		{
 			"@name": "https://ellesfontlaculture.beta.gouv.fr",
@@ -31,22 +31,15 @@
 							"param": "",
 							"attack": "",
 							"evidence": "<form id=\"search-form\" data-filter-conseils-target=\"form\" action=\"/ressources\" accept-charset=\"UTF-8\" method=\"get\">"
-						},
-						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/ressources?category_list=ZAP&commit=Search&document_type=ZAP&tag_list=ZAP",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<form id=\"search-form\" data-filter-conseils-target=\"form\" action=\"/ressources\" accept-charset=\"UTF-8\" method=\"get\">"
 						}
 					],
-					"count": "3",
+					"count": "2",
 					"solution": "<p>Phase: Architecture and Design</p><p>Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid.</p><p>For example, use anti-CSRF packages such as the OWASP CSRFGuard.</p><p></p><p>Phase: Implementation</p><p>Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.</p><p></p><p>Phase: Architecture and Design</p><p>Generate a unique nonce for each form, place the nonce into the form, and verify the nonce upon receipt of the form. Be sure that the nonce is not predictable (CWE-330).</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Identify especially dangerous operations. When the user performs a dangerous operation, send a separate confirmation request to ensure that the user intended to perform that operation.</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Use the ESAPI Session Management control.</p><p>This control includes a component for CSRF.</p><p></p><p>Do not use the GET method for any request that triggers a state change.</p><p></p><p>Phase: Implementation</p><p>Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.</p>",
 					"otherinfo": "<p>No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 2: \"commit\" \"residence\" \"type_list\" \"type_photo\" ].</p>",
 					"reference": "<p>http://projects.webappsec.org/Cross-Site-Request-Forgery</p><p>http://cwe.mitre.org/data/definitions/352.html</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "129"
+					"sourceid": "124"
 				},
 				{
 					"pluginid": "10038",
@@ -80,13 +73,6 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides/176",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
-						},
-						{
 							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides/179",
 							"method": "GET",
 							"param": "",
@@ -101,7 +87,14 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides/189",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides/196",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/conseils_articles/39",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -197,21 +190,21 @@
 							"evidence": "<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>"
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/ressources",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/entraide",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "<link href=\"https://fonts.googleapis.com/css2?family=Spectral:ital@1&display=swap\" rel=\"stylesheet\">"
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/ressources",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/entraide",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">"
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/ressources",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/entraide",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -227,6 +220,32 @@
 					"sourceid": "1"
 				},
 				{
+					"pluginid": "10017",
+					"alertRef": "10017",
+					"alert": "Cross-Domain JavaScript Source File Inclusion",
+					"name": "Cross-Domain JavaScript Source File Inclusion",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>The page includes one or more script files from a third-party domain.</p>",
+					"instances":[ 
+						{
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/ajouter-ressources",
+							"method": "GET",
+							"param": "//embed.typeform.com/next/embed.js",
+							"attack": "",
+							"evidence": "<script src=\"//embed.typeform.com/next/embed.js\"></script>"
+						}
+					],
+					"count": "1",
+					"solution": "<p>Ensure JavaScript source files are loaded from only trusted sources, and the sources can't be controlled by end users of the application.</p>",
+					"otherinfo": "",
+					"reference": "",
+					"cweid": "829",
+					"wascid": "15",
+					"sourceid": "454"
+				},
+				{
 					"pluginid": "10110",
 					"alertRef": "10110",
 					"alert": "Dangerous JS Functions",
@@ -237,7 +256,7 @@
 					"desc": "<p>A dangerous JS function seems to be in use that would leave the site vulnerable.</p>",
 					"instances":[ 
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-1f95ff13868fde2c7c3d.js",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-87c7ef32c5ef49450a31.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -250,7 +269,7 @@
 					"reference": "<p>https://angular.io/guide/security</p>",
 					"cweid": "749",
 					"wascid": "-1",
-					"sourceid": "398"
+					"sourceid": "407"
 				},
 				{
 					"pluginid": "10063",
@@ -284,6 +303,13 @@
 							"evidence": ""
 						},
 						{
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides/155",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
 							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides/176",
 							"method": "GET",
 							"param": "",
@@ -305,7 +331,14 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides/189",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides/196",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/conseils_articles/39",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -340,7 +373,7 @@
 							"evidence": ""
 						}
 					],
-					"count": "11",
+					"count": "13",
 					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to set the Permissions-Policy header.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy</p><p>https://developers.google.com/web/updates/2018/06/feature-policy</p><p>https://scotthelme.co.uk/a-new-security-header-feature-policy/</p><p>https://w3c.github.io/webappsec-feature-policy/</p><p>https://www.smashingmagazine.com/2018/12/feature-policy/</p>",
@@ -387,7 +420,7 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides/189",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides/196",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -402,13 +435,6 @@
 						},
 						{
 							"uri": "https://ellesfontlaculture.beta.gouv.fr/entraide",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/index-parite",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -443,7 +469,7 @@
 							"evidence": ""
 						}
 					],
-					"count": "12",
+					"count": "11",
 					"solution": "<p>Ensure that only one component in your stack: code, web server, application server, load balancer, etc. is configured to set or add a HTTP Strict-Transport-Security (HSTS) header.</p>",
 					"otherinfo": "",
 					"reference": "<p>http://tools.ietf.org/html/rfc6797#section-8.1</p>",
@@ -462,119 +488,119 @@
 					"desc": "<p>A timestamp was disclosed by the application/web server - Unix</p>",
 					"instances":[ 
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-1f95ff13868fde2c7c3d.js",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-87c7ef32c5ef49450a31.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1416354905"
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-1f95ff13868fde2c7c3d.js",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-87c7ef32c5ef49450a31.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1444681467"
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-1f95ff13868fde2c7c3d.js",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-87c7ef32c5ef49450a31.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1473231341"
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-1f95ff13868fde2c7c3d.js",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-87c7ef32c5ef49450a31.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1502002290"
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-1f95ff13868fde2c7c3d.js",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-87c7ef32c5ef49450a31.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1530992060"
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-1f95ff13868fde2c7c3d.js",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-87c7ef32c5ef49450a31.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1560198380"
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-1f95ff13868fde2c7c3d.js",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-87c7ef32c5ef49450a31.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1700485571"
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-1f95ff13868fde2c7c3d.js",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-87c7ef32c5ef49450a31.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1732584193"
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-1f95ff13868fde2c7c3d.js",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-87c7ef32c5ef49450a31.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1732584194"
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-1f95ff13868fde2c7c3d.js",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-87c7ef32c5ef49450a31.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1735328473"
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-1f95ff13868fde2c7c3d.js",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-87c7ef32c5ef49450a31.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1770035416"
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-1f95ff13868fde2c7c3d.js",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-87c7ef32c5ef49450a31.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1804603682"
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-1f95ff13868fde2c7c3d.js",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-87c7ef32c5ef49450a31.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1839030562"
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-1f95ff13868fde2c7c3d.js",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-87c7ef32c5ef49450a31.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1873313359"
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-1f95ff13868fde2c7c3d.js",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-87c7ef32c5ef49450a31.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1894986606"
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-1f95ff13868fde2c7c3d.js",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-87c7ef32c5ef49450a31.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1926607734"
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-1f95ff13868fde2c7c3d.js",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-87c7ef32c5ef49450a31.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -587,7 +613,7 @@
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "398"
+					"sourceid": "407"
 				},
 				{
 					"pluginid": "10021",
@@ -600,13 +626,6 @@
 					"desc": "<p>The Anti-MIME-Sniffing header X-Content-Type-Options was not set to 'nosniff'. This allows older versions of Internet Explorer and Chrome to perform MIME-sniffing on the response body, potentially causing the response body to be interpreted and displayed as a content type other than the declared content type. Current (early 2014) and legacy versions of Firefox will use the declared content type (if one is set), rather than performing MIME-sniffing.</p>",
 					"instances":[ 
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/assets/aides/dotation-financiere-f38018be5de4a28e37ad551f36a4b625fa45d3e6b53d05251150f83f825a31ce.png",
-							"method": "GET",
-							"param": "X-Content-Type-Options",
-							"attack": "",
-							"evidence": ""
-						},
-						{
 							"uri": "https://ellesfontlaculture.beta.gouv.fr/assets/application-f50678262a5dcb37012208d3f1d3b81373a578d17d08ab9fd0f3ca8f71b890e6.css",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
@@ -615,6 +634,20 @@
 						},
 						{
 							"uri": "https://ellesfontlaculture.beta.gouv.fr/assets/arrow-line-9bf38277434f3c4a81d62c3ce2527c6159a39fe4462edaa3752af021c83d52d9.svg",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/assets/book-1e43759fc19750fba0b0c488ab98ffc87af8b2adb74b4180be7be8afe4499848.svg",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/assets/community-7634eee7b2f409f23296ae5fa7da8da951e9b83690bed70570dbbcc987d34077.svg",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -670,13 +703,6 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-1f95ff13868fde2c7c3d.js",
-							"method": "GET",
-							"param": "X-Content-Type-Options",
-							"attack": "",
-							"evidence": ""
-						},
-						{
 							"uri": "https://ellesfontlaculture.beta.gouv.fr/robots.txt",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
@@ -690,7 +716,7 @@
 					"reference": "<p>http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx</p><p>https://owasp.org/www-community/Security_Headers</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "407"
+					"sourceid": "78"
 				},
 				{
 					"pluginid": "10094",
@@ -707,49 +733,49 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2BwW8W1fyM5qbObTGj0iti9SNM2qT2NT1uNJOQfgtFLIgGZN403Ubz"
+							"evidence": "ngNE6yiOnLnUpwMT5uiIzWGuhMqvaydHw2JKcBSy"
 						},
 						{
 							"uri": "https://ellesfontlaculture.beta.gouv.fr",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2FPXyohwE2FwAgHvotEnAmZ4t0umRi"
+							"evidence": "2BRkNgm4UY4yZwgsKYSNyJUceOjAbyjjioAwQwywv4a5NiV"
 						},
 						{
 							"uri": "https://ellesfontlaculture.beta.gouv.fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "V10I3vl11kswmD0H9VFPJscEqeUKEKulyQMAE8ajHmnd7gO7zsZrQOl33qnqIp9p06a"
+							"evidence": "2Ftq3pUyc85tPFvUI7USMtok1NQVcv8MNtalv2X9qlgKU0OIRAmfu26vRex6FK1wsdhUTeZ9hYocVB5"
 						},
 						{
 							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "jVlnDdSy33csUFCUkfGnj8ugjkoKmiz0WqWfHqJaXqVu"
+							"evidence": "2Bz1vjlwTlxBuifCnA6l1zcKYtIF9zw2YouIM4"
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides/176",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides/179",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2FGFbWaYRxB095P25WC07zEgEzgh1BAdzyiOPfSTLRLPkm9FStxM47PcclVu55cHliyHvjTDIsbxK8gPWI6"
+							"evidence": "2BHm2LO8P4yT1149pwAOHWug3gJ4Z5tpqqcrNcePjsvX7ToEka36eqlj03WjQQvdvCsmzB04fOm6iYqhNfD6zh4mw0AvVlB"
 						},
 						{
 							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides/184",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "UdwsdZZCR51wj6XHbPNtaYOySWXFqZqCnKuWMgG3IrmO5zJDlvCkbhONMD7gngJOdObmxQ"
+							"evidence": "2FzxzJdbSvBS2cAyAc8v9SgKVp3KF87u"
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides/189",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides/196",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2FeSzT6HqkOtTDZq8xofFPyiUfQoJRwNSPxF9mIUk60uW6vEPQxuOFcPvQkO54c7jCs77gA6191xYZQkG1VpMUTdyYgqcdo23j0U7qHTaHKzzBvf0RhelOHAAE"
+							"evidence": "2BcI4tkLVWJpYkBJT02mPabRbDjjWDGuWLScaTK"
 						},
 						{
 							"uri": "https://ellesfontlaculture.beta.gouv.fr/assets/application-f50678262a5dcb37012208d3f1d3b81373a578d17d08ab9fd0f3ca8f71b890e6.css",
@@ -763,37 +789,37 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2BNU2rMoRghmTFspZdM1Muqjn1gDQhXsvz7Z7gM"
+							"evidence": "2Bn21rKrfiHGdqYUMtdoSmop4Rfxc1KuyfJv6XnjZbNjq8LhGiDriV"
 						},
 						{
 							"uri": "https://ellesfontlaculture.beta.gouv.fr/index-parite",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "jweFUuFbxM9RhfrvssQgdUovW8uggUHxVoNlEMxMgEbH2PHaJZZp0b93bUkcOpk3TyImZ1Wj4QM10yARY93XXLX9NNETw1euJv3prK7atJ7GXHQwCLU1GhQPyTxWPF7ILR0Iw8CH2cjot4OwkvOQhNUG600daXFamlW"
+							"evidence": "2FWZgRvh7gNMz0VyV1xhHRbX9fgNcsEEpo2Ba6HIoJujwaBFUYPd1maggJafNRgNo3oUOsKC04LCN2ZXB21N5GQUbnY9IJ--WO5RcsmcJj"
 						},
 						{
 							"uri": "https://ellesfontlaculture.beta.gouv.fr/infographie",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2Fx8YtNRxkbT9NN7sLIoFpdwzrS2cIT5d1v"
+							"evidence": "OfrAHnYUEAravjp3FAqNvHtUkn7nDI0dEe7HiRzqVnEv1C8n4I"
 						},
 						{
 							"uri": "https://ellesfontlaculture.beta.gouv.fr/ressources",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2FyxTvElrZVSdl2nGKye18oDJbfG2W"
+							"evidence": "2FF5Sp46pKjmo8kzDGVJoAlV8JTpd7c"
 						}
 					],
 					"count": "12",
 					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
-					"otherinfo": "<p>\uFFFD\\x001c\\x0016\uFFFDm_\uFFFD\uFFFDjl\uFFFD\uFFFD\\x001a=\"\uFFFD/R4\u036AOcS\uFFFD\uFFFDI9\\x0007\uFFFDR\u0200fM\uFFFDM\uFFFDo</p>",
+					"otherinfo": "<p>\uFFFD\\x0003D\uFFFD(\uFFFD\uFFFD\uFFFD\u0527\\x0003\\x0013\uFFFD\uFFFD\uFFFDa\uFFFD\uFFFD\u02AFk'G\uFFFDbJp\\x0014\uFFFD</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10027",
@@ -806,7 +832,7 @@
 					"desc": "<p>The response appears to contain suspicious comments which may help an attacker. Note: Matches made within script blocks or files are against the entire content not only comments.</p>",
 					"instances":[ 
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-1f95ff13868fde2c7c3d.js",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/packs/js/application-87c7ef32c5ef49450a31.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -826,7 +852,7 @@
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "398"
+					"sourceid": "407"
 				},
 				{
 					"pluginid": "10109",
@@ -860,13 +886,6 @@
 							"evidence": "<a href=\"#\">Donn\u00E9es personnelles</a>"
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides/176",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<a class=\"js-close-modal\">\n        <p class=\"cross\">&times;</p>\n      </a>"
-						},
-						{
 							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides/179",
 							"method": "GET",
 							"param": "",
@@ -881,7 +900,14 @@
 							"evidence": "<a class=\"js-close-modal\">\n        <p class=\"cross\">&times;</p>\n      </a>"
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides/189",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides/196",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<a class=\"js-close-modal\">\n        <p class=\"cross\">&times;</p>\n      </a>"
+						},
+						{
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/conseils_articles/39",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -956,13 +982,6 @@
 							"evidence": "private"
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides/176",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "private"
-						},
-						{
 							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides/184",
 							"method": "GET",
 							"param": "",
@@ -970,7 +989,7 @@
 							"evidence": "private"
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides/189",
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides/196",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -978,13 +997,6 @@
 						},
 						{
 							"uri": "https://ellesfontlaculture.beta.gouv.fr/entraide",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "private"
-						},
-						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/index-parite",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1005,7 +1017,7 @@
 							"evidence": "private"
 						}
 					],
-					"count": "10",
+					"count": "8",
 					"solution": "<p>The content may be marked as storable by ensuring that the following conditions are satisfied:</p><p>The request method must be understood by the cache and defined as being cacheable (\"GET\", \"HEAD\", and \"POST\" are currently defined as cacheable)</p><p>The response status code must be understood by the cache (one of the 1XX, 2XX, 3XX, 4XX, or 5XX response classes are generally understood)</p><p>The \"no-store\" cache directive must not appear in the request or response header fields</p><p>For caching by \"shared\" caches such as \"proxy\" caches, the \"private\" response directive must not appear in the response</p><p>For caching by \"shared\" caches such as \"proxy\" caches, the \"Authorization\" header field must not appear in the request, unless the response explicitly allows it (using one of the \"must-revalidate\", \"public\", or \"s-maxage\" Cache-Control response directives)</p><p>In addition to the conditions above, at least one of the following conditions must also be satisfied by the response:</p><p>It must contain an \"Expires\" header field</p><p>It must contain a \"max-age\" response directive</p><p>For \"shared\" caches such as \"proxy\" caches, it must contain a \"s-maxage\" response directive</p><p>It must contain a \"Cache Control Extension\" that allows it to be cached</p><p>It must have a status code that is defined as cacheable by default (200, 203, 204, 206, 300, 301, 404, 405, 410, 414, 501).   </p>",
 					"otherinfo": "",
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
@@ -1045,13 +1057,6 @@
 							"evidence": "max-age=0, private, must-revalidate"
 						},
 						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides/176",
-							"method": "GET",
-							"param": "Cache-Control",
-							"attack": "",
-							"evidence": "max-age=0, private, must-revalidate"
-						},
-						{
 							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides/179",
 							"method": "GET",
 							"param": "Cache-Control",
@@ -1060,6 +1065,13 @@
 						},
 						{
 							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides/184",
+							"method": "GET",
+							"param": "Cache-Control",
+							"attack": "",
+							"evidence": "max-age=0, private, must-revalidate"
+						},
+						{
+							"uri": "https://ellesfontlaculture.beta.gouv.fr/aides/196",
 							"method": "GET",
 							"param": "Cache-Control",
 							"attack": "",
@@ -1147,75 +1159,7 @@
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "79"
-				},
-				{
-					"pluginid": "10031",
-					"alertRef": "10031",
-					"alert": "User Controllable HTML Element Attribute (Potential XSS)",
-					"name": "User Controllable HTML Element Attribute (Potential XSS)",
-					"riskcode": "0",
-					"confidence": "1",
-					"riskdesc": "Informational (Low)",
-					"desc": "<p>This check looks at user-supplied input in query string parameters and POST data to identify where certain HTML attribute values might be controlled. This provides hot-spot detection for XSS (cross-site scripting) that will require further review by a security analyst to determine exploitability.</p>",
-					"instances":[ 
-						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/ressources?category_list=ZAP&commit=Search&document_type=ZAP&tag_list=ZAP",
-							"method": "GET",
-							"param": "category_list",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/ressources?category_list=ZAP&commit=Search&document_type=ZAP&tag_list=ZAP",
-							"method": "GET",
-							"param": "category_list",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/ressources?category_list=ZAP&commit=Search&document_type=ZAP&tag_list=ZAP",
-							"method": "GET",
-							"param": "commit",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/ressources?category_list=ZAP&commit=Search&document_type=ZAP&tag_list=ZAP",
-							"method": "GET",
-							"param": "commit",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/ressources?category_list=ZAP&commit=Search&document_type=ZAP&tag_list=ZAP",
-							"method": "GET",
-							"param": "commit",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/ressources?category_list=ZAP&commit=Search&document_type=ZAP&tag_list=ZAP",
-							"method": "GET",
-							"param": "document_type",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://ellesfontlaculture.beta.gouv.fr/ressources?category_list=ZAP&commit=Search&document_type=ZAP&tag_list=ZAP",
-							"method": "GET",
-							"param": "tag_list",
-							"attack": "",
-							"evidence": ""
-						}
-					],
-					"count": "7",
-					"solution": "<p>Validate all input and sanitize output it before writing to any HTML attributes.</p>",
-					"otherinfo": "<p>User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:</p><p></p><p>https://ellesfontlaculture.beta.gouv.fr/ressources?category_list=ZAP&commit=Search&document_type=ZAP&tag_list=ZAP</p><p></p><p>appears to include user input in: </p><p></p><p>a(n) [input] tag [value] attribute </p><p></p><p>The user input found was:</p><p>category_list=ZAP</p><p></p><p>The user-controlled value was:</p><p>zap</p>",
-					"reference": "<p>http://websecuritytool.codeplex.com/wikipage?title=Checks#user-controlled-html-attribute</p>",
-					"cweid": "20",
-					"wascid": "20",
-					"sourceid": "531"
+					"sourceid": "78"
 				}
 			]
 		}
