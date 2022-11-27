@@ -1,6 +1,7 @@
 {
+	"@programName": "OWASP ZAP",
 	"@version": "2.12.0",
-	"@generated": "Sun, 20 Nov 2022 05:43:03",
+	"@generated": "Sun, 27 Nov 2022 05:53:50",
 	"site":[ 
 		{
 			"@name": "https://mon-entreprise.urssaf.fr",
@@ -172,13 +173,6 @@
 							"evidence": "Access-Control-Allow-Origin: *"
 						},
 						{
-							"uri": "https://mon-entreprise.urssaf.fr/twemoji/2/72x72/1f4a1.png",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "Access-Control-Allow-Origin: *"
-						},
-						{
 							"uri": "https://mon-entreprise.urssaf.fr/twemoji/2/72x72/1f4b6.png",
 							"method": "GET",
 							"param": "",
@@ -194,6 +188,20 @@
 						},
 						{
 							"uri": "https://mon-entreprise.urssaf.fr/twemoji/2/72x72/1f4ca.png",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Access-Control-Allow-Origin: *"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/twemoji/2/72x72/1f4d6.png",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Access-Control-Allow-Origin: *"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/twemoji/2/72x72/1f600.png",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -222,13 +230,6 @@
 						},
 						{
 							"uri": "https://mon-entreprise.urssaf.fr/twemoji/2/72x72/1f6b6-200d-2642-fe0f.png",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "Access-Control-Allow-Origin: *"
-						},
-						{
-							"uri": "https://mon-entreprise.urssaf.fr/twemoji/2/72x72/1f91d.png",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -351,7 +352,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options</p>",
 					"cweid": "1021",
 					"wascid": "15",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "90003",
@@ -406,6 +407,13 @@
 							"evidence": "<script\n\t\t\tcrossorigin=\"anonymous\"\n\t\t\tsrc=\"https://polyfill.io/v3/polyfill.min.js?features=ResizeObserver%2CIntl.~locale.en%2CIntl.~locale.fr%2CString.prototype.replaceAll\"\n\t\t></script>"
 						},
 						{
+							"uri": "https://mon-entreprise.urssaf.fr/simulateurs",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<script\n\t\t\tcrossorigin=\"anonymous\"\n\t\t\tsrc=\"https://polyfill.io/v3/polyfill.min.js?features=ResizeObserver%2CIntl.~locale.en%2CIntl.~locale.fr%2CString.prototype.replaceAll\"\n\t\t></script>"
+						},
+						{
 							"uri": "https://mon-entreprise.urssaf.fr/simulateurs/auto-entrepreneur",
 							"method": "GET",
 							"param": "",
@@ -441,13 +449,46 @@
 							"evidence": "<script\n\t\t\tcrossorigin=\"anonymous\"\n\t\t\tsrc=\"https://polyfill.io/v3/polyfill.min.js?features=ResizeObserver%2CIntl.~locale.en%2CIntl.~locale.fr%2CString.prototype.replaceAll\"\n\t\t></script>"
 						}
 					],
-					"count": "11",
+					"count": "12",
 					"solution": "<p>Provide a valid integrity attribute to the tag.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en/docs/Web/Security/Subresource_Integrity</p>",
 					"cweid": "345",
 					"wascid": "15",
-					"sourceid": "8"
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "90022",
+					"alertRef": "90022",
+					"alert": "Application Error Disclosure",
+					"name": "Application Error Disclosure",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>This page contains an error/warning message that may disclose sensitive information like the location of the file that produced the unhandled exception. This information can be used to launch further attacks against the web application. The alert could be a false positive if the error message is found inside a documentation page.</p>",
+					"instances":[ 
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/twemoji/2/72x72/1f4a1.png",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "HTTP/1.1 500 Internal Server Error"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/twemoji/2/72x72/1f91d.png",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "HTTP/1.1 500 Internal Server Error"
+						}
+					],
+					"count": "2",
+					"solution": "<p>Review the source code of this page. Implement custom error pages. Consider implementing a mechanism to provide a unique error reference/identifier to the client (browser) while logging the details on the server side and not exposing them to the user.</p>",
+					"otherinfo": "",
+					"reference": "",
+					"cweid": "200",
+					"wascid": "13",
+					"sourceid": "160"
 				},
 				{
 					"pluginid": "10017",
@@ -570,7 +611,7 @@
 							"evidence": "eval"
 						},
 						{
-							"uri": "https://mon-entreprise.urssaf.fr/assets/sentry.4a8beba1.js",
+							"uri": "https://mon-entreprise.urssaf.fr/assets/sentry.914d3fbc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -679,7 +720,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy</p><p>https://developers.google.com/web/updates/2018/06/feature-policy</p><p>https://scotthelme.co.uk/a-new-security-header-feature-policy/</p><p>https://w3c.github.io/webappsec-feature-policy/</p><p>https://www.smashingmagazine.com/2018/12/feature-policy/</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "8"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10096",
@@ -692,83 +733,258 @@
 					"desc": "<p>A timestamp was disclosed by the application/web server - Unix</p>",
 					"instances":[ 
 						{
-							"uri": "https://mon-entreprise.urssaf.fr/assets/sentry.4a8beba1.js",
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1433087999"
+							"evidence": "1359893119"
 						},
 						{
-							"uri": "https://mon-entreprise.urssaf.fr/assets/sentry.4a8beba1.js",
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1604231423"
+							"evidence": "1363258195"
 						},
 						{
-							"uri": "https://mon-entreprise.urssaf.fr/assets/sentry.4a8beba1.js",
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1687547391"
+							"evidence": "1396182291"
 						},
 						{
-							"uri": "https://mon-entreprise.urssaf.fr/assets/sentry.4a8beba1.js",
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1714657791"
+							"evidence": "1426881987"
 						},
 						{
-							"uri": "https://mon-entreprise.urssaf.fr/assets/sentry.4a8beba1.js",
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1724754687"
+							"evidence": "1431655765"
 						},
 						{
-							"uri": "https://mon-entreprise.urssaf.fr/assets/sentry.4a8beba1.js",
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1768516095"
+							"evidence": "1432725776"
 						},
 						{
-							"uri": "https://mon-entreprise.urssaf.fr/assets/sentry.4a8beba1.js",
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1784335871"
+							"evidence": "1467031594"
 						},
 						{
-							"uri": "https://mon-entreprise.urssaf.fr/assets/sentry.4a8beba1.js",
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1804477439"
+							"evidence": "1495990901"
 						},
 						{
-							"uri": "https://mon-entreprise.urssaf.fr/assets/sentry.4a8beba1.js",
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1887473919"
+							"evidence": "1501505948"
 						},
 						{
-							"uri": "https://mon-entreprise.urssaf.fr/assets/sentry.4a8beba1.js",
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1900907951"
+							"evidence": "1508970993"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1518500249"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1522805485"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1537002063"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1541459225"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1546045734"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1555081692"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1575990012"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1595750129"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1607167915"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1654270250"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1694076839"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1695183700"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1731405415"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1732584193"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1747873779"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1750603025"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1779033703"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1816402316"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1856431235"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1859775393"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1894007588"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1899447441"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1914138554"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1925078388"
+						},
+						{
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui-standalone-preset.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1955562222"
 						}
 					],
-					"count": "10",
+					"count": "35",
 					"solution": "<p>Manually confirm that the timestamp data is not sensitive, and that the data cannot be aggregated to disclose exploitable patterns.</p>",
-					"otherinfo": "<p>1433087999, which evaluates to: 2015-05-31 15:59:59</p>",
+					"otherinfo": "<p>1359893119, which evaluates to: 2013-02-03 12:05:19</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "144"
+					"sourceid": "325"
 				},
 				{
 					"pluginid": "10021",
@@ -864,7 +1080,7 @@
 					"reference": "<p>http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx</p><p>https://owasp.org/www-community/Security_Headers</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10094",
@@ -891,11 +1107,11 @@
 							"evidence": "Container__InnerContainer-sc-14cwftc-0"
 						},
 						{
-							"uri": "https://mon-entreprise.urssaf.fr/assets/sentry.4a8beba1.js",
+							"uri": "https://mon-entreprise.urssaf.fr/api/v1/doc/swagger-ui.css",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "fr/jorf/id/JORFTEXT000042748904"
+							"evidence": "iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTExIDc5LjE1ODMyNSwgMjAxNS8wOS8xMC0wMToxMDoyMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MTRDOTY4N0U2N0VFMTFFNjg2MzZDQjkwNkQ4MjgwMEIiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MTRDOTY4N0Q2N0VFMTFFNjg2MzZDQjkwNkQ4MjgwMEIiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKE1hY2ludG9zaCkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo3NjcyQkQ3NjY3QzUxMUU2QjJCQ0UyNDA4MTAwMjE3MSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo3NjcyQkQ3NzY3QzUxMUU2QjJCQ0UyNDA4MTAwMjE3MSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsBS+GMAAAAjSURBVHjaYvz//z8DLsD4gcGXiYEAGBIKGBne//fFpwAgwAB98AaF2pjlUQAAAABJRU5ErkJggg=="
 						},
 						{
 							"uri": "https://mon-entreprise.urssaf.fr/cr%C3%A9er",
@@ -960,7 +1176,7 @@
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "8"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10027",
@@ -987,14 +1203,14 @@
 							"evidence": "from"
 						},
 						{
-							"uri": "https://mon-entreprise.urssaf.fr/dev",
+							"uri": "https://mon-entreprise.urssaf.fr/cr%C3%A9er",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "from"
 						},
 						{
-							"uri": "https://mon-entreprise.urssaf.fr/simulateurs/profession-liberale",
+							"uri": "https://mon-entreprise.urssaf.fr/dev",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1022,14 +1238,14 @@
 							"evidence": "USER"
 						},
 						{
-							"uri": "https://mon-entreprise.urssaf.fr/dev",
+							"uri": "https://mon-entreprise.urssaf.fr/cr%C3%A9er",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "USER"
 						},
 						{
-							"uri": "https://mon-entreprise.urssaf.fr/simulateurs/profession-liberale",
+							"uri": "https://mon-entreprise.urssaf.fr/dev",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1090,7 +1306,7 @@
 							"evidence": "<script>"
 						},
 						{
-							"uri": "https://mon-entreprise.urssaf.fr/assets/sentry.4a8beba1.js",
+							"uri": "https://mon-entreprise.urssaf.fr/assets/sentry.914d3fbc.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1237,7 +1453,7 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Age: 2"
+							"evidence": "Age: 0"
 						},
 						{
 							"uri": "https://mon-entreprise.urssaf.fr/nouveaut%C3%A9s",
@@ -1258,14 +1474,14 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Age: 1781"
+							"evidence": "Age: 0"
 						},
 						{
 							"uri": "https://mon-entreprise.urssaf.fr/simulateurs/auto-entrepreneur",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Age: 3997"
+							"evidence": "Age: 0"
 						},
 						{
 							"uri": "https://mon-entreprise.urssaf.fr/simulateurs/profession-liberale",
@@ -1295,7 +1511,7 @@
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "-1",
 					"wascid": "-1",
-					"sourceid": "8"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10049",
@@ -1391,7 +1607,7 @@
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "8"
+					"sourceid": "1"
 				}
 			]
 		}
