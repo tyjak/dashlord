@@ -1,7 +1,7 @@
 {
 	"@programName": "OWASP ZAP",
 	"@version": "2.12.0",
-	"@generated": "Sun, 11 Dec 2022 11:18:22",
+	"@generated": "Sun, 18 Dec 2022 13:15:00",
 	"site":[ 
 		{
 			"@name": "https://collectif-objets.beta.gouv.fr",
@@ -28,6 +28,13 @@
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://collectif-objets.beta.gouv.fr/admin",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -70,13 +77,6 @@
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/mentions_legales",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://collectif-objets.beta.gouv.fr/objets",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -129,7 +129,33 @@
 					"reference": "<p>http://blogs.wsj.com/cio/2013/10/08/adobe-source-code-leak-is-bad-news-for-u-s-government/</p>",
 					"cweid": "540",
 					"wascid": "13",
-					"sourceid": "396"
+					"sourceid": "392"
+				},
+				{
+					"pluginid": "90022",
+					"alertRef": "90022",
+					"alert": "Application Error Disclosure",
+					"name": "Application Error Disclosure",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>This page contains an error/warning message that may disclose sensitive information like the location of the file that produced the unhandled exception. This information can be used to launch further attacks against the web application. The alert could be a false positive if the error message is found inside a documentation page.</p>",
+					"instances":[ 
+						{
+							"uri": "https://collectif-objets.beta.gouv.fr/admin",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "HTTP/1.1 500 Internal Server Error"
+						}
+					],
+					"count": "1",
+					"solution": "<p>Review the source code of this page. Implement custom error pages. Consider implementing a mechanism to provide a unique error reference/identifier to the client (browser) while logging the details on the server side and not exposing them to the user.</p>",
+					"otherinfo": "",
+					"reference": "",
+					"cweid": "200",
+					"wascid": "13",
+					"sourceid": "76"
 				},
 				{
 					"pluginid": "10110",
@@ -142,27 +168,20 @@
 					"desc": "<p>A dangerous JS function seems to be in use that would leave the site vulnerable.</p>",
 					"instances":[ 
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/assets/active_admin-0a915cf5f593463cdfab25bc01fe685c0e15e7ee67f87095c66031c5962dd0bc.js",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "Eval"
-						},
-						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.149165bd.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "eval"
 						}
 					],
-					"count": "2",
+					"count": "1",
 					"solution": "<p>See the references for security advice on the use of these functions.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://angular.io/guide/security</p>",
 					"cweid": "749",
 					"wascid": "-1",
-					"sourceid": "390"
+					"sourceid": "53"
 				},
 				{
 					"pluginid": "10063",
@@ -189,6 +208,13 @@
 							"evidence": ""
 						},
 						{
+							"uri": "https://collectif-objets.beta.gouv.fr/admin",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
 							"uri": "https://collectif-objets.beta.gouv.fr/comment-ca-marche",
 							"method": "GET",
 							"param": "",
@@ -197,13 +223,6 @@
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/conditions",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://collectif-objets.beta.gouv.fr/confidentialite",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -250,16 +269,9 @@
 							"param": "",
 							"attack": "",
 							"evidence": ""
-						},
-						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
 						}
 					],
-					"count": "12",
+					"count": "11",
 					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to set the Permissions-Policy header.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy</p><p>https://developers.google.com/web/updates/2018/06/feature-policy</p><p>https://scotthelme.co.uk/a-new-security-header-feature-policy/</p><p>https://w3c.github.io/webappsec-feature-policy/</p><p>https://www.smashingmagazine.com/2018/12/feature-policy/</p>",
@@ -313,6 +325,13 @@
 							"evidence": ""
 						},
 						{
+							"uri": "https://collectif-objets.beta.gouv.fr/robots.txt",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
 							"uri": "https://collectif-objets.beta.gouv.fr/sitemap.xml",
 							"method": "GET",
 							"param": "",
@@ -327,14 +346,14 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/all.94318340.css",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/all.fd4371b4.css",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": ""
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.149165bd.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -348,7 +367,7 @@
 							"evidence": ""
 						}
 					],
-					"count": "10",
+					"count": "11",
 					"solution": "<p>Ensure that only one component in your stack: code, web server, application server, load balancer, etc. is configured to set or add a HTTP Strict-Transport-Security (HSTS) header.</p>",
 					"otherinfo": "",
 					"reference": "<p>http://tools.ietf.org/html/rfc6797#section-8.1</p>",
@@ -367,119 +386,119 @@
 					"desc": "<p>A timestamp was disclosed by the application/web server - Unix</p>",
 					"instances":[ 
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.149165bd.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1416354905"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.149165bd.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1444681467"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.149165bd.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1473231341"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.149165bd.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1502002290"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.149165bd.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1530992060"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.149165bd.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1560198380"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.149165bd.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1700485571"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.149165bd.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1732584193"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.149165bd.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1732584194"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.149165bd.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1735328473"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.149165bd.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1770035416"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.149165bd.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1804603682"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.149165bd.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1839030562"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.149165bd.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1873313359"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.149165bd.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1894986606"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.149165bd.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1926607734"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.149165bd.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -504,6 +523,13 @@
 					"riskdesc": "Low (Medium)",
 					"desc": "<p>The Anti-MIME-Sniffing header X-Content-Type-Options was not set to 'nosniff'. This allows older versions of Internet Explorer and Chrome to perform MIME-sniffing on the response body, potentially causing the response body to be interpreted and displayed as a content type other than the declared content type. Current (early 2014) and legacy versions of Firefox will use the declared content type (if one is set), rather than performing MIME-sniffing.</p>",
 					"instances":[ 
+						{
+							"uri": "https://collectif-objets.beta.gouv.fr/dsfr/dsfr.min.css",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/dsfr/favicon/apple-touch-icon.png",
 							"method": "GET",
@@ -533,6 +559,13 @@
 							"evidence": ""
 						},
 						{
+							"uri": "https://collectif-objets.beta.gouv.fr/dsfr/utility/utility.min.css",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
 							"uri": "https://collectif-objets.beta.gouv.fr/robots.txt",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
@@ -547,14 +580,14 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/all.94318340.css",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/all.fd4371b4.css",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
 							"evidence": ""
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.149165bd.js",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -568,21 +601,7 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/people-clap.9eee1dcf.svg",
-							"method": "GET",
-							"param": "X-Content-Type-Options",
-							"attack": "",
-							"evidence": ""
-						},
-						{
 							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/stimulus.fc281a65.js",
-							"method": "GET",
-							"param": "X-Content-Type-Options",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/woman-magnifier.cc72247d.svg",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -595,7 +614,7 @@
 					"reference": "<p>http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx</p><p>https://owasp.org/www-community/Security_Headers</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "105"
+					"sourceid": "113"
 				},
 				{
 					"pluginid": "10094",
@@ -612,73 +631,73 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "TNcBN3pvOZ9Ji1wOC8ODIDlI3v3T6vlNKMkgD6"
+							"evidence": "2BKKA235SqMvXQ97iI6tPCQtQIf9wQGNLh4a3irO6pBpg0s40XesYI"
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "uuZgnJrAtr6IwbfxzAkklk6zTGKCuoUf12SUXH6MitVMRu"
+							"evidence": "2B47eUX1Tv9cP8Z9bABXWHXEGcgU068pWuMYqP"
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2B1AHViOJeBtewKA2b4VLvAVTnr2PZZXGte"
-						},
-						{
-							"uri": "https://collectif-objets.beta.gouv.fr/admin",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "2Fd4bij45WhDdxlZN7Aaiy0QjbCEasBtq07upakSebqD5HI01JCrwmsqG2bwAf"
+							"evidence": "vAIxPKWudC3Za2Z7marltuFLxcPshL6iGEOuxESy3kc24DmA6vOu"
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/comment-ca-marche",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "7slVkMRhi2DFrkQNHRvejLxKUOl2H59qM7G0cvIq1weUMvjA5jn6nIrj"
+							"evidence": "dSELHua3sy5Zshq3jGkOQzsb3RBJO6TQiIszG2b6Qlb2bE3eB3T3vCn"
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/connexion",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2Bn9QMOQnbcg47q3Uu3advmvHfVhjSk"
+							"evidence": "2BewXyPTMPVaIVy1R3nwcOBdg7sa88Ucaqm"
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/fiches",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "tm9OyehG4jrmpDJFEoZbbXZPn2XOmdIhWOtRjZWRDZ4UAXR8a4lpFga"
+							"evidence": "2BZ3JEwsIsP6Ox3jxEtMPX330VnpTuqSvLVEGH44yRZw"
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/guide-de-recensement",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2FH2nf3j2sgU6MDTSFMdH9ogpifI8yrt88irRhgRR5UxTO"
+							"evidence": "2BLMuEjvZAGNpGA8Rk5J2i4r9j3QQU6T0RZgDdLw7B0t2YF7"
+						},
+						{
+							"uri": "https://collectif-objets.beta.gouv.fr/mentions_legales",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "2BX605mPbrZgt0IuBv1fboPA3BAycipZFEoTqDiXXl5b5EQt"
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/presse",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Ul6juPJkZH2VGg9jIjPftDoZsVIIhw7kNOvkcibLvXrTzMJcsxz"
+							"evidence": "2B9AEEaCEUA5XllKqq1VM3voliG9Qud4ieHDRWpwS7GSEY1fI7yUrB7H0c6fCODXpHCIjAha0MXJh95bBjt4E1ODfBBbaGx5UebHhsVIdREa7wDL4f12JVVB"
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/stats",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "kI0xm1QIEdhC13pHhwDCEl2I0cFPLxA5"
+							"evidence": "2Bcww6FRiz1fGFZsDLnjXFuSyC0X5KfRwRZHFlV261P95NDLr2cJXShpLwWFj6UgzTlcZkTOvNwY4EImiekvxvsX"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.149165bd.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -694,44 +713,11 @@
 					],
 					"count": "12",
 					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
-					"otherinfo": "<p>L\uFFFD\\x00017zo9\uFFFDI\uFFFD\\\\x000e\\x000b\u00C3 9H\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDM(\uFFFD \\x000f</p>",
+					"otherinfo": "<p>\uFFFD\\x0012\uFFFD\\x0003m\uFFFDJ\uFFFD/]\\x000f{\uFFFD\uFFFD\uFFFD<$-@\uFFFD\uFFFD\uFFFD\\x0001\uFFFD.\\x001e\\x001a\uFFFD*\uFFFD\uFFFDi\uFFFDK8\uFFFDw\uFFFD`</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
 					"sourceid": "6"
-				},
-				{
-					"pluginid": "10024",
-					"alertRef": "10024",
-					"alert": "Information Disclosure - Sensitive Information in URL",
-					"name": "Information Disclosure - Sensitive Information in URL",
-					"riskcode": "0",
-					"confidence": "2",
-					"riskdesc": "Informational (Medium)",
-					"desc": "<p>The request appeared to contain sensitive information leaked in the URL. This can violate PCI and most organizational compliance policies. You can configure the list of strings for this check to add or remove values specific to your environment.</p>",
-					"instances":[ 
-						{
-							"uri": "https://collectif-objets.beta.gouv.fr/users/sign_in?error=no_user_found&success=false&user%5Bemail%5D=foo-bar%40example.com",
-							"method": "GET",
-							"param": "user[email]",
-							"attack": "",
-							"evidence": "foo-bar@example.com"
-						},
-						{
-							"uri": "https://collectif-objets.beta.gouv.fr/users/sign_in?error=no_user_found&success=false&user%5Bemail%5D=foo-bar%40example.com",
-							"method": "GET",
-							"param": "user[email]",
-							"attack": "",
-							"evidence": "user[email]"
-						}
-					],
-					"count": "2",
-					"solution": "<p>Do not pass sensitive information in URIs.</p>",
-					"otherinfo": "<p>The URL contains email address(es).</p>",
-					"reference": "",
-					"cweid": "200",
-					"wascid": "13",
-					"sourceid": "27538"
 				},
 				{
 					"pluginid": "10027",
@@ -744,102 +730,53 @@
 					"desc": "<p>The response appears to contain suspicious comments which may help an attacker. Note: Matches made within script blocks or files are against the entire content not only comments.</p>",
 					"instances":[ 
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/assets/active_admin-0a915cf5f593463cdfab25bc01fe685c0e15e7ee67f87095c66031c5962dd0bc.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.149165bd.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "bug"
+							"evidence": "DB"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/assets/active_admin-0a915cf5f593463cdfab25bc01fe685c0e15e7ee67f87095c66031c5962dd0bc.js",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "bugs"
-						},
-						{
-							"uri": "https://collectif-objets.beta.gouv.fr/assets/active_admin-0a915cf5f593463cdfab25bc01fe685c0e15e7ee67f87095c66031c5962dd0bc.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.149165bd.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "from"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/assets/active_admin-0a915cf5f593463cdfab25bc01fe685c0e15e7ee67f87095c66031c5962dd0bc.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.149165bd.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "later"
+							"evidence": "select"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/assets/active_admin-0a915cf5f593463cdfab25bc01fe685c0e15e7ee67f87095c66031c5962dd0bc.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.149165bd.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "user"
+						},
+						{
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/france_map.8fa7d432.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "from"
+						},
+						{
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/openmaptiles_style.eae479b8.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "from"
+						},
+						{
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/openmaptiles_style.eae479b8.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "query"
-						},
-						{
-							"uri": "https://collectif-objets.beta.gouv.fr/assets/active_admin-0a915cf5f593463cdfab25bc01fe685c0e15e7ee67f87095c66031c5962dd0bc.js",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "select"
-						},
-						{
-							"uri": "https://collectif-objets.beta.gouv.fr/assets/active_admin-0a915cf5f593463cdfab25bc01fe685c0e15e7ee67f87095c66031c5962dd0bc.js",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "TODO"
-						},
-						{
-							"uri": "https://collectif-objets.beta.gouv.fr/assets/active_admin-0a915cf5f593463cdfab25bc01fe685c0e15e7ee67f87095c66031c5962dd0bc.js",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "user"
-						},
-						{
-							"uri": "https://collectif-objets.beta.gouv.fr/assets/active_admin-0a915cf5f593463cdfab25bc01fe685c0e15e7ee67f87095c66031c5962dd0bc.js",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "username"
-						},
-						{
-							"uri": "https://collectif-objets.beta.gouv.fr/assets/active_admin-0a915cf5f593463cdfab25bc01fe685c0e15e7ee67f87095c66031c5962dd0bc.js",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "where"
-						},
-						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "db"
-						},
-						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "from"
-						},
-						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "select"
-						},
-						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "user"
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/stimulus.fc281a65.js",
@@ -849,13 +786,13 @@
 							"evidence": "select"
 						}
 					],
-					"count": "15",
+					"count": "8",
 					"solution": "<p>Remove all comments that return information that may help an attacker and fix any underlying problems they refer to.</p>",
-					"otherinfo": "<p>The following pattern was used: \\bBUG\\b and was detected 10 times, the first in the element starting with: \"\t// We allow this because of a bug in IE8/9 that throws an error\", see evidence field for the suspicious comment/snippet.</p>",
+					"otherinfo": "<p>The following pattern was used: \\bDB\\b and was detected in the element starting with: \"${d.header.doc}`);break;default:this.menuLinks.innerHTML=r}}}class vv extends d.core.Instance{static get instanceClassName(){ret\", see evidence field for the suspicious comment/snippet.</p>",
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "390"
+					"sourceid": "53"
 				},
 				{
 					"pluginid": "10109",
@@ -945,7 +882,7 @@
 							"evidence": "<a class=\"fr-breadcrumb__link\" aria-current=\"page\">\n          Connexion mairie\n        </a>"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.149165bd.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -985,6 +922,13 @@
 							"evidence": "private"
 						},
 						{
+							"uri": "https://collectif-objets.beta.gouv.fr/admin",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "500"
+						},
+						{
 							"uri": "https://collectif-objets.beta.gouv.fr/comment-ca-marche",
 							"method": "GET",
 							"param": "",
@@ -993,13 +937,6 @@
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/connexion",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "private"
-						},
-						{
-							"uri": "https://collectif-objets.beta.gouv.fr/fiches",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1060,6 +997,13 @@
 							"evidence": "max-age=0, private, must-revalidate"
 						},
 						{
+							"uri": "https://collectif-objets.beta.gouv.fr/conditions",
+							"method": "GET",
+							"param": "Cache-Control",
+							"attack": "",
+							"evidence": "max-age=0, private, must-revalidate"
+						},
+						{
 							"uri": "https://collectif-objets.beta.gouv.fr/connexion",
 							"method": "GET",
 							"param": "Cache-Control",
@@ -1088,18 +1032,18 @@
 							"evidence": "max-age=0, private, must-revalidate"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/objets",
+							"uri": "https://collectif-objets.beta.gouv.fr/presse",
 							"method": "GET",
 							"param": "Cache-Control",
 							"attack": "",
 							"evidence": "max-age=0, private, must-revalidate"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/presse",
+							"uri": "https://collectif-objets.beta.gouv.fr/robots.txt",
 							"method": "GET",
 							"param": "Cache-Control",
 							"attack": "",
-							"evidence": "max-age=0, private, must-revalidate"
+							"evidence": ""
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/stats",
@@ -1109,7 +1053,7 @@
 							"evidence": "max-age=0, private, must-revalidate"
 						}
 					],
-					"count": "10",
+					"count": "11",
 					"solution": "<p>For secure content, ensure the cache-control HTTP header is set with \"no-cache, no-store, must-revalidate\". If an asset should be cached consider setting the directives \"public, max-age, immutable\".</p>",
 					"otherinfo": "",
 					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching</p><p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control</p><p>https://grayduck.mn/2021/09/13/cache-control-recommendations/</p>",
@@ -1142,14 +1086,7 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/all.94318340.css",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.1d66729e.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/all.fd4371b4.css",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1163,7 +1100,7 @@
 							"evidence": ""
 						}
 					],
-					"count": "5",
+					"count": "4",
 					"solution": "<p>Validate that the response does not contain sensitive, personal or user-specific information.  If it does, consider the use of the following HTTP response headers, to limit, or prevent the content being stored and retrieved from the cache by another user:</p><p>Cache-Control: no-cache, no-store, must-revalidate, private</p><p>Pragma: no-cache</p><p>Expires: 0</p><p>This configuration directs both HTTP 1.0 and HTTP 1.1 compliant caching servers to not store the response, and to not retrieve the response (without validation) from the cache, in response to a similar request. </p>",
 					"otherinfo": "<p>In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.</p>",
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
@@ -1210,42 +1147,21 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/users/sign_in?error=no_user_found&success=false&user%5Bemail%5D=foo-bar%40example.com",
-							"method": "GET",
-							"param": "success",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://collectif-objets.beta.gouv.fr/users/sign_in?error=no_user_found&success=false&user%5Bemail%5D=foo-bar%40example.com",
-							"method": "GET",
-							"param": "success",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://collectif-objets.beta.gouv.fr/users/sign_in?error=no_user_found&success=false&user%5Bemail%5D=foo-bar%40example.com",
-							"method": "GET",
-							"param": "user[email]",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://collectif-objets.beta.gouv.fr/admin/login",
+							"uri": "https://collectif-objets.beta.gouv.fr/admin_users/sign_in",
 							"method": "POST",
 							"param": "admin_user[email]",
 							"attack": "",
 							"evidence": ""
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/admin/login",
+							"uri": "https://collectif-objets.beta.gouv.fr/admin_users/sign_in",
 							"method": "POST",
 							"param": "commit",
 							"attack": "",
 							"evidence": ""
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/admin/login",
+							"uri": "https://collectif-objets.beta.gouv.fr/admin_users/sign_in",
 							"method": "POST",
 							"param": "commit",
 							"attack": "",
@@ -1273,13 +1189,13 @@
 							"evidence": ""
 						}
 					],
-					"count": "13",
+					"count": "10",
 					"solution": "<p>Validate all input and sanitize output it before writing to any HTML attributes.</p>",
 					"otherinfo": "<p>User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:</p><p></p><p>https://collectif-objets.beta.gouv.fr/fiche?pdf=fiche_nuisibles</p><p></p><p>appears to include user input in: </p><p></p><p>a(n) [a] tag [download] attribute </p><p></p><p>The user input found was:</p><p>pdf=fiche_nuisibles</p><p></p><p>The user-controlled value was:</p><p>fiche_nuisibles.pdf</p>",
 					"reference": "<p>http://websecuritytool.codeplex.com/wikipage?title=Checks#user-controlled-html-attribute</p>",
 					"cweid": "20",
 					"wascid": "20",
-					"sourceid": "155"
+					"sourceid": "158"
 				}
 			]
 		}
