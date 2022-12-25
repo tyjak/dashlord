@@ -1,7 +1,7 @@
 {
 	"@programName": "OWASP ZAP",
 	"@version": "2.12.0",
-	"@generated": "Sun, 18 Dec 2022 05:59:12",
+	"@generated": "Sun, 25 Dec 2022 06:15:09",
 	"site":[ 
 		{
 			"@name": "https://pro.passculture.beta.gouv.fr",
@@ -90,12 +90,12 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1670938933"
+							"evidence": "1671556131"
 						}
 					],
 					"count": "1",
 					"solution": "<p>Manually confirm that the timestamp data is not sensitive, and that the data cannot be aggregated to disclose exploitable patterns.</p>",
-					"otherinfo": "<p>1670938933, which evaluates to: 2022-12-13 13:42:13</p>",
+					"otherinfo": "<p>1671556131, which evaluates to: 2022-12-20 17:08:51</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
@@ -116,12 +116,12 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "ADPycdtkc0isgvVz6lWYTqUu70f2lQhC_w5Xx3t9nPgaqqyVG6ReLOTwAvdy7YeYxcJYsDQCHvLGzs0k4RXS9bU8h20LdQ"
+							"evidence": "ADPycduEiMm_bCRbtCN0gufRL2nwzqSPY6zhm8zqBpsLlbdur7TYVM5nO5UolWy6-B-D5796K3q43Swl0hzh2hstsxfyyFB73usa"
 						}
 					],
 					"count": "1",
 					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
-					"otherinfo": "<p>\\x00003\uFFFDq\uFFFDdsH\uFFFD\uFFFD\uFFFDs\uFFFDU\uFFFDN\uFFFD.\uFFFDG\uFFFD\uFFFD\\x0008B\uFFFD\\x000eW\uFFFD{}\uFFFD\uFFFD\\x001a\uFFFD\uFFFD\uFFFD\\x001b\uFFFD^,\uFFFD\uFFFD\\x0002\uFFFDr\uD1D8\uFFFD\uFFFDX\uFFFD4\\x0002\\x001e\uFFFD\uFFFD\uFFFD\uFFFD$\uFFFD\\x0015\uFFFD\uFFFD\uFFFD<\uFFFDm\\x000bu</p>",
+					"otherinfo": "<p>\\x00003\uFFFDq\u06C4\uFFFD\u027Fl$[\uFFFD#t\uFFFD\uFFFD\uFFFD/i\uFFFD\u03A4\uFFFDc\uFFFD\uFFFD\uFFFD\uFFFD\\x0006\uFFFD\\x000b\uFFFD\uFFFDn\uFFFD\uFFFD\uFFFDT\uFFFDg;\uFFFD(\uFFFDl\uFFFD\uFFFD\\x001f\uFFFD\uFFFDz+z\uFFFD\uFFFD,%\uFFFD\\x001c\uFFFD\uFFFD\\x001b-\uFFFD\\x0017\uFFFD\uFFFDP{\uFFFD\uFFFD\\x001a</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
@@ -142,7 +142,7 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "<script defer=\"defer\" src=\"/static/js/main.2574a656.js\"></script>"
+							"evidence": "<script defer=\"defer\" src=\"/static/js/main.2ed19fdb.js\"></script>"
 						}
 					],
 					"count": "1",
@@ -177,6 +177,32 @@
 					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching</p><p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control</p><p>https://grayduck.mn/2021/09/13/cache-control-recommendations/</p>",
 					"cweid": "525",
 					"wascid": "13",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10050",
+					"alertRef": "10050",
+					"alert": "Retrieved from Cache",
+					"name": "Retrieved from Cache",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>The content was retrieved from a shared cache. If the response data is sensitive, personal or user-specific, this may result in sensitive information being leaked. In some cases, this may even result in a user gaining complete control of the session of another user, depending on the configuration of the caching components in use in their environment. This is primarily an issue where caching servers such as \"proxy\" caches are configured on the local network. This configuration is typically found in corporate or educational environments, for instance. </p>",
+					"instances":[ 
+						{
+							"uri": "https://pro.passculture.beta.gouv.fr",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 88"
+						}
+					],
+					"count": "1",
+					"solution": "<p>Validate that the response does not contain sensitive, personal or user-specific information.  If it does, consider the use of the following HTTP response headers, to limit, or prevent the content being stored and retrieved from the cache by another user:</p><p>Cache-Control: no-cache, no-store, must-revalidate, private</p><p>Pragma: no-cache</p><p>Expires: 0</p><p>This configuration directs both HTTP 1.0 and HTTP 1.1 compliant caching servers to not store the response, and to not retrieve the response (without validation) from the cache, in response to a similar request.</p>",
+					"otherinfo": "<p>The presence of the 'Age' header indicates that that a HTTP/1.1 compliant caching server is in use.</p>",
+					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
+					"cweid": "-1",
+					"wascid": "-1",
 					"sourceid": "1"
 				},
 				{
