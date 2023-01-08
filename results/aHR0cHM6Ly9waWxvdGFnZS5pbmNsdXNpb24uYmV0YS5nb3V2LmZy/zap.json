@@ -1,7 +1,7 @@
 {
 	"@programName": "OWASP ZAP",
 	"@version": "2.12.0",
-	"@generated": "Sun, 1 Jan 2023 06:27:05",
+	"@generated": "Sun, 8 Jan 2023 06:21:31",
 	"site":[ 
 		{
 			"@name": "https://pilotage.inclusion.beta.gouv.fr",
@@ -22,7 +22,21 @@
 						{
 							"uri": "https://pilotage.inclusion.beta.gouv.fr/robots.txt",
 							"method": "GET",
+							"param": "content-security-policy",
+							"attack": "",
+							"evidence": "default-src 'none'; style-src 'unsafe-inline'; img-src data:; connect-src 'self'"
+						},
+						{
+							"uri": "https://pilotage.inclusion.beta.gouv.fr/robots.txt",
+							"method": "GET",
 							"param": "Content-Security-Policy",
+							"attack": "",
+							"evidence": "default-src 'none'; style-src 'unsafe-inline'; img-src data:; connect-src 'self'"
+						},
+						{
+							"uri": "https://pilotage.inclusion.beta.gouv.fr/sitemap.xml",
+							"method": "GET",
+							"param": "content-security-policy",
 							"attack": "",
 							"evidence": "default-src 'none'; style-src 'unsafe-inline'; img-src data:; connect-src 'self'"
 						},
@@ -34,9 +48,9 @@
 							"evidence": "default-src 'none'; style-src 'unsafe-inline'; img-src data:; connect-src 'self'"
 						}
 					],
-					"count": "2",
+					"count": "4",
 					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is properly configured to set the Content-Security-Policy header.</p>",
-					"otherinfo": "<p>The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: </p><p>frame-ancestors, form-action</p><p></p><p>The directive(s): frame-ancestors, form-action are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything.</p>",
+					"otherinfo": "<p>The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: </p><p>form-action</p><p></p><p>The directive(s): form-action are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything.</p>",
 					"reference": "<p>http://www.w3.org/TR/CSP2/</p><p>http://www.w3.org/TR/CSP/</p><p>http://caniuse.com/#search=content+security+policy</p><p>http://content-security-policy.com/</p><p>https://github.com/shapesecurity/salvation</p><p>https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources</p>",
 					"cweid": "693",
 					"wascid": "15",
@@ -149,7 +163,7 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://pilotage.inclusion.beta.gouv.fr/tableaux-de-bord/zoom-employeurs/",
+							"uri": "https://pilotage.inclusion.beta.gouv.fr/tableaux-de-bord/prescripteurs-habilites/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -169,7 +183,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/Security/CSP/Introducing_Content_Security_Policy</p><p>https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html</p><p>http://www.w3.org/TR/CSP/</p><p>http://w3c.github.io/webappsec/specs/content-security-policy/csp-specification.dev.html</p><p>http://www.html5rocks.com/en/tutorials/security/content-security-policy/</p><p>http://caniuse.com/#feat=contentsecuritypolicy</p><p>http://content-security-policy.com/</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10098",
@@ -210,14 +224,14 @@
 							"evidence": "Access-Control-Allow-Origin: *"
 						},
 						{
-							"uri": "https://pilotage.inclusion.beta.gouv.fr/images/logo-ministere-emploi.svg",
+							"uri": "https://pilotage.inclusion.beta.gouv.fr/images/hp-illustration-01.svg",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "Access-Control-Allow-Origin: *"
 						},
 						{
-							"uri": "https://pilotage.inclusion.beta.gouv.fr/images/logo-pilotage-inclusion.svg",
+							"uri": "https://pilotage.inclusion.beta.gouv.fr/images/logo-ministere-emploi.svg",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -265,7 +279,7 @@
 					"reference": "<p>https://vulncat.fortify.com/en/detail?id=desc.config.dotnet.html5_overly_permissive_cors_policy</p>",
 					"cweid": "264",
 					"wascid": "14",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10020",
@@ -341,7 +355,7 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://pilotage.inclusion.beta.gouv.fr/tableaux-de-bord/zoom-employeurs/",
+							"uri": "https://pilotage.inclusion.beta.gouv.fr/tableaux-de-bord/prescripteurs-habilites/",
 							"method": "GET",
 							"param": "X-Frame-Options",
 							"attack": "",
@@ -436,7 +450,7 @@
 					"reference": "<p>https://developer.mozilla.org/en/docs/Web/Security/Subresource_Integrity</p>",
 					"cweid": "345",
 					"wascid": "15",
-					"sourceid": "98"
+					"sourceid": "96"
 				},
 				{
 					"pluginid": "10017",
@@ -531,36 +545,15 @@
 							"param": "https://tally.so/widgets/embed.js",
 							"attack": "",
 							"evidence": "<script async src=\"https://tally.so/widgets/embed.js\"></script>"
-						},
-						{
-							"uri": "https://pilotage.inclusion.beta.gouv.fr/tableaux-de-bord/postes-en-tension/",
-							"method": "GET",
-							"param": "//cdn.jsdelivr.net/gh/AmauriC/tarteaucitron.js@1.9.3/tarteaucitron.js",
-							"attack": "",
-							"evidence": "<script type=\"text/javascript\" src=\"//cdn.jsdelivr.net/gh/AmauriC/tarteaucitron.js@1.9.3/tarteaucitron.js\"></script>"
-						},
-						{
-							"uri": "https://pilotage.inclusion.beta.gouv.fr/tableaux-de-bord/postes-en-tension/",
-							"method": "GET",
-							"param": "//stats.inclusion.beta.gouv.fr/app/iframeResizer.js",
-							"attack": "",
-							"evidence": "<script src=\"//stats.inclusion.beta.gouv.fr/app/iframeResizer.js\"></script>"
-						},
-						{
-							"uri": "https://pilotage.inclusion.beta.gouv.fr/tableaux-de-bord/postes-en-tension/",
-							"method": "GET",
-							"param": "https://tally.so/widgets/embed.js",
-							"attack": "",
-							"evidence": "<script async src=\"https://tally.so/widgets/embed.js\"></script>"
 						}
 					],
-					"count": "15",
+					"count": "12",
 					"solution": "<p>Ensure JavaScript source files are loaded from only trusted sources, and the sources can't be controlled by end users of the application.</p>",
 					"otherinfo": "",
 					"reference": "",
 					"cweid": "829",
 					"wascid": "15",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10110",
@@ -586,7 +579,7 @@
 					"reference": "<p>https://angular.io/guide/security</p>",
 					"cweid": "749",
 					"wascid": "-1",
-					"sourceid": "39"
+					"sourceid": "38"
 				},
 				{
 					"pluginid": "10063",
@@ -674,22 +667,15 @@
 							"param": "",
 							"attack": "",
 							"evidence": ""
-						},
-						{
-							"uri": "https://pilotage.inclusion.beta.gouv.fr/tableaux-de-bord/zoom-prescripteurs/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
 						}
 					],
-					"count": "12",
+					"count": "11",
 					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to set the Permissions-Policy header.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy</p><p>https://developers.google.com/web/updates/2018/06/feature-policy</p><p>https://scotthelme.co.uk/a-new-security-header-feature-policy/</p><p>https://w3c.github.io/webappsec-feature-policy/</p><p>https://www.smashingmagazine.com/2018/12/feature-policy/</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10035",
@@ -785,7 +771,7 @@
 					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html</p><p>https://owasp.org/www-community/Security_Headers</p><p>http://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security</p><p>http://caniuse.com/stricttransportsecurity</p><p>http://tools.ietf.org/html/rfc6797</p>",
 					"cweid": "319",
 					"wascid": "15",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10096",
@@ -1042,7 +1028,7 @@
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "39"
+					"sourceid": "38"
 				},
 				{
 					"pluginid": "10021",
@@ -1104,6 +1090,13 @@
 							"evidence": ""
 						},
 						{
+							"uri": "https://pilotage.inclusion.beta.gouv.fr/images/picto-instagram.svg",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
 							"uri": "https://pilotage.inclusion.beta.gouv.fr/images/picto-linkedin.svg",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
@@ -1112,13 +1105,6 @@
 						},
 						{
 							"uri": "https://pilotage.inclusion.beta.gouv.fr/images/picto-twitter.svg",
-							"method": "GET",
-							"param": "X-Content-Type-Options",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://pilotage.inclusion.beta.gouv.fr/images/picto-youtube.svg",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -1138,7 +1124,7 @@
 					"reference": "<p>http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx</p><p>https://owasp.org/www-community/Security_Headers</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10094",
@@ -1237,6 +1223,39 @@
 					"sourceid": "6"
 				},
 				{
+					"pluginid": "10055",
+					"alertRef": "10055-12",
+					"alert": "CSP: Header & Meta",
+					"name": "CSP: Header & Meta",
+					"riskcode": "0",
+					"confidence": "3",
+					"riskdesc": "Informational (High)",
+					"desc": "<p>The message contained both CSP specified via header and via Meta tag. It was not possible to union these policies in order to perform an analysis. Therefore, they have been evaluated individually.</p>",
+					"instances":[ 
+						{
+							"uri": "https://pilotage.inclusion.beta.gouv.fr/robots.txt",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://pilotage.inclusion.beta.gouv.fr/sitemap.xml",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						}
+					],
+					"count": "2",
+					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is properly configured to set the Content-Security-Policy header.</p>",
+					"otherinfo": "",
+					"reference": "<p>http://www.w3.org/TR/CSP2/</p><p>http://www.w3.org/TR/CSP/</p><p>http://caniuse.com/#search=content+security+policy</p><p>http://content-security-policy.com/</p><p>https://github.com/shapesecurity/salvation</p><p>https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources</p>",
+					"cweid": "693",
+					"wascid": "15",
+					"sourceid": "7"
+				},
+				{
 					"pluginid": "10027",
 					"alertRef": "10027",
 					"alert": "Information Disclosure - Suspicious Comments",
@@ -1317,7 +1336,7 @@
 							"evidence": "user"
 						},
 						{
-							"uri": "https://pilotage.inclusion.beta.gouv.fr/tableaux-de-bord/zoom-employeurs/",
+							"uri": "https://pilotage.inclusion.beta.gouv.fr/tableaux-de-bord/prescripteurs-habilites/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1337,33 +1356,7 @@
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "1"
-				},
-				{
-					"pluginid": "10109",
-					"alertRef": "10109",
-					"alert": "Modern Web Application",
-					"name": "Modern Web Application",
-					"riskcode": "0",
-					"confidence": "2",
-					"riskdesc": "Informational (Medium)",
-					"desc": "<p>The application appears to be a modern web application. If you need to explore it automatically then the Ajax Spider may well be more effective than the standard one.</p>",
-					"instances":[ 
-						{
-							"uri": "https://pilotage.inclusion.beta.gouv.fr/javascripts/app.js",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<a id='\"+S+\"'></a>"
-						}
-					],
-					"count": "1",
-					"solution": "<p>This is an informational alert and so no changes are required.</p>",
-					"otherinfo": "<p>Links have been found that do not have traditional href attributes, which is an indication that this is a modern web application.</p>",
-					"reference": "",
-					"cweid": "-1",
-					"wascid": "-1",
-					"sourceid": "39"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10015",
@@ -1439,7 +1432,7 @@
 							"evidence": "max-age=600"
 						},
 						{
-							"uri": "https://pilotage.inclusion.beta.gouv.fr/tableaux-de-bord/zoom-employeurs/",
+							"uri": "https://pilotage.inclusion.beta.gouv.fr/tableaux-de-bord/prescripteurs-habilites/",
 							"method": "GET",
 							"param": "Cache-Control",
 							"attack": "",
@@ -1459,7 +1452,7 @@
 					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching</p><p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control</p><p>https://grayduck.mn/2021/09/13/cache-control-recommendations/</p>",
 					"cweid": "525",
 					"wascid": "13",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10050",
@@ -1479,13 +1472,6 @@
 							"evidence": "HIT"
 						},
 						{
-							"uri": "https://pilotage.inclusion.beta.gouv.fr",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "Age: 0"
-						},
-						{
 							"uri": "https://pilotage.inclusion.beta.gouv.fr/",
 							"method": "GET",
 							"param": "",
@@ -1501,6 +1487,13 @@
 						},
 						{
 							"uri": "https://pilotage.inclusion.beta.gouv.fr/images/favico.ico",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 0"
+						},
+						{
+							"uri": "https://pilotage.inclusion.beta.gouv.fr/images/hp-illustration-01.svg",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1542,13 +1535,6 @@
 							"evidence": "Age: 0"
 						},
 						{
-							"uri": "https://pilotage.inclusion.beta.gouv.fr/stylesheets/app.css",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "Age: 0"
-						},
-						{
 							"uri": "https://pilotage.inclusion.beta.gouv.fr/tableaux-de-bord",
 							"method": "GET",
 							"param": "",
@@ -1556,7 +1542,7 @@
 							"evidence": "Age: 0"
 						}
 					],
-					"count": "12",
+					"count": "11",
 					"solution": "<p>Validate that the response does not contain sensitive, personal or user-specific information.  If it does, consider the use of the following HTTP response headers, to limit, or prevent the content being stored and retrieved from the cache by another user:</p><p>Cache-Control: no-cache, no-store, must-revalidate, private</p><p>Pragma: no-cache</p><p>Expires: 0</p><p>This configuration directs both HTTP 1.0 and HTTP 1.1 compliant caching servers to not store the response, and to not retrieve the response (without validation) from the cache, in response to a similar request.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
@@ -1603,6 +1589,13 @@
 							"evidence": "max-age=600"
 						},
 						{
+							"uri": "https://pilotage.inclusion.beta.gouv.fr/images/hp-illustration-01.svg",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "max-age=600"
+						},
+						{
 							"uri": "https://pilotage.inclusion.beta.gouv.fr/images/logo-ministere-emploi.svg",
 							"method": "GET",
 							"param": "",
@@ -1611,13 +1604,6 @@
 						},
 						{
 							"uri": "https://pilotage.inclusion.beta.gouv.fr/images/logo-pilotage-inclusion.svg",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "max-age=600"
-						},
-						{
-							"uri": "https://pilotage.inclusion.beta.gouv.fr/images/picto-twitter.svg",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1658,7 +1644,7 @@
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "6"
+					"sourceid": "1"
 				}
 			]
 		}
