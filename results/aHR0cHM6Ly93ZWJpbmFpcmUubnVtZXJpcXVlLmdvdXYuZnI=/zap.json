@@ -1,7 +1,7 @@
 {
 	"@programName": "OWASP ZAP",
 	"@version": "2.12.0",
-	"@generated": "Sun, 8 Jan 2023 07:18:52",
+	"@generated": "Sun, 15 Jan 2023 07:36:58",
 	"site":[ 
 		{
 			"@name": "https://webinaire.numerique.gouv.fr",
@@ -299,11 +299,11 @@
 					],
 					"count": "1",
 					"solution": "<p>Ensure that no sensitive information is leaked via redirect responses. Redirect responses should have almost no content.</p>",
-					"otherinfo": "<p>Location header URI length: 274 [https://authent.webinaire.numerique.gouv.fr/auth/realms/master/protocol/openid-connect/auth?client_id=BBB-Visio&response_type=code&scope=openid+email+profile&redirect_uri=https%3A%2F%2Fwebinaire.numerique.gouv.fr%2Foidc_callback&state=iAjtWaGxCmbCkdth&nonce=cjwyvaCE1UWldZB7].</p><p>Predicted response size: 574.</p><p>Response Body Length: 775.</p>",
+					"otherinfo": "<p>Location header URI length: 274 [https://authent.webinaire.numerique.gouv.fr/auth/realms/master/protocol/openid-connect/auth?client_id=BBB-Visio&response_type=code&scope=openid+email+profile&redirect_uri=https%3A%2F%2Fwebinaire.numerique.gouv.fr%2Foidc_callback&state=jqItym6aj7QMuStZ&nonce=tYl3ZTZsKdlWTInj].</p><p>Predicted response size: 574.</p><p>Response Body Length: 775.</p>",
 					"reference": "",
 					"cweid": "201",
 					"wascid": "13",
-					"sourceid": "30"
+					"sourceid": "49"
 				},
 				{
 					"pluginid": "10011",
@@ -316,6 +316,13 @@
 					"desc": "<p>A cookie has been set without the secure flag, which means that the cookie can be accessed via unencrypted connections.</p>",
 					"instances":[ 
 						{
+							"uri": "https://webinaire.numerique.gouv.fr",
+							"method": "GET",
+							"param": "session",
+							"attack": "",
+							"evidence": "Set-Cookie: session"
+						},
+						{
 							"uri": "https://webinaire.numerique.gouv.fr/",
 							"method": "GET",
 							"param": "session",
@@ -372,13 +379,13 @@
 							"evidence": "Set-Cookie: session"
 						}
 					],
-					"count": "8",
+					"count": "9",
 					"solution": "<p>Whenever a cookie contains sensitive information or is a session token, then it should always be passed using an encrypted channel. Ensure that the secure flag is set for cookies containing such sensitive information.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://owasp.org/www-project-web-security-testing-guide/v41/4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.html</p>",
 					"cweid": "614",
 					"wascid": "13",
-					"sourceid": "28"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10054",
@@ -391,6 +398,13 @@
 					"desc": "<p>A cookie has been set without the SameSite attribute, which means that the cookie can be sent as a result of a 'cross-site' request. The SameSite attribute is an effective counter measure to cross-site request forgery, cross-site script inclusion, and timing attacks.</p>",
 					"instances":[ 
 						{
+							"uri": "https://webinaire.numerique.gouv.fr",
+							"method": "GET",
+							"param": "session",
+							"attack": "",
+							"evidence": "Set-Cookie: session"
+						},
+						{
 							"uri": "https://webinaire.numerique.gouv.fr/",
 							"method": "GET",
 							"param": "session",
@@ -447,13 +461,13 @@
 							"evidence": "Set-Cookie: session"
 						}
 					],
-					"count": "8",
+					"count": "9",
 					"solution": "<p>Ensure that the SameSite attribute is set to either 'lax' or ideally 'strict' for all cookies.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site</p>",
 					"cweid": "1275",
 					"wascid": "13",
-					"sourceid": "28"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10017",
@@ -747,13 +761,6 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://webinaire.numerique.gouv.fr/static/css/global.css",
-							"method": "GET",
-							"param": "X-Content-Type-Options",
-							"attack": "",
-							"evidence": ""
-						},
-						{
 							"uri": "https://webinaire.numerique.gouv.fr/static/css/spinner.css",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
@@ -762,6 +769,13 @@
 						},
 						{
 							"uri": "https://webinaire.numerique.gouv.fr/static/css/toc.css",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://webinaire.numerique.gouv.fr/static/dsfr-1.7/utility/icons/icons.css",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -819,21 +833,28 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "eJyFkN1ugzAMhV8F5boD7WoSdwNNe4K10oQUhcQUt_lhiQOrqr77jCjXu3N8ju0v5y5UplFG-MmQSNTi3gltETxJNJ2oi040TfNyxIShEwd-RkhT8Akk3SbYHDoY2MSkw97kwqMpwCm0xRTDgBb2DQYjaJI54uYdiaZUV9UCPXrFYumzg4gMVZ5DnsshVgGNllpZ2yt9fV4jRc9r-H6hk_r8bV3fXg2Nm8EHr3fGy3KbVfvx-nWy5rt568RDHITOMa5_Zb4ZDUQOwMCgsiUWDSfCOITBc39l_AdxAauDAx4dojq7dTH4NRwj99REPSib4PEHPzaD4g"
+							"evidence": "eJyFkEFrwzAMhf9K8LlLDoMNcsytjB3GysZCwLi20ipz7FSWW0rpf59CmvNust6T9PndlMl81ASnDIlVrW6dsh4hsEbXqbroVNM0T1-YMHZqI0-CNMWQQPN1gsVho4NFTDauTSkCugJGg76YKPboYd3gkMCyzoSL98g8pbqqLrDHYEQsQx6BUKDKQ8znsqcqorPaGu_3xv4-rrHhx7XhtOXr-GKG14_3_MntYggx2IeBf_xzu2vTm_Pfu20YOnVXG2Uz0fxX4TujA5IAHPQmexbRSSKCwxiD9GfGfxAv4G0cQUZ7ModxXgxhDsfpNTVV98YnuP8BSf6D_w"
 						},
 						{
 							"uri": "https://webinaire.numerique.gouv.fr/cgu",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "eJyFkN1ugzAMhV8F5boD7WoSdwNNe4K10oQUhcQUt_lhiQOrqr77jCjXu3N8ju0v5y5UplFG-MmQSNTi3gltETxJNJ2oi040TfNyxIShEwd-RkhT8Akk3SbYHDoY2MSkw97kwqMpwCm0xRTDgBb2DQYjaJI54uYdiaZUV9UCPXrFYumzg4gMVZ5DnsshVgGNllpZ2yt9fV4jRc9r-H6hk_r8bV3fXg2Nm8EHr3fGy3KbVfvx-nWy5rt568RDHITOMa5_Zb4ZDUQOwMCgsiUWDSfCOITBc39l_AdxAauDAx4dojq7dTH4NRwj99REPSib4PEHPzaD4g"
+							"evidence": "eJyFkEFrwzAMhf9K8LlLDoMNcsytjB3GysZCwLi20ipz7FSWW0rpf59CmvNust6T9PndlMl81ASnDIlVrW6dsh4hsEbXqbroVNM0T1-YMHZqI0-CNMWQQPN1gsVho4NFTDauTSkCugJGg76YKPboYd3gkMCyzoSL98g8pbqqLrDHYEQsQx6BUKDKQ8znsqcqorPaGu_3xv4-rrHhx7XhtOXr-GKG14_3_MntYggx2IeBf_xzu2vTm_Pfu20YOnVXG2Uz0fxX4TujA5IAHPQmexbRSSKCwxiD9GfGfxAv4G0cQUZ7ModxXgxhDsfpNTVV98YnuP8BSf6D_w"
+						},
+						{
+							"uri": "https://webinaire.numerique.gouv.fr/documentation",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "eyJjdXJyZW50X3Byb3ZpZGVyIjoiZGVmYXVsdCJ9"
 						},
 						{
 							"uri": "https://webinaire.numerique.gouv.fr/donnees_personnelles",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "eJyFkN1ugzAMhV8F5boD7WoSdwNNe4K10oQUhcQUt_lhiQOrqr77jCjXu3N8ju0v5y5UplFG-MmQSNTi3gltETxJNJ2oi040TfNyxIShEwd-RkhT8Akk3SbYHDoY2MSkw97kwqMpwCm0xRTDgBb2DQYjaJI54uYdiaZUV9UCPXrFYumzg4gMVZ5DnsshVgGNllpZ2yt9fV4jRc9r-H6hk_r8bV3fXg2Nm8EHr3fGy3KbVfvx-nWy5rt568RDHITOMa5_Zb4ZDUQOwMCgsiUWDSfCOITBc39l_AdxAauDAx4dojq7dTH4NRwj99REPSib4PEHPzaD4g"
+							"evidence": "eJyFkEFrwzAMhf9K8LlLDoMNcsytjB3GysZCwLi20ipz7FSWW0rpf59CmvNust6T9PndlMl81ASnDIlVrW6dsh4hsEbXqbroVNM0T1-YMHZqI0-CNMWQQPN1gsVho4NFTDauTSkCugJGg76YKPboYd3gkMCyzoSL98g8pbqqLrDHYEQsQx6BUKDKQ8znsqcqorPaGu_3xv4-rrHhx7XhtOXr-GKG14_3_MntYggx2IeBf_xzu2vTm_Pfu20YOnVXG2Uz0fxX4TujA5IAHPQmexbRSSKCwxiD9GfGfxAv4G0cQUZ7ModxXgxhDsfpNTVV98YnuP8BSf6D_w"
 						},
 						{
 							"uri": "https://webinaire.numerique.gouv.fr/faq",
@@ -854,7 +875,7 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "eJyFkN1ugzAMhV8F5boD7WoSdwNNe4K10oQUhcQUt_lhiQOrqr77jCjXu3N8ju0v5y5UplFG-MmQSNTi3gltETxJNJ2oi040TfNyxIShEwd-RkhT8Akk3SbYHDoY2MSkw97kwqMpwCm0xRTDgBb2DQYjaJI54uYdiaZUV9UCPXrFYumzg4gMVZ5DnsshVgGNllpZ2yt9fV4jRc9r-H6hk_r8bV3fXg2Nm8EHr3fGy3KbVfvx-nWy5rt568RDHITOMa5_Zb4ZDUQOwMCgsiUWDSfCOITBc39l_AdxAauDAx4dojq7dTH4NRwj99REPSib4PEHPzaD4g"
+							"evidence": "eJyFkEFrwzAMhf9K8LlLDoMNcsytjB3GysZCwLi20ipz7FSWW0rpf59CmvNust6T9PndlMl81ASnDIlVrW6dsh4hsEbXqbroVNM0T1-YMHZqI0-CNMWQQPN1gsVho4NFTDauTSkCugJGg76YKPboYd3gkMCyzoSL98g8pbqqLrDHYEQsQx6BUKDKQ8znsqcqorPaGu_3xv4-rrHhx7XhtOXr-GKG14_3_MntYggx2IeBf_xzu2vTm_Pfu20YOnVXG2Uz0fxX4TujA5IAHPQmexbRSSKCwxiD9GfGfxAv4G0cQUZ7ModxXgxhDsfpNTVV98YnuP8BSf6D_w"
 						},
 						{
 							"uri": "https://webinaire.numerique.gouv.fr/robots.txt",
@@ -875,10 +896,10 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "eJyFkN1ugzAMhV8F5boD7WoSdwNNe4K10oQUhcQUt_lhiQOrqr77jCjXu3N8ju0v5y5UplFG-MmQSNTi3gltETxJNJ2oi040TfNyxIShEwd-RkhT8Akk3SbYHDoY2MSkw97kwqMpwCm0xRTDgBb2DQYjaJI54uYdiaZUV9UCPXrFYumzg4gMVZ5DnsshVgGNllpZ2yt9fV4jRc9r-H6hk_r8bV3fXg2Nm8EHr3fGy3KbVfvx-nWy5rt568RDHITOMa5_Zb4ZDUQOwMCgsiUWDSfCOITBc39l_AdxAauDAx4dojq7dTH4NRwj99REPSib4PEHPzaD4g"
+							"evidence": "eJyFkEFrwzAMhf9K8LlLDoMNcsytjB3GysZCwLi20ipz7FSWW0rpf59CmvNust6T9PndlMl81ASnDIlVrW6dsh4hsEbXqbroVNM0T1-YMHZqI0-CNMWQQPN1gsVho4NFTDauTSkCugJGg76YKPboYd3gkMCyzoSL98g8pbqqLrDHYEQsQx6BUKDKQ8znsqcqorPaGu_3xv4-rrHhx7XhtOXr-GKG14_3_MntYggx2IeBf_xzu2vTm_Pfu20YOnVXG2Uz0fxX4TujA5IAHPQmexbRSSKCwxiD9GfGfxAv4G0cQUZ7ModxXgxhDsfpNTVV98YnuP8BSf6D_w"
 						}
 					],
-					"count": "12",
+					"count": "13",
 					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
 					"otherinfo": "<p>\\x0000\\x0010\uFFFD\\x0010Q\uFFFD \uFFFD\uFFFD0\u04CFA\\x0014\uFFFDQU\uFFFDa\uFFFD\uFFFDq\u05DF\uFFFD\\x0018\uFFFD\uFFFDY\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\u06EF\uFFFD\\x001c\uFFFD\uFFFD]\uFFFD\u37BB\uFFFD</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
@@ -924,7 +945,7 @@
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "71"
+					"sourceid": "68"
 				},
 				{
 					"pluginid": "10049",
@@ -1094,7 +1115,7 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://webinaire.numerique.gouv.fr/donnees_personnelles",
+							"uri": "https://webinaire.numerique.gouv.fr/documentation",
 							"method": "GET",
 							"param": "",
 							"attack": "",
