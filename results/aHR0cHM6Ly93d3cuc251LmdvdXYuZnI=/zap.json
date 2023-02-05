@@ -1,7 +1,7 @@
 {
 	"@programName": "OWASP ZAP",
 	"@version": "2.12.0",
-	"@generated": "Sun, 29 Jan 2023 08:32:31",
+	"@generated": "Sun, 5 Feb 2023 08:24:44",
 	"site":[ 
 		{
 			"@name": "https://www.snu.gouv.fr",
@@ -9,6 +9,67 @@
 			"@port": "443",
 			"@ssl": "true",
 			"alerts": [ 
+				{
+					"pluginid": "10202",
+					"alertRef": "10202",
+					"alert": "Absence of Anti-CSRF Tokens",
+					"name": "Absence of Anti-CSRF Tokens",
+					"riskcode": "2",
+					"confidence": "1",
+					"riskdesc": "Medium (Low)",
+					"desc": "<p>No Anti-CSRF tokens were found in a HTML submission form.</p><p>A cross-site request forgery is an attack that involves forcing a victim to send an HTTP request to a target destination without their knowledge or intent in order to perform an action as the victim. The underlying cause is application functionality using predictable URL/form actions in a repeatable way. The nature of the attack is that CSRF exploits the trust that a web site has for a user. By contrast, cross-site scripting (XSS) exploits the trust that a user has for a web site. Like XSS, CSRF attacks are not necessarily cross-site, but they can be. Cross-site request forgery is also known as CSRF, XSRF, one-click attack, session riding, confused deputy, and sea surf.</p><p></p><p>CSRF attacks are effective in a number of situations, including:</p><p>    * The victim has an active session on the target site.</p><p>    * The victim is authenticated via HTTP auth on the target site.</p><p>    * The victim is on the same local network as the target site.</p><p></p><p>CSRF has primarily been used to perform an action against a target site using the victim's privileges, but recent techniques have been discovered to disclose information by gaining access to the response. The risk of information disclosure is dramatically increased when the target site is vulnerable to XSS, because XSS can be used as a platform for CSRF, allowing the attack to operate within the bounds of the same-origin policy.</p>",
+					"instances":[ 
+						{
+							"uri": "https://www.snu.gouv.fr/%5C%22https:/www.googletagmanager.com/gtag/js?id=DC3452220%5C%22",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form action=\"https://www.snu.gouv.fr/\" method=\"get\">"
+						},
+						{
+							"uri": "https://www.snu.gouv.fr/blog/%5C%22https:/www.googletagmanager.com/gtag/js?id=DC3452220%5C%22",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form action=\"https://www.snu.gouv.fr/\" method=\"get\">"
+						},
+						{
+							"uri": "https://www.snu.gouv.fr/phase-1-sejour-cohesion/%5C%22https:/www.googletagmanager.com/gtag/js?id=DC3452220%5C%22",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form action=\"https://www.snu.gouv.fr/\" method=\"get\">"
+						},
+						{
+							"uri": "https://www.snu.gouv.fr/phase-2-mission-interet-general/%5C%22https:/www.googletagmanager.com/gtag/js?id=DC3452220%5C%22",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form action=\"https://www.snu.gouv.fr/\" method=\"get\">"
+						},
+						{
+							"uri": "https://www.snu.gouv.fr/phase-3-lengagement-volontaire/%5C%22https:/www.googletagmanager.com/gtag/js?id=DC3452220%5C%22",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form action=\"https://www.snu.gouv.fr/\" method=\"get\">"
+						},
+						{
+							"uri": "https://www.snu.gouv.fr/temoignages/%5C%22https:/www.googletagmanager.com/gtag/js?id=DC3452220%5C%22",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form action=\"https://www.snu.gouv.fr/\" method=\"get\">"
+						}
+					],
+					"count": "6",
+					"solution": "<p>Phase: Architecture and Design</p><p>Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid.</p><p>For example, use anti-CSRF packages such as the OWASP CSRFGuard.</p><p></p><p>Phase: Implementation</p><p>Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.</p><p></p><p>Phase: Architecture and Design</p><p>Generate a unique nonce for each form, place the nonce into the form, and verify the nonce upon receipt of the form. Be sure that the nonce is not predictable (CWE-330).</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Identify especially dangerous operations. When the user performs a dangerous operation, send a separate confirmation request to ensure that the user intended to perform that operation.</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Use the ESAPI Session Management control.</p><p>This control includes a component for CSRF.</p><p></p><p>Do not use the GET method for any request that triggers a state change.</p><p></p><p>Phase: Implementation</p><p>Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.</p>",
+					"otherinfo": "<p>No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"s\" ].</p>",
+					"reference": "<p>http://projects.webappsec.org/Cross-Site-Request-Forgery</p><p>http://cwe.mitre.org/data/definitions/352.html</p>",
+					"cweid": "352",
+					"wascid": "9",
+					"sourceid": "475"
+				},
 				{
 					"pluginid": "10038",
 					"alertRef": "10038",
@@ -103,7 +164,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/Security/CSP/Introducing_Content_Security_Policy</p><p>https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html</p><p>http://www.w3.org/TR/CSP/</p><p>http://w3c.github.io/webappsec/specs/content-security-policy/csp-specification.dev.html</p><p>http://www.html5rocks.com/en/tutorials/security/content-security-policy/</p><p>http://caniuse.com/#feat=contentsecuritypolicy</p><p>http://content-security-policy.com/</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10020",
@@ -144,7 +205,7 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://www.snu.gouv.fr/category/actualites/",
+							"uri": "https://www.snu.gouv.fr/category/sejour-de-cohesion/sejour/",
 							"method": "GET",
 							"param": "X-Frame-Options",
 							"attack": "",
@@ -266,22 +327,15 @@
 							"param": "",
 							"attack": "",
 							"evidence": "<script type=\"text/javascript\" src=\"https://tarteaucitron.io/load.js?locale=fr&iswordpress=true&domain=www.snu.gouv.fr&uuid=116fc2aaf9a8e635ee3bd10f2d6999d8b768651a\"></script>"
-						},
-						{
-							"uri": "https://www.snu.gouv.fr/wp-json/wp/v2/pages/16",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<link rel=\\\"canonical\\\" href=\\\"https:\\/\\/www.snu.gouv.fr\\/\\\" \\/>"
 						}
 					],
-					"count": "9",
+					"count": "8",
 					"solution": "<p>Provide a valid integrity attribute to the tag.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en/docs/Web/Security/Subresource_Integrity</p>",
 					"cweid": "345",
 					"wascid": "15",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10017",
@@ -322,6 +376,20 @@
 							"evidence": "<script type=\"text/javascript\" src=\"https://tarteaucitron.io/load.js?locale=fr&iswordpress=true&domain=www.snu.gouv.fr&uuid=116fc2aaf9a8e635ee3bd10f2d6999d8b768651a\"></script>"
 						},
 						{
+							"uri": "https://www.snu.gouv.fr/blog/",
+							"method": "GET",
+							"param": "https://plausible.io/js/script.tagged-events.outbound-links.js",
+							"attack": "",
+							"evidence": "<script defer data-domain=\"snu.gouv.fr\" src=\"https://plausible.io/js/script.tagged-events.outbound-links.js\"></script>"
+						},
+						{
+							"uri": "https://www.snu.gouv.fr/blog/",
+							"method": "GET",
+							"param": "https://tarteaucitron.io/load.js?locale=fr&iswordpress=true&domain=www.snu.gouv.fr&uuid=116fc2aaf9a8e635ee3bd10f2d6999d8b768651a",
+							"attack": "",
+							"evidence": "<script type=\"text/javascript\" src=\"https://tarteaucitron.io/load.js?locale=fr&iswordpress=true&domain=www.snu.gouv.fr&uuid=116fc2aaf9a8e635ee3bd10f2d6999d8b768651a\"></script>"
+						},
+						{
 							"uri": "https://www.snu.gouv.fr/phase-1-sejour-cohesion/",
 							"method": "GET",
 							"param": "https://plausible.io/js/script.tagged-events.outbound-links.js",
@@ -344,6 +412,20 @@
 						},
 						{
 							"uri": "https://www.snu.gouv.fr/phase-2-mission-interet-general/",
+							"method": "GET",
+							"param": "https://tarteaucitron.io/load.js?locale=fr&iswordpress=true&domain=www.snu.gouv.fr&uuid=116fc2aaf9a8e635ee3bd10f2d6999d8b768651a",
+							"attack": "",
+							"evidence": "<script type=\"text/javascript\" src=\"https://tarteaucitron.io/load.js?locale=fr&iswordpress=true&domain=www.snu.gouv.fr&uuid=116fc2aaf9a8e635ee3bd10f2d6999d8b768651a\"></script>"
+						},
+						{
+							"uri": "https://www.snu.gouv.fr/phase-3-lengagement-volontaire/",
+							"method": "GET",
+							"param": "https://plausible.io/js/script.tagged-events.outbound-links.js",
+							"attack": "",
+							"evidence": "<script defer data-domain=\"snu.gouv.fr\" src=\"https://plausible.io/js/script.tagged-events.outbound-links.js\"></script>"
+						},
+						{
+							"uri": "https://www.snu.gouv.fr/phase-3-lengagement-volontaire/",
 							"method": "GET",
 							"param": "https://tarteaucitron.io/load.js?locale=fr&iswordpress=true&domain=www.snu.gouv.fr&uuid=116fc2aaf9a8e635ee3bd10f2d6999d8b768651a",
 							"attack": "",
@@ -364,13 +446,46 @@
 							"evidence": "<script type=\"text/javascript\" src=\"https://tarteaucitron.io/load.js?locale=fr&iswordpress=true&domain=www.snu.gouv.fr&uuid=116fc2aaf9a8e635ee3bd10f2d6999d8b768651a\"></script>"
 						}
 					],
-					"count": "10",
+					"count": "14",
 					"solution": "<p>Ensure JavaScript source files are loaded from only trusted sources, and the sources can't be controlled by end users of the application.</p>",
 					"otherinfo": "",
 					"reference": "",
 					"cweid": "829",
 					"wascid": "15",
 					"sourceid": "1"
+				},
+				{
+					"pluginid": "10110",
+					"alertRef": "10110",
+					"alert": "Dangerous JS Functions",
+					"name": "Dangerous JS Functions",
+					"riskcode": "1",
+					"confidence": "1",
+					"riskdesc": "Low (Low)",
+					"desc": "<p>A dangerous JS function seems to be in use that would leave the site vulnerable.</p>",
+					"instances":[ 
+						{
+							"uri": "https://www.snu.gouv.fr/wp-content/themes/uncode/library/js/plugins.min.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "eval"
+						},
+						{
+							"uri": "https://www.snu.gouv.fr/wp-includes/js/jquery/jquery.min.js?ver=3.6.1",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Eval"
+						}
+					],
+					"count": "2",
+					"solution": "<p>See the references for security advice on the use of these functions.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://angular.io/guide/security</p>",
+					"cweid": "749",
+					"wascid": "-1",
+					"sourceid": "490"
 				},
 				{
 					"pluginid": "10063",
@@ -411,7 +526,7 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://www.snu.gouv.fr/category/sejour-de-cohesion/",
+							"uri": "https://www.snu.gouv.fr/category/sejour-de-cohesion/sejour/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -500,13 +615,6 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://www.snu.gouv.fr/mode-demploi-pour-les-responsables-de-structure-comment-proposer-des-missions-dinteret-general/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
-						},
-						{
 							"uri": "https://www.snu.gouv.fr/phase-1-sejour-cohesion/",
 							"method": "GET",
 							"param": "",
@@ -529,6 +637,13 @@
 						},
 						{
 							"uri": "https://www.snu.gouv.fr/robots.txt",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://www.snu.gouv.fr/sitemap_index.xml",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -609,7 +724,7 @@
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10021",
@@ -657,13 +772,6 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://www.snu.gouv.fr/mode-demploi-pour-les-responsables-de-structure-comment-proposer-des-missions-dinteret-general/",
-							"method": "GET",
-							"param": "X-Content-Type-Options",
-							"attack": "",
-							"evidence": ""
-						},
-						{
 							"uri": "https://www.snu.gouv.fr/phase-1-sejour-cohesion/",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
@@ -692,6 +800,13 @@
 							"evidence": ""
 						},
 						{
+							"uri": "https://www.snu.gouv.fr/sitemap_index.xml",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
 							"uri": "https://www.snu.gouv.fr/temoignages/",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
@@ -705,7 +820,7 @@
 					"reference": "<p>http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx</p><p>https://owasp.org/www-community/Security_Headers</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10094",
@@ -801,7 +916,68 @@
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "6"
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "90011",
+					"alertRef": "90011",
+					"alert": "Charset Mismatch ",
+					"name": "Charset Mismatch ",
+					"riskcode": "0",
+					"confidence": "1",
+					"riskdesc": "Informational (Low)",
+					"desc": "<p>This check identifies responses where the HTTP Content-Type header declares a charset different from the charset defined by the body of the HTML or XML. When there's a charset mismatch between the HTTP header and content body Web browsers can be forced into an undesirable content-sniffing mode to determine the content's correct character set.</p><p></p><p>An attacker could manipulate content on the page to be interpreted in an encoding of their choice. For example, if an attacker can control content at the beginning of the page, they could inject script using UTF-7 encoded text and manipulate some browsers into interpreting that text.</p>",
+					"instances":[ 
+						{
+							"uri": "https://www.snu.gouv.fr/wp-json/oembed/1.0/embed?format=xml&url=https%3A%2F%2Fwww.snu.gouv.fr%2F",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://www.snu.gouv.fr/wp-json/oembed/1.0/embed?format=xml&url=https%3A%2F%2Fwww.snu.gouv.fr%2Fblog%2F",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://www.snu.gouv.fr/wp-json/oembed/1.0/embed?format=xml&url=https%3A%2F%2Fwww.snu.gouv.fr%2Fphase-1-sejour-cohesion%2F",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://www.snu.gouv.fr/wp-json/oembed/1.0/embed?format=xml&url=https%3A%2F%2Fwww.snu.gouv.fr%2Fphase-2-mission-interet-general%2F",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://www.snu.gouv.fr/wp-json/oembed/1.0/embed?format=xml&url=https%3A%2F%2Fwww.snu.gouv.fr%2Fphase-3-lengagement-volontaire%2F",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://www.snu.gouv.fr/wp-json/oembed/1.0/embed?format=xml&url=https%3A%2F%2Fwww.snu.gouv.fr%2Ftemoignages%2F",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						}
+					],
+					"count": "6",
+					"solution": "<p>Force UTF-8 for all text content in both the HTTP header and meta tags in HTML or encoding declarations in XML.</p>",
+					"otherinfo": "<p>There was a charset mismatch between the HTTP Header and the XML encoding declaration: [UTF-8] and [null] do not match.</p>",
+					"reference": "<p>http://code.google.com/p/browsersec/wiki/Part2#Character_set_handling_and_detection</p>",
+					"cweid": "436",
+					"wascid": "15",
+					"sourceid": "459"
 				},
 				{
 					"pluginid": "10027",
@@ -931,14 +1107,14 @@
 							"evidence": "<a title=\"Mon espace\" href=\"#\" data-toggle=\"dropdown\" class=\"dropdown-toggle\" data-type=\"title\"><div class=\"menu-btn-table\"><div class=\"menu-btn-cell\"><div class=\"icon-espace menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-23 menu-btn-container dropdown btn\"><span><i class=\"menu-icon fa fa-circle-o\"></i>Mon espace</span></div></div></div></a>"
 						},
 						{
-							"uri": "https://www.snu.gouv.fr/category/temoignages/",
+							"uri": "https://www.snu.gouv.fr/category/sejour-de-cohesion/sejour/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "<a title=\"Mon espace\" href=\"#\" data-toggle=\"dropdown\" class=\"dropdown-toggle\" data-type=\"title\"><div class=\"menu-btn-table\"><div class=\"menu-btn-cell\"><div class=\"icon-espace menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-23 menu-btn-container dropdown btn\"><span><i class=\"menu-icon fa fa-circle-o\"></i>Mon espace</span></div></div></div></a>"
 						},
 						{
-							"uri": "https://www.snu.gouv.fr/decouvrez-les-benefices-du-snu-pour-justine-et-laetitia/",
+							"uri": "https://www.snu.gouv.fr/category/temoignages/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1020,13 +1196,6 @@
 							"evidence": "max-age=14400"
 						},
 						{
-							"uri": "https://www.snu.gouv.fr/mode-demploi-pour-les-responsables-de-structure-comment-proposer-des-missions-dinteret-general/",
-							"method": "GET",
-							"param": "Cache-Control",
-							"attack": "",
-							"evidence": "max-age=14400"
-						},
-						{
 							"uri": "https://www.snu.gouv.fr/phase-1-sejour-cohesion/",
 							"method": "GET",
 							"param": "Cache-Control",
@@ -1049,6 +1218,13 @@
 						},
 						{
 							"uri": "https://www.snu.gouv.fr/robots.txt",
+							"method": "GET",
+							"param": "Cache-Control",
+							"attack": "",
+							"evidence": "max-age=14400"
+						},
+						{
+							"uri": "https://www.snu.gouv.fr/sitemap_index.xml",
 							"method": "GET",
 							"param": "Cache-Control",
 							"attack": "",
@@ -1082,7 +1258,7 @@
 					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching</p><p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control</p><p>https://grayduck.mn/2021/09/13/cache-control-recommendations/</p>",
 					"cweid": "525",
 					"wascid": "13",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10050",
@@ -1099,58 +1275,93 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Age: 6260"
-						},
-						{
-							"uri": "https://www.snu.gouv.fr",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "Age: 7189"
+							"evidence": "Age: 81"
 						},
 						{
 							"uri": "https://www.snu.gouv.fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Age: 6263"
+							"evidence": "Age: 85"
 						},
 						{
-							"uri": "https://www.snu.gouv.fr/donnees-personnelles/",
+							"uri": "https://www.snu.gouv.fr/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=5.7.3",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Age: 6491"
+							"evidence": "Age: 126"
 						},
 						{
-							"uri": "https://www.snu.gouv.fr/temoignages/",
+							"uri": "https://www.snu.gouv.fr/wp-content/themes/uncode-child/style.css",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Age: 5581"
+							"evidence": "Age: 105"
 						},
 						{
-							"uri": "https://www.snu.gouv.fr/wp-content/themes/uncode/library/css/uncode-icons.css",
+							"uri": "https://www.snu.gouv.fr/wp-content/themes/uncode/library/css/style-custom.css",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Age: 3278"
+							"evidence": "Age: 105"
 						},
 						{
-							"uri": "https://www.snu.gouv.fr/wp-includes/css/classic-themes.min.css?ver=1",
+							"uri": "https://www.snu.gouv.fr/wp-content/themes/uncode/library/css/style.css",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Age: 134"
+							"evidence": "Age: 126"
+						},
+						{
+							"uri": "https://www.snu.gouv.fr/wp-content/themes/uncode/library/js/init.min.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 108"
+						},
+						{
+							"uri": "https://www.snu.gouv.fr/wp-content/uploads/2022/08/SNUjyvais.svg",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 110"
+						},
+						{
+							"uri": "https://www.snu.gouv.fr/wp-includes/css/dist/block-library/style.min.css?ver=6.1.1",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 1300"
+						},
+						{
+							"uri": "https://www.snu.gouv.fr/wp-includes/js/jquery/jquery.min.js?ver=3.6.1",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 129"
+						},
+						{
+							"uri": "https://www.snu.gouv.fr/wp-includes/js/mediaelement/mediaelement-and-player.min.js?ver=4.2.17",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 1302"
+						},
+						{
+							"uri": "https://www.snu.gouv.fr/wp-includes/js/mediaelement/mediaelement-migrate.min.js?ver=6.1.1",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 1302"
 						}
 					],
-					"count": "7",
+					"count": "12",
 					"solution": "<p>Validate that the response does not contain sensitive, personal or user-specific information.  If it does, consider the use of the following HTTP response headers, to limit, or prevent the content being stored and retrieved from the cache by another user:</p><p>Cache-Control: no-cache, no-store, must-revalidate, private</p><p>Pragma: no-cache</p><p>Expires: 0</p><p>This configuration directs both HTTP 1.0 and HTTP 1.1 compliant caching servers to not store the response, and to not retrieve the response (without validation) from the cache, in response to a similar request.</p>",
 					"otherinfo": "<p>The presence of the 'Age' header indicates that that a HTTP/1.1 compliant caching server is in use.</p>",
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "-1",
 					"wascid": "-1",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10049",
@@ -1178,13 +1389,6 @@
 						},
 						{
 							"uri": "https://www.snu.gouv.fr/blog/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "max-age=14400"
-						},
-						{
-							"uri": "https://www.snu.gouv.fr/mode-demploi-pour-les-responsables-de-structure-comment-proposer-des-missions-dinteret-general/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1219,6 +1423,13 @@
 							"evidence": "max-age=14400"
 						},
 						{
+							"uri": "https://www.snu.gouv.fr/sitemap_index.xml",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "max-age=14400"
+						},
+						{
 							"uri": "https://www.snu.gouv.fr/temoignages/",
 							"method": "GET",
 							"param": "",
@@ -1246,7 +1457,7 @@
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "6"
+					"sourceid": "1"
 				}
 			]
 		}
