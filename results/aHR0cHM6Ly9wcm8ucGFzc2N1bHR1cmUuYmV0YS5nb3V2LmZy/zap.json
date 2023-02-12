@@ -1,7 +1,7 @@
 {
 	"@programName": "OWASP ZAP",
 	"@version": "2.12.0",
-	"@generated": "Sun, 5 Feb 2023 06:28:36",
+	"@generated": "Sun, 12 Feb 2023 06:35:41",
 	"site":[ 
 		{
 			"@name": "https://pro.passculture.beta.gouv.fr",
@@ -51,9 +51,23 @@
 							"param": "",
 							"attack": "",
 							"evidence": ""
+						},
+						{
+							"uri": "https://pro.passculture.beta.gouv.fr/robots.txt",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://pro.passculture.beta.gouv.fr/sitemap.xml",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
 						}
 					],
-					"count": "1",
+					"count": "3",
 					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to enforce Strict-Transport-Security.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html</p><p>https://owasp.org/www-community/Security_Headers</p><p>http://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security</p><p>http://caniuse.com/stricttransportsecurity</p><p>http://tools.ietf.org/html/rfc6797</p>",
@@ -76,12 +90,12 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1675434473"
+							"evidence": "1675950200"
 						}
 					],
 					"count": "1",
 					"solution": "<p>Manually confirm that the timestamp data is not sensitive, and that the data cannot be aggregated to disclose exploitable patterns.</p>",
-					"otherinfo": "<p>1675434473, which evaluates to: 2023-02-03 14:27:53</p>",
+					"otherinfo": "<p>1675950200, which evaluates to: 2023-02-09 13:43:20</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
@@ -102,12 +116,12 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "ADPycdvX82o07Qj0lmhCsiey5_fMY8j_DJOa9vIBGT-jrbruDkspoOO8d3X9_xEhFFx8Kcjk3SuuX6i4Dl4MGnsgDFUQsOKLgHx5"
+							"evidence": "ADPycduDIi2ZgB4PjDn8t1dFOn5_0BLVwiFJ6D1_WfVKtqXaqHpZqx5al_tmu2OYH_J9uYYZHELZENs4pk6dB9TGtF-2QA"
 						}
 					],
 					"count": "1",
 					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
-					"otherinfo": "<p>\\x00003\uFFFDq\uFFFD\uFFFD\uFFFDj4\uFFFD\\x0008\uFFFD\uFFFDhB\uFFFD'\uFFFD\uFFFD\uFFFD\uFFFDc\uFFFD\uFFFD\\x000c\uFFFD\uFFFD\uFFFD\uFFFD\\x0001\\x0019?\uFFFD\uFFFD\uFFFD\uFFFD\\x000eK)\uFFFD\uFFFDwu\uFFFD\uFFFD\\x0011!\\x0014\\|)\uFFFD\uFFFD\uFFFD+\uFFFD_\uFFFD\uFFFD\\x000e^\\x000c\\x001a{ \\x000cU\\x0010\uFFFD\u22C0|y</p>",
+					"otherinfo": "<p>\\x00003\uFFFDq\u06C3\"-\uFFFD\uFFFD\\x001e\\x000f\uFFFD9\uFFFD\uFFFDWE:~\uFFFD\\x0012\uFFFD\uFFFD!I\uFFFD=Y\uFFFDJ\uFFFD\uFFFD\u06A8zY\uFFFD\\x001eZ\uFFFD\uFFFDf\uFFFDc\uFFFD\\x001f\uFFFD}\uFFFD\uFFFD\\x0019\\x001cB\uFFFD\\x0010\uFFFD8\uFFFDN\uFFFD\\x0007\uFFFD\u01B4_\uFFFD@</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
@@ -128,7 +142,7 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "<script defer=\"defer\" src=\"/static/js/main.9b247626.js\"></script>"
+							"evidence": "<script defer=\"defer\" src=\"/static/js/main.394b04d3.js\"></script>"
 						}
 					],
 					"count": "1",
@@ -137,6 +151,32 @@
 					"reference": "",
 					"cweid": "-1",
 					"wascid": "-1",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10015",
+					"alertRef": "10015",
+					"alert": "Re-examine Cache-control Directives",
+					"name": "Re-examine Cache-control Directives",
+					"riskcode": "0",
+					"confidence": "1",
+					"riskdesc": "Informational (Low)",
+					"desc": "<p>The cache-control header has not been set properly or is missing, allowing the browser and proxies to cache content. For static assets like css, js, or image files this might be intended, however, the resources should be reviewed to ensure that no sensitive content will be cached.</p>",
+					"instances":[ 
+						{
+							"uri": "https://pro.passculture.beta.gouv.fr",
+							"method": "GET",
+							"param": "Cache-Control",
+							"attack": "",
+							"evidence": "public,max-age=3600"
+						}
+					],
+					"count": "1",
+					"solution": "<p>For secure content, ensure the cache-control HTTP header is set with \"no-cache, no-store, must-revalidate\". If an asset should be cached consider setting the directives \"public, max-age, immutable\".</p>",
+					"otherinfo": "",
+					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching</p><p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control</p><p>https://grayduck.mn/2021/09/13/cache-control-recommendations/</p>",
+					"cweid": "525",
+					"wascid": "13",
 					"sourceid": "1"
 				},
 				{
@@ -154,7 +194,7 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Age: 2866"
+							"evidence": "Age: 100"
 						}
 					],
 					"count": "1",
