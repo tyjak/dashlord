@@ -1,8 +1,145 @@
 {
 	"@programName": "OWASP ZAP",
 	"@version": "2.12.0",
-	"@generated": "Sun, 26 Feb 2023 02:39:42",
+	"@generated": "Sun, 5 Mar 2023 02:53:09",
 	"site":[ 
+		{
+			"@name": "https://beta-gouv-fr-budget.netlify.app",
+			"@host": "beta-gouv-fr-budget.netlify.app",
+			"@port": "443",
+			"@ssl": "true",
+			"alerts": [ 
+				{
+					"pluginid": "90022",
+					"alertRef": "90022",
+					"alert": "Application Error Disclosure",
+					"name": "Application Error Disclosure",
+					"riskcode": "2",
+					"confidence": "2",
+					"riskdesc": "Medium (Medium)",
+					"desc": "<p>This page contains an error/warning message that may disclose sensitive information like the location of the file that produced the unhandled exception. This information can be used to launch further attacks against the web application. The alert could be a false positive if the error message is found inside a documentation page.</p>",
+					"instances":[ 
+						{
+							"uri": "https://beta-gouv-fr-budget.netlify.app/_next/static/chunks/main-71a0feb107a7fd63.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Internal Server Error"
+						}
+					],
+					"count": "1",
+					"solution": "<p>Review the source code of this page. Implement custom error pages. Consider implementing a mechanism to provide a unique error reference/identifier to the client (browser) while logging the details on the server side and not exposing them to the user.</p>",
+					"otherinfo": "",
+					"reference": "",
+					"cweid": "200",
+					"wascid": "13",
+					"sourceid": "2576"
+				},
+				{
+					"pluginid": "10050",
+					"alertRef": "10050",
+					"alert": "Retrieved from Cache",
+					"name": "Retrieved from Cache",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>The content was retrieved from a shared cache. If the response data is sensitive, personal or user-specific, this may result in sensitive information being leaked. In some cases, this may even result in a user gaining complete control of the session of another user, depending on the configuration of the caching components in use in their environment. This is primarily an issue where caching servers such as \"proxy\" caches are configured on the local network. This configuration is typically found in corporate or educational environments, for instance. </p>",
+					"instances":[ 
+						{
+							"uri": "https://beta-gouv-fr-budget.netlify.app/?budget=800000&date=2022-07-13&start=2021-03-15&startup=Aides+Jeunes&startupId=aides.jeunes",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 5788"
+						},
+						{
+							"uri": "https://beta-gouv-fr-budget.netlify.app/_next/static/8YOaa5EQnaUHVv8BrN1sm/_buildManifest.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 5787"
+						},
+						{
+							"uri": "https://beta-gouv-fr-budget.netlify.app/_next/static/8YOaa5EQnaUHVv8BrN1sm/_ssgManifest.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 5787"
+						},
+						{
+							"uri": "https://beta-gouv-fr-budget.netlify.app/_next/static/chunks/framework-ae4f43955bfa5ddc.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 5787"
+						},
+						{
+							"uri": "https://beta-gouv-fr-budget.netlify.app/_next/static/chunks/main-71a0feb107a7fd63.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 5788"
+						},
+						{
+							"uri": "https://beta-gouv-fr-budget.netlify.app/_next/static/chunks/pages/_app-6e0f6f809c4ba91c.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 5788"
+						},
+						{
+							"uri": "https://beta-gouv-fr-budget.netlify.app/_next/static/chunks/pages/index-899693e6db8ecb34.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 5787"
+						},
+						{
+							"uri": "https://beta-gouv-fr-budget.netlify.app/_next/static/chunks/polyfills-0d1b80a048d4787e.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 5787"
+						},
+						{
+							"uri": "https://beta-gouv-fr-budget.netlify.app/_next/static/chunks/webpack-34c76af51fb9f015.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 5788"
+						},
+						{
+							"uri": "https://beta-gouv-fr-budget.netlify.app/_next/static/css/27d177a30947857b.css",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 5787"
+						},
+						{
+							"uri": "https://beta-gouv-fr-budget.netlify.app/_next/static/css/97d17c872f410c56.css",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 5788"
+						},
+						{
+							"uri": "https://beta-gouv-fr-budget.netlify.app/favicon.ico",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Age: 5787"
+						}
+					],
+					"count": "12",
+					"solution": "<p>Validate that the response does not contain sensitive, personal or user-specific information.  If it does, consider the use of the following HTTP response headers, to limit, or prevent the content being stored and retrieved from the cache by another user:</p><p>Cache-Control: no-cache, no-store, must-revalidate, private</p><p>Pragma: no-cache</p><p>Expires: 0</p><p>This configuration directs both HTTP 1.0 and HTTP 1.1 compliant caching servers to not store the response, and to not retrieve the response (without validation) from the cache, in response to a similar request.</p>",
+					"otherinfo": "<p>The presence of the 'Age' header indicates that that a HTTP/1.1 compliant caching server is in use.</p>",
+					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
+					"cweid": "-1",
+					"wascid": "-1",
+					"sourceid": "2274"
+				}
+			]
+		},
 		{
 			"@name": "https://beta.gouv.fr",
 			"@host": "beta.gouv.fr",
@@ -100,7 +237,7 @@
 				},
 				{
 					"pluginid": "10038",
-					"alertRef": "10038",
+					"alertRef": "10038-1",
 					"alert": "Content Security Policy (CSP) Header Not Set",
 					"name": "Content Security Policy (CSP) Header Not Set",
 					"riskcode": "2",
@@ -131,6 +268,13 @@
 						},
 						{
 							"uri": "https://beta.gouv.fr/approche/construction",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://beta.gouv.fr/approche/fast",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -177,17 +321,10 @@
 							"param": "",
 							"attack": "",
 							"evidence": ""
-						},
-						{
-							"uri": "https://beta.gouv.fr/startups/mon-entreprise.html",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
 						}
 					],
 					"count": "11",
-					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to set the Content-Security-Policy header, to achieve optimal browser support: \"Content-Security-Policy\" for Chrome 25+, Firefox 23+ and Safari 7+, \"X-Content-Security-Policy\" for Firefox 4.0+ and Internet Explorer 10+, and \"X-WebKit-CSP\" for Chrome 14+ and Safari 6+.</p>",
+					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to set the Content-Security-Policy header.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/Security/CSP/Introducing_Content_Security_Policy</p><p>https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html</p><p>http://www.w3.org/TR/CSP/</p><p>http://w3c.github.io/webappsec/specs/content-security-policy/csp-specification.dev.html</p><p>http://www.html5rocks.com/en/tutorials/security/content-security-policy/</p><p>http://caniuse.com/#feat=contentsecuritypolicy</p><p>http://content-security-policy.com/</p>",
 					"cweid": "693",
@@ -227,6 +364,13 @@
 						},
 						{
 							"uri": "https://beta.gouv.fr/approche/construction",
+							"method": "GET",
+							"param": "X-Frame-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://beta.gouv.fr/approche/fast",
 							"method": "GET",
 							"param": "X-Frame-Options",
 							"attack": "",
@@ -273,13 +417,6 @@
 							"param": "X-Frame-Options",
 							"attack": "",
 							"evidence": ""
-						},
-						{
-							"uri": "https://beta.gouv.fr/startups/mon-entreprise.html",
-							"method": "GET",
-							"param": "X-Frame-Options",
-							"attack": "",
-							"evidence": ""
 						}
 					],
 					"count": "11",
@@ -288,7 +425,33 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options</p>",
 					"cweid": "1021",
 					"wascid": "15",
-					"sourceid": "1"
+					"sourceid": "6"
+				},
+				{
+					"pluginid": "10099",
+					"alertRef": "10099",
+					"alert": "Source Code Disclosure - Perl",
+					"name": "Source Code Disclosure - Perl",
+					"riskcode": "2",
+					"confidence": "2",
+					"riskdesc": "Medium (Medium)",
+					"desc": "<p>Application Source Code was disclosed by the web server - Perl</p>",
+					"instances":[ 
+						{
+							"uri": "https://beta.gouv.fr/content/docs/rapportannuel.pdf",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "$#fGIEh"
+						}
+					],
+					"count": "1",
+					"solution": "<p>Ensure that application Source Code is not available with alternative extensions, and ensure that source code is not present within other files or data deployed to the web server, or served by the web server. </p>",
+					"otherinfo": "<p>$#fGIEh</p>",
+					"reference": "<p>http://blogs.wsj.com/cio/2013/10/08/adobe-source-code-leak-is-bad-news-for-u-s-government/</p>",
+					"cweid": "540",
+					"wascid": "13",
+					"sourceid": "2296"
 				},
 				{
 					"pluginid": "90003",
@@ -357,6 +520,13 @@
 							"evidence": "<script type=\"text/javascript\" src=\"https://unpkg.com/jquery@2.2.2/dist/jquery.min.js\"></script>"
 						},
 						{
+							"uri": "https://beta.gouv.fr/recherche",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<script src=\"https://unpkg.com/lunr/lunr.js\"></script>"
+						},
+						{
 							"uri": "https://beta.gouv.fr/recherche?q",
 							"method": "GET",
 							"param": "",
@@ -378,13 +548,13 @@
 							"evidence": "<script type=\"text/javascript\" src=\"https://unpkg.com/jquery@2.2.2/dist/jquery.min.js\"></script>"
 						}
 					],
-					"count": "11",
+					"count": "12",
 					"solution": "<p>Provide a valid integrity attribute to the tag.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en/docs/Web/Security/Subresource_Integrity</p>",
 					"cweid": "345",
 					"wascid": "15",
-					"sourceid": "895"
+					"sourceid": "965"
 				},
 				{
 					"pluginid": "10017",
@@ -453,6 +623,13 @@
 							"evidence": "<script type=\"text/javascript\" src=\"https://unpkg.com/jquery@2.2.2/dist/jquery.min.js\"></script>"
 						},
 						{
+							"uri": "https://beta.gouv.fr/recherche",
+							"method": "GET",
+							"param": "https://unpkg.com/lunr/lunr.js",
+							"attack": "",
+							"evidence": "<script src=\"https://unpkg.com/lunr/lunr.js\"></script>"
+						},
+						{
 							"uri": "https://beta.gouv.fr/recherche?q",
 							"method": "GET",
 							"param": "https://unpkg.com/lunr/lunr.js",
@@ -474,13 +651,13 @@
 							"evidence": "<script type=\"text/javascript\" src=\"https://unpkg.com/jquery@2.2.2/dist/jquery.min.js\"></script>"
 						}
 					],
-					"count": "11",
+					"count": "12",
 					"solution": "<p>Ensure JavaScript source files are loaded from only trusted sources, and the sources can't be controlled by end users of the application.</p>",
 					"otherinfo": "",
 					"reference": "",
 					"cweid": "829",
 					"wascid": "15",
-					"sourceid": "895"
+					"sourceid": "965"
 				},
 				{
 					"pluginid": "10063",
@@ -515,6 +692,13 @@
 						},
 						{
 							"uri": "https://beta.gouv.fr/approche/construction",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://beta.gouv.fr/approche/fast",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -561,13 +745,6 @@
 							"param": "",
 							"attack": "",
 							"evidence": ""
-						},
-						{
-							"uri": "https://beta.gouv.fr/startups/mon-entreprise.html",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
 						}
 					],
 					"count": "11",
@@ -602,7 +779,7 @@
 					"reference": "<p>https://tools.ietf.org/html/rfc1918</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "1056"
+					"sourceid": "1028"
 				},
 				{
 					"pluginid": "10096",
@@ -670,7 +847,7 @@
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "787"
+					"sourceid": "784"
 				},
 				{
 					"pluginid": "10021",
@@ -705,6 +882,13 @@
 						},
 						{
 							"uri": "https://beta.gouv.fr/approche/construction",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://beta.gouv.fr/approche/fast",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -747,13 +931,6 @@
 						},
 						{
 							"uri": "https://beta.gouv.fr/startups/mon-entreprise.html",
-							"method": "GET",
-							"param": "X-Content-Type-Options",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://beta.gouv.fr/startups/pix.html",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -807,6 +984,13 @@
 							"evidence": "com/serve/MUIEAED7q5La6zVwcMrAI5cwJB2EZmeOZVHfadIeHA7u9YyGUb9FB0MqprJ1A4DbWnpORGiPSZA4yxdpLFnWbjSvsFFgYNTtd7A54LhPxK3Zg2jaB_qK-b5Sm6aZ2M6kV1nO2mpJW0KcFGIMb5KbirWUxg8CJsQJUp_AJ6ARN5PSdFNxQpzVAPXKMNs1Z7n9lgK9bMoL9fFVP_Wx"
 						},
 						{
+							"uri": "https://beta.gouv.fr/approche/fast",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "fr/img/posts/FAST_2400x448-nom-du-fonds"
+						},
+						{
 							"uri": "https://beta.gouv.fr/approche/investigation",
 							"method": "GET",
 							"param": "",
@@ -847,13 +1031,6 @@
 							"param": "",
 							"attack": "",
 							"evidence": "com/serve/MUIEAED7q5La6zVwcMrAI5cwJB2EZmeOZVHfadIeHA7u9YyGUb9FB0MqprJ1A4DbWnpORGiPSZA4yxdpLFnWbjSvsFFgYNTtd7A54LhPxK3Zg2jaB_qK-b5Sm6aZ2M6kV1nO2mpJW0KcFGIMb5KbirWUxg8CJsQJUp_AJ6ARN5PSdFNxQpzVAPXKMNs1Z7n9lgK9bMoL9fFVP_Wx"
-						},
-						{
-							"uri": "https://beta.gouv.fr/startups/mon-entreprise.html",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
 						}
 					],
 					"count": "11",
@@ -972,7 +1149,7 @@
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "1086"
+					"sourceid": "1209"
 				},
 				{
 					"pluginid": "10109",
@@ -1007,6 +1184,13 @@
 						},
 						{
 							"uri": "https://beta.gouv.fr/approche/construction",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<a class=\"fr-nav__link\" href=\"/approche\" target=\"_self\">D\u00E9couvrir le programme</a>"
+						},
+						{
+							"uri": "https://beta.gouv.fr/approche/fast",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1053,13 +1237,6 @@
 							"param": "",
 							"attack": "",
 							"evidence": "<a class=\"fr-nav__link\" href=\"/approche\" target=\"_self\">D\u00E9couvrir le programme</a>"
-						},
-						{
-							"uri": "https://beta.gouv.fr/startups/mon-entreprise.html",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<a class=\"fr-nav__link\" href=\"/approche\" target=\"_self\">D\u00E9couvrir le programme</a>"
 						}
 					],
 					"count": "11",
@@ -1068,7 +1245,7 @@
 					"reference": "",
 					"cweid": "-1",
 					"wascid": "-1",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10015",
@@ -1109,6 +1286,13 @@
 							"evidence": ""
 						},
 						{
+							"uri": "https://beta.gouv.fr/approche/fast",
+							"method": "GET",
+							"param": "Cache-Control",
+							"attack": "",
+							"evidence": ""
+						},
+						{
 							"uri": "https://beta.gouv.fr/approche/investigation",
 							"method": "GET",
 							"param": "Cache-Control",
@@ -1117,6 +1301,13 @@
 						},
 						{
 							"uri": "https://beta.gouv.fr/brigade/",
+							"method": "GET",
+							"param": "Cache-Control",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://beta.gouv.fr/communaute/",
 							"method": "GET",
 							"param": "Cache-Control",
 							"attack": "",
@@ -1138,20 +1329,6 @@
 						},
 						{
 							"uri": "https://beta.gouv.fr/recrutement/",
-							"method": "GET",
-							"param": "Cache-Control",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://beta.gouv.fr/startups/mon-entreprise.html",
-							"method": "GET",
-							"param": "Cache-Control",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://beta.gouv.fr/startups/pix.html",
 							"method": "GET",
 							"param": "Cache-Control",
 							"attack": "",
@@ -1205,6 +1382,13 @@
 							"evidence": ""
 						},
 						{
+							"uri": "https://beta.gouv.fr/approche/fast",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
 							"uri": "https://beta.gouv.fr/approche/investigation",
 							"method": "GET",
 							"param": "",
@@ -1245,13 +1429,6 @@
 							"param": "",
 							"attack": "",
 							"evidence": ""
-						},
-						{
-							"uri": "https://beta.gouv.fr/startups/mon-entreprise.html",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
 						}
 					],
 					"count": "11",
@@ -1261,6 +1438,39 @@
 					"cweid": "524",
 					"wascid": "13",
 					"sourceid": "1"
+				},
+				{
+					"pluginid": "10031",
+					"alertRef": "10031",
+					"alert": "User Controllable HTML Element Attribute (Potential XSS)",
+					"name": "User Controllable HTML Element Attribute (Potential XSS)",
+					"riskcode": "0",
+					"confidence": "1",
+					"riskdesc": "Informational (Low)",
+					"desc": "<p>This check looks at user-supplied input in query string parameters and POST data to identify where certain HTML attribute values might be controlled. This provides hot-spot detection for XSS (cross-site scripting) that will require further review by a security analyst to determine exploitability.</p>",
+					"instances":[ 
+						{
+							"uri": "https://beta.gouv.fr/startups/?incubateur=ademe",
+							"method": "GET",
+							"param": "incubateur",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://beta.gouv.fr/startups/?incubateur=sgmas",
+							"method": "GET",
+							"param": "incubateur",
+							"attack": "",
+							"evidence": ""
+						}
+					],
+					"count": "2",
+					"solution": "<p>Validate all input and sanitize output it before writing to any HTML attributes.</p>",
+					"otherinfo": "<p>User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:</p><p></p><p>https://beta.gouv.fr/startups/?incubateur=ademe</p><p></p><p>appears to include user input in: </p><p></p><p>a(n) [section] tag [id] attribute </p><p></p><p>The user input found was:</p><p>incubateur=ademe</p><p></p><p>The user-controlled value was:</p><p>ademe</p>",
+					"reference": "<p>http://websecuritytool.codeplex.com/wikipage?title=Checks#user-controlled-html-attribute</p>",
+					"cweid": "20",
+					"wascid": "20",
+					"sourceid": "2650"
 				}
 			]
 		}
