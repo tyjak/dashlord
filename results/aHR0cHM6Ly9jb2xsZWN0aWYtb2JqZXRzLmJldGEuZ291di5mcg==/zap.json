@@ -1,7 +1,7 @@
 {
 	"@programName": "OWASP ZAP",
 	"@version": "2.12.0",
-	"@generated": "Sun, 5 Mar 2023 12:14:31",
+	"@generated": "Sun, 12 Mar 2023 12:19:10",
 	"site":[ 
 		{
 			"@name": "https://collectif-objets.beta.gouv.fr",
@@ -9,6 +9,81 @@
 			"@port": "443",
 			"@ssl": "true",
 			"alerts": [ 
+				{
+					"pluginid": "10202",
+					"alertRef": "10202",
+					"alert": "Absence of Anti-CSRF Tokens",
+					"name": "Absence of Anti-CSRF Tokens",
+					"riskcode": "2",
+					"confidence": "1",
+					"riskdesc": "Medium (Low)",
+					"desc": "<p>No Anti-CSRF tokens were found in a HTML submission form.</p><p>A cross-site request forgery is an attack that involves forcing a victim to send an HTTP request to a target destination without their knowledge or intent in order to perform an action as the victim. The underlying cause is application functionality using predictable URL/form actions in a repeatable way. The nature of the attack is that CSRF exploits the trust that a web site has for a user. By contrast, cross-site scripting (XSS) exploits the trust that a user has for a web site. Like XSS, CSRF attacks are not necessarily cross-site, but they can be. Cross-site request forgery is also known as CSRF, XSRF, one-click attack, session riding, confused deputy, and sea surf.</p><p></p><p>CSRF attacks are effective in a number of situations, including:</p><p>    * The victim has an active session on the target site.</p><p>    * The victim is authenticated via HTTP auth on the target site.</p><p>    * The victim is on the same local network as the target site.</p><p></p><p>CSRF has primarily been used to perform an action against a target site using the victim's privileges, but recent techniques have been discovered to disclose information by gaining access to the response. The risk of information disclosure is dramatically increased when the target site is vulnerable to XSS, because XSS can be used as a platform for CSRF, allowing the attack to operate within the bounds of the same-origin policy.</p>",
+					"instances":[ 
+						{
+							"uri": "https://collectif-objets.beta.gouv.fr/demos/communes/recensement_step3",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form class=\"button_to\" method=\"get\" action=\"/communes/-1/objets/-1/recensements/-1/edit\">"
+						},
+						{
+							"uri": "https://collectif-objets.beta.gouv.fr/demos/communes/recensement_step6",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form class=\"co-display--inline co-edit-button\" method=\"get\" action=\"/communes/-1/objets/-1/recensements/-1/edit\">"
+						},
+						{
+							"uri": "https://collectif-objets.beta.gouv.fr/demos/communes/recensement_step6",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form class=\"co-display--inline co-edit-button\" method=\"get\" action=\"/communes/-1/objets/-1/recensements/-1/edit\">"
+						},
+						{
+							"uri": "https://collectif-objets.beta.gouv.fr/demos/communes/recensement_step6",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form class=\"co-display--inline co-edit-button\" method=\"get\" action=\"/communes/-1/objets/-1/recensements/-1/edit\">"
+						},
+						{
+							"uri": "https://collectif-objets.beta.gouv.fr/demos/communes/recensement_step6",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form class=\"co-display--inline co-edit-button\" method=\"get\" action=\"/communes/-1/objets/-1/recensements/-1/edit\">"
+						},
+						{
+							"uri": "https://collectif-objets.beta.gouv.fr/demos/communes/recensement_step6",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form class=\"co-display--inline co-edit-button\" method=\"get\" action=\"/communes/-1/objets/-1/recensements/-1/edit\">"
+						},
+						{
+							"uri": "https://collectif-objets.beta.gouv.fr/demos/communes/recensement_step6",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form class=\"co-display--inline co-edit-button\" method=\"get\" action=\"/communes/-1/objets/-1/recensements/-1/edit\">"
+						},
+						{
+							"uri": "https://collectif-objets.beta.gouv.fr/demos/communes/recensement_step6",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form class=\"co-display--inline co-edit-button\" method=\"get\" action=\"/communes/-1/objets/-1/recensements/-1/edit\">"
+						}
+					],
+					"count": "8",
+					"solution": "<p>Phase: Architecture and Design</p><p>Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid.</p><p>For example, use anti-CSRF packages such as the OWASP CSRFGuard.</p><p></p><p>Phase: Implementation</p><p>Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.</p><p></p><p>Phase: Architecture and Design</p><p>Generate a unique nonce for each form, place the nonce into the form, and verify the nonce upon receipt of the form. Be sure that the nonce is not predictable (CWE-330).</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Identify especially dangerous operations. When the user performs a dangerous operation, send a separate confirmation request to ensure that the user intended to perform that operation.</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Use the ESAPI Session Management control.</p><p>This control includes a component for CSRF.</p><p></p><p>Do not use the GET method for any request that triggers a state change.</p><p></p><p>Phase: Implementation</p><p>Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.</p>",
+					"otherinfo": "<p>No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 3: \"step\" ].</p>",
+					"reference": "<p>http://projects.webappsec.org/Cross-Site-Request-Forgery</p><p>http://cwe.mitre.org/data/definitions/352.html</p>",
+					"cweid": "352",
+					"wascid": "9",
+					"sourceid": "960"
+				},
 				{
 					"pluginid": "10038",
 					"alertRef": "10038-1",
@@ -41,6 +116,13 @@
 							"evidence": ""
 						},
 						{
+							"uri": "https://collectif-objets.beta.gouv.fr/conditions",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
 							"uri": "https://collectif-objets.beta.gouv.fr/confidentialite",
 							"method": "GET",
 							"param": "",
@@ -49,6 +131,13 @@
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/connexion",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://collectif-objets.beta.gouv.fr/declaration_accessibilite",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -97,13 +186,13 @@
 							"evidence": ""
 						}
 					],
-					"count": "11",
+					"count": "13",
 					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to set the Content-Security-Policy header.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/Security/CSP/Introducing_Content_Security_Policy</p><p>https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html</p><p>http://www.w3.org/TR/CSP/</p><p>http://w3c.github.io/webappsec/specs/content-security-policy/csp-specification.dev.html</p><p>http://www.html5rocks.com/en/tutorials/security/content-security-policy/</p><p>http://caniuse.com/#feat=contentsecuritypolicy</p><p>http://content-security-policy.com/</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10110",
@@ -116,7 +205,7 @@
 					"desc": "<p>A dangerous JS function seems to be in use that would leave the site vulnerable.</p>",
 					"instances":[ 
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.85bf0332.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.51bf5420.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -129,7 +218,7 @@
 					"reference": "<p>https://angular.io/guide/security</p>",
 					"cweid": "749",
 					"wascid": "-1",
-					"sourceid": "61"
+					"sourceid": "68"
 				},
 				{
 					"pluginid": "10063",
@@ -198,13 +287,6 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/plan",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
-						},
-						{
 							"uri": "https://collectif-objets.beta.gouv.fr/presse",
 							"method": "GET",
 							"param": "",
@@ -219,20 +301,20 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.85bf0332.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.51bf5420.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": ""
 						}
 					],
-					"count": "12",
+					"count": "11",
 					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to set the Permissions-Policy header.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy</p><p>https://developers.google.com/web/updates/2018/06/feature-policy</p><p>https://scotthelme.co.uk/a-new-security-header-feature-policy/</p><p>https://w3c.github.io/webappsec-feature-policy/</p><p>https://www.smashingmagazine.com/2018/12/feature-policy/</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10035",
@@ -301,7 +383,7 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/all.4598867f.css",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/all.e81a39e1.css",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -315,7 +397,7 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.059bf505.css",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.2f4d8fd8.css",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -341,126 +423,126 @@
 					"desc": "<p>A timestamp was disclosed by the application/web server - Unix</p>",
 					"instances":[ 
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.5910a7b9.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.3e08a68b.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1416354905"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.5910a7b9.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.3e08a68b.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1444681467"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.5910a7b9.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.3e08a68b.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1473231341"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.5910a7b9.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.3e08a68b.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1502002290"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.5910a7b9.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.3e08a68b.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1530992060"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.5910a7b9.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.3e08a68b.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1560198380"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.5910a7b9.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.3e08a68b.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1700485571"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.5910a7b9.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.3e08a68b.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1732584193"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.5910a7b9.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.3e08a68b.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1732584194"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.5910a7b9.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.3e08a68b.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1735328473"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.5910a7b9.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.3e08a68b.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1770035416"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.5910a7b9.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.3e08a68b.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1804603682"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.5910a7b9.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.3e08a68b.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1839030562"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.5910a7b9.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.3e08a68b.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1873313359"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.5910a7b9.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.3e08a68b.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1894986606"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.5910a7b9.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.3e08a68b.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1926607734"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.5910a7b9.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.3e08a68b.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1958414417"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.5910a7b9.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.3e08a68b.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -473,7 +555,7 @@
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "131"
+					"sourceid": "134"
 				},
 				{
 					"pluginid": "10021",
@@ -521,14 +603,14 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/all.4598867f.css",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/all.e81a39e1.css",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
 							"evidence": ""
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.85bf0332.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.51bf5420.js",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -549,14 +631,14 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.059bf505.css",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.2f4d8fd8.css",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
 							"evidence": ""
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photos_upload_group_component_controller.2dc47206.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.3e08a68b.js",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -576,7 +658,7 @@
 					"reference": "<p>http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx</p><p>https://owasp.org/www-community/Security_Headers</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "121"
+					"sourceid": "127"
 				},
 				{
 					"pluginid": "10094",
@@ -593,77 +675,77 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2Bog8LrZSAO8wzWaWSFXvXRbDeEhmcWKVuGvFhl"
+							"evidence": "2F3nGbr2IKRvx8c72rS3KJop13JmswPshLjYYGyRwEyWbN9"
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2FE5Ku9NtFImBaE5o3lWtSXjUhqGh8tyKpaXHWMbqTKc2yjZ6zCgxZzc4hLilusTC5x"
+							"evidence": "2F9qlihXCgWBYCmVC3uiO6vBfwDs0v9Pbc"
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "zRhyKQa5wWwZgNWMWRWDI4WAnxaGN5NaxSrFGRD1"
+							"evidence": "2F8MKVOHWFsMbgyUa13LqRYOPETTJj"
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/admin",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2Fzke3eSq2yuAI0B4ZfDdDnZW79bIZzYgQZmky1l0Fiz0sqwesKEn00lloIoDqqy46ohevTwNAdEHRmz"
+							"evidence": "2FgRUCJRuX3YJ07p4Y8OMFYzllu4l7xqfQy"
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/comment-ca-marche",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "yDowBSlG8epixYMsikOeD2t6vQ2PuSSEY2O4j5bcBbC2X5MvaKebnVoqfcGb5V7hyEjY"
+							"evidence": "2FhjP6l2QuirjzzsW858MyMfLdX1CNAlO9sFSYg0s6U5PfWDuivkUx66cSmcKQPi4bswXRJNh1AS1RfxHQbJSU4biqyMUukt7QC3US5Rt8z7bHsPJ9cn1zSaoi0JaIj"
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/connexion",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2FO9q8Z3sdSth8lwQMTHisQ5fWpXrQWzEsOdARls4kfbhCYxwd9JeOP90VpxVnsfiviZbAzSVbFv4mNnFk9UqlcLWvqIYxyHa7KNGV8hV5Zp4F7Y1IV59dTIo4MLtSboD2uErYmI"
+							"evidence": "2Fm0LQVIhDTNaMjTRXU6sRprs1smVVyc1YCrhFwvMlwmWHIULYO3TGO1qzY"
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/fiches",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2Fx3erQyO9X8evD5e1NeX57Fp1rGg1RgoOAvqVpp"
+							"evidence": "2FG13a8snnbC30m0BieoyUq5TR8TXvHESCkELs654pfbKwML9vSwQIe"
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/guide-de-recensement",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2Fqjkf43XhVVDkNvL3uETi2s143KSrRi"
+							"evidence": "2FlMObhPt5Q3T95MzrIjaE7dZhU01qq0HoDxSngjb4PFbRul8yBEqDiJB9xGqRt5tyq"
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/mentions_legales",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2BXFia8ITejFSZefEFJ93xP0HGQDdy29WF5l67O2LQRKs2zIzr18Ly"
+							"evidence": "2FnISAYvBXq5RAP81UnBMRPWcTlyhtVybRN2aADl10YLzvYDKkjLhts6BzWMD6xOGnVpR6aTdJUEMJ9AI5p"
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/presse",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2FYpgHG1MS8K6vz8Wk27IEb5STgsnOz5"
+							"evidence": "2BeLR1knhWNJarBSm4SIbq6DWggGwEc7LdfmInxxvwCDxlarOKVxTHKpZsSntgJzVNhleG98"
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/stats",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2FMmRANZdC7m79NodmLKqepcXJoIC5nSXPtG7aszK6Or9vI"
+							"evidence": "2o07vTWzKrZSTGBivsXWU2Mh4rOaasIzcBkMgau2GKUirFU3bHnLV4nNaCoGZE"
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/gallery_component_controller.40792afe.css",
@@ -675,11 +757,11 @@
 					],
 					"count": "12",
 					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
-					"otherinfo": "<p>\uFFFD\\x001a \uFFFD\uFFFDH\\x0003\uFFFD\uFFFD5\uFFFDY!W\uFFFDt[\r\uFFFD!\uFFFD\u014AV\uFFFD\\x0016\\x0019</p>",
+					"otherinfo": "<p>\uFFFD]\uFFFD\\x0019\uFFFD\uFFFD \uFFFDo\uFFFD\uFFFD;\u06B4\uFFFD(\uFFFD)\uFFFDrf\uFFFD\\x0003\uC138\uFFFD`l\uFFFD\uFFFDL\uFFFDl\uFFFD</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10027",
@@ -692,28 +774,28 @@
 					"desc": "<p>The response appears to contain suspicious comments which may help an attacker. Note: Matches made within script blocks or files are against the entire content not only comments.</p>",
 					"instances":[ 
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.85bf0332.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.51bf5420.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "from"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.85bf0332.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.51bf5420.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "select"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.85bf0332.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.51bf5420.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "todo"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.85bf0332.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/application.51bf5420.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -734,14 +816,7 @@
 							"evidence": "from"
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.5910a7b9.js",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "from"
-						},
-						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photos_upload_group_component_controller.2dc47206.js",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.3e08a68b.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -762,13 +837,13 @@
 							"evidence": "from"
 						}
 					],
-					"count": "10",
+					"count": "9",
 					"solution": "<p>Remove all comments that return information that may help an attacker and fix any underlying problems they refer to.</p>",
 					"otherinfo": "<p>The following pattern was used: \\bFROM\\b and was detected 6 times, the first in the element starting with: \"\t\t`+c+\" \"+h}function Gi(s,e){var t=arguments.length>2&&arguments[2]!==void 0&&arguments[2],n=\"path-fill-gradient-\"+e+\"-\"+(t?\"lig\", see evidence field for the suspicious comment/snippet.</p>",
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "61"
+					"sourceid": "68"
 				},
 				{
 					"pluginid": "10109",
@@ -793,13 +868,6 @@
 							"param": "",
 							"attack": "",
 							"evidence": "<a class=\"fr-breadcrumb__link\" aria-current=\"page\">\n          Connexion\n        </a>"
-						},
-						{
-							"uri": "https://collectif-objets.beta.gouv.fr/conservateurs/sign_in",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<a class=\"fr-breadcrumb__link\" aria-current=\"page\">\n          Connexion conservateur...\n        </a>"
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/declaration_accessibilite",
@@ -863,6 +931,13 @@
 							"param": "",
 							"attack": "",
 							"evidence": "<a class=\"fr-breadcrumb__link\" aria-current=\"page\">\n          Statistiques\n        </a>"
+						},
+						{
+							"uri": "https://collectif-objets.beta.gouv.fr/users/sign_in",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<a class=\"fr-breadcrumb__link\" aria-current=\"page\">\n          Connexion mairie\n        </a>"
 						}
 					],
 					"count": "12",
@@ -871,7 +946,7 @@
 					"reference": "",
 					"cweid": "-1",
 					"wascid": "-1",
-					"sourceid": "62"
+					"sourceid": "60"
 				},
 				{
 					"pluginid": "10049",
@@ -932,7 +1007,7 @@
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10015",
@@ -966,6 +1041,13 @@
 							"evidence": "max-age=0, private, must-revalidate"
 						},
 						{
+							"uri": "https://collectif-objets.beta.gouv.fr/confidentialite",
+							"method": "GET",
+							"param": "Cache-Control",
+							"attack": "",
+							"evidence": "max-age=0, private, must-revalidate"
+						},
+						{
 							"uri": "https://collectif-objets.beta.gouv.fr/connexion",
 							"method": "GET",
 							"param": "Cache-Control",
@@ -988,13 +1070,6 @@
 						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/mentions_legales",
-							"method": "GET",
-							"param": "Cache-Control",
-							"attack": "",
-							"evidence": "max-age=0, private, must-revalidate"
-						},
-						{
-							"uri": "https://collectif-objets.beta.gouv.fr/plan",
 							"method": "GET",
 							"param": "Cache-Control",
 							"attack": "",
@@ -1055,7 +1130,7 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/all.4598867f.css",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/all.e81a39e1.css",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1069,7 +1144,7 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.059bf505.css",
+							"uri": "https://collectif-objets.beta.gouv.fr/vite/assets/photo_upload_component_controller.2f4d8fd8.css",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1082,7 +1157,7 @@
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "53"
+					"sourceid": "49"
 				},
 				{
 					"pluginid": "10031",
@@ -1094,6 +1169,13 @@
 					"riskdesc": "Informational (Low)",
 					"desc": "<p>This check looks at user-supplied input in query string parameters and POST data to identify where certain HTML attribute values might be controlled. This provides hot-spot detection for XSS (cross-site scripting) that will require further review by a security analyst to determine exploitability.</p>",
 					"instances":[ 
+						{
+							"uri": "https://collectif-objets.beta.gouv.fr/guide-de-recensement?page=10",
+							"method": "GET",
+							"param": "page",
+							"attack": "",
+							"evidence": ""
+						},
 						{
 							"uri": "https://collectif-objets.beta.gouv.fr/objets?page=1",
 							"method": "GET",
@@ -1144,13 +1226,13 @@
 							"evidence": ""
 						}
 					],
-					"count": "7",
+					"count": "8",
 					"solution": "<p>Validate all input and sanitize output it before writing to any HTML attributes.</p>",
-					"otherinfo": "<p>User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:</p><p></p><p>https://collectif-objets.beta.gouv.fr/objets?page=1</p><p></p><p>appears to include user input in: </p><p></p><p>a(n) [meta] tag [content] attribute </p><p></p><p>The user input found was:</p><p>page=1</p><p></p><p>The user-controlled value was:</p><p>width=device-width, initial-scale=1, shrink-to-fit=no</p>",
+					"otherinfo": "<p>User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:</p><p></p><p>https://collectif-objets.beta.gouv.fr/guide-de-recensement?page=10</p><p></p><p>appears to include user input in: </p><p></p><p>a(n) [embed] tag [width] attribute </p><p></p><p>The user input found was:</p><p>page=10</p><p></p><p>The user-controlled value was:</p><p>100%</p>",
 					"reference": "<p>http://websecuritytool.codeplex.com/wikipage?title=Checks#user-controlled-html-attribute</p>",
 					"cweid": "20",
 					"wascid": "20",
-					"sourceid": "6803"
+					"sourceid": "6764"
 				}
 			]
 		}
