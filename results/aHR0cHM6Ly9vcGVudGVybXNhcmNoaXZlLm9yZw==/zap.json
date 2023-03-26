@@ -1,7 +1,7 @@
 {
 	"@programName": "OWASP ZAP",
 	"@version": "2.12.0",
-	"@generated": "Sun, 19 Mar 2023 19:32:48",
+	"@generated": "Sun, 26 Mar 2023 19:17:45",
 	"site":[ 
 		{
 			"@name": "https://opentermsarchive.org",
@@ -41,13 +41,6 @@
 							"evidence": "<form id=\"sib-form\" method=\"POST\" action=\"https://98bb6346.sibforms.com/serve/MUIEAMjUWLVIdeiQhwdN4AJo1SB8QMtDFKbp-JIARujMmZ9_feY8x0U6V84om-RPrHKu22mPwcozi9kjLI8gP1bMWgqFwsmw_7Y5rDuFHMGEGz5JqMhgYzcFoO78g8zvArqGLojk4L_6mm4cz3y9c3LkVMrrgs32BFinj1yIBdN5knTmlmbhsOYc2OhwVLFRkRTYg2luE4LwWHyV\" data-type=\"subscription\">"
 						},
 						{
-							"uri": "https://opentermsarchive.org/fr/souscrire",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<form>"
-						},
-						{
 							"uri": "https://opentermsarchive.org/fr/souscrire/elections-francaises",
 							"method": "GET",
 							"param": "",
@@ -55,49 +48,14 @@
 							"evidence": "<form id=\"sib-form\" method=\"POST\" action=\"https://98bb6346.sibforms.com/serve/MUIEACNQpj-ZHUKKlyF0bfaAGsIMOfnk-nfryeUvMG2O64lDLnohxdkESevuVHk3fJj1yDmiSqJnybHo_REH1AA6o7MO2EoqDlx_zgWLvU2UUdqX0jeEPTbrBxXp3OXZryZqGkP5XCIITqQyfrvSjcE2uGsYLCRhBFbLQJYpvTZwKNl7xGl52vyOl5md3PNyJFFmpi0cRLs22GUe\" class=\"mt__XL\">"
 						},
 						{
-							"uri": "https://opentermsarchive.org/fr/subscribe?consent=on",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<form>"
-						},
-						{
-							"uri": "https://opentermsarchive.org/subscribe",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<form>"
-						},
-						{
 							"uri": "https://opentermsarchive.org/subscribe/french-elections",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "<form id=\"sib-form\" method=\"POST\" action=\"https://98bb6346.sibforms.com/serve/MUIEACNQpj-ZHUKKlyF0bfaAGsIMOfnk-nfryeUvMG2O64lDLnohxdkESevuVHk3fJj1yDmiSqJnybHo_REH1AA6o7MO2EoqDlx_zgWLvU2UUdqX0jeEPTbrBxXp3OXZryZqGkP5XCIITqQyfrvSjcE2uGsYLCRhBFbLQJYpvTZwKNl7xGl52vyOl5md3PNyJFFmpi0cRLs22GUe\" class=\"mt__XL\">"
-						},
-						{
-							"uri": "https://opentermsarchive.org/subscribe?consent=on",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<form>"
-						},
-						{
-							"uri": "https://opentermsarchive.org/subscribe?consent=on&email=foo-bar%40example.com",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<form>"
-						},
-						{
-							"uri": "https://opentermsarchive.org/subscribe?documentType=Terms%20of%20Service&service=Twitter",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<form>"
 						}
 					],
-					"count": "11",
+					"count": "5",
 					"solution": "<p>Phase: Architecture and Design</p><p>Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid.</p><p>For example, use anti-CSRF packages such as the OWASP CSRFGuard.</p><p></p><p>Phase: Implementation</p><p>Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.</p><p></p><p>Phase: Architecture and Design</p><p>Generate a unique nonce for each form, place the nonce into the form, and verify the nonce upon receipt of the form. Be sure that the nonce is not predictable (CWE-330).</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Identify especially dangerous operations. When the user performs a dangerous operation, send a separate confirmation request to ensure that the user intended to perform that operation.</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Use the ESAPI Session Management control.</p><p>This control includes a component for CSRF.</p><p></p><p>Do not use the GET method for any request that triggers a state change.</p><p></p><p>Phase: Implementation</p><p>Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.</p>",
 					"otherinfo": "<p>No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"email\" \"locale\" ].</p>",
 					"reference": "<p>http://projects.webappsec.org/Cross-Site-Request-Forgery</p><p>http://cwe.mitre.org/data/definitions/352.html</p>",
@@ -116,7 +74,7 @@
 					"desc": "<p>This page contains an error/warning message that may disclose sensitive information like the location of the file that produced the unhandled exception. This information can be used to launch further attacks against the web application. The alert could be a false positive if the error message is found inside a documentation page.</p>",
 					"instances":[ 
 						{
-							"uri": "https://opentermsarchive.org/_next/static/chunks/main-68cbc203564c0153.js",
+							"uri": "https://opentermsarchive.org/_next/static/chunks/main-dd97c0a6324419e6.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -129,7 +87,7 @@
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "260"
+					"sourceid": "251"
 				},
 				{
 					"pluginid": "10055",
@@ -156,7 +114,7 @@
 							"evidence": "default-src 'self'; script-src 'self' 'unsafe-eval' https://stats.data.gouv.fr; object-src 'none'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://stats.data.gouv.fr; img-src 'self' data: https://media-exp1.licdn.com https://www.gravatar.com https://avatars.githubusercontent.com https://pbs.twimg.com https://sibyll.in; frame-src 'self' https://stats.data.gouv.fr"
 						},
 						{
-							"uri": "https://opentermsarchive.org/about",
+							"uri": "https://opentermsarchive.org/case-studies",
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
@@ -169,7 +127,7 @@
 					"reference": "<p>http://www.w3.org/TR/CSP2/</p><p>http://www.w3.org/TR/CSP/</p><p>http://caniuse.com/#search=content+security+policy</p><p>http://content-security-policy.com/</p><p>https://github.com/shapesecurity/salvation</p><p>https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10055",
@@ -196,7 +154,7 @@
 							"evidence": "default-src 'self'; script-src 'self' 'unsafe-eval' https://stats.data.gouv.fr; object-src 'none'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://stats.data.gouv.fr; img-src 'self' data: https://media-exp1.licdn.com https://www.gravatar.com https://avatars.githubusercontent.com https://pbs.twimg.com https://sibyll.in; frame-src 'self' https://stats.data.gouv.fr"
 						},
 						{
-							"uri": "https://opentermsarchive.org/about",
+							"uri": "https://opentermsarchive.org/case-studies",
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
@@ -209,7 +167,7 @@
 					"reference": "<p>http://www.w3.org/TR/CSP2/</p><p>http://www.w3.org/TR/CSP/</p><p>http://caniuse.com/#search=content+security+policy</p><p>http://content-security-policy.com/</p><p>https://github.com/shapesecurity/salvation</p><p>https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10055",
@@ -236,7 +194,7 @@
 							"evidence": "default-src 'self'; script-src 'self' 'unsafe-eval' https://stats.data.gouv.fr; object-src 'none'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://stats.data.gouv.fr; img-src 'self' data: https://media-exp1.licdn.com https://www.gravatar.com https://avatars.githubusercontent.com https://pbs.twimg.com https://sibyll.in; frame-src 'self' https://stats.data.gouv.fr"
 						},
 						{
-							"uri": "https://opentermsarchive.org/about",
+							"uri": "https://opentermsarchive.org/case-studies",
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
@@ -249,7 +207,7 @@
 					"reference": "<p>http://www.w3.org/TR/CSP2/</p><p>http://www.w3.org/TR/CSP/</p><p>http://caniuse.com/#search=content+security+policy</p><p>http://content-security-policy.com/</p><p>https://github.com/shapesecurity/salvation</p><p>https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10063",
@@ -270,6 +228,13 @@
 						},
 						{
 							"uri": "https://opentermsarchive.org/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://opentermsarchive.org/_next/static/chunks/webpack-d043f1121e75793a.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -326,13 +291,6 @@
 						},
 						{
 							"uri": "https://opentermsarchive.org/stats",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://opentermsarchive.org/subscribe",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -372,6 +330,13 @@
 							"evidence": "X-Powered-By: Next.js"
 						},
 						{
+							"uri": "https://opentermsarchive.org/%2Fimages%2Fcollections%2Fcontrib.png&w=750&q=75",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "X-Powered-By: Next.js"
+						},
+						{
 							"uri": "https://opentermsarchive.org/about",
 							"method": "GET",
 							"param": "",
@@ -422,13 +387,6 @@
 						},
 						{
 							"uri": "https://opentermsarchive.org/stats",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "X-Powered-By: Next.js"
-						},
-						{
-							"uri": "https://opentermsarchive.org/subscribe",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -458,133 +416,86 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "/_next/static/mY4T6YS6NBW_aPsA8qBsG/_buildManifest"
+							"evidence": "/_next/static/PEBQg8mzKuZ37Bm11ahCc/_buildManifest"
 						},
 						{
 							"uri": "https://opentermsarchive.org/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "/_next/static/mY4T6YS6NBW_aPsA8qBsG/_buildManifest"
+							"evidence": "/_next/static/PEBQg8mzKuZ37Bm11ahCc/_buildManifest"
+						},
+						{
+							"uri": "https://opentermsarchive.org/_next/static/css/26a93e80008c060b.css",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Button_button__secondary__k_k5w"
 						},
 						{
 							"uri": "https://opentermsarchive.org/about",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "/_next/static/mY4T6YS6NBW_aPsA8qBsG/_buildManifest"
-						},
-						{
-							"uri": "https://opentermsarchive.org/accessibility",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "/_next/static/mY4T6YS6NBW_aPsA8qBsG/_buildManifest"
+							"evidence": "/_next/static/PEBQg8mzKuZ37Bm11ahCc/_buildManifest"
 						},
 						{
 							"uri": "https://opentermsarchive.org/case-studies",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "/_next/static/mY4T6YS6NBW_aPsA8qBsG/_buildManifest"
+							"evidence": "/_next/static/PEBQg8mzKuZ37Bm11ahCc/_buildManifest"
 						},
 						{
 							"uri": "https://opentermsarchive.org/fr",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "/_next/static/mY4T6YS6NBW_aPsA8qBsG/_buildManifest"
+							"evidence": "/_next/static/PEBQg8mzKuZ37Bm11ahCc/_buildManifest"
 						},
 						{
 							"uri": "https://opentermsarchive.org/legal-notice",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "/_next/static/mY4T6YS6NBW_aPsA8qBsG/_buildManifest"
+							"evidence": "/_next/static/PEBQg8mzKuZ37Bm11ahCc/_buildManifest"
 						},
 						{
 							"uri": "https://opentermsarchive.org/media",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "/_next/static/mY4T6YS6NBW_aPsA8qBsG/_buildManifest"
+							"evidence": "/_next/static/PEBQg8mzKuZ37Bm11ahCc/_buildManifest"
 						},
 						{
 							"uri": "https://opentermsarchive.org/privacy-policy",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "/_next/static/mY4T6YS6NBW_aPsA8qBsG/_buildManifest"
+							"evidence": "/_next/static/PEBQg8mzKuZ37Bm11ahCc/_buildManifest"
+						},
+						{
+							"uri": "https://opentermsarchive.org/safari-pinned-tab.svg",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "org/TR/2001/REC-SVG-20010904/DTD/svg10"
 						},
 						{
 							"uri": "https://opentermsarchive.org/stats",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "/_next/static/mY4T6YS6NBW_aPsA8qBsG/_buildManifest"
-						},
-						{
-							"uri": "https://opentermsarchive.org/subscribe",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "/_next/static/mY4T6YS6NBW_aPsA8qBsG/_buildManifest"
+							"evidence": "/_next/static/PEBQg8mzKuZ37Bm11ahCc/_buildManifest"
 						}
 					],
 					"count": "11",
 					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
-					"otherinfo": "<p>\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uCD6Bbs\uFFFD\uFFFD\uFFFD>\uFFFDK\uFFFDA[\uFFFD\uFFFD\uFFFD\\x000f*\\x0006\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\\x001a\uFFFD'\u07B2</p>",
+					"otherinfo": "<p>\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uCD6Bbs\uFFFD\uFFFD\\x0005\\x0008<\uFFFD2\uFFFDg~\uFFFD\uFFFD]Z\uFFFD'?\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\\x001a\uFFFD'\u07B2</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
 					"sourceid": "6"
-				},
-				{
-					"pluginid": "10024",
-					"alertRef": "10024",
-					"alert": "Information Disclosure - Sensitive Information in URL",
-					"name": "Information Disclosure - Sensitive Information in URL",
-					"riskcode": "0",
-					"confidence": "2",
-					"riskdesc": "Informational (Medium)",
-					"desc": "<p>The request appeared to contain sensitive information leaked in the URL. This can violate PCI and most organizational compliance policies. You can configure the list of strings for this check to add or remove values specific to your environment.</p>",
-					"instances":[ 
-						{
-							"uri": "https://opentermsarchive.org/fr/souscrire?consent=on&email=foo-bar%40example.com",
-							"method": "GET",
-							"param": "email",
-							"attack": "",
-							"evidence": "foo-bar@example.com"
-						},
-						{
-							"uri": "https://opentermsarchive.org/fr/subscribe?consent=on&email=foo-bar%40example.com",
-							"method": "GET",
-							"param": "email",
-							"attack": "",
-							"evidence": "foo-bar@example.com"
-						},
-						{
-							"uri": "https://opentermsarchive.org/subscribe?consent=on&documentType=Terms%20of%20Service&email=foo-bar%40example.com&service=Twitter",
-							"method": "GET",
-							"param": "email",
-							"attack": "",
-							"evidence": "foo-bar@example.com"
-						},
-						{
-							"uri": "https://opentermsarchive.org/subscribe?consent=on&email=foo-bar%40example.com",
-							"method": "GET",
-							"param": "email",
-							"attack": "",
-							"evidence": "foo-bar@example.com"
-						}
-					],
-					"count": "4",
-					"solution": "<p>Do not pass sensitive information in URIs.</p>",
-					"otherinfo": "<p>The URL contains email address(es).</p>",
-					"reference": "",
-					"cweid": "200",
-					"wascid": "13",
-					"sourceid": "518"
 				},
 				{
 					"pluginid": "10027",
@@ -611,6 +522,20 @@
 							"evidence": "query"
 						},
 						{
+							"uri": "https://opentermsarchive.org/_next/static/chunks/main-dd97c0a6324419e6.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "query"
+						},
+						{
+							"uri": "https://opentermsarchive.org/_next/static/chunks/pages/_app-53d9984c11162a5b.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "bugs"
+						},
+						{
 							"uri": "https://opentermsarchive.org/about",
 							"method": "GET",
 							"param": "",
@@ -665,22 +590,15 @@
 							"param": "",
 							"attack": "",
 							"evidence": "query"
-						},
-						{
-							"uri": "https://opentermsarchive.org/subscribe",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "query"
 						}
 					],
-					"count": "11",
+					"count": "12",
 					"solution": "<p>Remove all comments that return information that may help an attacker and fix any underlying problems they refer to.</p>",
-					"otherinfo": "<p>The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{\"__lang\":\"en\",\"__namespaces\":{\"common\":{\"subscribe_for\", see evidence field for the suspicious comment/snippet.</p>",
+					"otherinfo": "<p>The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{\"__lang\":\"en\",\"__namespaces\":{\"common\":{},\"header\":{\"c\", see evidence field for the suspicious comment/snippet.</p>",
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10109",
@@ -707,6 +625,20 @@
 							"evidence": "<noscript data-n-css=\"\"></noscript>"
 						},
 						{
+							"uri": "https://opentermsarchive.org/%2Fimages%2Fcollections%2Fcontrib.png&w=640&q=75",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<script defer=\"\" nomodule=\"\" src=\"/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js\"></script>"
+						},
+						{
+							"uri": "https://opentermsarchive.org/%2Fimages%2Fcollections%2Fcontrib.png&w=750&q=75",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<script defer=\"\" nomodule=\"\" src=\"/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js\"></script>"
+						},
+						{
 							"uri": "https://opentermsarchive.org/about",
 							"method": "GET",
 							"param": "",
@@ -761,22 +693,15 @@
 							"param": "",
 							"attack": "",
 							"evidence": "<noscript data-n-css=\"\"></noscript>"
-						},
-						{
-							"uri": "https://opentermsarchive.org/subscribe",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<noscript data-n-css=\"\"></noscript>"
 						}
 					],
-					"count": "11",
+					"count": "12",
 					"solution": "<p>This is an informational alert and so no changes are required.</p>",
 					"otherinfo": "<p>A noScript tag has been found, which is an indication that the application works differently with JavaScript enabled compared to when it is not.</p>",
 					"reference": "",
 					"cweid": "-1",
 					"wascid": "-1",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10015",
@@ -838,6 +763,13 @@
 							"evidence": "s-maxage=31536000, stale-while-revalidate"
 						},
 						{
+							"uri": "https://opentermsarchive.org/privacy-policy",
+							"method": "GET",
+							"param": "Cache-Control",
+							"attack": "",
+							"evidence": "s-maxage=31536000, stale-while-revalidate"
+						},
+						{
 							"uri": "https://opentermsarchive.org/robots.txt",
 							"method": "GET",
 							"param": "Cache-Control",
@@ -857,13 +789,6 @@
 							"param": "Cache-Control",
 							"attack": "",
 							"evidence": "s-maxage=1800, stale-while-revalidate"
-						},
-						{
-							"uri": "https://opentermsarchive.org/subscribe",
-							"method": "GET",
-							"param": "Cache-Control",
-							"attack": "",
-							"evidence": "s-maxage=10, stale-while-revalidate"
 						}
 					],
 					"count": "11",
@@ -934,21 +859,14 @@
 							"evidence": "s-maxage=31536000"
 						},
 						{
-							"uri": "https://opentermsarchive.org/stats",
+							"uri": "https://opentermsarchive.org/privacy-policy",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "s-maxage=1800"
-						},
-						{
-							"uri": "https://opentermsarchive.org/subscribe",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "s-maxage=10"
+							"evidence": "s-maxage=31536000"
 						}
 					],
-					"count": "9",
+					"count": "8",
 					"solution": "<p>Validate that the response does not contain sensitive, personal or user-specific information.  If it does, consider the use of the following HTTP response headers, to limit, or prevent the content being stored and retrieved from the cache by another user:</p><p>Cache-Control: no-cache, no-store, must-revalidate, private</p><p>Pragma: no-cache</p><p>Expires: 0</p><p>This configuration directs both HTTP 1.0 and HTTP 1.1 compliant caching servers to not store the response, and to not retrieve the response (without validation) from the cache, in response to a similar request. </p>",
 					"otherinfo": "",
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
@@ -974,6 +892,13 @@
 							"evidence": "max-age=0"
 						},
 						{
+							"uri": "https://opentermsarchive.org/favicon-32x32.png",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "max-age=0"
+						},
+						{
 							"uri": "https://opentermsarchive.org/robots.txt",
 							"method": "GET",
 							"param": "",
@@ -988,102 +913,13 @@
 							"evidence": "max-age=0"
 						}
 					],
-					"count": "3",
+					"count": "4",
 					"solution": "",
 					"otherinfo": "",
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "243"
-				},
-				{
-					"pluginid": "10031",
-					"alertRef": "10031",
-					"alert": "User Controllable HTML Element Attribute (Potential XSS)",
-					"name": "User Controllable HTML Element Attribute (Potential XSS)",
-					"riskcode": "0",
-					"confidence": "1",
-					"riskdesc": "Informational (Low)",
-					"desc": "<p>This check looks at user-supplied input in query string parameters and POST data to identify where certain HTML attribute values might be controlled. This provides hot-spot detection for XSS (cross-site scripting) that will require further review by a security analyst to determine exploitability.</p>",
-					"instances":[ 
-						{
-							"uri": "https://opentermsarchive.org/subscribe?consent=on&documentType=Terms%20of%20Service&email=foo-bar%40example.com&service=Twitter",
-							"method": "GET",
-							"param": "service",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://opentermsarchive.org/subscribe?consent=on&documentType=Terms%20of%20Service&email=foo-bar%40example.com&service=Twitter",
-							"method": "GET",
-							"param": "service",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://opentermsarchive.org/subscribe?consent=on&documentType=Terms%20of%20Service&email=foo-bar%40example.com&service=Twitter",
-							"method": "GET",
-							"param": "service",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://opentermsarchive.org/subscribe?consent=on&documentType=Terms%20of%20Service&email=foo-bar%40example.com&service=Twitter",
-							"method": "GET",
-							"param": "service",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://opentermsarchive.org/subscribe?consent=on&documentType=Terms%20of%20Service&email=foo-bar%40example.com&service=Twitter",
-							"method": "GET",
-							"param": "service",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://opentermsarchive.org/subscribe?documentType=Terms%20of%20Service&service=Twitter",
-							"method": "GET",
-							"param": "service",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://opentermsarchive.org/subscribe?documentType=Terms%20of%20Service&service=Twitter",
-							"method": "GET",
-							"param": "service",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://opentermsarchive.org/subscribe?documentType=Terms%20of%20Service&service=Twitter",
-							"method": "GET",
-							"param": "service",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://opentermsarchive.org/subscribe?documentType=Terms%20of%20Service&service=Twitter",
-							"method": "GET",
-							"param": "service",
-							"attack": "",
-							"evidence": ""
-						},
-						{
-							"uri": "https://opentermsarchive.org/subscribe?documentType=Terms%20of%20Service&service=Twitter",
-							"method": "GET",
-							"param": "service",
-							"attack": "",
-							"evidence": ""
-						}
-					],
-					"count": "10",
-					"solution": "<p>Validate all input and sanitize output it before writing to any HTML attributes.</p>",
-					"otherinfo": "<p>User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:</p><p></p><p>https://opentermsarchive.org/subscribe?consent=on&documentType=Terms%20of%20Service&email=foo-bar%40example.com&service=Twitter</p><p></p><p>appears to include user input in: </p><p></p><p>a(n) [meta] tag [name] attribute </p><p></p><p>The user input found was:</p><p>service=Twitter</p><p></p><p>The user-controlled value was:</p><p>twitter:card</p>",
-					"reference": "<p>http://websecuritytool.codeplex.com/wikipage?title=Checks#user-controlled-html-attribute</p>",
-					"cweid": "20",
-					"wascid": "20",
-					"sourceid": "523"
+					"sourceid": "234"
 				}
 			]
 		}
