@@ -1,7 +1,7 @@
 {
 	"@programName": "OWASP ZAP",
 	"@version": "2.12.0",
-	"@generated": "Sun, 26 Mar 2023 20:45:33",
+	"@generated": "Sun, 2 Apr 2023 22:15:22",
 	"site":[ 
 		{
 			"@name": "https://metiers.numerique.gouv.fr",
@@ -81,9 +81,16 @@
 							"param": "",
 							"attack": "",
 							"evidence": "<form action=\"#\" novalidate=\"\" class=\"sc-b50121e0-4 fyVUQF\">"
+						},
+						{
+							"uri": "https://metiers.numerique.gouv.fr/offres-emploi?email=foo-bar%40example.com",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form action=\"#\" novalidate=\"\" class=\"sc-b50121e0-4 fyVUQF\">"
 						}
 					],
-					"count": "9",
+					"count": "10",
 					"solution": "<p>Phase: Architecture and Design</p><p>Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid.</p><p>For example, use anti-CSRF packages such as the OWASP CSRFGuard.</p><p></p><p>Phase: Implementation</p><p>Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.</p><p></p><p>Phase: Architecture and Design</p><p>Generate a unique nonce for each form, place the nonce into the form, and verify the nonce upon receipt of the form. Be sure that the nonce is not predictable (CWE-330).</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Identify especially dangerous operations. When the user performs a dangerous operation, send a separate confirmation request to ensure that the user intended to perform that operation.</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Use the ESAPI Session Management control.</p><p>This control includes a component for CSRF.</p><p></p><p>Do not use the GET method for any request that triggers a state change.</p><p></p><p>Phase: Implementation</p><p>Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.</p>",
 					"otherinfo": "<p>No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"query\" ].</p>",
 					"reference": "<p>http://projects.webappsec.org/Cross-Site-Request-Forgery</p><p>http://cwe.mitre.org/data/definitions/352.html</p>",
@@ -115,7 +122,7 @@
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "359"
+					"sourceid": "512"
 				},
 				{
 					"pluginid": "10038",
@@ -214,32 +221,6 @@
 					"sourceid": "1"
 				},
 				{
-					"pluginid": "90022",
-					"alertRef": "90022",
-					"alert": "Application Error Disclosure",
-					"name": "Application Error Disclosure",
-					"riskcode": "1",
-					"confidence": "2",
-					"riskdesc": "Low (Medium)",
-					"desc": "<p>This page contains an error/warning message that may disclose sensitive information like the location of the file that produced the unhandled exception. This information can be used to launch further attacks against the web application. The alert could be a false positive if the error message is found inside a documentation page.</p>",
-					"instances":[ 
-						{
-							"uri": "https://metiers.numerique.gouv.fr/offres-emploi?email=foo-bar%40example.com",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "HTTP/1.1 500 Internal Server Error"
-						}
-					],
-					"count": "1",
-					"solution": "<p>Review the source code of this page. Implement custom error pages. Consider implementing a mechanism to provide a unique error reference/identifier to the client (browser) while logging the details on the server side and not exposing them to the user.</p>",
-					"otherinfo": "",
-					"reference": "",
-					"cweid": "200",
-					"wascid": "13",
-					"sourceid": "3372"
-				},
-				{
 					"pluginid": "10110",
 					"alertRef": "10110",
 					"alert": "Dangerous JS Functions",
@@ -263,33 +244,7 @@
 					"reference": "<p>https://angular.io/guide/security</p>",
 					"cweid": "749",
 					"wascid": "-1",
-					"sourceid": "457"
-				},
-				{
-					"pluginid": "10023",
-					"alertRef": "10023",
-					"alert": "Information Disclosure - Debug Error Messages",
-					"name": "Information Disclosure - Debug Error Messages",
-					"riskcode": "1",
-					"confidence": "2",
-					"riskdesc": "Low (Medium)",
-					"desc": "<p>The response appeared to contain common error messages returned by platforms such as ASP.NET, and Web-servers such as IIS and Apache. You can configure the list of common debug messages.</p>",
-					"instances":[ 
-						{
-							"uri": "https://metiers.numerique.gouv.fr/offres-emploi?email=foo-bar%40example.com",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "Internal Server Error"
-						}
-					],
-					"count": "1",
-					"solution": "<p>Disable debugging messages before pushing to production.</p>",
-					"otherinfo": "",
-					"reference": "",
-					"cweid": "200",
-					"wascid": "13",
-					"sourceid": "3372"
+					"sourceid": "616"
 				},
 				{
 					"pluginid": "10063",
@@ -385,7 +340,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy</p><p>https://developers.google.com/web/updates/2018/06/feature-policy</p><p>https://scotthelme.co.uk/a-new-security-header-feature-policy/</p><p>https://w3c.github.io/webappsec-feature-policy/</p><p>https://www.smashingmagazine.com/2018/12/feature-policy/</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10037",
@@ -406,13 +361,6 @@
 						},
 						{
 							"uri": "https://metiers.numerique.gouv.fr/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "X-Powered-By: Next.js"
-						},
-						{
-							"uri": "https://metiers.numerique.gouv.fr/accessibilite",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -454,6 +402,13 @@
 							"evidence": "X-Powered-By: Next.js"
 						},
 						{
+							"uri": "https://metiers.numerique.gouv.fr/employeurs/sous-direction-de-l-informatique-du-service-de-l-environnement-professionnel-au-ministere-de-l-economie-des-finances-et-de-la-relance-cl1mbjh6n890701lpc6b9tzpvk",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "X-Powered-By: Next.js"
+						},
+						{
 							"uri": "https://metiers.numerique.gouv.fr/inscription",
 							"method": "GET",
 							"param": "",
@@ -481,7 +436,7 @@
 					"reference": "<p>http://blogs.msdn.com/b/varunm/archive/2013/04/23/remove-unwanted-http-response-headers.aspx</p><p>http://www.troyhunt.com/2012/02/shhh-dont-let-your-response-headers.html</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10096",
@@ -563,7 +518,7 @@
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10021",
@@ -590,13 +545,6 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://metiers.numerique.gouv.fr/accessibilite",
-							"method": "GET",
-							"param": "X-Content-Type-Options",
-							"attack": "",
-							"evidence": ""
-						},
-						{
 							"uri": "https://metiers.numerique.gouv.fr/connexion",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
@@ -612,6 +560,13 @@
 						},
 						{
 							"uri": "https://metiers.numerique.gouv.fr/emploi/expert-securite-operationnelle-systeme-fh-clatuyfes00013n6skx833dk7",
+							"method": "GET",
+							"param": "X-Content-Type-Options",
+							"attack": "",
+							"evidence": ""
+						},
+						{
+							"uri": "https://metiers.numerique.gouv.fr/employeurs",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -659,7 +614,7 @@
 					"reference": "<p>http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx</p><p>https://owasp.org/www-community/Security_Headers</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10094",
@@ -680,13 +635,6 @@
 						},
 						{
 							"uri": "https://metiers.numerique.gouv.fr/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "rbHd2NXOspK6-avguNFUvBzgddpFwWzph-a8Ebxepvo"
-						},
-						{
-							"uri": "https://metiers.numerique.gouv.fr/accessibilite",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -728,6 +676,13 @@
 							"evidence": "rbHd2NXOspK6-avguNFUvBzgddpFwWzph-a8Ebxepvo"
 						},
 						{
+							"uri": "https://metiers.numerique.gouv.fr/employeurs/sous-direction-de-l-informatique-du-service-de-l-environnement-professionnel-au-ministere-de-l-economie-des-finances-et-de-la-relance-cl1mbjh6n890701lpc6b9tzpvk",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "rbHd2NXOspK6-avguNFUvBzgddpFwWzph-a8Ebxepvo"
+						},
+						{
 							"uri": "https://metiers.numerique.gouv.fr/inscription",
 							"method": "GET",
 							"param": "",
@@ -755,7 +710,7 @@
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "1"
+					"sourceid": "7"
 				},
 				{
 					"pluginid": "10019",
@@ -814,7 +769,7 @@
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "1700"
+					"sourceid": "2421"
 				},
 				{
 					"pluginid": "10027",
@@ -841,13 +796,6 @@
 							"evidence": "query"
 						},
 						{
-							"uri": "https://metiers.numerique.gouv.fr/accessibilite",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "query"
-						},
-						{
 							"uri": "https://metiers.numerique.gouv.fr/connexion",
 							"method": "GET",
 							"param": "",
@@ -863,6 +811,13 @@
 						},
 						{
 							"uri": "https://metiers.numerique.gouv.fr/emploi/expert-securite-operationnelle-systeme-fh-clatuyfes00013n6skx833dk7",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "query"
+						},
+						{
+							"uri": "https://metiers.numerique.gouv.fr/employeurs",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -944,13 +899,6 @@
 							"evidence": "<noscript data-n-css=\"\"></noscript>"
 						},
 						{
-							"uri": "https://metiers.numerique.gouv.fr/accessibilite",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<noscript data-n-css=\"\"></noscript>"
-						},
-						{
 							"uri": "https://metiers.numerique.gouv.fr/connexion",
 							"method": "GET",
 							"param": "",
@@ -980,6 +928,13 @@
 						},
 						{
 							"uri": "https://metiers.numerique.gouv.fr/employeurs/service-du-numerique-du-ministere-de-la-justice-cl1mbk38m909121lpcsro9t8gy",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<noscript data-n-css=\"\"></noscript>"
+						},
+						{
+							"uri": "https://metiers.numerique.gouv.fr/employeurs/sous-direction-de-l-informatique-du-service-de-l-environnement-professionnel-au-ministere-de-l-economie-des-finances-et-de-la-relance-cl1mbjh6n890701lpc6b9tzpvk",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1087,13 +1042,6 @@
 							"evidence": ""
 						},
 						{
-							"uri": "https://metiers.numerique.gouv.fr/donnees-personnelles-et-cookies",
-							"method": "GET",
-							"param": "Cache-Control",
-							"attack": "",
-							"evidence": ""
-						},
-						{
 							"uri": "https://metiers.numerique.gouv.fr/emploi/expert-securite-operationnelle-reseau-fh-clatud3h000003n6s4z6vfdlx",
 							"method": "GET",
 							"param": "Cache-Control",
@@ -1141,6 +1089,13 @@
 							"param": "Cache-Control",
 							"attack": "",
 							"evidence": ""
+						},
+						{
+							"uri": "https://metiers.numerique.gouv.fr/sitemap.xml",
+							"method": "GET",
+							"param": "Cache-Control",
+							"attack": "",
+							"evidence": ""
 						}
 					],
 					"count": "11",
@@ -1176,13 +1131,6 @@
 							"evidence": "s-maxage=300"
 						},
 						{
-							"uri": "https://metiers.numerique.gouv.fr/accessibilite",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": ""
-						},
-						{
 							"uri": "https://metiers.numerique.gouv.fr/emploi/expert-securite-operationnelle-reseau-fh-clatud3h000003n6s4z6vfdlx",
 							"method": "GET",
 							"param": "",
@@ -1198,6 +1146,13 @@
 						},
 						{
 							"uri": "https://metiers.numerique.gouv.fr/employeurs/service-du-numerique-du-ministere-de-la-culture-cl1mbjte4901181lpc2vbmqh0q",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "s-maxage=300"
+						},
+						{
+							"uri": "https://metiers.numerique.gouv.fr/employeurs/sous-direction-de-l-informatique-du-service-de-l-environnement-professionnel-au-ministere-de-l-economie-des-finances-et-de-la-relance-cl1mbjh6n890701lpc6b9tzpvk",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1224,7 +1179,7 @@
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "1"
+					"sourceid": "7"
 				}
 			]
 		}
