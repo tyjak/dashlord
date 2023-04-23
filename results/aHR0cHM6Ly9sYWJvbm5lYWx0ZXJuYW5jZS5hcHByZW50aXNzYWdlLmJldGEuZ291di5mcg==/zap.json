@@ -1,7 +1,7 @@
 {
 	"@programName": "OWASP ZAP",
 	"@version": "2.12.0",
-	"@generated": "Sun, 16 Apr 2023 21:35:20",
+	"@generated": "Sun, 23 Apr 2023 20:18:31",
 	"site":[ 
 		{
 			"@name": "https://labonnealternance.apprentissage.beta.gouv.fr",
@@ -20,7 +20,7 @@
 					"desc": "<p>The response contains Personally Identifiable Information, such as CC number, SSN and similar sensitive data.</p>",
 					"instances":[ 
 						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/_next/static/chunks/934-69be99066ca15079.js",
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/_next/static/chunks/934-431b1e9c88088d88.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -28,7 +28,7 @@
 							"otherinfo": "Credit Card Type detected: DinersClub\nBank Identification Number: 304602\nBrand: DISCOVER\nCategory: BUSINESS CARD\nIssuer: DINERS CLUB INTERNATIONAL"
 						},
 						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/_next/static/chunks/934-69be99066ca15079.js",
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/_next/static/chunks/934-431b1e9c88088d88.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -42,7 +42,7 @@
 					"reference": "",
 					"cweid": "359",
 					"wascid": "13",
-					"sourceid": "3815"
+					"sourceid": "219"
 				},
 				{
 					"pluginid": "10202",
@@ -133,17 +133,9 @@
 							"attack": "",
 							"evidence": "<form action=\"#\">",
 							"otherinfo": "No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"caller\" \"jobName\" \"lang-switcher-input\" \"locationRadius\" \"opco\" \"opcoUrl\" \"radio-:R15dq76j6ldf6:\" \"radio-:R1apqh6j6ldf6:\" \"radio-:R1ddq76j6ldf6:\" \"radio-:Rddq76j6ldf6:\" \"radio-:Rddq96j6ldf6:\" \"radio-:Rldq76j6ldf6:\" \"radio-:Rldq96j6ldf6:\" \"radio-:Rqpqh6j6ldf6:\" \"radio-:Rtdq76j6ldf6:\" \"radio-:Rtdq96j6ldf6:\" \"scope\" ]."
-						},
-						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/test-widget?caller=adresse_contact%40mail.com+identifiant_appelant&jobName=ZAP&locationRadius=0&opco=ZAP&opcoUrl=ZAP&radio-%3AR5q76j6ldf6%3A=0&radio-%3AR5q96j6ldf6%3A&radio-%3AR9qh6j6ldf6%3A&scope",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<form action=\"#\">",
-							"otherinfo": "No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"caller\" \"jobName\" \"lang-switcher-input\" \"locationRadius\" \"opco\" \"opcoUrl\" \"radio-:R15dq76j6ldf6:\" \"radio-:R1apqh6j6ldf6:\" \"radio-:R1ddq76j6ldf6:\" \"radio-:Rddq76j6ldf6:\" \"radio-:Rddq96j6ldf6:\" \"radio-:Rldq76j6ldf6:\" \"radio-:Rldq96j6ldf6:\" \"radio-:Rqpqh6j6ldf6:\" \"radio-:Rtdq76j6ldf6:\" \"radio-:Rtdq96j6ldf6:\" \"scope\" ]."
 						}
 					],
-					"count": "11",
+					"count": "10",
 					"solution": "<p>Phase: Architecture and Design</p><p>Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid.</p><p>For example, use anti-CSRF packages such as the OWASP CSRFGuard.</p><p></p><p>Phase: Implementation</p><p>Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.</p><p></p><p>Phase: Architecture and Design</p><p>Generate a unique nonce for each form, place the nonce into the form, and verify the nonce upon receipt of the form. Be sure that the nonce is not predictable (CWE-330).</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Identify especially dangerous operations. When the user performs a dangerous operation, send a separate confirmation request to ensure that the user intended to perform that operation.</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Use the ESAPI Session Management control.</p><p>This control includes a component for CSRF.</p><p></p><p>Do not use the GET method for any request that triggers a state change.</p><p></p><p>Phase: Implementation</p><p>Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.</p>",
 					"otherinfo": "<p>No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"lang-switcher-input\" ].</p>",
 					"reference": "<p>http://projects.webappsec.org/Cross-Site-Request-Forgery</p><p>http://cwe.mitre.org/data/definitions/352.html</p>",
@@ -162,7 +154,7 @@
 					"desc": "<p>This page contains an error/warning message that may disclose sensitive information like the location of the file that produced the unhandled exception. This information can be used to launch further attacks against the web application. The alert could be a false positive if the error message is found inside a documentation page.</p>",
 					"instances":[ 
 						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/_next/static/chunks/797-91d6ba37aae75e98.js",
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/_next/static/chunks/797-60c55d61f1ccf5a8.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -184,7 +176,7 @@
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "3766"
+					"sourceid": "214"
 				},
 				{
 					"pluginid": "10055",
@@ -205,15 +197,7 @@
 							"otherinfo": "The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: \nstyle-src, font-src, form-action\n\nThe directive(s): form-action are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything."
 						},
 						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/acces-recruteur",
-							"method": "GET",
-							"param": "Content-Security-Policy",
-							"attack": "",
-							"evidence": "default-src 'self'; base-uri 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://plausible.io http://localhost:3000 https://stats.data.gouv.fr blob:; script-src-attr 'none'; connect-src 'self' https://labonnealternance.apprentissage.beta.gouv.fr https://labonnealternance-recette.apprentissage.beta.gouv.fr https://labonnealternance.pole-emploi.fr https://catalogue-apprentissage.intercariforef.org https://api-adresse.data.gouv.fr https://api.mapbox.com https://stats.data.gouv.fr https://events.mapbox.com https://plausible.io http://localhost:5000 https://*.ingest.sentry.io; img-src 'self' data: blob: https://www.notion.so https://www.google.com https://www.google.fr; object-src 'self' data: https://labonnealternance.apprentissage.beta.gouv.fr https://labonnealternance-recette.apprentissage.beta.gouv.fr https://labonnealternance.pole-emploi.fr; font-src 'self' https: data:; style-src 'self' https: 'unsafe-inline'; frame-src http://localhost http://localhost:3000 https://plausible.io https://labonnealternance.pole-emploi.fr https://labonnealternance.apprentissage.beta.gouv.fr https://labonnealternance-recette.apprentissage.beta.gouv.fr; child-src 'self' blob:; block-all-mixed-content; upgrade-insecure-requests; frame-ancestors 'none';",
-							"otherinfo": "The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: \nstyle-src, font-src, form-action\n\nThe directive(s): form-action are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything."
-						},
-						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/test-widget",
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/",
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
@@ -221,7 +205,7 @@
 							"otherinfo": "The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: \nstyle-src, font-src, form-action\n\nThe directive(s): form-action are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything."
 						}
 					],
-					"count": "3",
+					"count": "2",
 					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is properly configured to set the Content-Security-Policy header.</p>",
 					"otherinfo": "<p>The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: </p><p>style-src, font-src, form-action</p><p></p><p>The directive(s): form-action are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything.</p>",
 					"reference": "<p>http://www.w3.org/TR/CSP2/</p><p>http://www.w3.org/TR/CSP/</p><p>http://caniuse.com/#search=content+security+policy</p><p>http://content-security-policy.com/</p><p>https://github.com/shapesecurity/salvation</p><p>https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources</p>",
@@ -248,15 +232,7 @@
 							"otherinfo": "script-src includes unsafe-eval."
 						},
 						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/acces-recruteur",
-							"method": "GET",
-							"param": "Content-Security-Policy",
-							"attack": "",
-							"evidence": "default-src 'self'; base-uri 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://plausible.io http://localhost:3000 https://stats.data.gouv.fr blob:; script-src-attr 'none'; connect-src 'self' https://labonnealternance.apprentissage.beta.gouv.fr https://labonnealternance-recette.apprentissage.beta.gouv.fr https://labonnealternance.pole-emploi.fr https://catalogue-apprentissage.intercariforef.org https://api-adresse.data.gouv.fr https://api.mapbox.com https://stats.data.gouv.fr https://events.mapbox.com https://plausible.io http://localhost:5000 https://*.ingest.sentry.io; img-src 'self' data: blob: https://www.notion.so https://www.google.com https://www.google.fr; object-src 'self' data: https://labonnealternance.apprentissage.beta.gouv.fr https://labonnealternance-recette.apprentissage.beta.gouv.fr https://labonnealternance.pole-emploi.fr; font-src 'self' https: data:; style-src 'self' https: 'unsafe-inline'; frame-src http://localhost http://localhost:3000 https://plausible.io https://labonnealternance.pole-emploi.fr https://labonnealternance.apprentissage.beta.gouv.fr https://labonnealternance-recette.apprentissage.beta.gouv.fr; child-src 'self' blob:; block-all-mixed-content; upgrade-insecure-requests; frame-ancestors 'none';",
-							"otherinfo": "script-src includes unsafe-eval."
-						},
-						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/test-widget",
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/",
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
@@ -264,7 +240,7 @@
 							"otherinfo": "script-src includes unsafe-eval."
 						}
 					],
-					"count": "3",
+					"count": "2",
 					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is properly configured to set the Content-Security-Policy header.</p>",
 					"otherinfo": "<p>script-src includes unsafe-eval.</p>",
 					"reference": "<p>http://www.w3.org/TR/CSP2/</p><p>http://www.w3.org/TR/CSP/</p><p>http://caniuse.com/#search=content+security+policy</p><p>http://content-security-policy.com/</p><p>https://github.com/shapesecurity/salvation</p><p>https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources</p>",
@@ -291,15 +267,7 @@
 							"otherinfo": "script-src includes unsafe-inline."
 						},
 						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/acces-recruteur",
-							"method": "GET",
-							"param": "Content-Security-Policy",
-							"attack": "",
-							"evidence": "default-src 'self'; base-uri 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://plausible.io http://localhost:3000 https://stats.data.gouv.fr blob:; script-src-attr 'none'; connect-src 'self' https://labonnealternance.apprentissage.beta.gouv.fr https://labonnealternance-recette.apprentissage.beta.gouv.fr https://labonnealternance.pole-emploi.fr https://catalogue-apprentissage.intercariforef.org https://api-adresse.data.gouv.fr https://api.mapbox.com https://stats.data.gouv.fr https://events.mapbox.com https://plausible.io http://localhost:5000 https://*.ingest.sentry.io; img-src 'self' data: blob: https://www.notion.so https://www.google.com https://www.google.fr; object-src 'self' data: https://labonnealternance.apprentissage.beta.gouv.fr https://labonnealternance-recette.apprentissage.beta.gouv.fr https://labonnealternance.pole-emploi.fr; font-src 'self' https: data:; style-src 'self' https: 'unsafe-inline'; frame-src http://localhost http://localhost:3000 https://plausible.io https://labonnealternance.pole-emploi.fr https://labonnealternance.apprentissage.beta.gouv.fr https://labonnealternance-recette.apprentissage.beta.gouv.fr; child-src 'self' blob:; block-all-mixed-content; upgrade-insecure-requests; frame-ancestors 'none';",
-							"otherinfo": "script-src includes unsafe-inline."
-						},
-						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/test-widget",
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/",
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
@@ -307,7 +275,7 @@
 							"otherinfo": "script-src includes unsafe-inline."
 						}
 					],
-					"count": "3",
+					"count": "2",
 					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is properly configured to set the Content-Security-Policy header.</p>",
 					"otherinfo": "<p>script-src includes unsafe-inline.</p>",
 					"reference": "<p>http://www.w3.org/TR/CSP2/</p><p>http://www.w3.org/TR/CSP/</p><p>http://caniuse.com/#search=content+security+policy</p><p>http://content-security-policy.com/</p><p>https://github.com/shapesecurity/salvation</p><p>https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources</p>",
@@ -334,15 +302,7 @@
 							"otherinfo": "style-src includes unsafe-inline."
 						},
 						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/acces-recruteur",
-							"method": "GET",
-							"param": "Content-Security-Policy",
-							"attack": "",
-							"evidence": "default-src 'self'; base-uri 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://plausible.io http://localhost:3000 https://stats.data.gouv.fr blob:; script-src-attr 'none'; connect-src 'self' https://labonnealternance.apprentissage.beta.gouv.fr https://labonnealternance-recette.apprentissage.beta.gouv.fr https://labonnealternance.pole-emploi.fr https://catalogue-apprentissage.intercariforef.org https://api-adresse.data.gouv.fr https://api.mapbox.com https://stats.data.gouv.fr https://events.mapbox.com https://plausible.io http://localhost:5000 https://*.ingest.sentry.io; img-src 'self' data: blob: https://www.notion.so https://www.google.com https://www.google.fr; object-src 'self' data: https://labonnealternance.apprentissage.beta.gouv.fr https://labonnealternance-recette.apprentissage.beta.gouv.fr https://labonnealternance.pole-emploi.fr; font-src 'self' https: data:; style-src 'self' https: 'unsafe-inline'; frame-src http://localhost http://localhost:3000 https://plausible.io https://labonnealternance.pole-emploi.fr https://labonnealternance.apprentissage.beta.gouv.fr https://labonnealternance-recette.apprentissage.beta.gouv.fr; child-src 'self' blob:; block-all-mixed-content; upgrade-insecure-requests; frame-ancestors 'none';",
-							"otherinfo": "style-src includes unsafe-inline."
-						},
-						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/test-widget",
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/",
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
@@ -350,7 +310,7 @@
 							"otherinfo": "style-src includes unsafe-inline."
 						}
 					],
-					"count": "3",
+					"count": "2",
 					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is properly configured to set the Content-Security-Policy header.</p>",
 					"otherinfo": "<p>style-src includes unsafe-inline.</p>",
 					"reference": "<p>http://www.w3.org/TR/CSP2/</p><p>http://www.w3.org/TR/CSP/</p><p>http://caniuse.com/#search=content+security+policy</p><p>http://content-security-policy.com/</p><p>https://github.com/shapesecurity/salvation</p><p>https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources</p>",
@@ -391,87 +351,15 @@
 							"attack": "",
 							"evidence": "",
 							"otherinfo": ""
-						},
-						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/recherche-apprentissage?address=Abymes&display=list&displayMap=false&insee=97101&job_name=Communication%2C%20marketing%2C%20publicit%C3%A9&lat=-61.5106&lon=16.3065&radius=30&romes=E1103,E1104,E1401,E1105,E1402,E1205,M1703,M1707,M1705,M1704,M1706,M1702&zipcode=97142",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/recherche-apprentissage?address=Ajaccio&display=list&displayMap=false&insee=2A004&job_name=Communication%2C%20marketing%2C%20publicit%C3%A9&lat=41.9256&lon=8.7364&radius=30&romes=E1103,E1104,E1401,E1105,E1402,E1205,M1703,M1707,M1705,M1704,M1706,M1702&zipcode=20000",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/recherche-apprentissage?address=Amiens&display=list&displayMap=false&insee=80021&job_name=Communication%2C%20marketing%2C%20publicit%C3%A9&lat=49.9&lon=2.3&radius=30&romes=E1103,E1104,E1401,E1105,E1402,E1205,M1703,M1707,M1705,M1704,M1706,M1702&zipcode=80000",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/recherche-apprentissage?address=Avignon&display=list&displayMap=false&insee=84007&job_name=Administratif%2C%20secr%C3%A9tariat%2C%20assistanat&lat=43.95&lon=4.81667&radius=30&romes=M1701,M1605,M1608,M1607,M1601,M1602,M1606,M1604&zipcode=84000",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/recherche-apprentissage?address=Avignon&display=list&displayMap=false&insee=84007&job_name=Ressources%20humaines&lat=43.95&lon=4.81667&radius=30&romes=M1502,M1503,M1501,M1402&zipcode=84000",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/recherche-apprentissage?address=Besan%C3%A7on&display=list&displayMap=false&insee=25056&job_name=Ressources%20humaines&lat=47.25&lon=6.03333&radius=30&romes=M1502,M1503,M1501,M1402&zipcode=25000",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/recherche-apprentissage?address=Caen&display=list&displayMap=false&insee=14118&job_name=Ressources%20humaines&lat=49.1833&lon=-0.35&radius=30&romes=M1502,M1503,M1501,M1402&zipcode=14000",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/recherche-apprentissage?address=Courbevoie&display=list&displayMap=false&insee=92026&job_name=Ressources%20humaines&lat=48.8973&lon=2.25222&radius=30&romes=M1502,M1503,M1501,M1402&zipcode=92400",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/recherche-apprentissage?display=list&displayMap=false&job_name=Communication%2C%20marketing%2C%20publicit%C3%A9&romes=E1103,E1104,E1401,E1105,E1402,E1205,M1703,M1707,M1705,M1704,M1706,M1702",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
 						}
 					],
-					"count": "12",
+					"count": "3",
 					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to set the Content-Security-Policy header.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/Security/CSP/Introducing_Content_Security_Policy</p><p>https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html</p><p>http://www.w3.org/TR/CSP/</p><p>http://w3c.github.io/webappsec/specs/content-security-policy/csp-specification.dev.html</p><p>http://www.html5rocks.com/en/tutorials/security/content-security-policy/</p><p>http://caniuse.com/#feat=contentsecuritypolicy</p><p>http://content-security-policy.com/</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "4837"
+					"sourceid": "5110"
 				},
 				{
 					"pluginid": "10020",
@@ -586,7 +474,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options</p>",
 					"cweid": "1021",
 					"wascid": "15",
-					"sourceid": "4837"
+					"sourceid": "5110"
 				},
 				{
 					"pluginid": "10099",
@@ -701,7 +589,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/cgu",
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/contact",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -709,7 +597,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/contact",
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/developpeurs",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -741,7 +629,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/stats",
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/politique-de-confidentialite",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -749,7 +637,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/test-widget",
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/stats",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -800,14 +688,6 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/cgu",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
 							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/contact",
 							"method": "GET",
 							"param": "",
@@ -824,7 +704,23 @@
 							"otherinfo": ""
 						},
 						{
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/metiers",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
 							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/organisme-de-formation",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/politique-de-confidentialite",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -849,14 +745,6 @@
 						},
 						{
 							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/stats",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/test-widget",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -899,7 +787,7 @@
 							"otherinfo": "1540483477, which evaluates to: 2018-10-25 16:04:37"
 						},
 						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/_next/static/chunks/pages/_app-e609bf531d2dccb8.js",
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/_next/static/chunks/pages/_app-4b20313d5fdafbab.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -913,7 +801,7 @@
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "3633"
+					"sourceid": "209"
 				},
 				{
 					"pluginid": "10094",
@@ -958,7 +846,7 @@
 							"otherinfo": "\uFFFD\u34ECO\uFFFD)\uFFFDKn\\x0002\uFFFDi\\x0014\uFFFD\uFFFDz0\uFFFD\u03D5j^\uFFFD\uFFFD\u0429\uFFFD\uFFFD\uFFFD\uFFFD"
 						},
 						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/cgu",
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/contact",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -966,7 +854,7 @@
 							"otherinfo": "\uFFFD\u34ECO\uFFFD)\uFFFDKn\\x0002\uFFFDi\\x0014\uFFFD\uFFFDz0\uFFFD\u03D5j^\uFFFD\uFFFD\u0429\uFFFD\uFFFD\uFFFD\uFFFD"
 						},
 						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/contact",
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/developpeurs",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -998,7 +886,7 @@
 							"otherinfo": "\uFFFD\u34ECO\uFFFD)\uFFFDKn\\x0002\uFFFDi\\x0014\uFFFD\uFFFDz0\uFFFD\u03D5j^\uFFFD\uFFFD\u0429\uFFFD\uFFFD\uFFFD\uFFFD"
 						},
 						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/stats",
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/politique-de-confidentialite",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1006,7 +894,7 @@
 							"otherinfo": "\uFFFD\u34ECO\uFFFD)\uFFFDKn\\x0002\uFFFDi\\x0014\uFFFD\uFFFDz0\uFFFD\u03D5j^\uFFFD\uFFFD\u0429\uFFFD\uFFFD\uFFFD\uFFFD"
 						},
 						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/test-widget",
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/stats",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1047,7 +935,7 @@
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "5130"
+					"sourceid": "5151"
 				},
 				{
 					"pluginid": "10027",
@@ -1065,7 +953,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "query",
-							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{}},\"page\":\"/\",\"query\":{},\"buildId\":\"PK5hH6ydxrmR-scfd4\", see evidence field for the suspicious comment/snippet."
+							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{}},\"page\":\"/\",\"query\":{},\"buildId\":\"Jo1yAFKk9SCsYc-HCz\", see evidence field for the suspicious comment/snippet."
 						},
 						{
 							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/",
@@ -1073,7 +961,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "query",
-							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{}},\"page\":\"/\",\"query\":{},\"buildId\":\"PK5hH6ydxrmR-scfd4\", see evidence field for the suspicious comment/snippet."
+							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{}},\"page\":\"/\",\"query\":{},\"buildId\":\"Jo1yAFKk9SCsYc-HCz\", see evidence field for the suspicious comment/snippet."
 						},
 						{
 							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/a-propos",
@@ -1081,7 +969,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "query",
-							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{}},\"page\":\"/a-propos\",\"query\":{},\"buildId\":\"PK5hH6ydxr\", see evidence field for the suspicious comment/snippet."
+							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{}},\"page\":\"/a-propos\",\"query\":{},\"buildId\":\"Jo1yAFKk9S\", see evidence field for the suspicious comment/snippet."
 						},
 						{
 							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/acces-recruteur",
@@ -1089,15 +977,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "query",
-							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{}},\"page\":\"/acces-recruteur\",\"query\":{},\"buildId\":\"PK5\", see evidence field for the suspicious comment/snippet."
-						},
-						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/cgu",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "query",
-							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{\"recordMap\":{\"block\":{\"3086c10e-9c07-4efd-aa89-5c08996\", see evidence field for the suspicious comment/snippet."
+							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{}},\"page\":\"/acces-recruteur\",\"query\":{},\"buildId\":\"Jo1\", see evidence field for the suspicious comment/snippet."
 						},
 						{
 							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/contact",
@@ -1105,7 +985,15 @@
 							"param": "",
 							"attack": "",
 							"evidence": "query",
-							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{}},\"page\":\"/contact\",\"query\":{},\"buildId\":\"PK5hH6ydxrm\", see evidence field for the suspicious comment/snippet."
+							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{}},\"page\":\"/contact\",\"query\":{},\"buildId\":\"Jo1yAFKk9SC\", see evidence field for the suspicious comment/snippet."
+						},
+						{
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/developpeurs",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "query",
+							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{}},\"page\":\"/developpeurs\",\"query\":{},\"buildId\":\"Jo1yAF\", see evidence field for the suspicious comment/snippet."
 						},
 						{
 							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/mentions-legales",
@@ -1132,25 +1020,25 @@
 							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{}},\"page\":\"/organisme-de-formation\",\"query\":{},\"buildI\", see evidence field for the suspicious comment/snippet."
 						},
 						{
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/politique-de-confidentialite",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "query",
+							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{\"recordMap\":{\"block\":{\"2d7d9cda-6d9a-4059-baa8-4eacff5\", see evidence field for the suspicious comment/snippet."
+						},
+						{
 							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/stats",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "query",
-							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{}},\"page\":\"/stats\",\"query\":{},\"buildId\":\"PK5hH6ydxrmR-\", see evidence field for the suspicious comment/snippet."
-						},
-						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/test-widget",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "query",
-							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{}},\"page\":\"/test-widget\",\"query\":{},\"buildId\":\"PK5hH6y\", see evidence field for the suspicious comment/snippet."
+							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{}},\"page\":\"/stats\",\"query\":{},\"buildId\":\"Jo1yAFKk9SCsY\", see evidence field for the suspicious comment/snippet."
 						}
 					],
 					"count": "11",
 					"solution": "<p>Remove all comments that return information that may help an attacker and fix any underlying problems they refer to.</p>",
-					"otherinfo": "<p>The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{}},\"page\":\"/\",\"query\":{},\"buildId\":\"PK5hH6ydxrmR-scfd4\", see evidence field for the suspicious comment/snippet.</p>",
+					"otherinfo": "<p>The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{}},\"page\":\"/\",\"query\":{},\"buildId\":\"Jo1yAFKk9SCsYc-HCz\", see evidence field for the suspicious comment/snippet.</p>",
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
@@ -1199,7 +1087,7 @@
 							"otherinfo": "A noScript tag has been found, which is an indication that the application works differently with JavaScript enabled compared to when it is not."
 						},
 						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/cgu",
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/contact",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1207,7 +1095,7 @@
 							"otherinfo": "A noScript tag has been found, which is an indication that the application works differently with JavaScript enabled compared to when it is not."
 						},
 						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/contact",
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/developpeurs",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1239,7 +1127,7 @@
 							"otherinfo": "A noScript tag has been found, which is an indication that the application works differently with JavaScript enabled compared to when it is not."
 						},
 						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/stats",
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/politique-de-confidentialite",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1247,7 +1135,7 @@
 							"otherinfo": "A noScript tag has been found, which is an indication that the application works differently with JavaScript enabled compared to when it is not."
 						},
 						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/test-widget",
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/stats",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1298,14 +1186,6 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/cgu",
-							"method": "GET",
-							"param": "Cache-Control",
-							"attack": "",
-							"evidence": "s-maxage=31536000, stale-while-revalidate",
-							"otherinfo": ""
-						},
-						{
 							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/contact",
 							"method": "GET",
 							"param": "Cache-Control",
@@ -1322,11 +1202,27 @@
 							"otherinfo": ""
 						},
 						{
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/metiers",
+							"method": "GET",
+							"param": "Cache-Control",
+							"attack": "",
+							"evidence": "s-maxage=31536000, stale-while-revalidate",
+							"otherinfo": ""
+						},
+						{
 							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/organisme-de-formation",
 							"method": "GET",
 							"param": "Cache-Control",
 							"attack": "",
 							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/politique-de-confidentialite",
+							"method": "GET",
+							"param": "Cache-Control",
+							"attack": "",
+							"evidence": "s-maxage=31536000, stale-while-revalidate",
 							"otherinfo": ""
 						},
 						{
@@ -1347,14 +1243,6 @@
 						},
 						{
 							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/stats",
-							"method": "GET",
-							"param": "Cache-Control",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/test-widget",
 							"method": "GET",
 							"param": "Cache-Control",
 							"attack": "",
@@ -1405,14 +1293,6 @@
 							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
 						},
 						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/cgu",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "s-maxage=31536000",
-							"otherinfo": ""
-						},
-						{
 							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/contact",
 							"method": "GET",
 							"param": "",
@@ -1429,6 +1309,14 @@
 							"otherinfo": ""
 						},
 						{
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/metiers",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "s-maxage=31536000",
+							"otherinfo": ""
+						},
+						{
 							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/organisme-de-formation",
 							"method": "GET",
 							"param": "",
@@ -1437,15 +1325,15 @@
 							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
 						},
 						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/stats",
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/politique-de-confidentialite",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "",
-							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
+							"evidence": "s-maxage=31536000",
+							"otherinfo": ""
 						},
 						{
-							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/test-widget",
+							"uri": "https://labonnealternance.apprentissage.beta.gouv.fr/stats",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1494,7 +1382,7 @@
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "8"
+					"sourceid": "28"
 				},
 				{
 					"pluginid": "10031",
@@ -1601,7 +1489,7 @@
 					"reference": "<p>http://websecuritytool.codeplex.com/wikipage?title=Checks#user-controlled-html-attribute</p>",
 					"cweid": "20",
 					"wascid": "20",
-					"sourceid": "5131"
+					"sourceid": "1708"
 				}
 			]
 		}
