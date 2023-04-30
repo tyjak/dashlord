@@ -1,7 +1,7 @@
 {
 	"@programName": "OWASP ZAP",
 	"@version": "2.12.0",
-	"@generated": "Sun, 23 Apr 2023 20:34:00",
+	"@generated": "Sun, 30 Apr 2023 20:45:34",
 	"site":[ 
 		{
 			"@name": "https://labonneboite.pole-emploi.fr",
@@ -44,6 +44,14 @@
 							"otherinfo": "No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"naf\" ]."
 						},
 						{
+							"uri": "https://labonneboite.pole-emploi.fr/entreprises?d=5&departments&h=1&ij&j=Boucherie&l=77&lat&lon&naf=0111Z&occupation=boucherie&sort=smart",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form action=\"/entreprises\" class=\"js-search-form no-margin no-padding\" method=\"get\"\n        autocomplete=\"off\">",
+							"otherinfo": "No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"d-0\" \"d-1\" \"d-2\" \"d-3\" \"d-4\" \"d-5\" \"departments\" \"h-0\" \"h-1\" \"h-2\" \"ij\" \"j\" \"l\" \"lat\" \"lon\" \"occupation\" \"sort-0\" \"sort-1\" \"sort-2\" ]."
+						},
+						{
 							"uri": "https://labonneboite.pole-emploi.fr/entreprises?d=5&departments&h=1&ij&j=ZAP&l=ZAP&lat=41.61667&lon=9.277456&naf=0111Z&occupation&sort=smart",
 							"method": "GET",
 							"param": "",
@@ -68,13 +76,13 @@
 							"otherinfo": "No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"d-0\" \"d-1\" \"d-2\" \"d-3\" \"d-4\" \"d-5\" \"departments\" \"h-0\" \"h-1\" \"h-2\" \"ij\" \"j\" \"l\" \"lat\" \"lon\" \"occupation\" \"sort-0\" \"sort-1\" \"sort-2\" ]."
 						}
 					],
-					"count": "6",
+					"count": "7",
 					"solution": "<p>Phase: Architecture and Design</p><p>Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid.</p><p>For example, use anti-CSRF packages such as the OWASP CSRFGuard.</p><p></p><p>Phase: Implementation</p><p>Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.</p><p></p><p>Phase: Architecture and Design</p><p>Generate a unique nonce for each form, place the nonce into the form, and verify the nonce upon receipt of the form. Be sure that the nonce is not predictable (CWE-330).</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Identify especially dangerous operations. When the user performs a dangerous operation, send a separate confirmation request to ensure that the user intended to perform that operation.</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Use the ESAPI Session Management control.</p><p>This control includes a component for CSRF.</p><p></p><p>Do not use the GET method for any request that triggers a state change.</p><p></p><p>Phase: Implementation</p><p>Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.</p>",
 					"otherinfo": "<p>No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"departments\" \"ij\" \"j\" \"l\" \"lat\" \"lon\" \"occupation\" ].</p>",
 					"reference": "<p>http://projects.webappsec.org/Cross-Site-Request-Forgery</p><p>http://cwe.mitre.org/data/definitions/352.html</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "6"
+					"sourceid": "32"
 				},
 				{
 					"pluginid": "10055",
@@ -95,7 +103,7 @@
 							"otherinfo": "The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: \nstyle-src, img-src, connect-src, frame-src, frame-ancestors, font-src, media-src, object-src, manifest-src, prefetch-src, form-action\n\nThe directive(s): frame-ancestors, form-action are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything."
 						},
 						{
-							"uri": "https://labonneboite.pole-emploi.fr/",
+							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?keep=1&next=https%3A%2F%2Flabonneboite.pole-emploi.fr%2Fauthorize%2Flogin%2F",
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
@@ -109,7 +117,7 @@
 					"reference": "<p>http://www.w3.org/TR/CSP2/</p><p>http://www.w3.org/TR/CSP/</p><p>http://caniuse.com/#search=content+security+policy</p><p>http://content-security-policy.com/</p><p>https://github.com/shapesecurity/salvation</p><p>https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "6"
+					"sourceid": "32"
 				},
 				{
 					"pluginid": "10055",
@@ -130,7 +138,7 @@
 							"otherinfo": "script-src includes unsafe-eval."
 						},
 						{
-							"uri": "https://labonneboite.pole-emploi.fr/",
+							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?keep=1&next=https%3A%2F%2Flabonneboite.pole-emploi.fr%2Fauthorize%2Flogin%2F",
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
@@ -144,7 +152,7 @@
 					"reference": "<p>http://www.w3.org/TR/CSP2/</p><p>http://www.w3.org/TR/CSP/</p><p>http://caniuse.com/#search=content+security+policy</p><p>http://content-security-policy.com/</p><p>https://github.com/shapesecurity/salvation</p><p>https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "6"
+					"sourceid": "32"
 				},
 				{
 					"pluginid": "10055",
@@ -165,7 +173,7 @@
 							"otherinfo": "script-src includes unsafe-inline."
 						},
 						{
-							"uri": "https://labonneboite.pole-emploi.fr/",
+							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?keep=1&next=https%3A%2F%2Flabonneboite.pole-emploi.fr%2Fauthorize%2Flogin%2F",
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
@@ -179,7 +187,7 @@
 					"reference": "<p>http://www.w3.org/TR/CSP2/</p><p>http://www.w3.org/TR/CSP/</p><p>http://caniuse.com/#search=content+security+policy</p><p>http://content-security-policy.com/</p><p>https://github.com/shapesecurity/salvation</p><p>https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "6"
+					"sourceid": "32"
 				},
 				{
 					"pluginid": "10055",
@@ -200,7 +208,7 @@
 							"otherinfo": "style-src includes unsafe-inline."
 						},
 						{
-							"uri": "https://labonneboite.pole-emploi.fr/",
+							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?keep=1&next=https%3A%2F%2Flabonneboite.pole-emploi.fr%2Fauthorize%2Flogin%2F",
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
@@ -214,7 +222,7 @@
 					"reference": "<p>http://www.w3.org/TR/CSP2/</p><p>http://www.w3.org/TR/CSP/</p><p>http://caniuse.com/#search=content+security+policy</p><p>http://content-security-policy.com/</p><p>https://github.com/shapesecurity/salvation</p><p>https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "6"
+					"sourceid": "32"
 				},
 				{
 					"pluginid": "10038",
@@ -251,7 +259,15 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://labonneboite.pole-emploi.fr/entreprises/brest-29200/conduite-d-engins-agricoles-et-forestiers",
+							"uri": "https://labonneboite.pole-emploi.fr/entreprises/grenoble-38000/conduite-d-engins-agricoles-et-forestiers",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://labonneboite.pole-emploi.fr/entreprises/nimes-30000/conduite-d-engins-agricoles-et-forestiers",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -275,13 +291,13 @@
 							"otherinfo": ""
 						}
 					],
-					"count": "6",
+					"count": "7",
 					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to set the Content-Security-Policy header.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/Security/CSP/Introducing_Content_Security_Policy</p><p>https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html</p><p>http://www.w3.org/TR/CSP/</p><p>http://w3c.github.io/webappsec/specs/content-security-policy/csp-specification.dev.html</p><p>http://www.html5rocks.com/en/tutorials/security/content-security-policy/</p><p>http://caniuse.com/#feat=contentsecuritypolicy</p><p>http://content-security-policy.com/</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "93"
+					"sourceid": "36"
 				},
 				{
 					"pluginid": "90003",
@@ -350,7 +366,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://labonneboite.pole-emploi.fr/entreprises?departments&ij&j=ZAP&l=ZAP&lat&lon&occupation",
+							"uri": "https://labonneboite.pole-emploi.fr/connexion-recruteur?action_name=delete&siret",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -415,7 +431,7 @@
 					"reference": "<p>https://github.com/jquery/jquery/issues/2432</p><p>http://blog.jquery.com/2016/01/08/jquery-2-2-and-1-12-released/</p><p>http://research.insecurelabs.org/jquery/test/</p><p>https://blog.jquery.com/2019/04/10/jquery-3-4-0-released/</p><p>https://nvd.nist.gov/vuln/detail/CVE-2019-11358</p><p>https://nvd.nist.gov/vuln/detail/CVE-2015-9251</p><p>https://github.com/jquery/jquery/commit/753d591aea698e57d6db58c9f722cd0808619b1b</p><p>https://bugs.jquery.com/ticket/11974</p><p>https://blog.jquery.com/2020/04/10/jquery-3-5-0-released/</p><p></p>",
 					"cweid": "829",
 					"wascid": "-1",
-					"sourceid": "79"
+					"sourceid": "85"
 				},
 				{
 					"pluginid": "10044",
@@ -433,7 +449,23 @@
 							"param": "",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "Location header URI length: 623 [https://authentification-candidat.pole-emploi.fr/connexion/oauth2/individu/authorize?client_id=PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693&redirect_uri=https://labonneboite.pole-emploi.fr/authorize/complete/peam-openidconnect/&state=TmVYlgjMzPpWTaqyYEwHahXPIFK2UQrn&response_type=code&nonce=qIJLPlQlodB1NoJmdTEMTlBmQqWWI2fQXklg5aQxsp0S6XI0J3UzpwZXMmYx0pJN&scope=application_PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693+api_peconnect-individuv1+openid+profile+email+qos_silver_peconnect-individuv1+api_candidaturespontaneev1+ami+amiW&realm=/individu].\nPredicted response size: 923.\nResponse Body Length: 1,481."
+							"otherinfo": "Location header URI length: 623 [https://authentification-candidat.pole-emploi.fr/connexion/oauth2/individu/authorize?client_id=PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693&redirect_uri=https://labonneboite.pole-emploi.fr/authorize/complete/peam-openidconnect/&state=4cnSMfmhbgXAjOMcx7egbD5ypUxL6Vod&response_type=code&nonce=U3TOJ1v6SM5i5cdj8KCdi0AcYyhCnQ9ZM3FInLaHt03zSD8IDUA7FvASk6y5lEch&scope=application_PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693+api_peconnect-individuv1+openid+profile+email+qos_silver_peconnect-individuv1+api_candidaturespontaneev1+ami+amiW&realm=/individu].\nPredicted response size: 923.\nResponse Body Length: 1,481."
+						},
+						{
+							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?keep=1&next=https%3A%2F%2Flabonneboite.pole-emploi.fr%2F%2A%2Fdownload",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "Location header URI length: 623 [https://authentification-candidat.pole-emploi.fr/connexion/oauth2/individu/authorize?client_id=PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693&redirect_uri=https://labonneboite.pole-emploi.fr/authorize/complete/peam-openidconnect/&state=4cnSMfmhbgXAjOMcx7egbD5ypUxL6Vod&response_type=code&nonce=RJ9epWxm9KDQVc6bSqVEHtzb2bY9T042pcF1WgrnYCHTW8kyYjUMV3Di55ZXTdl8&scope=application_PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693+api_peconnect-individuv1+openid+profile+email+qos_silver_peconnect-individuv1+api_candidaturespontaneev1+ami+amiW&realm=/individu].\nPredicted response size: 923.\nResponse Body Length: 1,481."
+						},
+						{
+							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?keep=1&next=https%3A%2F%2Flabonneboite.pole-emploi.fr%2Fauthorize%2Flogin%2F",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "Location header URI length: 623 [https://authentification-candidat.pole-emploi.fr/connexion/oauth2/individu/authorize?client_id=PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693&redirect_uri=https://labonneboite.pole-emploi.fr/authorize/complete/peam-openidconnect/&state=Oivw74xDZnTwS8n7hz9Uc06m4f81SUIM&response_type=code&nonce=QFTUk76QBqLuNLFJBvJb5hsm5aaYh6EVg2aNFeMwghi3FsTvGRILFjkNjUWhCofK&scope=application_PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693+api_peconnect-individuv1+openid+profile+email+qos_silver_peconnect-individuv1+api_candidaturespontaneev1+ami+amiW&realm=/individu].\nPredicted response size: 923.\nResponse Body Length: 1,481."
 						},
 						{
 							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?keep=1&next=https%3A%2F%2Flabonneboite.pole-emploi.fr%2Fcomment-faire-une-candidature-spontanee",
@@ -441,15 +473,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "Location header URI length: 623 [https://authentification-candidat.pole-emploi.fr/connexion/oauth2/individu/authorize?client_id=PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693&redirect_uri=https://labonneboite.pole-emploi.fr/authorize/complete/peam-openidconnect/&state=TmVYlgjMzPpWTaqyYEwHahXPIFK2UQrn&response_type=code&nonce=RBPpcc8W85mw1wp1ibSpQFwrNHEToUeNEcfPNIE5rXmV8tRGswBmk67iNJNBsLNo&scope=application_PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693+api_peconnect-individuv1+openid+profile+email+qos_silver_peconnect-individuv1+api_candidaturespontaneev1+ami+amiW&realm=/individu].\nPredicted response size: 923.\nResponse Body Length: 1,481."
-						},
-						{
-							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?keep=1&next=https%3A%2F%2Flabonneboite.pole-emploi.fr%2Fconditions-generales",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": "Location header URI length: 623 [https://authentification-candidat.pole-emploi.fr/connexion/oauth2/individu/authorize?client_id=PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693&redirect_uri=https://labonneboite.pole-emploi.fr/authorize/complete/peam-openidconnect/&state=TmVYlgjMzPpWTaqyYEwHahXPIFK2UQrn&response_type=code&nonce=v0kQ3TBVFblDBGyE6FXQrsGgMZWYclHsGbVAEB68CilXOUQpRLOT90enrPKagPnF&scope=application_PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693+api_peconnect-individuv1+openid+profile+email+qos_silver_peconnect-individuv1+api_candidaturespontaneev1+ami+amiW&realm=/individu].\nPredicted response size: 923.\nResponse Body Length: 1,481."
+							"otherinfo": "Location header URI length: 623 [https://authentification-candidat.pole-emploi.fr/connexion/oauth2/individu/authorize?client_id=PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693&redirect_uri=https://labonneboite.pole-emploi.fr/authorize/complete/peam-openidconnect/&state=4cnSMfmhbgXAjOMcx7egbD5ypUxL6Vod&response_type=code&nonce=NXYUWsXOvZc8TzNIA3FLGgKRD9qRYVD5rHVnoegvZkvVr1dkmKwY58zskyc9AbZF&scope=application_PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693+api_peconnect-individuv1+openid+profile+email+qos_silver_peconnect-individuv1+api_candidaturespontaneev1+ami+amiW&realm=/individu].\nPredicted response size: 923.\nResponse Body Length: 1,481."
 						},
 						{
 							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?keep=1&next=https%3A%2F%2Flabonneboite.pole-emploi.fr%2Fespace-presse",
@@ -457,7 +481,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "Location header URI length: 623 [https://authentification-candidat.pole-emploi.fr/connexion/oauth2/individu/authorize?client_id=PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693&redirect_uri=https://labonneboite.pole-emploi.fr/authorize/complete/peam-openidconnect/&state=TmVYlgjMzPpWTaqyYEwHahXPIFK2UQrn&response_type=code&nonce=uzHDIDDbdU9oLJ9oo30aDInU9NnNjQNpyUQt4FuVKpVbPmCLMNPZFNU3wLylwbiP&scope=application_PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693+api_peconnect-individuv1+openid+profile+email+qos_silver_peconnect-individuv1+api_candidaturespontaneev1+ami+amiW&realm=/individu].\nPredicted response size: 923.\nResponse Body Length: 1,481."
+							"otherinfo": "Location header URI length: 623 [https://authentification-candidat.pole-emploi.fr/connexion/oauth2/individu/authorize?client_id=PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693&redirect_uri=https://labonneboite.pole-emploi.fr/authorize/complete/peam-openidconnect/&state=4cnSMfmhbgXAjOMcx7egbD5ypUxL6Vod&response_type=code&nonce=XhW8LM1VHAJhPp893xBUAD32vHgvwtq72iu1vBeOAStCVPio2vhmxpIXBrVc5mvN&scope=application_PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693+api_peconnect-individuv1+openid+profile+email+qos_silver_peconnect-individuv1+api_candidaturespontaneev1+ami+amiW&realm=/individu].\nPredicted response size: 923.\nResponse Body Length: 1,481."
 						},
 						{
 							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?keep=1&next=https%3A%2F%2Flabonneboite.pole-emploi.fr%2Ffaq",
@@ -465,15 +489,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "Location header URI length: 623 [https://authentification-candidat.pole-emploi.fr/connexion/oauth2/individu/authorize?client_id=PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693&redirect_uri=https://labonneboite.pole-emploi.fr/authorize/complete/peam-openidconnect/&state=TmVYlgjMzPpWTaqyYEwHahXPIFK2UQrn&response_type=code&nonce=QhQPMkGpnkmSd45wGdV1oAsDEUPWrtQT9XPQiyemqGieZBVeGSLYArhWdfconQ5M&scope=application_PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693+api_peconnect-individuv1+openid+profile+email+qos_silver_peconnect-individuv1+api_candidaturespontaneev1+ami+amiW&realm=/individu].\nPredicted response size: 923.\nResponse Body Length: 1,481."
-						},
-						{
-							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?keep=1&next=https%3A%2F%2Flabonneboite.pole-emploi.fr%2Finformations-entreprise%2Faction",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": "Location header URI length: 623 [https://authentification-candidat.pole-emploi.fr/connexion/oauth2/individu/authorize?client_id=PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693&redirect_uri=https://labonneboite.pole-emploi.fr/authorize/complete/peam-openidconnect/&state=TmVYlgjMzPpWTaqyYEwHahXPIFK2UQrn&response_type=code&nonce=ug8CGJpEOiRj8hQ23ggJvE1uwws2P533uf76GGU55NTqpJsS02LKgDi9xGypxCeo&scope=application_PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693+api_peconnect-individuv1+openid+profile+email+qos_silver_peconnect-individuv1+api_candidaturespontaneev1+ami+amiW&realm=/individu].\nPredicted response size: 923.\nResponse Body Length: 1,481."
+							"otherinfo": "Location header URI length: 623 [https://authentification-candidat.pole-emploi.fr/connexion/oauth2/individu/authorize?client_id=PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693&redirect_uri=https://labonneboite.pole-emploi.fr/authorize/complete/peam-openidconnect/&state=4cnSMfmhbgXAjOMcx7egbD5ypUxL6Vod&response_type=code&nonce=YPiGkBAmdY8V2NlAUknL7Ag8J1n4Aua03yVvalRjuHf8MM3PeAJSpsFb2XwMR4qo&scope=application_PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693+api_peconnect-individuv1+openid+profile+email+qos_silver_peconnect-individuv1+api_candidaturespontaneev1+ami+amiW&realm=/individu].\nPredicted response size: 923.\nResponse Body Length: 1,481."
 						},
 						{
 							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?next=https%3A//labonneboite.pole-emploi.fr/",
@@ -481,7 +497,23 @@
 							"param": "",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "Location header URI length: 623 [https://authentification-candidat.pole-emploi.fr/connexion/oauth2/individu/authorize?client_id=PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693&redirect_uri=https://labonneboite.pole-emploi.fr/authorize/complete/peam-openidconnect/&state=TmVYlgjMzPpWTaqyYEwHahXPIFK2UQrn&response_type=code&nonce=D8hot2kQsrRVP0NWV4nWJ7xZPHyOr8BqD4xZa4ibwAAsKfB3njYfYG8wQqT12e3q&scope=application_PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693+api_peconnect-individuv1+openid+profile+email+qos_silver_peconnect-individuv1+api_candidaturespontaneev1+ami+amiW&realm=/individu].\nPredicted response size: 923.\nResponse Body Length: 1,481."
+							"otherinfo": "Location header URI length: 623 [https://authentification-candidat.pole-emploi.fr/connexion/oauth2/individu/authorize?client_id=PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693&redirect_uri=https://labonneboite.pole-emploi.fr/authorize/complete/peam-openidconnect/&state=4cnSMfmhbgXAjOMcx7egbD5ypUxL6Vod&response_type=code&nonce=elVwQBUOGDLVF9XW1P6bgrKEPPSkolEGHAQ7NeUbmsZ8776HwOxGAIDCDueUg5xH&scope=application_PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693+api_peconnect-individuv1+openid+profile+email+qos_silver_peconnect-individuv1+api_candidaturespontaneev1+ami+amiW&realm=/individu].\nPredicted response size: 923.\nResponse Body Length: 1,481."
+						},
+						{
+							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?next=https%3A//labonneboite.pole-emploi.fr/%2A/download",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "Location header URI length: 623 [https://authentification-candidat.pole-emploi.fr/connexion/oauth2/individu/authorize?client_id=PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693&redirect_uri=https://labonneboite.pole-emploi.fr/authorize/complete/peam-openidconnect/&state=4cnSMfmhbgXAjOMcx7egbD5ypUxL6Vod&response_type=code&nonce=XxolmPSOcynTJflWP945reb4wawMpDEkO7FrFLiseaX6XAN2ktDKNkav60f34z4s&scope=application_PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693+api_peconnect-individuv1+openid+profile+email+qos_silver_peconnect-individuv1+api_candidaturespontaneev1+ami+amiW&realm=/individu].\nPredicted response size: 923.\nResponse Body Length: 1,481."
+						},
+						{
+							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?next=https%3A//labonneboite.pole-emploi.fr/authorize/login/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "Location header URI length: 623 [https://authentification-candidat.pole-emploi.fr/connexion/oauth2/individu/authorize?client_id=PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693&redirect_uri=https://labonneboite.pole-emploi.fr/authorize/complete/peam-openidconnect/&state=4cnSMfmhbgXAjOMcx7egbD5ypUxL6Vod&response_type=code&nonce=lySscJ31Cr6PphdptxOghMvbeunoX74Pvz7ahP2mHoYsmmo4hjPTPvBY3K8Uyimn&scope=application_PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693+api_peconnect-individuv1+openid+profile+email+qos_silver_peconnect-individuv1+api_candidaturespontaneev1+ami+amiW&realm=/individu].\nPredicted response size: 923.\nResponse Body Length: 1,481."
 						},
 						{
 							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?next=https%3A//labonneboite.pole-emploi.fr/comment-faire-une-candidature-spontanee",
@@ -489,15 +521,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "Location header URI length: 623 [https://authentification-candidat.pole-emploi.fr/connexion/oauth2/individu/authorize?client_id=PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693&redirect_uri=https://labonneboite.pole-emploi.fr/authorize/complete/peam-openidconnect/&state=TmVYlgjMzPpWTaqyYEwHahXPIFK2UQrn&response_type=code&nonce=q31koJElmg1rlFJHpfgfj8JR88bXSdy7YDY6L9zjiDDuibBOKLUhZulFLKAzarSq&scope=application_PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693+api_peconnect-individuv1+openid+profile+email+qos_silver_peconnect-individuv1+api_candidaturespontaneev1+ami+amiW&realm=/individu].\nPredicted response size: 923.\nResponse Body Length: 1,481."
-						},
-						{
-							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?next=https%3A//labonneboite.pole-emploi.fr/conditions-generales",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": "Location header URI length: 623 [https://authentification-candidat.pole-emploi.fr/connexion/oauth2/individu/authorize?client_id=PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693&redirect_uri=https://labonneboite.pole-emploi.fr/authorize/complete/peam-openidconnect/&state=TmVYlgjMzPpWTaqyYEwHahXPIFK2UQrn&response_type=code&nonce=1wFcAxByJTRfmPgFTc5DHiv0AE2J3CZBxeIjbYT4lhcJRen0r8117pEDbJWRm7NE&scope=application_PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693+api_peconnect-individuv1+openid+profile+email+qos_silver_peconnect-individuv1+api_candidaturespontaneev1+ami+amiW&realm=/individu].\nPredicted response size: 923.\nResponse Body Length: 1,481."
+							"otherinfo": "Location header URI length: 623 [https://authentification-candidat.pole-emploi.fr/connexion/oauth2/individu/authorize?client_id=PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693&redirect_uri=https://labonneboite.pole-emploi.fr/authorize/complete/peam-openidconnect/&state=4cnSMfmhbgXAjOMcx7egbD5ypUxL6Vod&response_type=code&nonce=sl5Mi0bF2CCosU0WqTvwNmWVNZMkQd2Fw6kFCYab2gSQ5Ae4290TyLjfRZmOuKEe&scope=application_PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693+api_peconnect-individuv1+openid+profile+email+qos_silver_peconnect-individuv1+api_candidaturespontaneev1+ami+amiW&realm=/individu].\nPredicted response size: 923.\nResponse Body Length: 1,481."
 						},
 						{
 							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?next=https%3A//labonneboite.pole-emploi.fr/espace-presse",
@@ -505,7 +529,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "Location header URI length: 623 [https://authentification-candidat.pole-emploi.fr/connexion/oauth2/individu/authorize?client_id=PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693&redirect_uri=https://labonneboite.pole-emploi.fr/authorize/complete/peam-openidconnect/&state=TmVYlgjMzPpWTaqyYEwHahXPIFK2UQrn&response_type=code&nonce=aODqTEoChWP6nJu52UeX0eq5Y8lE9JgYnDYa9l0qdtw4rY34HtNVz8yigmPKhtl8&scope=application_PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693+api_peconnect-individuv1+openid+profile+email+qos_silver_peconnect-individuv1+api_candidaturespontaneev1+ami+amiW&realm=/individu].\nPredicted response size: 923.\nResponse Body Length: 1,481."
+							"otherinfo": "Location header URI length: 623 [https://authentification-candidat.pole-emploi.fr/connexion/oauth2/individu/authorize?client_id=PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693&redirect_uri=https://labonneboite.pole-emploi.fr/authorize/complete/peam-openidconnect/&state=4cnSMfmhbgXAjOMcx7egbD5ypUxL6Vod&response_type=code&nonce=1rr7e8bi3hxUcz7ftFXunQmCBT2VvPQq0iEfvMTB880ZkVLoIOriXsEJONrDYOYO&scope=application_PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693+api_peconnect-individuv1+openid+profile+email+qos_silver_peconnect-individuv1+api_candidaturespontaneev1+ami+amiW&realm=/individu].\nPredicted response size: 923.\nResponse Body Length: 1,481."
 						},
 						{
 							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?next=https%3A//labonneboite.pole-emploi.fr/faq",
@@ -513,24 +537,16 @@
 							"param": "",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "Location header URI length: 623 [https://authentification-candidat.pole-emploi.fr/connexion/oauth2/individu/authorize?client_id=PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693&redirect_uri=https://labonneboite.pole-emploi.fr/authorize/complete/peam-openidconnect/&state=TmVYlgjMzPpWTaqyYEwHahXPIFK2UQrn&response_type=code&nonce=hEEeU8ERsPDRoY7UjKn17wkmz6sZxqRGjTnqjhKdJaL74qKQZvJTEyhjvvyiMko0&scope=application_PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693+api_peconnect-individuv1+openid+profile+email+qos_silver_peconnect-individuv1+api_candidaturespontaneev1+ami+amiW&realm=/individu].\nPredicted response size: 923.\nResponse Body Length: 1,481."
-						},
-						{
-							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?next=https%3A//labonneboite.pole-emploi.fr/informations-entreprise/action",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": "Location header URI length: 623 [https://authentification-candidat.pole-emploi.fr/connexion/oauth2/individu/authorize?client_id=PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693&redirect_uri=https://labonneboite.pole-emploi.fr/authorize/complete/peam-openidconnect/&state=TmVYlgjMzPpWTaqyYEwHahXPIFK2UQrn&response_type=code&nonce=SGEqftLvDy3W269KUHAErfNKipQxp1d9AxUeTHOhDGjiWyrrMRY7HnA6zNG400ll&scope=application_PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693+api_peconnect-individuv1+openid+profile+email+qos_silver_peconnect-individuv1+api_candidaturespontaneev1+ami+amiW&realm=/individu].\nPredicted response size: 923.\nResponse Body Length: 1,481."
+							"otherinfo": "Location header URI length: 623 [https://authentification-candidat.pole-emploi.fr/connexion/oauth2/individu/authorize?client_id=PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693&redirect_uri=https://labonneboite.pole-emploi.fr/authorize/complete/peam-openidconnect/&state=4cnSMfmhbgXAjOMcx7egbD5ypUxL6Vod&response_type=code&nonce=bX9pPnaIgz3gi9TUWZAbsjK8DLrLpWTlQ8p59jv1CXFYPg1VmsfG43x5vNrQD2qe&scope=application_PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693+api_peconnect-individuv1+openid+profile+email+qos_silver_peconnect-individuv1+api_candidaturespontaneev1+ami+amiW&realm=/individu].\nPredicted response size: 923.\nResponse Body Length: 1,481."
 						}
 					],
 					"count": "12",
 					"solution": "<p>Ensure that no sensitive information is leaked via redirect responses. Redirect responses should have almost no content.</p>",
-					"otherinfo": "<p>Location header URI length: 623 [https://authentification-candidat.pole-emploi.fr/connexion/oauth2/individu/authorize?client_id=PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693&redirect_uri=https://labonneboite.pole-emploi.fr/authorize/complete/peam-openidconnect/&state=TmVYlgjMzPpWTaqyYEwHahXPIFK2UQrn&response_type=code&nonce=qIJLPlQlodB1NoJmdTEMTlBmQqWWI2fQXklg5aQxsp0S6XI0J3UzpwZXMmYx0pJN&scope=application_PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693+api_peconnect-individuv1+openid+profile+email+qos_silver_peconnect-individuv1+api_candidaturespontaneev1+ami+amiW&realm=/individu].</p><p>Predicted response size: 923.</p><p>Response Body Length: 1,481.</p>",
+					"otherinfo": "<p>Location header URI length: 623 [https://authentification-candidat.pole-emploi.fr/connexion/oauth2/individu/authorize?client_id=PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693&redirect_uri=https://labonneboite.pole-emploi.fr/authorize/complete/peam-openidconnect/&state=4cnSMfmhbgXAjOMcx7egbD5ypUxL6Vod&response_type=code&nonce=U3TOJ1v6SM5i5cdj8KCdi0AcYyhCnQ9ZM3FInLaHt03zSD8IDUA7FvASk6y5lEch&scope=application_PAR_labonneboite_612fceb5dfaf6baf57e146684a2dd497db31e7715804a7379d3d159ada5dc693+api_peconnect-individuv1+openid+profile+email+qos_silver_peconnect-individuv1+api_candidaturespontaneev1+ami+amiW&realm=/individu].</p><p>Predicted response size: 923.</p><p>Response Body Length: 1,481.</p>",
 					"reference": "",
 					"cweid": "201",
 					"wascid": "13",
-					"sourceid": "33"
+					"sourceid": "95"
 				},
 				{
 					"pluginid": "10054",
@@ -559,7 +575,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://labonneboite.pole-emploi.fr/accessibilite",
+							"uri": "https://labonneboite.pole-emploi.fr/*/download",
 							"method": "GET",
 							"param": "session",
 							"attack": "",
@@ -567,7 +583,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?keep=1&next=https%3A%2F%2Flabonneboite.pole-emploi.fr%2F",
+							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/",
 							"method": "GET",
 							"param": "session",
 							"attack": "",
@@ -575,7 +591,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?next=https%3A//labonneboite.pole-emploi.fr/",
+							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?keep=1&next=https%3A%2F%2Flabonneboite.pole-emploi.fr%2Fauthorize%2Flogin%2F",
 							"method": "GET",
 							"param": "session",
 							"attack": "",
@@ -637,7 +653,7 @@
 					"reference": "<p>https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site</p>",
 					"cweid": "1275",
 					"wascid": "13",
-					"sourceid": "6"
+					"sourceid": "32"
 				},
 				{
 					"pluginid": "10017",
@@ -744,7 +760,7 @@
 					"reference": "",
 					"cweid": "829",
 					"wascid": "15",
-					"sourceid": "6"
+					"sourceid": "32"
 				},
 				{
 					"pluginid": "10110",
@@ -771,7 +787,7 @@
 					"reference": "<p>https://angular.io/guide/security</p>",
 					"cweid": "749",
 					"wascid": "-1",
-					"sourceid": "79"
+					"sourceid": "85"
 				},
 				{
 					"pluginid": "10063",
@@ -915,7 +931,15 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://labonneboite.pole-emploi.fr/entreprises/brest-29200/conduite-d-engins-agricoles-et-forestiers",
+							"uri": "https://labonneboite.pole-emploi.fr/entreprises/grenoble-38000/conduite-d-engins-agricoles-et-forestiers",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://labonneboite.pole-emploi.fr/entreprises/nimes-30000/conduite-d-engins-agricoles-et-forestiers",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -939,13 +963,13 @@
 							"otherinfo": ""
 						}
 					],
-					"count": "6",
+					"count": "7",
 					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to enforce Strict-Transport-Security.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html</p><p>https://owasp.org/www-community/Security_Headers</p><p>http://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security</p><p>http://caniuse.com/stricttransportsecurity</p><p>http://tools.ietf.org/html/rfc6797</p>",
 					"cweid": "319",
 					"wascid": "15",
-					"sourceid": "93"
+					"sourceid": "36"
 				},
 				{
 					"pluginid": "10096",
@@ -980,7 +1004,7 @@
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "3053"
+					"sourceid": "880"
 				},
 				{
 					"pluginid": "10094",
@@ -997,105 +1021,105 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiMzQyZjIwYmQ0ZGZlMDk5ODBlYWIzODQ2NzBjODRlOGUyOWRiZTg4YyJ9",
-							"otherinfo": "{\"_permanent\":true,\"csrf_token\":\"342f20bd4dfe09980eab384670c84e8e29dbe88c\"}"
+							"evidence": "eyJfZnJlc2giOmZhbHNlLCJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiYzdmYzkzYjljODc0ZTVlYzg2MTY5M2E0ZjBmYjU1MzE3ZDM0MzM3ZSJ9",
+							"otherinfo": "{\"_fresh\":false,\"_permanent\":true,\"csrf_token\":\"c7fc93b9c874e5ec861693a4f0fb55317d34337e\"}"
 						},
 						{
 							"uri": "https://labonneboite.pole-emploi.fr",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiNGFlZGI3Y2E4ZDVjYTQ1MjdkODhiNzVmMjdiYTlhNjllMzRmNGJhYiJ9",
-							"otherinfo": "{\"_permanent\":true,\"csrf_token\":\"4aedb7ca8d5ca4527d88b75f27ba9a69e34f4bab\"}"
+							"evidence": "eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiMmY5OTM1MTNkOGMyMzdhMzBjZjY2YjA4OTkzMGI4MDVlYWI3MzhhZiJ9",
+							"otherinfo": "{\"_permanent\":true,\"csrf_token\":\"2f993513d8c237a30cf66b089930b805eab738af\"}"
 						},
 						{
 							"uri": "https://labonneboite.pole-emploi.fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "eyJfZnJlc2giOmZhbHNlLCJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiMzQyZjIwYmQ0ZGZlMDk5ODBlYWIzODQ2NzBjODRlOGUyOWRiZTg4YyJ9",
-							"otherinfo": "{\"_fresh\":false,\"_permanent\":true,\"csrf_token\":\"342f20bd4dfe09980eab384670c84e8e29dbe88c\"}"
+							"evidence": "eyJfZnJlc2giOmZhbHNlLCJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiYzY5ODk5NWVhNGZhM2EzNGIyOWQyMTZhMWUwY2MzZjA3YmFlMDNhYSJ9",
+							"otherinfo": "{\"_fresh\":false,\"_permanent\":true,\"csrf_token\":\"c698995ea4fa3a34b29d216a1e0cc3f07bae03aa\"}"
 						},
 						{
-							"uri": "https://labonneboite.pole-emploi.fr/accessibilite",
+							"uri": "https://labonneboite.pole-emploi.fr/*/download",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "eJwVjMtuwjAUBf_lroGEEBUn-1YghEQlaMsqsp1jEnBs175VX-q_1-yOjmbmlzoTkQZqjbQJM-oC4iQdHFPL8SM_OkXTsb_BUUurujJVqfq6NyibRpSQaiXqh3WpRQ2BqukVhNA0oxsQsrHM0-Er52hgDqktCiuVdw7Kj4xF8BZzTMH6cWFikekAOc19gBt7fec0d4klIxeO08vZXq77n0N4Pcr37_Pj50YOb4ft0646PUdHf_8ri0X_",
-							"otherinfo": "x\uFFFD\\x0015\uFFFD\uFFFDn\uFFFD0\\x0014\\x0005\uFFFD\u5B81\uFFFD\\x0010\\x0015'\uFFFDV \uFFFDD%h\uFFFD*\uFFFD\uFFFDc\\x0012pl\u05FEU_\uFFFD\uFFFD\uC38Ef\uFFFD:\\x0013\uFFFD\\x0006j\uFFFD\uFFFD\t3\uFFFD\\x0002\uFFFD$\\x001d\\x001cS\uFFFD\uFFFD#?:E\u04F1\uFFFD\uFFFDQK\uFFFD\uFFFD2U\uFFFD\uFFFD\uFFFD7(\uFFFDF\uFFFD\uFFFDj%\uFFFDu\uFFFDE\r\uFFFD\uFFFD\uFFFD\\x0015\uFFFD\uFFFD4\uFFFD\\x001b\\x0010\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD+\uFFFDh`\\x000e\uFFFD-\n+\uFFFDw\\x000e\u028F\uFFFDE\uFFFD\\x0016sL\uFFFD\uFFFDqab\uFFFD\uFFFD\\x00009\uFFFD}\uFFFD\\x001b{}\uFFFD4w\uFFFD%#\\x0017\uFFFD\uFFFD\uFFFD\uFFFD^\uFFFD\uFFFD\uFFFDCx=\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDF\\x000eo\uFFFD\uFFFD\u04EE:=GG\uFFFD+\uFFFDE\uFFFD"
+							"evidence": "eyJfZnJlc2giOmZhbHNlLCJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiYzY5ODk5NWVhNGZhM2EzNGIyOWQyMTZhMWUwY2MzZjA3YmFlMDNhYSJ9",
+							"otherinfo": "{\"_fresh\":false,\"_permanent\":true,\"csrf_token\":\"c698995ea4fa3a34b29d216a1e0cc3f07bae03aa\"}"
 						},
 						{
-							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?keep=1&next=https%3A%2F%2Flabonneboite.pole-emploi.fr%2F",
+							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "TmVYlgjMzPpWTaqyYEwHahXPIFK2UQrn",
-							"otherinfo": "NeX\uFFFD\\x0008\uFFFD\uFFFD\uFFFDVM\uFFFD\uFFFD`L\\x0007j\\x0015\uFFFD R\uFFFDQ\n\uFFFD"
+							"evidence": "eyJfZnJlc2giOmZhbHNlLCJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiYzY5ODk5NWVhNGZhM2EzNGIyOWQyMTZhMWUwY2MzZjA3YmFlMDNhYSJ9",
+							"otherinfo": "{\"_fresh\":false,\"_permanent\":true,\"csrf_token\":\"c698995ea4fa3a34b29d216a1e0cc3f07bae03aa\"}"
 						},
 						{
-							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?next=https%3A//labonneboite.pole-emploi.fr/",
+							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?keep=1&next=https%3A%2F%2Flabonneboite.pole-emploi.fr%2Fauthorize%2Flogin%2F",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "TmVYlgjMzPpWTaqyYEwHahXPIFK2UQrn",
-							"otherinfo": "NeX\uFFFD\\x0008\uFFFD\uFFFD\uFFFDVM\uFFFD\uFFFD`L\\x0007j\\x0015\uFFFD R\uFFFDQ\n\uFFFD"
+							"evidence": "Oivw74xDZnTwS8n7hz9Uc06m4f81SUIM",
+							"otherinfo": ":+\uFFFD\uFFFDCft\uFFFDK\uFFFD\uFFFD\uFFFD?TsN\uFFFD\uFFFD\uFFFD5IB\\x000c"
+						},
+						{
+							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?next=https%3A//labonneboite.pole-emploi.fr/authorize/login/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "4cnSMfmhbgXAjOMcx7egbD5ypUxL6Vod",
+							"otherinfo": "\uFFFD\uFFFD\uFFFD1\uFFFD\uFFFDn\\x0005\uFFFD\uFFFD\uFFFD\\x001c\u01F7\uFFFDl>r\uFFFDLK\uFFFDZ\\x001d"
 						},
 						{
 							"uri": "https://labonneboite.pole-emploi.fr/comment-faire-une-candidature-spontanee",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "eJwVjMtuwjAUBf_lroGEEBUn-1YghEQlaMsqsp1jEnBs175VX-q_1-yOjmbmlzoTkQZqjbQJM-oC4iQdHFPL8SM_OkXTsb_BUUurujJVqfq6NyibRpSQaiXqh3WpRQ2BqukVhNA0oxsQsrHM0-Er52hgDqktCiuVdw7Kj4xF8BZzTMH6cWFikekAOc19gBt7fec0d4klIxeO08vZXq77n0N4Pcr37_Pj50YOb4ft0646PUdHf_8ri0X_",
-							"otherinfo": "x\uFFFD\\x0015\uFFFD\uFFFDn\uFFFD0\\x0014\\x0005\uFFFD\u5B81\uFFFD\\x0010\\x0015'\uFFFDV \uFFFDD%h\uFFFD*\uFFFD\uFFFDc\\x0012pl\u05FEU_\uFFFD\uFFFD\uC38Ef\uFFFD:\\x0013\uFFFD\\x0006j\uFFFD\uFFFD\t3\uFFFD\\x0002\uFFFD$\\x001d\\x001cS\uFFFD\uFFFD#?:E\u04F1\uFFFD\uFFFDQK\uFFFD\uFFFD2U\uFFFD\uFFFD\uFFFD7(\uFFFDF\uFFFD\uFFFDj%\uFFFDu\uFFFDE\r\uFFFD\uFFFD\uFFFD\\x0015\uFFFD\uFFFD4\uFFFD\\x001b\\x0010\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD+\uFFFDh`\\x000e\uFFFD-\n+\uFFFDw\\x000e\u028F\uFFFDE\uFFFD\\x0016sL\uFFFD\uFFFDqab\uFFFD\uFFFD\\x00009\uFFFD}\uFFFD\\x001b{}\uFFFD4w\uFFFD%#\\x0017\uFFFD\uFFFD\uFFFD\uFFFD^\uFFFD\uFFFD\uFFFDCx=\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDF\\x000eo\uFFFD\uFFFD\u04EE:=GG\uFFFD+\uFFFDE\uFFFD"
+							"evidence": "eyJfZnJlc2giOmZhbHNlLCJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiYzY5ODk5NWVhNGZhM2EzNGIyOWQyMTZhMWUwY2MzZjA3YmFlMDNhYSJ9",
+							"otherinfo": "{\"_fresh\":false,\"_permanent\":true,\"csrf_token\":\"c698995ea4fa3a34b29d216a1e0cc3f07bae03aa\"}"
 						},
 						{
 							"uri": "https://labonneboite.pole-emploi.fr/conditions-generales",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "eJwVjMtuwjAUBf_lroGEEBUn-1YghEQlaMsqsp1jEnBs175VX-q_1-yOjmbmlzoTkQZqjbQJM-oC4iQdHFPL8SM_OkXTsb_BUUurujJVqfq6NyibRpSQaiXqh3WpRQ2BqukVhNA0oxsQsrHM0-Er52hgDqktCiuVdw7Kj4xF8BZzTMH6cWFikekAOc19gBt7fec0d4klIxeO08vZXq77n0N4Pcr37_Pj50YOb4ft0646PUdHf_8ri0X_",
-							"otherinfo": "x\uFFFD\\x0015\uFFFD\uFFFDn\uFFFD0\\x0014\\x0005\uFFFD\u5B81\uFFFD\\x0010\\x0015'\uFFFDV \uFFFDD%h\uFFFD*\uFFFD\uFFFDc\\x0012pl\u05FEU_\uFFFD\uFFFD\uC38Ef\uFFFD:\\x0013\uFFFD\\x0006j\uFFFD\uFFFD\t3\uFFFD\\x0002\uFFFD$\\x001d\\x001cS\uFFFD\uFFFD#?:E\u04F1\uFFFD\uFFFDQK\uFFFD\uFFFD2U\uFFFD\uFFFD\uFFFD7(\uFFFDF\uFFFD\uFFFDj%\uFFFDu\uFFFDE\r\uFFFD\uFFFD\uFFFD\\x0015\uFFFD\uFFFD4\uFFFD\\x001b\\x0010\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD+\uFFFDh`\\x000e\uFFFD-\n+\uFFFDw\\x000e\u028F\uFFFDE\uFFFD\\x0016sL\uFFFD\uFFFDqab\uFFFD\uFFFD\\x00009\uFFFD}\uFFFD\\x001b{}\uFFFD4w\uFFFD%#\\x0017\uFFFD\uFFFD\uFFFD\uFFFD^\uFFFD\uFFFD\uFFFDCx=\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDF\\x000eo\uFFFD\uFFFD\u04EE:=GG\uFFFD+\uFFFDE\uFFFD"
+							"evidence": "eyJfZnJlc2giOmZhbHNlLCJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiYzY5ODk5NWVhNGZhM2EzNGIyOWQyMTZhMWUwY2MzZjA3YmFlMDNhYSJ9",
+							"otherinfo": "{\"_fresh\":false,\"_permanent\":true,\"csrf_token\":\"c698995ea4fa3a34b29d216a1e0cc3f07bae03aa\"}"
 						},
 						{
 							"uri": "https://labonneboite.pole-emploi.fr/espace-presse",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "eyJfZnJlc2giOmZhbHNlLCJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiMzQyZjIwYmQ0ZGZlMDk5ODBlYWIzODQ2NzBjODRlOGUyOWRiZTg4YyJ9",
-							"otherinfo": "{\"_fresh\":false,\"_permanent\":true,\"csrf_token\":\"342f20bd4dfe09980eab384670c84e8e29dbe88c\"}"
+							"evidence": "eyJfZnJlc2giOmZhbHNlLCJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiYzY5ODk5NWVhNGZhM2EzNGIyOWQyMTZhMWUwY2MzZjA3YmFlMDNhYSJ9",
+							"otherinfo": "{\"_fresh\":false,\"_permanent\":true,\"csrf_token\":\"c698995ea4fa3a34b29d216a1e0cc3f07bae03aa\"}"
 						},
 						{
 							"uri": "https://labonneboite.pole-emploi.fr/faq",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "eyJfZnJlc2giOmZhbHNlLCJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiMzQyZjIwYmQ0ZGZlMDk5ODBlYWIzODQ2NzBjODRlOGUyOWRiZTg4YyJ9",
-							"otherinfo": "{\"_fresh\":false,\"_permanent\":true,\"csrf_token\":\"342f20bd4dfe09980eab384670c84e8e29dbe88c\"}"
+							"evidence": "eyJfZnJlc2giOmZhbHNlLCJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiYzY5ODk5NWVhNGZhM2EzNGIyOWQyMTZhMWUwY2MzZjA3YmFlMDNhYSJ9",
+							"otherinfo": "{\"_fresh\":false,\"_permanent\":true,\"csrf_token\":\"c698995ea4fa3a34b29d216a1e0cc3f07bae03aa\"}"
 						},
 						{
 							"uri": "https://labonneboite.pole-emploi.fr/informations-entreprise/action",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "eJwVjMtuwjAUBf_lroGEEBUn-1YghEQlaMsqsp1jEnBs175VX-q_1-yOjmbmlzoTkQZqjbQJM-oC4iQdHFPL8SM_OkXTsb_BUUurujJVqfq6NyibRpSQaiXqh3WpRQ2BqukVhNA0oxsQsrHM0-Er52hgDqktCiuVdw7Kj4xF8BZzTMH6cWFikekAOc19gBt7fec0d4klIxeO08vZXq77n0N4Pcr37_Pj50YOb4ft0646PUdHf_8ri0X_",
-							"otherinfo": "x\uFFFD\\x0015\uFFFD\uFFFDn\uFFFD0\\x0014\\x0005\uFFFD\u5B81\uFFFD\\x0010\\x0015'\uFFFDV \uFFFDD%h\uFFFD*\uFFFD\uFFFDc\\x0012pl\u05FEU_\uFFFD\uFFFD\uC38Ef\uFFFD:\\x0013\uFFFD\\x0006j\uFFFD\uFFFD\t3\uFFFD\\x0002\uFFFD$\\x001d\\x001cS\uFFFD\uFFFD#?:E\u04F1\uFFFD\uFFFDQK\uFFFD\uFFFD2U\uFFFD\uFFFD\uFFFD7(\uFFFDF\uFFFD\uFFFDj%\uFFFDu\uFFFDE\r\uFFFD\uFFFD\uFFFD\\x0015\uFFFD\uFFFD4\uFFFD\\x001b\\x0010\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD+\uFFFDh`\\x000e\uFFFD-\n+\uFFFDw\\x000e\u028F\uFFFDE\uFFFD\\x0016sL\uFFFD\uFFFDqab\uFFFD\uFFFD\\x00009\uFFFD}\uFFFD\\x001b{}\uFFFD4w\uFFFD%#\\x0017\uFFFD\uFFFD\uFFFD\uFFFD^\uFFFD\uFFFD\uFFFDCx=\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDF\\x000eo\uFFFD\uFFFD\u04EE:=GG\uFFFD+\uFFFDE\uFFFD"
-						},
-						{
-							"uri": "https://labonneboite.pole-emploi.fr/robots.txt",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "eyJfZnJlc2giOmZhbHNlLCJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiMzQyZjIwYmQ0ZGZlMDk5ODBlYWIzODQ2NzBjODRlOGUyOWRiZTg4YyJ9",
-							"otherinfo": "{\"_fresh\":false,\"_permanent\":true,\"csrf_token\":\"342f20bd4dfe09980eab384670c84e8e29dbe88c\"}"
+							"evidence": "eyJfZnJlc2giOmZhbHNlLCJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiYzY5ODk5NWVhNGZhM2EzNGIyOWQyMTZhMWUwY2MzZjA3YmFlMDNhYSJ9",
+							"otherinfo": "{\"_fresh\":false,\"_permanent\":true,\"csrf_token\":\"c698995ea4fa3a34b29d216a1e0cc3f07bae03aa\"}"
 						}
 					],
 					"count": "12",
 					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
-					"otherinfo": "<p>{\"_permanent\":true,\"csrf_token\":\"342f20bd4dfe09980eab384670c84e8e29dbe88c\"}</p>",
+					"otherinfo": "<p>{\"_fresh\":false,\"_permanent\":true,\"csrf_token\":\"c7fc93b9c874e5ec861693a4f0fb55317d34337e\"}</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "6"
+					"sourceid": "32"
 				},
 				{
 					"pluginid": "10027",
@@ -1162,7 +1186,7 @@
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "79"
+					"sourceid": "85"
 				},
 				{
 					"pluginid": "10109",
@@ -1269,7 +1293,7 @@
 					"reference": "",
 					"cweid": "-1",
 					"wascid": "-1",
-					"sourceid": "6"
+					"sourceid": "32"
 				},
 				{
 					"pluginid": "10049",
@@ -1282,7 +1306,7 @@
 					"desc": "<p>The response contents are not storable by caching components such as proxy servers. If the response does not contain sensitive, personal or user-specific information, it may benefit from being stored and cached, to improve performance.</p>",
 					"instances":[ 
 						{
-							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?keep=1&next=https%3A%2F%2Flabonneboite.pole-emploi.fr%2F",
+							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?keep=1&next=https%3A%2F%2Flabonneboite.pole-emploi.fr%2Fauthorize%2Flogin%2F",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1290,7 +1314,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?next=https%3A//labonneboite.pole-emploi.fr/",
+							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/peam-openidconnect/?next=https%3A//labonneboite.pole-emploi.fr/authorize/login/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1304,7 +1328,7 @@
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "33"
+					"sourceid": "42"
 				},
 				{
 					"pluginid": "10015",
@@ -1357,7 +1381,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://labonneboite.pole-emploi.fr/connexion-recruteur?action_name=update_coordinates&siret",
+							"uri": "https://labonneboite.pole-emploi.fr/connexion-recruteur?action_name=delete&siret",
 							"method": "GET",
 							"param": "Cache-Control",
 							"attack": "",
@@ -1440,7 +1464,7 @@
 							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
 						},
 						{
-							"uri": "https://labonneboite.pole-emploi.fr/comment-faire-une-candidature-spontanee",
+							"uri": "https://labonneboite.pole-emploi.fr/*/download",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1448,7 +1472,15 @@
 							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
 						},
 						{
-							"uri": "https://labonneboite.pole-emploi.fr/conditions-generales",
+							"uri": "https://labonneboite.pole-emploi.fr/authorize/login/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
+						},
+						{
+							"uri": "https://labonneboite.pole-emploi.fr/comment-faire-une-candidature-spontanee",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1478,14 +1510,6 @@
 							"attack": "",
 							"evidence": "",
 							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
-						},
-						{
-							"uri": "https://labonneboite.pole-emploi.fr/static/images/logo-lbb.svg",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "max-age=31536000",
-							"otherinfo": ""
 						}
 					],
 					"count": "8",
@@ -1521,7 +1545,7 @@
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "28"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10031",
@@ -1676,7 +1700,7 @@
 					"reference": "<p>http://websecuritytool.codeplex.com/wikipage?title=Checks#user-controlled-html-attribute</p>",
 					"cweid": "20",
 					"wascid": "20",
-					"sourceid": "1601"
+					"sourceid": "144"
 				}
 			]
 		}
