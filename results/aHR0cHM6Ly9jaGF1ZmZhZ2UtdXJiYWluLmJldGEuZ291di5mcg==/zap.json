@@ -1,7 +1,7 @@
 {
 	"@programName": "OWASP ZAP",
 	"@version": "2.12.0",
-	"@generated": "Sun, 21 May 2023 02:58:03",
+	"@generated": "Sun, 28 May 2023 03:01:54",
 	"site":[ 
 		{
 			"@name": "https://chauffage-urbain.beta.gouv.fr",
@@ -25,12 +25,12 @@
 							"param": "",
 							"attack": "",
 							"evidence": "<form action=\"#\">",
-							"otherinfo": "No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"2900022b-182b-4ae3-9928-a8b61ea50471\" \"6f782b17-9c04-4742-a974-fa8bcd4ac04a\" \"9050097b-3120-4238-8e12-dc09fc20ae3b\" \"autre\" \"copropriete\" \"electricite\" \"fbf84036-c1ac-4056-9a66-81d522f3ae71\" \"fioul\" \"gaz\" \"termOfUse-b9f4402d-a16c-401b-adad-8591765f42d1\" \"tertiaire\" ]."
+							"otherinfo": "No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"2e23056b-c7be-411e-9418-d65ffd066f35\" \"527bd3cb-9553-4bb3-8efb-fcc55ae03fdd\" \"595ee711-1c1a-4011-99cf-d29c3e271eeb\" \"autre\" \"bfc6bd6a-8092-484b-afd0-7be50886b4c6\" \"copropriete\" \"electricite\" \"fioul\" \"gaz\" \"termOfUse-479c95dd-3326-4387-bab9-21e346a744cc\" \"tertiaire\" ]."
 						}
 					],
 					"count": "1",
 					"solution": "<p>Phase: Architecture and Design</p><p>Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid.</p><p>For example, use anti-CSRF packages such as the OWASP CSRFGuard.</p><p></p><p>Phase: Implementation</p><p>Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.</p><p></p><p>Phase: Architecture and Design</p><p>Generate a unique nonce for each form, place the nonce into the form, and verify the nonce upon receipt of the form. Be sure that the nonce is not predictable (CWE-330).</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Identify especially dangerous operations. When the user performs a dangerous operation, send a separate confirmation request to ensure that the user intended to perform that operation.</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Use the ESAPI Session Management control.</p><p>This control includes a component for CSRF.</p><p></p><p>Do not use the GET method for any request that triggers a state change.</p><p></p><p>Phase: Implementation</p><p>Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.</p>",
-					"otherinfo": "<p>No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"2900022b-182b-4ae3-9928-a8b61ea50471\" \"6f782b17-9c04-4742-a974-fa8bcd4ac04a\" \"9050097b-3120-4238-8e12-dc09fc20ae3b\" \"autre\" \"copropriete\" \"electricite\" \"fbf84036-c1ac-4056-9a66-81d522f3ae71\" \"fioul\" \"gaz\" \"termOfUse-b9f4402d-a16c-401b-adad-8591765f42d1\" \"tertiaire\" ].</p>",
+					"otherinfo": "<p>No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"2e23056b-c7be-411e-9418-d65ffd066f35\" \"527bd3cb-9553-4bb3-8efb-fcc55ae03fdd\" \"595ee711-1c1a-4011-99cf-d29c3e271eeb\" \"autre\" \"bfc6bd6a-8092-484b-afd0-7be50886b4c6\" \"copropriete\" \"electricite\" \"fioul\" \"gaz\" \"termOfUse-479c95dd-3326-4387-bab9-21e346a744cc\" \"tertiaire\" ].</p>",
 					"reference": "<p>http://projects.webappsec.org/Cross-Site-Request-Forgery</p><p>http://cwe.mitre.org/data/definitions/352.html</p>",
 					"cweid": "352",
 					"wascid": "9",
@@ -49,7 +49,7 @@
 						{
 							"uri": "https://chauffage-urbain.beta.gouv.fr",
 							"method": "GET",
-							"param": "content-security-policy",
+							"param": "Content-Security-Policy",
 							"attack": "",
 							"evidence": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' https: data:;object-src 'none';script-src 'self' 'sha256-TXnVHDn1j7ztxp+9fAgGYQt5MDdGcfG3DMT2sJR4v/I=' 'sha256-uoDYfYhkG1Rred64INgKWU540cb8GBpVb+EoZcz/Zyo=' 'sha256-eGdlwoVjdfoAxTtVJ5JOqj8MsevToXdxA0rkY5IXIxk=' 'sha256-5nUSiKlxGJiE3JicLfPYxYZShtQfFZM0jtHZyyPijTE=' 'sha256-PAh6kZHWrs47demJXB9x6PfCgghwAf4BZ4ncKf/BhiU=' 'sha256-vHLisyhJqlXs8efpQOmla3M8/VBRwdzde5ZgWIhJQEA=' 'sha256-3I33qFPfa/PLrN/3rrrC4vJBjmKYiuXWQ+ZfnHiEWmo=' 'sha256-ksltjYbI6Uoozfn80t6ROvA1rBbTP9X8qGPGwHmWBpA=' https://stats.data.gouv.fr https://static.axept.io https://connect.facebook.net https://www.gstatic.com/ https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://connect.facebook.net https://snap.licdn.com https://cdn.taboola.com;script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests ;connect-src 'self' https://openmaptiles.geo.data.gouv.fr https://openmaptiles.github.io https://france-chaleur-urbaine.beta.gouv.fr/ https://france-chaleur-urbaine-dev.osc-fr1.scalingo.io/ https://api-adresse.data.gouv.fr/ https://stats.data.gouv.fr https://cdn.linkedin.oribi.io https://trc.taboola.com https://wxs.ign.fr;worker-src 'self' blob:",
 							"otherinfo": "The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: \nstyle-src, img-src, font-src"
@@ -76,7 +76,7 @@
 						{
 							"uri": "https://chauffage-urbain.beta.gouv.fr",
 							"method": "GET",
-							"param": "content-security-policy",
+							"param": "Content-Security-Policy",
 							"attack": "",
 							"evidence": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' https: data:;object-src 'none';script-src 'self' 'sha256-TXnVHDn1j7ztxp+9fAgGYQt5MDdGcfG3DMT2sJR4v/I=' 'sha256-uoDYfYhkG1Rred64INgKWU540cb8GBpVb+EoZcz/Zyo=' 'sha256-eGdlwoVjdfoAxTtVJ5JOqj8MsevToXdxA0rkY5IXIxk=' 'sha256-5nUSiKlxGJiE3JicLfPYxYZShtQfFZM0jtHZyyPijTE=' 'sha256-PAh6kZHWrs47demJXB9x6PfCgghwAf4BZ4ncKf/BhiU=' 'sha256-vHLisyhJqlXs8efpQOmla3M8/VBRwdzde5ZgWIhJQEA=' 'sha256-3I33qFPfa/PLrN/3rrrC4vJBjmKYiuXWQ+ZfnHiEWmo=' 'sha256-ksltjYbI6Uoozfn80t6ROvA1rBbTP9X8qGPGwHmWBpA=' https://stats.data.gouv.fr https://static.axept.io https://connect.facebook.net https://www.gstatic.com/ https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://connect.facebook.net https://snap.licdn.com https://cdn.taboola.com;script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests ;connect-src 'self' https://openmaptiles.geo.data.gouv.fr https://openmaptiles.github.io https://france-chaleur-urbaine.beta.gouv.fr/ https://france-chaleur-urbaine-dev.osc-fr1.scalingo.io/ https://api-adresse.data.gouv.fr/ https://stats.data.gouv.fr https://cdn.linkedin.oribi.io https://trc.taboola.com https://wxs.ign.fr;worker-src 'self' blob:",
 							"otherinfo": "style-src includes unsafe-inline."
@@ -130,7 +130,7 @@
 						{
 							"uri": "https://chauffage-urbain.beta.gouv.fr",
 							"method": "GET",
-							"param": "content-security-policy",
+							"param": "Content-Security-Policy",
 							"attack": "",
 							"evidence": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' https: data:;object-src 'none';script-src 'self' 'sha256-TXnVHDn1j7ztxp+9fAgGYQt5MDdGcfG3DMT2sJR4v/I=' 'sha256-uoDYfYhkG1Rred64INgKWU540cb8GBpVb+EoZcz/Zyo=' 'sha256-eGdlwoVjdfoAxTtVJ5JOqj8MsevToXdxA0rkY5IXIxk=' 'sha256-5nUSiKlxGJiE3JicLfPYxYZShtQfFZM0jtHZyyPijTE=' 'sha256-PAh6kZHWrs47demJXB9x6PfCgghwAf4BZ4ncKf/BhiU=' 'sha256-vHLisyhJqlXs8efpQOmla3M8/VBRwdzde5ZgWIhJQEA=' 'sha256-3I33qFPfa/PLrN/3rrrC4vJBjmKYiuXWQ+ZfnHiEWmo=' 'sha256-ksltjYbI6Uoozfn80t6ROvA1rBbTP9X8qGPGwHmWBpA=' https://stats.data.gouv.fr https://static.axept.io https://connect.facebook.net https://www.gstatic.com/ https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://connect.facebook.net https://snap.licdn.com https://cdn.taboola.com;script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests ;connect-src 'self' https://openmaptiles.geo.data.gouv.fr https://openmaptiles.github.io https://france-chaleur-urbaine.beta.gouv.fr/ https://france-chaleur-urbaine-dev.osc-fr1.scalingo.io/ https://api-adresse.data.gouv.fr/ https://stats.data.gouv.fr https://cdn.linkedin.oribi.io https://trc.taboola.com https://wxs.ign.fr;worker-src 'self' blob:",
 							"otherinfo": "Warnings:\nDuplicate host https://connect.facebook.net\n"
@@ -186,7 +186,7 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "x-powered-by: Next.js",
+							"evidence": "X-Powered-By: Next.js",
 							"otherinfo": ""
 						}
 					],
@@ -256,13 +256,13 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "/_next/static/uuTGq8c2nxsPQQUqeJ3qU/_buildManifest",
-							"otherinfo": "\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uCD6Bbs\uFFFD\uFFFDLj\uFFFDsi\uFFFD\uFFFD\\x0010R\uFFFD\uFFFD\u07A5?\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\\x001a\uFFFD'\u07B2"
+							"evidence": "/_next/static/f05vQZCdA1l0aVwd_dAqc/_buildManifest",
+							"otherinfo": "\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uCD6Bbs\uFFFD\uFFFD\uFFFD\uFFFD\\x0019\t\uFFFD5\uFFFDF\uFFFD\uFFFD\uFFFD\uFFFD\\x0002\uFFFD?\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\\x001a\uFFFD'\u07B2"
 						}
 					],
 					"count": "1",
 					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
-					"otherinfo": "<p>\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uCD6Bbs\uFFFD\uFFFDLj\uFFFDsi\uFFFD\uFFFD\\x0010R\uFFFD\uFFFD\u07A5?\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\\x001a\uFFFD'\u07B2</p>",
+					"otherinfo": "<p>\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uCD6Bbs\uFFFD\uFFFD\uFFFD\uFFFD\\x0019\t\uFFFD5\uFFFDF\uFFFD\uFFFD\uFFFD\uFFFD\\x0002\uFFFD?\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\\x001a\uFFFD'\u07B2</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
@@ -284,7 +284,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "query",
-							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{}},\"page\":\"/\",\"query\":{},\"buildId\":\"uuTGq8c2nxsPQQUqeJ\", see evidence field for the suspicious comment/snippet."
+							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{}},\"page\":\"/\",\"query\":{},\"buildId\":\"f05vQZCdA1l0aVwd_d\", see evidence field for the suspicious comment/snippet."
 						},
 						{
 							"uri": "https://chauffage-urbain.beta.gouv.fr",
@@ -297,7 +297,7 @@
 					],
 					"count": "2",
 					"solution": "<p>Remove all comments that return information that may help an attacker and fix any underlying problems they refer to.</p>",
-					"otherinfo": "<p>The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{}},\"page\":\"/\",\"query\":{},\"buildId\":\"uuTGq8c2nxsPQQUqeJ\", see evidence field for the suspicious comment/snippet.</p>",
+					"otherinfo": "<p>The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{}},\"page\":\"/\",\"query\":{},\"buildId\":\"f05vQZCdA1l0aVwd_d\", see evidence field for the suspicious comment/snippet.</p>",
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
@@ -398,7 +398,7 @@
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "6"
+					"sourceid": "1"
 				}
 			]
 		}
