@@ -1,7 +1,7 @@
 {
 	"@programName": "OWASP ZAP",
 	"@version": "2.12.0",
-	"@generated": "Sun, 4 Jun 2023 02:24:34",
+	"@generated": "Sun, 11 Jun 2023 02:20:28",
 	"site":[ 
 		{
 			"@name": "https://aides-territoires.beta.gouv.fr",
@@ -24,7 +24,7 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "<form id=\"search-form\" method=\"get\" action=\"/aides/\" autocomplete='off'>",
+							"evidence": "<form id=\"search-form\" method=\"get\"  action=\"/aides/\"  autocomplete='off'>",
 							"otherinfo": "No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"id_apply_before\" \"id_call_for_projects_only\" \"id_integration\" ]."
 						},
 						{
@@ -48,7 +48,7 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "<form id=\"search-form\" method=\"get\" action=\"/aides/\" autocomplete='off'>",
+							"evidence": "<form id=\"search-form\" method=\"get\"  action=\"/aides/\"  autocomplete='off'>",
 							"otherinfo": "No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"id_apply_before\" \"id_call_for_projects_only\" \"id_integration\" ]."
 						},
 						{
@@ -72,8 +72,16 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "<form id=\"search-form\" method=\"get\" action=\"/aides/\" autocomplete='off'>",
+							"evidence": "<form id=\"search-form\" method=\"get\"  action=\"/aides/\"  autocomplete='off'>",
 							"otherinfo": "No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"id_apply_before\" \"id_call_for_projects_only\" \"id_integration\" ]."
+						},
+						{
+							"uri": "https://aides-territoires.beta.gouv.fr/projets/projets-publics/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form id=\"project-search-form\" method=\"get\" action=\"/projets/projets-publics/\" autocomplete='off'>",
+							"otherinfo": "No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"\" ]."
 						},
 						{
 							"uri": "https://aides-territoires.beta.gouv.fr/projets/projets-subventionnes/",
@@ -92,7 +100,7 @@
 							"otherinfo": "No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 2: \"\" ]."
 						}
 					],
-					"count": "9",
+					"count": "10",
 					"solution": "<p>Phase: Architecture and Design</p><p>Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid.</p><p>For example, use anti-CSRF packages such as the OWASP CSRFGuard.</p><p></p><p>Phase: Implementation</p><p>Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.</p><p></p><p>Phase: Architecture and Design</p><p>Generate a unique nonce for each form, place the nonce into the form, and verify the nonce upon receipt of the form. Be sure that the nonce is not predictable (CWE-330).</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Identify especially dangerous operations. When the user performs a dangerous operation, send a separate confirmation request to ensure that the user intended to perform that operation.</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Use the ESAPI Session Management control.</p><p>This control includes a component for CSRF.</p><p></p><p>Do not use the GET method for any request that triggers a state change.</p><p></p><p>Phase: Implementation</p><p>Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.</p>",
 					"otherinfo": "<p>No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"id_apply_before\" \"id_call_for_projects_only\" \"id_integration\" ].</p>",
 					"reference": "<p>http://projects.webappsec.org/Cross-Site-Request-Forgery</p><p>http://cwe.mitre.org/data/definitions/352.html</p>",
@@ -115,7 +123,7 @@
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
-							"evidence": "script-src 'self' https://stats.data.gouv.fr https://aides-territoires-metabase.osc-fr1.scalingo.io https://sibautomation.com 'nonce-5zg8SyccXLSC6lJ/EFbNOQ=='; base-uri 'self'; style-src 'self' 'unsafe-inline' https://stats.beta.gouv.fr; form-action 'self' https://my.sendinblue.com; frame-ancestors *; font-src 'self'; img-src 'self' data: https://stats.data.gouv.fr https://*.scw.cloud https://*.forte.tiles.quaidorsay.fr; default-src https://*.scw.cloud; object-src 'none'; frame-src 'self' https://stats.data.gouv.fr https://www.youtube.com https://www.dailymotion.com https://aides-territoires-metabase.osc-fr1.scalingo.io; connect-src 'self' https://stats.data.gouv.fr https://in-automate.sendinblue.com/; worker-src blob:",
+							"evidence": "frame-src 'self' https://stats.data.gouv.fr https://www.youtube.com https://www.dailymotion.com https://aides-territoires-metabase.osc-fr1.scalingo.io; script-src 'self' https://stats.data.gouv.fr https://aides-territoires-metabase.osc-fr1.scalingo.io https://sibautomation.com 'nonce-+qQW2xuaRBA8WLVgCroZxw=='; object-src 'none'; form-action 'self' https://my.sendinblue.com; base-uri 'self'; style-src 'self' 'unsafe-inline' https://stats.beta.gouv.fr; img-src 'self' data: https://stats.data.gouv.fr https://*.scw.cloud https://*.forte.tiles.quaidorsay.fr; default-src https://*.scw.cloud; worker-src blob:; connect-src 'self' https://stats.data.gouv.fr https://in-automate.sendinblue.com/; frame-ancestors *; font-src 'self'",
 							"otherinfo": "The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: \nframe-ancestors\n\nThe directive(s): frame-ancestors are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything."
 						},
 						{
@@ -123,7 +131,7 @@
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
-							"evidence": "script-src 'self' https://stats.data.gouv.fr https://aides-territoires-metabase.osc-fr1.scalingo.io https://sibautomation.com 'nonce-PsJ7DFSUXMOkiHtjgZFcRQ=='; base-uri 'self'; style-src 'self' 'unsafe-inline' https://stats.beta.gouv.fr; form-action 'self' https://my.sendinblue.com; frame-ancestors *; font-src 'self'; img-src 'self' data: https://stats.data.gouv.fr https://*.scw.cloud https://*.forte.tiles.quaidorsay.fr; default-src https://*.scw.cloud; object-src 'none'; frame-src 'self' https://stats.data.gouv.fr https://www.youtube.com https://www.dailymotion.com https://aides-territoires-metabase.osc-fr1.scalingo.io; connect-src 'self' https://stats.data.gouv.fr https://in-automate.sendinblue.com/; worker-src blob:",
+							"evidence": "frame-src 'self' https://stats.data.gouv.fr https://www.youtube.com https://www.dailymotion.com https://aides-territoires-metabase.osc-fr1.scalingo.io; script-src 'self' https://stats.data.gouv.fr https://aides-territoires-metabase.osc-fr1.scalingo.io https://sibautomation.com 'nonce-8Beaj8Sg8YF+u2//Imfd+g=='; object-src 'none'; form-action 'self' https://my.sendinblue.com; base-uri 'self'; style-src 'self' 'unsafe-inline' https://stats.beta.gouv.fr; img-src 'self' data: https://stats.data.gouv.fr https://*.scw.cloud https://*.forte.tiles.quaidorsay.fr; default-src https://*.scw.cloud; worker-src blob:; connect-src 'self' https://stats.data.gouv.fr https://in-automate.sendinblue.com/; frame-ancestors *; font-src 'self'",
 							"otherinfo": "The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: \nframe-ancestors\n\nThe directive(s): frame-ancestors are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything."
 						},
 						{
@@ -131,7 +139,7 @@
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
-							"evidence": "script-src 'self' https://stats.data.gouv.fr https://aides-territoires-metabase.osc-fr1.scalingo.io https://sibautomation.com 'nonce-nTZFr0z+Oy4Lj72VD0aorQ=='; base-uri 'self'; style-src 'self' 'unsafe-inline' https://stats.beta.gouv.fr; form-action 'self' https://my.sendinblue.com; frame-ancestors *; font-src 'self'; img-src 'self' data: https://stats.data.gouv.fr https://*.scw.cloud https://*.forte.tiles.quaidorsay.fr; default-src https://*.scw.cloud; object-src 'none'; frame-src 'self' https://stats.data.gouv.fr https://www.youtube.com https://www.dailymotion.com https://aides-territoires-metabase.osc-fr1.scalingo.io; connect-src 'self' https://stats.data.gouv.fr https://in-automate.sendinblue.com/; worker-src blob:",
+							"evidence": "frame-src 'self' https://stats.data.gouv.fr https://www.youtube.com https://www.dailymotion.com https://aides-territoires-metabase.osc-fr1.scalingo.io; script-src 'self' https://stats.data.gouv.fr https://aides-territoires-metabase.osc-fr1.scalingo.io https://sibautomation.com 'nonce-1kiBihwknjcDtVIhQ7CSLQ=='; object-src 'none'; form-action 'self' https://my.sendinblue.com; base-uri 'self'; style-src 'self' 'unsafe-inline' https://stats.beta.gouv.fr; img-src 'self' data: https://stats.data.gouv.fr https://*.scw.cloud https://*.forte.tiles.quaidorsay.fr; default-src https://*.scw.cloud; worker-src blob:; connect-src 'self' https://stats.data.gouv.fr https://in-automate.sendinblue.com/; frame-ancestors *; font-src 'self'",
 							"otherinfo": "The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: \nframe-ancestors\n\nThe directive(s): frame-ancestors are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything."
 						},
 						{
@@ -139,7 +147,7 @@
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
-							"evidence": "script-src 'self' https://stats.data.gouv.fr https://aides-territoires-metabase.osc-fr1.scalingo.io https://sibautomation.com; base-uri 'self'; style-src 'self' 'unsafe-inline' https://stats.beta.gouv.fr; form-action 'self' https://my.sendinblue.com; frame-ancestors *; font-src 'self'; img-src 'self' data: https://stats.data.gouv.fr https://*.scw.cloud https://*.forte.tiles.quaidorsay.fr; default-src https://*.scw.cloud; object-src 'none'; frame-src 'self' https://stats.data.gouv.fr https://www.youtube.com https://www.dailymotion.com https://aides-territoires-metabase.osc-fr1.scalingo.io; connect-src 'self' https://stats.data.gouv.fr https://in-automate.sendinblue.com/; worker-src blob:",
+							"evidence": "frame-src 'self' https://stats.data.gouv.fr https://www.youtube.com https://www.dailymotion.com https://aides-territoires-metabase.osc-fr1.scalingo.io; script-src 'self' https://stats.data.gouv.fr https://aides-territoires-metabase.osc-fr1.scalingo.io https://sibautomation.com; object-src 'none'; form-action 'self' https://my.sendinblue.com; base-uri 'self'; style-src 'self' 'unsafe-inline' https://stats.beta.gouv.fr; img-src 'self' data: https://stats.data.gouv.fr https://*.scw.cloud https://*.forte.tiles.quaidorsay.fr; default-src https://*.scw.cloud; worker-src blob:; connect-src 'self' https://stats.data.gouv.fr https://in-automate.sendinblue.com/; frame-ancestors *; font-src 'self'",
 							"otherinfo": "The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: \nframe-ancestors\n\nThe directive(s): frame-ancestors are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything."
 						},
 						{
@@ -147,7 +155,7 @@
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
-							"evidence": "script-src 'self' https://stats.data.gouv.fr https://aides-territoires-metabase.osc-fr1.scalingo.io https://sibautomation.com 'nonce-MVogL+SYOz7V3qJPQU+t5g=='; base-uri 'self'; style-src 'self' 'unsafe-inline' https://stats.beta.gouv.fr; form-action 'self' https://my.sendinblue.com; frame-ancestors *; font-src 'self'; img-src 'self' data: https://stats.data.gouv.fr https://*.scw.cloud https://*.forte.tiles.quaidorsay.fr; default-src https://*.scw.cloud; object-src 'none'; frame-src 'self' https://stats.data.gouv.fr https://www.youtube.com https://www.dailymotion.com https://aides-territoires-metabase.osc-fr1.scalingo.io; connect-src 'self' https://stats.data.gouv.fr https://in-automate.sendinblue.com/; worker-src blob:",
+							"evidence": "frame-src 'self' https://stats.data.gouv.fr https://www.youtube.com https://www.dailymotion.com https://aides-territoires-metabase.osc-fr1.scalingo.io; script-src 'self' https://stats.data.gouv.fr https://aides-territoires-metabase.osc-fr1.scalingo.io https://sibautomation.com 'nonce-tl0ylr1KAh88cad9eH6xTA=='; object-src 'none'; form-action 'self' https://my.sendinblue.com; base-uri 'self'; style-src 'self' 'unsafe-inline' https://stats.beta.gouv.fr; img-src 'self' data: https://stats.data.gouv.fr https://*.scw.cloud https://*.forte.tiles.quaidorsay.fr; default-src https://*.scw.cloud; worker-src blob:; connect-src 'self' https://stats.data.gouv.fr https://in-automate.sendinblue.com/; frame-ancestors *; font-src 'self'",
 							"otherinfo": "The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: \nframe-ancestors\n\nThe directive(s): frame-ancestors are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything."
 						},
 						{
@@ -155,7 +163,7 @@
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
-							"evidence": "script-src 'self' https://stats.data.gouv.fr https://aides-territoires-metabase.osc-fr1.scalingo.io https://sibautomation.com 'nonce-qNIkrozqYIeXEO774h0ZHw=='; base-uri 'self'; style-src 'self' 'unsafe-inline' https://stats.beta.gouv.fr; form-action 'self' https://my.sendinblue.com; frame-ancestors *; font-src 'self'; img-src 'self' data: https://stats.data.gouv.fr https://*.scw.cloud https://*.forte.tiles.quaidorsay.fr; default-src https://*.scw.cloud; object-src 'none'; frame-src 'self' https://stats.data.gouv.fr https://www.youtube.com https://www.dailymotion.com https://aides-territoires-metabase.osc-fr1.scalingo.io; connect-src 'self' https://stats.data.gouv.fr https://in-automate.sendinblue.com/; worker-src blob:",
+							"evidence": "frame-src 'self' https://stats.data.gouv.fr https://www.youtube.com https://www.dailymotion.com https://aides-territoires-metabase.osc-fr1.scalingo.io; script-src 'self' https://stats.data.gouv.fr https://aides-territoires-metabase.osc-fr1.scalingo.io https://sibautomation.com 'nonce-8YaSNJ6uxOQnX+kQ5KDsPw=='; object-src 'none'; form-action 'self' https://my.sendinblue.com; base-uri 'self'; style-src 'self' 'unsafe-inline' https://stats.beta.gouv.fr; img-src 'self' data: https://stats.data.gouv.fr https://*.scw.cloud https://*.forte.tiles.quaidorsay.fr; default-src https://*.scw.cloud; worker-src blob:; connect-src 'self' https://stats.data.gouv.fr https://in-automate.sendinblue.com/; frame-ancestors *; font-src 'self'",
 							"otherinfo": "The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: \nframe-ancestors\n\nThe directive(s): frame-ancestors are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything."
 						}
 					],
@@ -165,7 +173,7 @@
 					"reference": "<p>http://www.w3.org/TR/CSP2/</p><p>http://www.w3.org/TR/CSP/</p><p>http://caniuse.com/#search=content+security+policy</p><p>http://content-security-policy.com/</p><p>https://github.com/shapesecurity/salvation</p><p>https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "68"
+					"sourceid": "8"
 				},
 				{
 					"pluginid": "10055",
@@ -182,7 +190,7 @@
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
-							"evidence": "script-src 'self' https://stats.data.gouv.fr https://aides-territoires-metabase.osc-fr1.scalingo.io https://sibautomation.com 'nonce-5zg8SyccXLSC6lJ/EFbNOQ=='; base-uri 'self'; style-src 'self' 'unsafe-inline' https://stats.beta.gouv.fr; form-action 'self' https://my.sendinblue.com; frame-ancestors *; font-src 'self'; img-src 'self' data: https://stats.data.gouv.fr https://*.scw.cloud https://*.forte.tiles.quaidorsay.fr; default-src https://*.scw.cloud; object-src 'none'; frame-src 'self' https://stats.data.gouv.fr https://www.youtube.com https://www.dailymotion.com https://aides-territoires-metabase.osc-fr1.scalingo.io; connect-src 'self' https://stats.data.gouv.fr https://in-automate.sendinblue.com/; worker-src blob:",
+							"evidence": "frame-src 'self' https://stats.data.gouv.fr https://www.youtube.com https://www.dailymotion.com https://aides-territoires-metabase.osc-fr1.scalingo.io; script-src 'self' https://stats.data.gouv.fr https://aides-territoires-metabase.osc-fr1.scalingo.io https://sibautomation.com 'nonce-+qQW2xuaRBA8WLVgCroZxw=='; object-src 'none'; form-action 'self' https://my.sendinblue.com; base-uri 'self'; style-src 'self' 'unsafe-inline' https://stats.beta.gouv.fr; img-src 'self' data: https://stats.data.gouv.fr https://*.scw.cloud https://*.forte.tiles.quaidorsay.fr; default-src https://*.scw.cloud; worker-src blob:; connect-src 'self' https://stats.data.gouv.fr https://in-automate.sendinblue.com/; frame-ancestors *; font-src 'self'",
 							"otherinfo": "style-src includes unsafe-inline."
 						},
 						{
@@ -190,7 +198,7 @@
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
-							"evidence": "script-src 'self' https://stats.data.gouv.fr https://aides-territoires-metabase.osc-fr1.scalingo.io https://sibautomation.com 'nonce-PsJ7DFSUXMOkiHtjgZFcRQ=='; base-uri 'self'; style-src 'self' 'unsafe-inline' https://stats.beta.gouv.fr; form-action 'self' https://my.sendinblue.com; frame-ancestors *; font-src 'self'; img-src 'self' data: https://stats.data.gouv.fr https://*.scw.cloud https://*.forte.tiles.quaidorsay.fr; default-src https://*.scw.cloud; object-src 'none'; frame-src 'self' https://stats.data.gouv.fr https://www.youtube.com https://www.dailymotion.com https://aides-territoires-metabase.osc-fr1.scalingo.io; connect-src 'self' https://stats.data.gouv.fr https://in-automate.sendinblue.com/; worker-src blob:",
+							"evidence": "frame-src 'self' https://stats.data.gouv.fr https://www.youtube.com https://www.dailymotion.com https://aides-territoires-metabase.osc-fr1.scalingo.io; script-src 'self' https://stats.data.gouv.fr https://aides-territoires-metabase.osc-fr1.scalingo.io https://sibautomation.com 'nonce-8Beaj8Sg8YF+u2//Imfd+g=='; object-src 'none'; form-action 'self' https://my.sendinblue.com; base-uri 'self'; style-src 'self' 'unsafe-inline' https://stats.beta.gouv.fr; img-src 'self' data: https://stats.data.gouv.fr https://*.scw.cloud https://*.forte.tiles.quaidorsay.fr; default-src https://*.scw.cloud; worker-src blob:; connect-src 'self' https://stats.data.gouv.fr https://in-automate.sendinblue.com/; frame-ancestors *; font-src 'self'",
 							"otherinfo": "style-src includes unsafe-inline."
 						},
 						{
@@ -198,7 +206,7 @@
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
-							"evidence": "script-src 'self' https://stats.data.gouv.fr https://aides-territoires-metabase.osc-fr1.scalingo.io https://sibautomation.com 'nonce-nTZFr0z+Oy4Lj72VD0aorQ=='; base-uri 'self'; style-src 'self' 'unsafe-inline' https://stats.beta.gouv.fr; form-action 'self' https://my.sendinblue.com; frame-ancestors *; font-src 'self'; img-src 'self' data: https://stats.data.gouv.fr https://*.scw.cloud https://*.forte.tiles.quaidorsay.fr; default-src https://*.scw.cloud; object-src 'none'; frame-src 'self' https://stats.data.gouv.fr https://www.youtube.com https://www.dailymotion.com https://aides-territoires-metabase.osc-fr1.scalingo.io; connect-src 'self' https://stats.data.gouv.fr https://in-automate.sendinblue.com/; worker-src blob:",
+							"evidence": "frame-src 'self' https://stats.data.gouv.fr https://www.youtube.com https://www.dailymotion.com https://aides-territoires-metabase.osc-fr1.scalingo.io; script-src 'self' https://stats.data.gouv.fr https://aides-territoires-metabase.osc-fr1.scalingo.io https://sibautomation.com 'nonce-1kiBihwknjcDtVIhQ7CSLQ=='; object-src 'none'; form-action 'self' https://my.sendinblue.com; base-uri 'self'; style-src 'self' 'unsafe-inline' https://stats.beta.gouv.fr; img-src 'self' data: https://stats.data.gouv.fr https://*.scw.cloud https://*.forte.tiles.quaidorsay.fr; default-src https://*.scw.cloud; worker-src blob:; connect-src 'self' https://stats.data.gouv.fr https://in-automate.sendinblue.com/; frame-ancestors *; font-src 'self'",
 							"otherinfo": "style-src includes unsafe-inline."
 						},
 						{
@@ -206,7 +214,7 @@
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
-							"evidence": "script-src 'self' https://stats.data.gouv.fr https://aides-territoires-metabase.osc-fr1.scalingo.io https://sibautomation.com; base-uri 'self'; style-src 'self' 'unsafe-inline' https://stats.beta.gouv.fr; form-action 'self' https://my.sendinblue.com; frame-ancestors *; font-src 'self'; img-src 'self' data: https://stats.data.gouv.fr https://*.scw.cloud https://*.forte.tiles.quaidorsay.fr; default-src https://*.scw.cloud; object-src 'none'; frame-src 'self' https://stats.data.gouv.fr https://www.youtube.com https://www.dailymotion.com https://aides-territoires-metabase.osc-fr1.scalingo.io; connect-src 'self' https://stats.data.gouv.fr https://in-automate.sendinblue.com/; worker-src blob:",
+							"evidence": "frame-src 'self' https://stats.data.gouv.fr https://www.youtube.com https://www.dailymotion.com https://aides-territoires-metabase.osc-fr1.scalingo.io; script-src 'self' https://stats.data.gouv.fr https://aides-territoires-metabase.osc-fr1.scalingo.io https://sibautomation.com; object-src 'none'; form-action 'self' https://my.sendinblue.com; base-uri 'self'; style-src 'self' 'unsafe-inline' https://stats.beta.gouv.fr; img-src 'self' data: https://stats.data.gouv.fr https://*.scw.cloud https://*.forte.tiles.quaidorsay.fr; default-src https://*.scw.cloud; worker-src blob:; connect-src 'self' https://stats.data.gouv.fr https://in-automate.sendinblue.com/; frame-ancestors *; font-src 'self'",
 							"otherinfo": "style-src includes unsafe-inline."
 						},
 						{
@@ -214,7 +222,7 @@
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
-							"evidence": "script-src 'self' https://stats.data.gouv.fr https://aides-territoires-metabase.osc-fr1.scalingo.io https://sibautomation.com 'nonce-MVogL+SYOz7V3qJPQU+t5g=='; base-uri 'self'; style-src 'self' 'unsafe-inline' https://stats.beta.gouv.fr; form-action 'self' https://my.sendinblue.com; frame-ancestors *; font-src 'self'; img-src 'self' data: https://stats.data.gouv.fr https://*.scw.cloud https://*.forte.tiles.quaidorsay.fr; default-src https://*.scw.cloud; object-src 'none'; frame-src 'self' https://stats.data.gouv.fr https://www.youtube.com https://www.dailymotion.com https://aides-territoires-metabase.osc-fr1.scalingo.io; connect-src 'self' https://stats.data.gouv.fr https://in-automate.sendinblue.com/; worker-src blob:",
+							"evidence": "frame-src 'self' https://stats.data.gouv.fr https://www.youtube.com https://www.dailymotion.com https://aides-territoires-metabase.osc-fr1.scalingo.io; script-src 'self' https://stats.data.gouv.fr https://aides-territoires-metabase.osc-fr1.scalingo.io https://sibautomation.com 'nonce-tl0ylr1KAh88cad9eH6xTA=='; object-src 'none'; form-action 'self' https://my.sendinblue.com; base-uri 'self'; style-src 'self' 'unsafe-inline' https://stats.beta.gouv.fr; img-src 'self' data: https://stats.data.gouv.fr https://*.scw.cloud https://*.forte.tiles.quaidorsay.fr; default-src https://*.scw.cloud; worker-src blob:; connect-src 'self' https://stats.data.gouv.fr https://in-automate.sendinblue.com/; frame-ancestors *; font-src 'self'",
 							"otherinfo": "style-src includes unsafe-inline."
 						},
 						{
@@ -222,7 +230,7 @@
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
-							"evidence": "script-src 'self' https://stats.data.gouv.fr https://aides-territoires-metabase.osc-fr1.scalingo.io https://sibautomation.com 'nonce-qNIkrozqYIeXEO774h0ZHw=='; base-uri 'self'; style-src 'self' 'unsafe-inline' https://stats.beta.gouv.fr; form-action 'self' https://my.sendinblue.com; frame-ancestors *; font-src 'self'; img-src 'self' data: https://stats.data.gouv.fr https://*.scw.cloud https://*.forte.tiles.quaidorsay.fr; default-src https://*.scw.cloud; object-src 'none'; frame-src 'self' https://stats.data.gouv.fr https://www.youtube.com https://www.dailymotion.com https://aides-territoires-metabase.osc-fr1.scalingo.io; connect-src 'self' https://stats.data.gouv.fr https://in-automate.sendinblue.com/; worker-src blob:",
+							"evidence": "frame-src 'self' https://stats.data.gouv.fr https://www.youtube.com https://www.dailymotion.com https://aides-territoires-metabase.osc-fr1.scalingo.io; script-src 'self' https://stats.data.gouv.fr https://aides-territoires-metabase.osc-fr1.scalingo.io https://sibautomation.com 'nonce-8YaSNJ6uxOQnX+kQ5KDsPw=='; object-src 'none'; form-action 'self' https://my.sendinblue.com; base-uri 'self'; style-src 'self' 'unsafe-inline' https://stats.beta.gouv.fr; img-src 'self' data: https://stats.data.gouv.fr https://*.scw.cloud https://*.forte.tiles.quaidorsay.fr; default-src https://*.scw.cloud; worker-src blob:; connect-src 'self' https://stats.data.gouv.fr https://in-automate.sendinblue.com/; frame-ancestors *; font-src 'self'",
 							"otherinfo": "style-src includes unsafe-inline."
 						}
 					],
@@ -232,7 +240,7 @@
 					"reference": "<p>http://www.w3.org/TR/CSP2/</p><p>http://www.w3.org/TR/CSP/</p><p>http://caniuse.com/#search=content+security+policy</p><p>http://content-security-policy.com/</p><p>https://github.com/shapesecurity/salvation</p><p>https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "68"
+					"sourceid": "8"
 				},
 				{
 					"pluginid": "90003",
@@ -277,14 +285,6 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://aides-territoires.beta.gouv.fr/cartographie/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<script src=\"https://stats.data.gouv.fr/matomo.js\" async defer></script>",
-							"otherinfo": ""
-						},
-						{
 							"uri": "https://aides-territoires.beta.gouv.fr/comptes/connexion/",
 							"method": "GET",
 							"param": "",
@@ -318,6 +318,14 @@
 						},
 						{
 							"uri": "https://aides-territoires.beta.gouv.fr/programmes/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<script src=\"https://stats.data.gouv.fr/matomo.js\" async defer></script>",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://aides-territoires.beta.gouv.fr/projets/projets-publics/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -408,6 +416,14 @@
 							"otherinfo": ""
 						},
 						{
+							"uri": "https://aides-territoires.beta.gouv.fr/plateforme-aides-territoires/",
+							"method": "GET",
+							"param": "https://stats.data.gouv.fr/matomo.js",
+							"attack": "",
+							"evidence": "<script src=\"https://stats.data.gouv.fr/matomo.js\" async defer></script>",
+							"otherinfo": ""
+						},
+						{
 							"uri": "https://aides-territoires.beta.gouv.fr/portails/",
 							"method": "GET",
 							"param": "https://stats.data.gouv.fr/matomo.js",
@@ -440,7 +456,7 @@
 							"otherinfo": ""
 						}
 					],
-					"count": "11",
+					"count": "12",
 					"solution": "<p>Ensure JavaScript source files are loaded from only trusted sources, and the sources can't be controlled by end users of the application.</p>",
 					"otherinfo": "",
 					"reference": "",
@@ -459,7 +475,7 @@
 					"desc": "<p>A dangerous JS function seems to be in use that would leave the site vulnerable.</p>",
 					"instances":[ 
 						{
-							"uri": "https://aides-territoires.beta.gouv.fr/static/CACHE/js/output.dc823c8e1f7f.js",
+							"uri": "https://aides-territoires.beta.gouv.fr/static/CACHE/js/output.075ffa1f3725.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -473,7 +489,7 @@
 					"reference": "<p>https://angular.io/guide/security</p>",
 					"cweid": "749",
 					"wascid": "-1",
-					"sourceid": "4245"
+					"sourceid": "4226"
 				},
 				{
 					"pluginid": "10063",
@@ -511,14 +527,6 @@
 						},
 						{
 							"uri": "https://aides-territoires.beta.gouv.fr/blog/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://aides-territoires.beta.gouv.fr/cartographie/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -566,6 +574,14 @@
 							"otherinfo": ""
 						},
 						{
+							"uri": "https://aides-territoires.beta.gouv.fr/projets/projets-publics/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
 							"uri": "https://aides-territoires.beta.gouv.fr/projets/projets-subventionnes/",
 							"method": "GET",
 							"param": "",
@@ -593,7 +609,7 @@
 					"desc": "<p>The Anti-MIME-Sniffing header X-Content-Type-Options was not set to 'nosniff'. This allows older versions of Internet Explorer and Chrome to perform MIME-sniffing on the response body, potentially causing the response body to be interpreted and displayed as a content type other than the declared content type. Current (early 2014) and legacy versions of Firefox will use the declared content type (if one is set), rather than performing MIME-sniffing.</p>",
 					"instances":[ 
 						{
-							"uri": "https://aides-territoires.beta.gouv.fr/static/CACHE/js/output.5d736ccf3aff.js",
+							"uri": "https://aides-territoires.beta.gouv.fr/static/CACHE/js/output.075ffa1f3725.js",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -601,7 +617,7 @@
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
 						},
 						{
-							"uri": "https://aides-territoires.beta.gouv.fr/static/CACHE/js/output.dc823c8e1f7f.js",
+							"uri": "https://aides-territoires.beta.gouv.fr/static/CACHE/js/output.9f37feb5681d.js",
 							"method": "GET",
 							"param": "X-Content-Type-Options",
 							"attack": "",
@@ -695,7 +711,7 @@
 					"reference": "<p>http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx</p><p>https://owasp.org/www-community/Security_Headers</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "4252"
+					"sourceid": "4226"
 				},
 				{
 					"pluginid": "10094",
@@ -728,8 +744,8 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "ZUtTn6tbV6mGWMJmEz1iF5mmsS6dJwp0",
-							"otherinfo": "eKS\uFFFD\uFFFD[W\uFFFD\uFFFDX\uFFFDf\\x0013=b\\x0017\uFFFD\uFFFD\uFFFD.\uFFFD'\nt"
+							"evidence": "17IIjxfLc0WRjAQDwED6VnjdBFAvGgvr",
+							"otherinfo": "\u05F2\\x0008\uFFFD\\x0017\uFFFDsE\uFFFD\uFFFD\\x0004\\x0003\uFFFD@\uFFFDVx\uFFFD\\x0004P/\\x001a\\x000b\uFFFD"
 						},
 						{
 							"uri": "https://aides-territoires.beta.gouv.fr/blog/",
@@ -752,16 +768,16 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "ZUtTn6tbV6mGWMJmEz1iF5mmsS6dJwp0",
-							"otherinfo": "eKS\uFFFD\uFFFD[W\uFFFD\uFFFDX\uFFFDf\\x0013=b\\x0017\uFFFD\uFFFD\uFFFD.\uFFFD'\nt"
+							"evidence": "17IIjxfLc0WRjAQDwED6VnjdBFAvGgvr",
+							"otherinfo": "\u05F2\\x0008\uFFFD\\x0017\uFFFDsE\uFFFD\uFFFD\\x0004\\x0003\uFFFD@\uFFFDVx\uFFFD\\x0004P/\\x001a\\x000b\uFFFD"
 						},
 						{
 							"uri": "https://aides-territoires.beta.gouv.fr/comptes/inscription/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "U7gwwtk4nnmj1WD6NJmG3MNefQaFtd8C",
-							"otherinfo": "S\uFFFD0\uFFFD\uFFFD8\uFFFDy\uFFFD\uFFFD`\uFFFD4\uFFFD\uFFFD\uFFFD\uFFFD^}\\x0006\uFFFD\uFFFD\uFFFD\\x0002"
+							"evidence": "yZ53J9avaLt47OdqkzZGiYV76Fhlf4QC",
+							"otherinfo": "\u025Ew'\u05AFh\uFFFDx\uFFFD\uFFFDj\uFFFD6F\uFFFD\uFFFD{\uFFFDXe\uFFFD\\x0002"
 						},
 						{
 							"uri": "https://aides-territoires.beta.gouv.fr/plateforme-aides-territoires/",
@@ -823,39 +839,47 @@
 					"desc": "<p>The response appears to contain suspicious comments which may help an attacker. Note: Matches made within script blocks or files are against the entire content not only comments.</p>",
 					"instances":[ 
 						{
-							"uri": "https://aides-territoires.beta.gouv.fr/aides/0eb3-dispositif-coup-de-pouce-loisirs/",
+							"uri": "https://aides-territoires.beta.gouv.fr/aides/09fa-realiser-la-phase-detudes-dune-operation-dent/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "USER",
-							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"MyScfEWiUTFQmvQq3BxFew==\">\n        if ('False' !== \"False\") {\n            var PREPOPULATE_APPLICATION_URL = true;\", see evidence field for the suspicious comment/snippet."
+							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"LkwP+S+b3sc2C8r69KUIrA==\">\n        if ('False' !== \"False\") {\n            var PREPOPULATE_APPLICATION_URL = true;\", see evidence field for the suspicious comment/snippet."
 						},
 						{
-							"uri": "https://aides-territoires.beta.gouv.fr/aides/1474-developpement-des-ports-de-peche/",
+							"uri": "https://aides-territoires.beta.gouv.fr/aides/a6b0-connaitre-et-visualiser-votre-patrimoine-de-v/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "USER",
-							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"nrsaSPCAV+2yoY7EsVlXrA==\">\n        if ('False' !== \"False\") {\n            var PREPOPULATE_APPLICATION_URL = true;\", see evidence field for the suspicious comment/snippet."
+							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"d4dbIwsTrEyoMWEmTzziHw==\">\n        if ('False' !== \"False\") {\n            var PREPOPULATE_APPLICATION_URL = true;\", see evidence field for the suspicious comment/snippet."
 						},
 						{
-							"uri": "https://aides-territoires.beta.gouv.fr/aides/3813-construire-collectivement-une-strategie-damen/",
+							"uri": "https://aides-territoires.beta.gouv.fr/aides/b3fb-rendre-accessibles-vos-batiments-espaces-publ/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "USER",
-							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"tyFYRxsfo818luwQCopIFw==\">\n        if ('False' !== \"False\") {\n            var PREPOPULATE_APPLICATION_URL = true;\", see evidence field for the suspicious comment/snippet."
+							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"SWMfh5iJM4foSt6c+uW0NQ==\">\n        if ('False' !== \"False\") {\n            var PREPOPULATE_APPLICATION_URL = true;\", see evidence field for the suspicious comment/snippet."
 						},
 						{
-							"uri": "https://aides-territoires.beta.gouv.fr/aides/9c5c-financer-un-programme-ambitieux-damenagements/",
+							"uri": "https://aides-territoires.beta.gouv.fr/static/CACHE/js/output.075ffa1f3725.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "USER",
-							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"qHRPAzvt9kxtdMuwXQdehQ==\">\n        if ('False' !== \"False\") {\n            var PREPOPULATE_APPLICATION_URL = true;\", see evidence field for the suspicious comment/snippet."
+							"evidence": "username",
+							"otherinfo": "The following pattern was used: \\bUSERNAME\\b and was detected in the element starting with: \"/*! jQuery v3.7.0 | (c) OpenJS Foundation and other contributors | jquery.org/license */!function(e,t){\"use strict\";\"object\"==ty\", see evidence field for the suspicious comment/snippet."
 						},
 						{
-							"uri": "https://aides-territoires.beta.gouv.fr/static/CACHE/js/output.5d736ccf3aff.js",
+							"uri": "https://aides-territoires.beta.gouv.fr/static/CACHE/js/output.74e7710ee0b8.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "debug",
+							"otherinfo": "The following pattern was used: \\bDEBUG\\b and was detected 8 times, the first in the element starting with: \"AllowClear.prototype.bind=function(decorated,container,$container){var self=this;decorated.call(this,container,$container);if(th\", see evidence field for the suspicious comment/snippet."
+						},
+						{
+							"uri": "https://aides-territoires.beta.gouv.fr/static/CACHE/js/output.74e7710ee0b8.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -863,31 +887,7 @@
 							"otherinfo": "The following pattern was used: \\bLATER\\b and was detected 2 times, the first in the element starting with: \"this.$container.addClass('select2-container--focus');this.trigger('focus',{});};Select2.prototype.enable=function(args){if(this.\", see evidence field for the suspicious comment/snippet."
 						},
 						{
-							"uri": "https://aides-territoires.beta.gouv.fr/static/CACHE/js/output.5d736ccf3aff.js",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "query",
-							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected 26 times, the first in the element starting with: \"Utils.StoreData(option,'data',data);return option;};Results.prototype.bind=function(container,$container){var self=this;var id=c\", see evidence field for the suspicious comment/snippet."
-						},
-						{
-							"uri": "https://aides-territoires.beta.gouv.fr/static/CACHE/js/output.5d736ccf3aff.js",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "select",
-							"otherinfo": "The following pattern was used: \\bSELECT\\b and was detected 23 times, the first in the element starting with: \"$highlighted.trigger('mouseup');});container.on('results:select',function(){var $highlighted=self.getHighlightedResults();if($hi\", see evidence field for the suspicious comment/snippet."
-						},
-						{
-							"uri": "https://aides-territoires.beta.gouv.fr/static/CACHE/js/output.60b9ad34d188.js",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "later",
-							"otherinfo": "The following pattern was used: \\bLATER\\b and was detected 2 times, the first in the element starting with: \"this.$container.addClass('select2-container--focus');this.trigger('focus',{});};Select2.prototype.enable=function(args){if(this.\", see evidence field for the suspicious comment/snippet."
-						},
-						{
-							"uri": "https://aides-territoires.beta.gouv.fr/static/CACHE/js/output.60b9ad34d188.js",
+							"uri": "https://aides-territoires.beta.gouv.fr/static/CACHE/js/output.74e7710ee0b8.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -895,7 +895,7 @@
 							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected 20 times, the first in the element starting with: \"Utils.StoreData(option,'data',data);return option;};Results.prototype.bind=function(container,$container){var self=this;var id=c\", see evidence field for the suspicious comment/snippet."
 						},
 						{
-							"uri": "https://aides-territoires.beta.gouv.fr/static/CACHE/js/output.60b9ad34d188.js",
+							"uri": "https://aides-territoires.beta.gouv.fr/static/CACHE/js/output.74e7710ee0b8.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -903,7 +903,7 @@
 							"otherinfo": "The following pattern was used: \\bSELECT\\b and was detected 20 times, the first in the element starting with: \"(function(exports){exports.toggleBeneficiaryFields=function(form,div){let select=form.find('#id_organization_type option[value=\"\", see evidence field for the suspicious comment/snippet."
 						},
 						{
-							"uri": "https://aides-territoires.beta.gouv.fr/static/CACHE/js/output.60b9ad34d188.js",
+							"uri": "https://aides-territoires.beta.gouv.fr/static/CACHE/js/output.74e7710ee0b8.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -911,12 +911,36 @@
 							"otherinfo": "The following pattern was used: \\bUSERNAME\\b and was detected in the element starting with: \"let perimeterNameValue=$(\"#id_perimeter\").find('option:selected').text().split(' (')[0];let hasErrors=organizationNameDiv.find('\", see evidence field for the suspicious comment/snippet."
 						},
 						{
-							"uri": "https://aides-territoires.beta.gouv.fr/static/CACHE/js/output.dc823c8e1f7f.js",
+							"uri": "https://aides-territoires.beta.gouv.fr/static/CACHE/js/output.9f37feb5681d.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "username",
-							"otherinfo": "The following pattern was used: \\bUSERNAME\\b and was detected in the element starting with: \"/*! jQuery v3.6.3 | (c) OpenJS Foundation and other contributors | jquery.org/license */!function(e,t){\"use strict\";\"object\"==ty\", see evidence field for the suspicious comment/snippet."
+							"evidence": "debug",
+							"otherinfo": "The following pattern was used: \\bDEBUG\\b and was detected 8 times, the first in the element starting with: \"AllowClear.prototype.bind=function(decorated,container,$container){var self=this;decorated.call(this,container,$container);if(th\", see evidence field for the suspicious comment/snippet."
+						},
+						{
+							"uri": "https://aides-territoires.beta.gouv.fr/static/CACHE/js/output.9f37feb5681d.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "later",
+							"otherinfo": "The following pattern was used: \\bLATER\\b and was detected 2 times, the first in the element starting with: \"this.$container.addClass('select2-container--focus');this.trigger('focus',{});};Select2.prototype.enable=function(args){if(this.\", see evidence field for the suspicious comment/snippet."
+						},
+						{
+							"uri": "https://aides-territoires.beta.gouv.fr/static/CACHE/js/output.9f37feb5681d.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "query",
+							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected 26 times, the first in the element starting with: \"Utils.StoreData(option,'data',data);return option;};Results.prototype.bind=function(container,$container){var self=this;var id=c\", see evidence field for the suspicious comment/snippet."
+						},
+						{
+							"uri": "https://aides-territoires.beta.gouv.fr/static/CACHE/js/output.9f37feb5681d.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "select",
+							"otherinfo": "The following pattern was used: \\bSELECT\\b and was detected 23 times, the first in the element starting with: \"$highlighted.trigger('mouseup');});container.on('results:select',function(){var $highlighted=self.getHighlightedResults();if($hi\", see evidence field for the suspicious comment/snippet."
 						},
 						{
 							"uri": "https://aides-territoires.beta.gouv.fr/static/dsfr/dist/dsfr/dsfr.module.min.298f9f76f010.js",
@@ -935,13 +959,13 @@
 							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"!function(){\"use strict\";var t=function(){this.modules={}},e={isActive:{configurable:!0},isLegacy:{configurable:!0}};t.prototype\", see evidence field for the suspicious comment/snippet."
 						}
 					],
-					"count": "14",
+					"count": "15",
 					"solution": "<p>Remove all comments that return information that may help an attacker and fix any underlying problems they refer to.</p>",
-					"otherinfo": "<p>The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"MyScfEWiUTFQmvQq3BxFew==\"></p><p>        if ('False' !== \"False\") {</p><p>            var PREPOPULATE_APPLICATION_URL = true;\", see evidence field for the suspicious comment/snippet.</p>",
+					"otherinfo": "<p>The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"LkwP+S+b3sc2C8r69KUIrA==\"></p><p>        if ('False' !== \"False\") {</p><p>            var PREPOPULATE_APPLICATION_URL = true;\", see evidence field for the suspicious comment/snippet.</p>",
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "4309"
+					"sourceid": "4182"
 				},
 				{
 					"pluginid": "10109",
@@ -1010,7 +1034,7 @@
 							"otherinfo": "Links have been found with a target of '_self' - this is often used by modern frameworks to force a full page reload."
 						},
 						{
-							"uri": "https://aides-territoires.beta.gouv.fr/plateforme-aides-territoires/",
+							"uri": "https://aides-territoires.beta.gouv.fr/portails/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1083,7 +1107,7 @@
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "76"
+					"sourceid": "80"
 				},
 				{
 					"pluginid": "10015",
@@ -1235,14 +1259,6 @@
 							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
 						},
 						{
-							"uri": "https://aides-territoires.beta.gouv.fr/cartographie/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
-						},
-						{
 							"uri": "https://aides-territoires.beta.gouv.fr/comptes/inscription/",
 							"method": "GET",
 							"param": "",
@@ -1273,6 +1289,14 @@
 							"attack": "",
 							"evidence": "",
 							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
+						},
+						{
+							"uri": "https://aides-territoires.beta.gouv.fr/sitemap.xml",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
 						}
 					],
 					"count": "9",
@@ -1294,93 +1318,109 @@
 					"desc": "<p>This check looks at user-supplied input in query string parameters and POST data to identify where certain HTML attribute values might be controlled. This provides hot-spot detection for XSS (cross-site scripting) that will require further review by a security analyst to determine exploitability.</p>",
 					"instances":[ 
 						{
-							"uri": "https://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-04&call_for_projects_only=on&categories=livres&destinations=investment&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text",
+							"uri": "https://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-11&call_for_projects_only=on&categories=livres&destinations=investment&european_aid=european&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text",
 							"method": "GET",
 							"param": "action",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-04&call_for_projects_only=on&categories=livres&destinations=investment&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text\r\n\r\nappears to include user input in: \r\n\r\na(n) [button] tag [value] attribute \r\n\r\nThe user input found was:\r\naction=search-filter\r\n\r\nThe user-controlled value was:\r\nsearch-filter"
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-11&call_for_projects_only=on&categories=livres&destinations=investment&european_aid=european&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text\r\n\r\nappears to include user input in: \r\n\r\na(n) [button] tag [value] attribute \r\n\r\nThe user input found was:\r\naction=search-filter\r\n\r\nThe user-controlled value was:\r\nsearch-filter"
 						},
 						{
-							"uri": "https://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-04&call_for_projects_only=on&categories=livres&destinations=investment&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text",
+							"uri": "https://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-11&call_for_projects_only=on&categories=livres&destinations=investment&european_aid=european&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text",
 							"method": "GET",
 							"param": "aid_type",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-04&call_for_projects_only=on&categories=livres&destinations=investment&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text\r\n\r\nappears to include user input in: \r\n\r\na(n) [option] tag [value] attribute \r\n\r\nThe user input found was:\r\naid_type=loan\r\n\r\nThe user-controlled value was:\r\nloan"
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-11&call_for_projects_only=on&categories=livres&destinations=investment&european_aid=european&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text\r\n\r\nappears to include user input in: \r\n\r\na(n) [option] tag [value] attribute \r\n\r\nThe user input found was:\r\naid_type=loan\r\n\r\nThe user-controlled value was:\r\nloan"
 						},
 						{
-							"uri": "https://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-04&call_for_projects_only=on&categories=livres&destinations=investment&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text",
+							"uri": "https://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-11&call_for_projects_only=on&categories=livres&destinations=investment&european_aid=european&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text",
 							"method": "GET",
 							"param": "apply_before",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-04&call_for_projects_only=on&categories=livres&destinations=investment&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text\r\n\r\nappears to include user input in: \r\n\r\na(n) [input] tag [value] attribute \r\n\r\nThe user input found was:\r\napply_before=2023-06-04\r\n\r\nThe user-controlled value was:\r\n2023-06-04"
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-11&call_for_projects_only=on&categories=livres&destinations=investment&european_aid=european&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text\r\n\r\nappears to include user input in: \r\n\r\na(n) [input] tag [value] attribute \r\n\r\nThe user input found was:\r\napply_before=2023-06-11\r\n\r\nThe user-controlled value was:\r\n2023-06-11"
 						},
 						{
-							"uri": "https://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-04&call_for_projects_only=on&categories=livres&destinations=investment&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text",
+							"uri": "https://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-11&call_for_projects_only=on&categories=livres&destinations=investment&european_aid=european&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text",
 							"method": "GET",
 							"param": "categories",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-04&call_for_projects_only=on&categories=livres&destinations=investment&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text\r\n\r\nappears to include user input in: \r\n\r\na(n) [option] tag [value] attribute \r\n\r\nThe user input found was:\r\ncategories=livres\r\n\r\nThe user-controlled value was:\r\nlivres"
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-11&call_for_projects_only=on&categories=livres&destinations=investment&european_aid=european&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text\r\n\r\nappears to include user input in: \r\n\r\na(n) [option] tag [value] attribute \r\n\r\nThe user input found was:\r\ncategories=livres\r\n\r\nThe user-controlled value was:\r\nlivres"
 						},
 						{
-							"uri": "https://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-04&call_for_projects_only=on&categories=livres&destinations=investment&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text",
+							"uri": "https://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-11&call_for_projects_only=on&categories=livres&destinations=investment&european_aid=european&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text",
 							"method": "GET",
 							"param": "destinations",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-04&call_for_projects_only=on&categories=livres&destinations=investment&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text\r\n\r\nappears to include user input in: \r\n\r\na(n) [option] tag [value] attribute \r\n\r\nThe user input found was:\r\ndestinations=investment\r\n\r\nThe user-controlled value was:\r\ninvestment"
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-11&call_for_projects_only=on&categories=livres&destinations=investment&european_aid=european&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text\r\n\r\nappears to include user input in: \r\n\r\na(n) [option] tag [value] attribute \r\n\r\nThe user input found was:\r\ndestinations=investment\r\n\r\nThe user-controlled value was:\r\ninvestment"
 						},
 						{
-							"uri": "https://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-04&call_for_projects_only=on&categories=livres&destinations=investment&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text",
+							"uri": "https://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-11&call_for_projects_only=on&categories=livres&destinations=investment&european_aid=european&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text",
+							"method": "GET",
+							"param": "european_aid",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-11&call_for_projects_only=on&categories=livres&destinations=investment&european_aid=european&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text\r\n\r\nappears to include user input in: \r\n\r\na(n) [option] tag [value] attribute \r\n\r\nThe user input found was:\r\neuropean_aid=european\r\n\r\nThe user-controlled value was:\r\neuropean"
+						},
+						{
+							"uri": "https://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-11&call_for_projects_only=on&categories=livres&destinations=investment&european_aid=european&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text",
+							"method": "GET",
+							"param": "european_aid",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-11&call_for_projects_only=on&categories=livres&destinations=investment&european_aid=european&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text\r\n\r\nappears to include user input in: \r\n\r\na(n) [select] tag [name] attribute \r\n\r\nThe user input found was:\r\neuropean_aid=european\r\n\r\nThe user-controlled value was:\r\neuropean_aid"
+						},
+						{
+							"uri": "https://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-11&call_for_projects_only=on&categories=livres&destinations=investment&european_aid=european&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text",
 							"method": "GET",
 							"param": "is_charged",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-04&call_for_projects_only=on&categories=livres&destinations=investment&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text\r\n\r\nappears to include user input in: \r\n\r\na(n) [option] tag [value] attribute \r\n\r\nThe user input found was:\r\nis_charged=True\r\n\r\nThe user-controlled value was:\r\ntrue"
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-11&call_for_projects_only=on&categories=livres&destinations=investment&european_aid=european&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text\r\n\r\nappears to include user input in: \r\n\r\na(n) [option] tag [value] attribute \r\n\r\nThe user input found was:\r\nis_charged=True\r\n\r\nThe user-controlled value was:\r\ntrue"
 						},
 						{
-							"uri": "https://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-04&call_for_projects_only=on&categories=livres&destinations=investment&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text",
+							"uri": "https://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-11&call_for_projects_only=on&categories=livres&destinations=investment&european_aid=european&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text",
 							"method": "GET",
 							"param": "is_charged",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-04&call_for_projects_only=on&categories=livres&destinations=investment&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text\r\n\r\nappears to include user input in: \r\n\r\na(n) [span] tag [aria-hidden] attribute \r\n\r\nThe user input found was:\r\nis_charged=True\r\n\r\nThe user-controlled value was:\r\ntrue"
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-11&call_for_projects_only=on&categories=livres&destinations=investment&european_aid=european&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text\r\n\r\nappears to include user input in: \r\n\r\na(n) [span] tag [aria-hidden] attribute \r\n\r\nThe user input found was:\r\nis_charged=True\r\n\r\nThe user-controlled value was:\r\ntrue"
 						},
 						{
-							"uri": "https://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-04&call_for_projects_only=on&categories=livres&destinations=investment&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text",
+							"uri": "https://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-11&call_for_projects_only=on&categories=livres&destinations=investment&european_aid=european&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text",
 							"method": "GET",
 							"param": "mobilization_step",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-04&call_for_projects_only=on&categories=livres&destinations=investment&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text\r\n\r\nappears to include user input in: \r\n\r\na(n) [option] tag [value] attribute \r\n\r\nThe user input found was:\r\nmobilization_step=op\r\n\r\nThe user-controlled value was:\r\nop"
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-11&call_for_projects_only=on&categories=livres&destinations=investment&european_aid=european&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text\r\n\r\nappears to include user input in: \r\n\r\na(n) [option] tag [value] attribute \r\n\r\nThe user input found was:\r\nmobilization_step=op\r\n\r\nThe user-controlled value was:\r\nop"
 						},
 						{
-							"uri": "https://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-04&call_for_projects_only=on&categories=livres&destinations=investment&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text",
+							"uri": "https://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-11&call_for_projects_only=on&categories=livres&destinations=investment&european_aid=european&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text",
 							"method": "GET",
 							"param": "programs",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-04&call_for_projects_only=on&categories=livres&destinations=investment&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text\r\n\r\nappears to include user input in: \r\n\r\na(n) [option] tag [value] attribute \r\n\r\nThe user input found was:\r\nprograms=actee-action-des-collectivites-territoriales-pour\r\n\r\nThe user-controlled value was:\r\nactee-action-des-collectivites-territoriales-pour"
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-11&call_for_projects_only=on&categories=livres&destinations=investment&european_aid=european&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text\r\n\r\nappears to include user input in: \r\n\r\na(n) [option] tag [value] attribute \r\n\r\nThe user input found was:\r\nprograms=actee-action-des-collectivites-territoriales-pour\r\n\r\nThe user-controlled value was:\r\nactee-action-des-collectivites-territoriales-pour"
 						},
 						{
-							"uri": "https://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-04&call_for_projects_only=on&categories=livres&destinations=investment&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text",
+							"uri": "https://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-11&call_for_projects_only=on&categories=livres&destinations=investment&european_aid=european&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text",
 							"method": "GET",
 							"param": "targeted_audiences",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-04&call_for_projects_only=on&categories=livres&destinations=investment&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text\r\n\r\nappears to include user input in: \r\n\r\na(n) [option] tag [value] attribute \r\n\r\nThe user input found was:\r\ntargeted_audiences=commune\r\n\r\nThe user-controlled value was:\r\ncommune"
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-11&call_for_projects_only=on&categories=livres&destinations=investment&european_aid=european&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text\r\n\r\nappears to include user input in: \r\n\r\na(n) [option] tag [value] attribute \r\n\r\nThe user input found was:\r\ntargeted_audiences=commune\r\n\r\nThe user-controlled value was:\r\ncommune"
 						}
 					],
-					"count": "10",
+					"count": "12",
 					"solution": "<p>Validate all input and sanitize output it before writing to any HTML attributes.</p>",
-					"otherinfo": "<p>User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:</p><p></p><p>https://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-04&call_for_projects_only=on&categories=livres&destinations=investment&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text</p><p></p><p>appears to include user input in: </p><p></p><p>a(n) [button] tag [value] attribute </p><p></p><p>The user input found was:</p><p>action=search-filter</p><p></p><p>The user-controlled value was:</p><p>search-filter</p>",
+					"otherinfo": "<p>User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:</p><p></p><p>https://aides-territoires.beta.gouv.fr/aides/?action=search-filter&aid_type=loan&apply_before=2023-06-11&call_for_projects_only=on&categories=livres&destinations=investment&european_aid=european&integration&is_charged=True&mobilization_step=op&perimeter&programs=actee-action-des-collectivites-territoriales-pour&targeted_audiences=commune&text</p><p></p><p>appears to include user input in: </p><p></p><p>a(n) [button] tag [value] attribute </p><p></p><p>The user input found was:</p><p>action=search-filter</p><p></p><p>The user-controlled value was:</p><p>search-filter</p>",
 					"reference": "<p>http://websecuritytool.codeplex.com/wikipage?title=Checks#user-controlled-html-attribute</p>",
 					"cweid": "20",
 					"wascid": "20",
-					"sourceid": "4280"
+					"sourceid": "4246"
 				}
 			]
 		}
