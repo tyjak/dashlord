@@ -1,7 +1,7 @@
 {
 	"@programName": "OWASP ZAP",
-	"@version": "2.12.0",
-	"@generated": "Sun, 9 Jul 2023 20:50:21",
+	"@version": "2.13.0",
+	"@generated": "Sun, 16 Jul 2023 20:49:56",
 	"site":[ 
 		{
 			"@name": "https://rdv-insertion.fr",
@@ -34,7 +34,7 @@
 					"reference": "<p>http://projects.webappsec.org/Cross-Site-Request-Forgery</p><p>http://cwe.mitre.org/data/definitions/352.html</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "17"
+					"sourceid": "20"
 				},
 				{
 					"pluginid": "10038",
@@ -267,7 +267,7 @@
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "29"
+					"sourceid": "32"
 				},
 				{
 					"pluginid": "10011",
@@ -580,9 +580,17 @@
 							"attack": "",
 							"evidence": "<script src=\"https://www.rdv-insertion.fr/packs/js/application-6ade4e489b0857c3a954.js\" data-turbo-track=\"reload\"></script>",
 							"otherinfo": ""
+						},
+						{
+							"uri": "https://rdv-insertion.fr/sign_in",
+							"method": "POST",
+							"param": "https://www.rdv-insertion.fr/packs/js/application-6ade4e489b0857c3a954.js",
+							"attack": "",
+							"evidence": "<script src=\"https://www.rdv-insertion.fr/packs/js/application-6ade4e489b0857c3a954.js\" data-turbo-track=\"reload\"></script>",
+							"otherinfo": ""
 						}
 					],
-					"count": "11",
+					"count": "12",
 					"solution": "<p>Ensure JavaScript source files are loaded from only trusted sources, and the sources can't be controlled by end users of the application.</p>",
 					"otherinfo": "",
 					"reference": "",
@@ -623,7 +631,7 @@
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "29"
+					"sourceid": "32"
 				},
 				{
 					"pluginid": "10063",
@@ -745,7 +753,7 @@
 						{
 							"uri": "https://rdv-insertion.fr/robots.txt",
 							"method": "GET",
-							"param": "X-Content-Type-Options",
+							"param": "x-content-type-options",
 							"attack": "",
 							"evidence": "",
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
@@ -758,6 +766,33 @@
 					"cweid": "693",
 					"wascid": "15",
 					"sourceid": "6"
+				},
+				{
+					"pluginid": "10111",
+					"alertRef": "10111",
+					"alert": "Authentication Request Identified",
+					"name": "Authentication Request Identified",
+					"riskcode": "0",
+					"confidence": "1",
+					"riskdesc": "Informational (Low)",
+					"desc": "<p>The given request has been identified as an authentication request. The 'Other Info' field contains a set of key=value lines which identify any relevant fields. If the request is in a context which has an Authentication Method set to \"Auto-Detect\" then this rule will change the authentication to match the request identified.</p>",
+					"instances":[ 
+						{
+							"uri": "https://rdv-insertion.fr/sign_in",
+							"method": "POST",
+							"param": "email",
+							"attack": "",
+							"evidence": "password",
+							"otherinfo": "userParam=email\nuserValue=zaproxy@example.com\npasswordParam=password\nreferer=https://rdv-insertion.fr/sign_in\ncsrfToken=authenticity_token"
+						}
+					],
+					"count": "1",
+					"solution": "<p>This is an informational alert rather than a vulnerability and so there is nothing to fix.</p>",
+					"otherinfo": "<p>userParam=email</p><p>userValue=zaproxy@example.com</p><p>passwordParam=password</p><p>referer=https://rdv-insertion.fr/sign_in</p><p>csrfToken=authenticity_token</p>",
+					"reference": "<p>https://www.zaproxy.org/docs/desktop/addons/authentication-helper/auth-req-id/</p>",
+					"cweid": "-1",
+					"wascid": "-1",
+					"sourceid": "31"
 				},
 				{
 					"pluginid": "10094",
@@ -774,105 +809,105 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "YlvgiMaRYGxfITwzRGPKGeYY5FJ2EYlwtqcqdOvM6Ksd8AVApmocMXzMobEDP14Uz3AOkRxJ3g9DxbqqVbZ3RrWGbRPp8FkFBmotn6inqKV4vs",
-							"otherinfo": "b[\uFFFD\uFFFD\u0191`l_!<3Dc\uFFFD\\x0019\uFFFD\\x0018\uFFFDRv\\x0011\uFFFDp\uFFFD\uFFFD*t\uFFFD\uFFFD\uFFFD\\x001d\uFFFD\\x0005@\uFFFDj\\x001c1|\u0321\uFFFD\\x0003?^\\x0014\uFFFDp\\x000e\uFFFD\\x001cI\uFFFD\\x000fC\u017A\uFFFDU\uFFFDwF\uFFFD\uFFFDm\\x0013\uFFFD\uFFFDY\\x0005\\x0006j-\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDx\uFFFD"
+							"evidence": "0JOF9t9WnxONdLJzQbBHlsL2EmsZaL",
+							"otherinfo": "\u0413\uFFFD\uFFFD\uFFFDV\uFFFD\\x0013\uFFFDt\uFFFDsA\uFFFDG\uFFFD\uFFFD\uFFFD\\x0012k\\x0019h"
 						},
 						{
 							"uri": "https://rdv-insertion.fr",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2B3Ivs7o5zccIZoLI4Ex1Bs3q5S03rP9gOL9AQ",
-							"otherinfo": "\uFFFD\\x001d\u023E\uFFFD\uFFFD\uFFFD7\\x001c!\uFFFD\\x000b#\uFFFD1\uFFFD\\x001b7\uFFFD\uFFFD\uFFFD\u07B3\uFFFD\uFFFD\uFFFD\uFFFD\\x0001"
+							"evidence": "2Bj9VzsdSrmTwEHOlvM1xkNf8xSg0PH8r3",
+							"otherinfo": "\uFFFD\\x0018\uFFFDW;\\x001dJ\uFFFD\uFFFD\uFFFDA\u0396\uFFFD5\uFFFDC_\uFFFD\\x0014\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD"
 						},
 						{
 							"uri": "https://rdv-insertion.fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2F0XHz9Zr7zxfNj1nUnIVLTz8K4eHQNqxcSWEvOAD2d5zyCCjvERATfYZ71mSdle0fDpSo3XHIKEMC5",
-							"otherinfo": "\uFFFD]\\x0017\\x001f?Y\uFFFD\uFFFD\uFFFD|\uFFFD\uFFFD\uFFFDI\uFFFDT\uFFFD\uFFFD\uFFFD\\x001e\\x001d\\x0003j\uFFFD\u0116\\x0012\uFFFD\\x000fgy\uFFFD \uFFFD\uFFFD\uFFFD\\x0011\\x00017\uFFFDg\uFFFDfI\uFFFD^\uFFFD\uFFFD\uFFFDJ\uFFFD\uFFFD\\x001c\uFFFD\uFFFD0."
+							"evidence": "2FGX7srjW8UWldundwiOCjsqIi7fBzzHPHKwbUbXOnXpkk4CXJmA",
+							"otherinfo": "\uFFFDQ\uFFFD\uFFFD\uFFFD\uFFFD[\uFFFD\\x0016\uFFFD\u06E7w\\x0008\uFFFD\n;*\".\uFFFD\\x0007<\uFFFD<r\uFFFDmF\uFFFD:u\uFFFDN\\x0002\\\uFFFD\uFFFD"
 						},
 						{
 							"uri": "https://rdv-insertion.fr/accessibilite",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "DFf55MqcH0LaFA1bqLJsTi97MrBeDlaI1cq0fsrzf4",
-							"otherinfo": "\\x000cW\uFFFD\uFFFD\u029C\\x001fB\uFFFD\\x0014\r[\uFFFD\uFFFDlN/{2\uFFFD^\\x000eV\uFFFD\uFFFD\u02B4~\uFFFD\uFFFD"
+							"evidence": "2FflAWU3RS0GDtqHmaCHzFLyCdoV1WiqZWK8JB9am9G68rhU0Lx8V6EOe8qSyfHNGqoxzPCmok2uQyO8k3UEi0ohwduoNG",
+							"otherinfo": "\uFFFDW\uFFFD\\x0001e7E-\\x0006\\x000e\u0687\uFFFD\uFFFD\uFFFD\uFFFDR\uFFFD\t\uFFFD\\x0015\uFFFDh\uFFFDeb\uFFFD$\\x001fZ\uFFFD\u047A\uFFFDT\u043C|W\uFFFD\\x000e{\u0292\uFFFD\uFFFD\uFFFD\\x001a\uFFFD1\uFFFD\uFFFDM\uFFFDC#\uFFFD\uFFFDu\\x0004\uFFFDJ!\uFFFD\u06E84"
 						},
 						{
 							"uri": "https://rdv-insertion.fr/cgu",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Z7UtJghngCxBxcJzcqmInjTbSg08zoUwAE1XzjTsziYGd8n6zMh7GXss20DCJgdLjG8",
-							"otherinfo": "g\uFFFD-&\\x0008g\uFFFD,A\uFFFD\uFFFDsr\uFFFD\uFFFD\uFFFD4\uFFFDJ\r<\u03850\\x0000MW\uFFFD4\uFFFD\uFFFD&\\x0006w\uFFFD\uFFFD\uFFFD\uFFFD{\\x0019{,\uFFFD@\uFFFD&\\x0007K\uFFFDo"
+							"evidence": "2BOiWlLFiaoDxGhOjyUPWFLgGRObIXm62VlavBYc2wxZS2Ng1FgAbkbV56H9fsFwT8O2B8B",
+							"otherinfo": "\uFFFD\\x0013\uFFFDZR\u0149\uFFFD\\x0003\uFFFDhN\uFFFD%\\x000fXR\uFFFD\\x0019\\x0013\uFFFD!y\uFFFD\uFFFDYZ\uFFFD\\x0016\\x001c\uFFFD\\x000cYKc`\uFFFDX\\x0000nF\uFFFD\uFFFD\uFFFD~\uFFFDpO\u00F6\\x0007\uFFFD"
 						},
 						{
 							"uri": "https://rdv-insertion.fr/inclusion_connect/auth",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "LoFAiEkP7UjM5zOh9e5Y2SCtSOrKNIeOcwz7MC6w72brLsueRcu8RCGGyZsUWiDgWuR8IJN9X8ic0Riv5HiueqgXYoDF0EoszaG9bTr91c1AoE4mOC4U3zhskP81CPhEfQHP",
-							"otherinfo": ".\uFFFD@\uFFFDI\\x000f\uFFFDH\uFFFD\uFFFD3\uFFFD\uFFFD\uFFFDX\uFFFD \uFFFDH\uFFFD\uFFFD4\uFFFD\uFFFDs\\x000c\uFFFD0.\uFFFD\uFFFDf\uFFFD.\u02DEE\u02FCD!\uFFFD\u025B\\x0014Z \uFFFDZ\uFFFD| \uFFFD}_\u021C\uFFFD\\x0018\uFFFD\uFFFDx\uFFFDz\uFFFD\\x0017b\uFFFD\uFFFD\uFFFDJ,\u0361\uFFFDm:\uFFFD\uFFFD\uFFFD@\uFFFDN&8.\\x0014\uFFFD8l\uFFFD\uFFFD5\\x0008\uFFFDD}\\x0001\uFFFD"
+							"evidence": "2Fjpk0TZOHXjA60Uo3FthgYYumBZlM2XaGY3iB",
+							"otherinfo": "\uFFFDX\uFFFDD\uFFFD8u\uFFFD\\x0003\uFFFD\\x0014\uFFFDqm\uFFFD\\x0006\\x0018\uFFFD`Y\uFFFD\u0357hf7\uFFFD"
 						},
 						{
 							"uri": "https://rdv-insertion.fr/invitation",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2F1f8dky5c32fO0D2kGtSaYhy8p8zioeUscTqJCa",
-							"otherinfo": "\uFFFD]_\uFFFD\uFFFD2\uFFFD\uFFFD\uFFFD|\uFFFD\\x0003\uFFFDA\uFFFDI\uFFFD!\uFFFD\uFFFD|\uFFFD*\\x001eR\uFFFD\\x0013\uFFFD\uFFFD\uFFFD"
+							"evidence": "CwSUiO6GAC1Q8v1m6JmdCRsbqyuIHiEnxhq00hEHVDmFOsa5",
+							"otherinfo": "\\x000b\\x0004\uFFFD\uFFFD\uFFFD\\x0000-P\uFFFD\uFFFDf\u865D\t\\x001b\\x001b\uFFFD+\uFFFD\\x001e!'\uFFFD\\x001a\uFFFD\uFFFD\\x0011\\x0007T9\uFFFD:\u01B9"
 						},
 						{
 							"uri": "https://rdv-insertion.fr/mentions-legales",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2FOpE1XharH9veC4yEgYUJvJICx3pKNGJJsxShsZxjrdS1npCt",
-							"otherinfo": "\uFFFDS\uFFFD\\x0013U\uFFFDj\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDH\\x0018P\uFFFD\uFFFD ,w\uFFFD\uFFFDF$\uFFFD1J\\x001b\\x0019\uFFFD:\uFFFDKY\uFFFD\n"
+							"evidence": "2BjyzUGZba6cKemhKCWACfEJWVfFzOhOlIRcXzdj0GSFo4QqfVDTyN2ZlnnT5H8Y4ZKjmIVp22dXNuzJqvqZCNR6OwKYDdViivPIN74ICxjNp4pNIQ",
+							"otherinfo": "\uFFFD\\x0018\uFFFD\uFFFDA\uFFFDm\uFFFD\uFFFD)\uFFFD(%\uFFFD\t\uFFFD\tYW\uFFFD\uFFFD\uFFFDN\uFFFD\uFFFD\\_7c\uFFFDd\uFFFD\uFFFD\uFFFD*}P\uFFFD\uFFFD\u0759\uFFFDy\uFFFD\uFFFD\\x0018\u14A3\uFFFD\uFFFDi\uFFFDgW6\uFFFD\u026A\uFFFD\uFFFD\\x0008\uFFFDz;\\x0002\uFFFD\r\uFFFDb\uFFFD\uFFFD\uFFFD7\uFFFD\\x0008\\x000b\\x0018\u0367\uFFFDM!"
 						},
 						{
 							"uri": "https://rdv-insertion.fr/politique-de-confidentialite",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2FK0c2L8b1hucHBEo4Z1yQ4xv8zyHRAEhkQqnzufpmBC4EiBJNDCIq",
-							"otherinfo": "\uFFFDR\uFFFDsb\uFFFDoXnppD\uFFFD\uFFFDu\uFFFD\\x000e1\uFFFD\uFFFD\uFFFD\\x001d\\x0010\\x0004\uFFFDD*\uFFFD;\uFFFD\uFFFD`B\uFFFDH\uFFFD$\uFFFD\uFFFD\""
+							"evidence": "2FR5JCc0n9xbYKGxQGHHx97nIx4TZaO",
+							"otherinfo": "\uFFFDTy$'4\uFFFD\uFFFD[`\uFFFD\uFFFD@a\uFFFD\uFFFD\uFFFD\uFFFD#\\x001e\\x0013e\uFFFD"
 						},
 						{
 							"uri": "https://rdv-insertion.fr/sign_in",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2BXCcwB9OkUenYBFstOM3qTSmPK28BXwUzIbaFoMLXfsaMuWgZvr8YihEC4AzXmSXC5Mqf5h",
-							"otherinfo": "\uFFFD\\x0015\uFFFDs\\x0000}:E\\x001e\uFFFD\uFFFDE\uFFFD\u04CC\u07A4\u0498\uFFFD\uFFFD\\x0015\uFFFDS2\\x001bhZ\\x000c-w\uFFFDh\u02D6\uFFFD\uFFFD\uFFFD\uFFFD\\x0010.\\x0000\uFFFDy\uFFFD\\.L\uFFFD\uFFFDa"
+							"evidence": "2Fxx8ZWONqjNiemYdyY8TH9R3G25QpzPVa7Bk52PclTRpDzZcx3K1WJcMKUoirlLMsX3SUKgMjmAQ--54G7EBIEoLLmLqCw--vVutEf4GcK4Uq9Ql6CAawQ",
+							"otherinfo": "\uFFFD\\q\uFFFD6\uFFFD\u0349\uFFFDw&<LQ\uFFFDm\uFFFDB\uFFFD\uFFFDU\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDrT\u0464<\uFFFDs\\x001d\uFFFD\uFFFDb\\0\uFFFD(\uFFFD\uFFFDK2\uFFFD\uFFFDIB\uFFFD29\uFFFDC\uFFFD\uFFFDn\uFFFD\\x0004\uFFFD(,\uFFFD\uFFFD\uFFFD,>\uFFFD\uFFFDn\uFFFDG\uFFFD\\x0019\u00B8R\uFFFDP\uFFFD\uFFFD\uFFFDk\\x0004"
 						},
 						{
 							"uri": "https://rdv-insertion.fr/stats",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2BBAoEBZpnYCFhrwAGUlNEOFWfceTUOGKD",
-							"otherinfo": "\uFFFD\\x0010@\uFFFD@Y\uFFFDv\\x0002\\x0016\\x001a\uFFFD\\x0000e%4C\uFFFDY\uFFFD\\x001eMC\uFFFD("
+							"evidence": "vdDRmrEM0fLqaBtzBJ1YcVClKuMCBXTWoDOl8gwEGZxjhQSR331S",
+							"otherinfo": "\uFFFD\uFFFD\u045A\uFFFD\\x000c\uFFFD\uFFFD\uFFFDh\\x001bs\\x0004\uFFFDXqP\uFFFD*\uFFFD\\x0002\\x0005t\u05A03\uFFFD\uFFFD\\x000c\\x0004\\x0019\uFFFDc\uFFFD\\x0004\uFFFD\uFFFD}R"
 						},
 						{
 							"uri": "https://rdv-insertion.fr/sign_in",
 							"method": "POST",
 							"param": "",
 							"attack": "",
-							"evidence": "9sBDjUyXkJ7CelHc/ubQ+c2e8sUefaWvcYDeY73i0vxjVahBPYq3daNPpvfL1DURnH2ejfTXv2yCxVN7EHUGDw==",
-							"otherinfo": "\uFFFD\uFFFDC\uFFFDL\uFFFD\uFFFD\uFFFD\uFFFDzQ\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\u035E\uFFFD\uFFFD\\x001e}\uFFFD\uFFFDq\uFFFD\uFFFDc\uFFFD\uFFFD\uFFFD\uFFFDcU\uFFFDA=\uFFFD\uFFFDu\uFFFDO\uFFFD\uFFFD\uFFFD\uFFFD5\\x0011\uFFFD}\uFFFD\uFFFD\uFFFD\u05FFl\uFFFD\uFFFDS{\\x0010u\\x0006\\x000f"
+							"evidence": "uS/Iap7PwbbUkkBeSV27sGuL6CI3gr7vfb95TDdeN99q9xGPO8QCcw+FbUFgibuR4YbfeMVvFmLr4+oOSm2gHg==",
+							"otherinfo": "\uFFFD/\uFFFDj\uFFFD\uFFFD\uFFFD\uFFFD\u0512@^I]\uFFFD\uFFFDk\uFFFD\uFFFD\"7\uFFFD\uFFFD\uFFFD}\uFFFDyL7^7\uFFFDj\uFFFD\\x0011\uFFFD;\uFFFD\\x0002s\\x000f\uFFFDmA`\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDx\uFFFDo\\x0016b\uFFFD\uFFFD\uFFFD\\x000eJm\uFFFD\\x001e"
 						}
 					],
 					"count": "12",
 					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
-					"otherinfo": "<p>b[\uFFFD\uFFFD\u0191`l_!<3Dc\uFFFD\\x0019\uFFFD\\x0018\uFFFDRv\\x0011\uFFFDp\uFFFD\uFFFD*t\uFFFD\uFFFD\uFFFD\\x001d\uFFFD\\x0005@\uFFFDj\\x001c1|\u0321\uFFFD\\x0003?^\\x0014\uFFFDp\\x000e\uFFFD\\x001cI\uFFFD\\x000fC\u017A\uFFFDU\uFFFDwF\uFFFD\uFFFDm\\x0013\uFFFD\uFFFDY\\x0005\\x0006j-\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDx\uFFFD</p>",
+					"otherinfo": "<p>\u0413\uFFFD\uFFFD\uFFFDV\uFFFD\\x0013\uFFFDt\uFFFDsA\uFFFDG\uFFFD\uFFFD\uFFFD\\x0012k\\x0019h</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "8"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10049",
@@ -925,15 +960,15 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://rdv-insertion.fr/invitations/redirect?format=postal&uuid=ZAP",
+							"uri": "https://rdv-insertion.fr/mentions-legales",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "500",
+							"evidence": "private",
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://rdv-insertion.fr/mentions-legales",
+							"uri": "https://rdv-insertion.fr/politique-de-confidentialite",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -986,7 +1021,7 @@
 						{
 							"uri": "https://rdv-insertion.fr",
 							"method": "GET",
-							"param": "Cache-Control",
+							"param": "cache-control",
 							"attack": "",
 							"evidence": "max-age=0, private, must-revalidate",
 							"otherinfo": ""
@@ -994,7 +1029,7 @@
 						{
 							"uri": "https://rdv-insertion.fr/",
 							"method": "GET",
-							"param": "Cache-Control",
+							"param": "cache-control",
 							"attack": "",
 							"evidence": "max-age=0, private, must-revalidate",
 							"otherinfo": ""
@@ -1002,7 +1037,7 @@
 						{
 							"uri": "https://rdv-insertion.fr/accessibilite",
 							"method": "GET",
-							"param": "Cache-Control",
+							"param": "cache-control",
 							"attack": "",
 							"evidence": "max-age=0, private, must-revalidate",
 							"otherinfo": ""
@@ -1010,7 +1045,7 @@
 						{
 							"uri": "https://rdv-insertion.fr/cgu",
 							"method": "GET",
-							"param": "Cache-Control",
+							"param": "cache-control",
 							"attack": "",
 							"evidence": "max-age=0, private, must-revalidate",
 							"otherinfo": ""
@@ -1018,7 +1053,7 @@
 						{
 							"uri": "https://rdv-insertion.fr/invitation",
 							"method": "GET",
-							"param": "Cache-Control",
+							"param": "cache-control",
 							"attack": "",
 							"evidence": "max-age=0, private, must-revalidate",
 							"otherinfo": ""
@@ -1026,7 +1061,7 @@
 						{
 							"uri": "https://rdv-insertion.fr/mentions-legales",
 							"method": "GET",
-							"param": "Cache-Control",
+							"param": "cache-control",
 							"attack": "",
 							"evidence": "max-age=0, private, must-revalidate",
 							"otherinfo": ""
@@ -1034,7 +1069,7 @@
 						{
 							"uri": "https://rdv-insertion.fr/politique-de-confidentialite",
 							"method": "GET",
-							"param": "Cache-Control",
+							"param": "cache-control",
 							"attack": "",
 							"evidence": "max-age=0, private, must-revalidate",
 							"otherinfo": ""
@@ -1042,7 +1077,7 @@
 						{
 							"uri": "https://rdv-insertion.fr/robots.txt",
 							"method": "GET",
-							"param": "Cache-Control",
+							"param": "cache-control",
 							"attack": "",
 							"evidence": "",
 							"otherinfo": ""
@@ -1050,7 +1085,7 @@
 						{
 							"uri": "https://rdv-insertion.fr/sign_in",
 							"method": "GET",
-							"param": "Cache-Control",
+							"param": "cache-control",
 							"attack": "",
 							"evidence": "max-age=0, private, must-revalidate",
 							"otherinfo": ""
@@ -1058,7 +1093,7 @@
 						{
 							"uri": "https://rdv-insertion.fr/stats",
 							"method": "GET",
-							"param": "Cache-Control",
+							"param": "cache-control",
 							"attack": "",
 							"evidence": "max-age=0, private, must-revalidate",
 							"otherinfo": ""
@@ -1066,18 +1101,125 @@
 						{
 							"uri": "https://rdv-insertion.fr/stats/deployment_map",
 							"method": "GET",
-							"param": "Cache-Control",
+							"param": "cache-control",
 							"attack": "",
 							"evidence": "max-age=0, private, must-revalidate",
 							"otherinfo": ""
+						},
+						{
+							"uri": "https://rdv-insertion.fr/sign_in",
+							"method": "POST",
+							"param": "cache-control",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
 						}
 					],
-					"count": "11",
+					"count": "12",
 					"solution": "<p>For secure content, ensure the cache-control HTTP header is set with \"no-cache, no-store, must-revalidate\". If an asset should be cached consider setting the directives \"public, max-age, immutable\".</p>",
 					"otherinfo": "",
 					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching</p><p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control</p><p>https://grayduck.mn/2021/09/13/cache-control-recommendations/</p>",
 					"cweid": "525",
 					"wascid": "13",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10112",
+					"alertRef": "10112",
+					"alert": "Session Management Response Identified",
+					"name": "Session Management Response Identified",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>The given response has been identified as containing a session management token. The 'Other Info' field contains a set of header tokens that can be used in the Header Based Session Management Method. If the request is in a context which has a Session Management Method set to \"Auto-Detect\" then this rule will change the session management to use the tokens identified.</p>",
+					"instances":[ 
+						{
+							"uri": "https://rdv-insertion.fr",
+							"method": "GET",
+							"param": "_rdv_insertion_session",
+							"attack": "",
+							"evidence": "0JOF9t9WnxONdLJzQbBHlsL2EmsZaL%2BgS7wvwizm1Jx63meknXlC%2By7OFrgUptxZmGB%2BOuyMk90LFATL4oaR%2FOGfchwh83vAd%2FdrHk0x2rAEStcmfOXVwPcDACD7CzPOigUX4p6eePMfDoybCJsDJ3GzC%2BOND25ZOpIfg5JfjmNoNDmlj%2FQGU3tl5Sk9%2FDuMvNZZe8hAA6mDYw%2FW2gg31eKYXOyvFvHJ0Cop%2BTGEf36vM4Bv8nCQ4vtkq6UgMjzJe820gJWfj%2BxEvGjTqtDovFzs6wESvr0aZ49B4mZn--i9DAnnOSd1aosdo7--X7x79rgys0wqkeP6XgrhsA%3D%3D",
+							"otherinfo": "\ncookie:_rdv_insertion_session"
+						},
+						{
+							"uri": "https://rdv-insertion.fr",
+							"method": "GET",
+							"param": "_rdv_insertion_session",
+							"attack": "",
+							"evidence": "Py%2Fdh%2BpY%2F0Fe0KcMEf%2Bj9VzsdSrmTwEHOlvM1xkNf8xSg0PH8r3%2FcpTNtcNHcUN1K5bBjnDQupFG0RSa6zbfuKUe7QfABXKEqe33m47t6oh7h%2BxhTw80gZFlVdahR27Dey%2FZ4uCfcA9AcWyaFsAoBl%2FtglT%2BGXSDNiTQ5%2F%2FdKPDT6yXtf7Qenwbmet8tIsCpe33C8mFXKL5NcRPYhGefcfCUjikrFaOI%2FBPIjQb34os6FGpPgK1AMKxfOI2m%2BT1O8BdrJQq8qwvb0B3Phrvxb%2BnlHW%2BhQtYV2PVwkk54--%2FaoRHusnO%2B3awm%2FD--2S6obDyPU7CtK3Sa2H6dwA%3D%3D",
+							"otherinfo": "\ncookie:_rdv_insertion_session"
+						},
+						{
+							"uri": "https://rdv-insertion.fr/",
+							"method": "GET",
+							"param": "_rdv_insertion_session",
+							"attack": "",
+							"evidence": "62W71WCuhZxpHxEY8z4SDTCF%2FFfRRImGntG3dHsbLL9ooPg7J6MQhmzcqpuWo5Iis6EAqqy3%2BBETtUwnGsTWKsNMHYMtHno1ZEGgDeHhBT0c2IVwzhqsUznH3ZQpIhDVkRhInCY4%2BIY6KNbvbPomRkVKQhvktv3zALsi4hwHWTCZoIZ22G8N0xItEoePzguhr3lr%2FGX7srjW8UWldundwiOCjsqIi7fBzzHPHKwbUbXOnXpkk4CXJmA%2FV%2BuDeqPQQjO7gSCFO9pilc46PKR0lk%2FdO%2FlZdG1JI0J%2FZ6xL--gE4gOUFYfsly16Je--6nP%2B9ghT1n%2BV2Pv51sEMkg%3D%3D",
+							"otherinfo": "\ncookie:_rdv_insertion_session"
+						},
+						{
+							"uri": "https://rdv-insertion.fr/invitation",
+							"method": "GET",
+							"param": "_rdv_insertion_session",
+							"attack": "",
+							"evidence": "CwSUiO6GAC1Q8v1m6JmdCRsbqyuIHiEnxhq00hEHVDmFOsa5%2BPNBw4agryEKw0LTdfu1nUsw4lnzDwxCIuxI0dYjhGYjhj3SjOVHB0%2B%2BTCgbsvhCoBEN4Uz9vpcRjOw4S3rnZpCHlwWyiWAypPmmajgALDHqOhyqKAQAyB85fdJoq9GEKMsav04v1bLf%2B7NFIU50hhUA%2BSMkC75iNm1ZFMP7SnmefFWSBVbCv7mJd5W1mCRuzvF%2BoMpoR8uC8oHI%2BTR8VbOl6E7nwAC1c3d%2B1QTOOjLgiPgEyMlg4loY--YGc6YuLjAczXIdRw--Zxoj7L7%2FgKzVucvxh7boFg%3D%3D",
+							"otherinfo": "\ncookie:_rdv_insertion_session"
+						},
+						{
+							"uri": "https://rdv-insertion.fr/mentions-legales",
+							"method": "GET",
+							"param": "_rdv_insertion_session",
+							"attack": "",
+							"evidence": "EOe1xIgrrLMVzwzSqEmfpdR9tQexSE3FWa0rHDtUoPAxAFLMk%2BxxLWCkvL8woZmBzHKN8JIrzEdRHvAyXSIJpi6dp%2F7HYwLAMh%2BdC2k1N4ZbCYf3vHEL3%2Bszlp8RSZo6%2BjyzUGZba6cKemhKCWACfEJWVfFzOhOlIRcXzdj0GSFo4QqfVDTyN2ZlnnT5H8Y4ZKjmIVp22dXNuzJqvqZCNR6OwKYDdViivPIN74ICxjNp4pNIQ%2BTV4c0oLd%2B%2BghR3gkoCAofJyTJyIrxWSkVSGY65AYcpCXrtd1G8aWzR--XZaiu6ALZwmnpn4Q--VOs6ZF3sgZqM01DcWcBCrA%3D%3D",
+							"otherinfo": "\ncookie:_rdv_insertion_session"
+						},
+						{
+							"uri": "https://rdv-insertion.fr/sign_in",
+							"method": "GET",
+							"param": "_rdv_insertion_session",
+							"attack": "",
+							"evidence": "fScI5WNV1zul%2Fg2UkN4jIolps8voO%2FDK9FVz3e3Eu0rOFrdVywwAHOmP5fFc6WMJ2DJz0CNkXzbNA%2FNFn5NuTbVKQ%2Fp7f6spGPbz3wrcvt3QD36URwkHR%2FXHbirHtJ9xs1hr0yRki%2FKr7RGkKSwkEDZoaf%2FcoNqBHSW0HxTXEcOThwIV%2BiyhsWetf%2BhZV4pytE5%2BKLPY2GUQB9eXY4XrLrUmpcVd%2Fxx8ZWONqjNiemYdyY8TH9R3G25QpzPVa7Bk52PclTRpDzZcx3K1WJcMKUoirlLMsX3SUKgMjmAQ--54G7EBIEoLLmLqCw--vVutEf4GcK4Uq9Ql6CAawQ%3D%3D",
+							"otherinfo": "\ncookie:_rdv_insertion_session"
+						},
+						{
+							"uri": "https://rdv-insertion.fr/stats",
+							"method": "GET",
+							"param": "_rdv_insertion_session",
+							"attack": "",
+							"evidence": "vdDRmrEM0fLqaBtzBJ1YcVClKuMCBXTWoDOl8gwEGZxjhQSR331S%2FsK9xw1E9SiY1Lh3ibkuBWRcD5bVeN0B%2FAb%2FbhoBO1x3FK2tqy0XcRrb%2Fv%2F4g2%2FEsMpmmfsKCatgE4pPWChtQNTOQ8TDHr%2BSbLAvx%2Bc1tnZCj0F8Y6lWQ%2BZhLitPyw631JfXOKxYgqgw3XZaIFllP2Pq3BjrmgAmThdOIlWmDAE4ZJX68M%2BFAipR10%2BEeSUNlC9PKKn7YDRUdD3SsCd71bCz%2BN%2BLiEeMvL8hDrO6RzV8NkZz9fDk--brOcAGC8HaSIynwr--C9NNgO3fTLHYQMQXhYeXYg%3D%3D",
+							"otherinfo": "\ncookie:_rdv_insertion_session"
+						},
+						{
+							"uri": "https://rdv-insertion.fr",
+							"method": "GET",
+							"param": "_rdv_insertion_session",
+							"attack": "",
+							"evidence": "Py%2Fdh%2BpY%2F0Fe0KcMEf%2Bj9VzsdSrmTwEHOlvM1xkNf8xSg0PH8r3%2FcpTNtcNHcUN1K5bBjnDQupFG0RSa6zbfuKUe7QfABXKEqe33m47t6oh7h%2BxhTw80gZFlVdahR27Dey%2FZ4uCfcA9AcWyaFsAoBl%2FtglT%2BGXSDNiTQ5%2F%2FdKPDT6yXtf7Qenwbmet8tIsCpe33C8mFXKL5NcRPYhGefcfCUjikrFaOI%2FBPIjQb34os6FGpPgK1AMKxfOI2m%2BT1O8BdrJQq8qwvb0B3Phrvxb%2BnlHW%2BhQtYV2PVwkk54--%2FaoRHusnO%2B3awm%2FD--2S6obDyPU7CtK3Sa2H6dwA%3D%3D",
+							"otherinfo": "\ncookie:_rdv_insertion_session"
+						},
+						{
+							"uri": "https://rdv-insertion.fr/sign_in",
+							"method": "GET",
+							"param": "_rdv_insertion_session",
+							"attack": "",
+							"evidence": "fScI5WNV1zul%2Fg2UkN4jIolps8voO%2FDK9FVz3e3Eu0rOFrdVywwAHOmP5fFc6WMJ2DJz0CNkXzbNA%2FNFn5NuTbVKQ%2Fp7f6spGPbz3wrcvt3QD36URwkHR%2FXHbirHtJ9xs1hr0yRki%2FKr7RGkKSwkEDZoaf%2FcoNqBHSW0HxTXEcOThwIV%2BiyhsWetf%2BhZV4pytE5%2BKLPY2GUQB9eXY4XrLrUmpcVd%2Fxx8ZWONqjNiemYdyY8TH9R3G25QpzPVa7Bk52PclTRpDzZcx3K1WJcMKUoirlLMsX3SUKgMjmAQ--54G7EBIEoLLmLqCw--vVutEf4GcK4Uq9Ql6CAawQ%3D%3D",
+							"otherinfo": "\ncookie:_rdv_insertion_session"
+						},
+						{
+							"uri": "https://rdv-insertion.fr/stats",
+							"method": "GET",
+							"param": "_rdv_insertion_session",
+							"attack": "",
+							"evidence": "vdDRmrEM0fLqaBtzBJ1YcVClKuMCBXTWoDOl8gwEGZxjhQSR331S%2FsK9xw1E9SiY1Lh3ibkuBWRcD5bVeN0B%2FAb%2FbhoBO1x3FK2tqy0XcRrb%2Fv%2F4g2%2FEsMpmmfsKCatgE4pPWChtQNTOQ8TDHr%2BSbLAvx%2Bc1tnZCj0F8Y6lWQ%2BZhLitPyw631JfXOKxYgqgw3XZaIFllP2Pq3BjrmgAmThdOIlWmDAE4ZJX68M%2BFAipR10%2BEeSUNlC9PKKn7YDRUdD3SsCd71bCz%2BN%2BLiEeMvL8hDrO6RzV8NkZz9fDk--brOcAGC8HaSIynwr--C9NNgO3fTLHYQMQXhYeXYg%3D%3D",
+							"otherinfo": "\ncookie:_rdv_insertion_session"
+						}
+					],
+					"count": "10",
+					"solution": "<p>This is an informational alert rather than a vulnerability and so there is nothing to fix.</p>",
+					"otherinfo": "<p></p><p>cookie:_rdv_insertion_session</p>",
+					"reference": "<p>https://www.zaproxy.org/docs/desktop/addons/authentication-helper/session-mgmt-id</p>",
+					"cweid": "-1",
+					"wascid": "-1",
 					"sourceid": "1"
 				},
 				{
