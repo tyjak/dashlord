@@ -1,7 +1,7 @@
 {
 	"@programName": "OWASP ZAP",
-	"@version": "2.12.0",
-	"@generated": "Sun, 9 Jul 2023 21:30:23",
+	"@version": "2.13.0",
+	"@generated": "Sun, 16 Jul 2023 21:18:01",
 	"site":[ 
 		{
 			"@name": "https://estime.pole-emploi.fr",
@@ -135,7 +135,7 @@
 						{
 							"uri": "https://estime.pole-emploi.fr",
 							"method": "GET",
-							"param": "X-Frame-Options",
+							"param": "x-frame-options",
 							"attack": "",
 							"evidence": "",
 							"otherinfo": ""
@@ -339,13 +339,13 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "1821575946",
-							"otherinfo": "1821575946, which evaluates to: 2027-09-22 01:19:06"
+							"evidence": "1687358218",
+							"otherinfo": "1687358218, which evaluates to: 2023-06-21 14:36:58"
 						}
 					],
 					"count": "1",
 					"solution": "<p>Manually confirm that the timestamp data is not sensitive, and that the data cannot be aggregated to disclose exploitable patterns.</p>",
-					"otherinfo": "<p>1821575946, which evaluates to: 2027-09-22 01:19:06</p>",
+					"otherinfo": "<p>1687358218, which evaluates to: 2023-06-21 14:36:58</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
@@ -364,7 +364,7 @@
 						{
 							"uri": "https://estime.pole-emploi.fr",
 							"method": "GET",
-							"param": "X-Content-Type-Options",
+							"param": "x-content-type-options",
 							"attack": "",
 							"evidence": "",
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
@@ -445,7 +445,7 @@
 						{
 							"uri": "https://estime.pole-emploi.fr",
 							"method": "GET",
-							"param": "Cache-Control",
+							"param": "cache-control",
 							"attack": "",
 							"evidence": "",
 							"otherinfo": ""
@@ -457,6 +457,33 @@
 					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching</p><p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control</p><p>https://grayduck.mn/2021/09/13/cache-control-recommendations/</p>",
 					"cweid": "525",
 					"wascid": "13",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10112",
+					"alertRef": "10112",
+					"alert": "Session Management Response Identified",
+					"name": "Session Management Response Identified",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>The given response has been identified as containing a session management token. The 'Other Info' field contains a set of header tokens that can be used in the Header Based Session Management Method. If the request is in a context which has a Session Management Method set to \"Auto-Detect\" then this rule will change the session management to use the tokens identified.</p>",
+					"instances":[ 
+						{
+							"uri": "https://estime.pole-emploi.fr",
+							"method": "GET",
+							"param": "BIGipServerPOOL_TAS_SDDC_HTTP",
+							"attack": "",
+							"evidence": "1687358218.20480.0000",
+							"otherinfo": "\ncookie:BIGipServerPOOL_TAS_SDDC_HTTP\ncookie:TS9966a4fc027\ncookie:TS01a771c6"
+						}
+					],
+					"count": "1",
+					"solution": "<p>This is an informational alert rather than a vulnerability and so there is nothing to fix.</p>",
+					"otherinfo": "<p></p><p>cookie:BIGipServerPOOL_TAS_SDDC_HTTP</p><p>cookie:TS9966a4fc027</p><p>cookie:TS01a771c6</p>",
+					"reference": "<p>https://www.zaproxy.org/docs/desktop/addons/authentication-helper/session-mgmt-id</p>",
+					"cweid": "-1",
+					"wascid": "-1",
 					"sourceid": "1"
 				},
 				{
