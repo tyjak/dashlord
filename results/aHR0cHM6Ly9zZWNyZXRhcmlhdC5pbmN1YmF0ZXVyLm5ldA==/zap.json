@@ -1,7 +1,7 @@
 {
 	"@programName": "OWASP ZAP",
-	"@version": "2.12.0",
-	"@generated": "Sun, 9 Jul 2023 14:06:27",
+	"@version": "2.13.0",
+	"@generated": "Sun, 16 Jul 2023 14:07:13",
 	"site":[ 
 		{
 			"@name": "https://secretariat.incubateur.net",
@@ -76,7 +76,7 @@
 						{
 							"uri": "https://secretariat.incubateur.net",
 							"method": "GET",
-							"param": "X-Frame-Options",
+							"param": "x-frame-options",
 							"attack": "",
 							"evidence": "",
 							"otherinfo": ""
@@ -200,7 +200,7 @@
 						{
 							"uri": "https://secretariat.incubateur.net",
 							"method": "GET",
-							"param": "X-Content-Type-Options",
+							"param": "x-content-type-options",
 							"attack": "",
 							"evidence": "",
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
@@ -229,13 +229,13 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "3AArewLy1tLVdG_HcZCck6K8tchhhz_e1M",
-							"otherinfo": "\uFFFD\\x0000+{\\x0002\uFFFD\uFFFD\uFFFD\uFFFDto\uFFFDq\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDa\uFFFD?\uFFFD\uFFFD"
+							"evidence": "3AjM-T7mvVxQk1cNsLCpDOtShhQGOR30UO",
+							"otherinfo": "\uFFFD\\x0008\uFFFD\uFFFD>\uFFFD\\P\uFFFDW\r\uFFFD\uFFFD\uFFFD\\x000c\uFFFDR\uFFFD\\x0014\\x00069\\x001d\uFFFDP"
 						}
 					],
 					"count": "1",
 					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
-					"otherinfo": "<p>\uFFFD\\x0000+{\\x0002\uFFFD\uFFFD\uFFFD\uFFFDto\uFFFDq\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDa\uFFFD?\uFFFD\uFFFD</p>",
+					"otherinfo": "<p>\uFFFD\\x0008\uFFFD\uFFFD>\uFFFD\\P\uFFFDW\r\uFFFD\uFFFD\uFFFD\\x000c\uFFFDR\uFFFD\\x0014\\x00069\\x001d\uFFFDP</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
@@ -281,7 +281,7 @@
 						{
 							"uri": "https://secretariat.incubateur.net",
 							"method": "GET",
-							"param": "Cache-Control",
+							"param": "cache-control",
 							"attack": "",
 							"evidence": "",
 							"otherinfo": ""
@@ -293,6 +293,33 @@
 					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching</p><p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control</p><p>https://grayduck.mn/2021/09/13/cache-control-recommendations/</p>",
 					"cweid": "525",
 					"wascid": "13",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10112",
+					"alertRef": "10112",
+					"alert": "Session Management Response Identified",
+					"name": "Session Management Response Identified",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>The given response has been identified as containing a session management token. The 'Other Info' field contains a set of header tokens that can be used in the Header Based Session Management Method. If the request is in a context which has a Session Management Method set to \"Auto-Detect\" then this rule will change the session management to use the tokens identified.</p>",
+					"instances":[ 
+						{
+							"uri": "https://secretariat.incubateur.net",
+							"method": "GET",
+							"param": "espaceMembreCookieName",
+							"attack": "",
+							"evidence": "s%3AjM-T7mvVxQk1cNsLCpDOtShhQGOR30UO.kAQb26rAnUB6V94mLwqMenVHYFTN07qBUGOKrJMOUw0",
+							"otherinfo": "\ncookie:espaceMembreCookieName"
+						}
+					],
+					"count": "1",
+					"solution": "<p>This is an informational alert rather than a vulnerability and so there is nothing to fix.</p>",
+					"otherinfo": "<p></p><p>cookie:espaceMembreCookieName</p>",
+					"reference": "<p>https://www.zaproxy.org/docs/desktop/addons/authentication-helper/session-mgmt-id</p>",
+					"cweid": "-1",
+					"wascid": "-1",
 					"sourceid": "1"
 				},
 				{
