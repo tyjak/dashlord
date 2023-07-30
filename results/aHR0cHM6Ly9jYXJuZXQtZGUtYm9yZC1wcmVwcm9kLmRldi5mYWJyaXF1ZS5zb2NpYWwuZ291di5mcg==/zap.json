@@ -1,7 +1,7 @@
 {
 	"@programName": "OWASP ZAP",
 	"@version": "2.13.0",
-	"@generated": "Sun, 16 Jul 2023 20:32:44",
+	"@generated": "Sun, 30 Jul 2023 18:39:41",
 	"site":[ 
 		{
 			"@name": "https://carnet-de-bord-preprod.dev.fabrique.social.gouv.fr",
@@ -24,7 +24,7 @@
 							"method": "GET",
 							"param": "content-security-policy",
 							"attack": "",
-							"evidence": "default-src 'self' https://matomo.inclusion.beta.gouv.fr; connect-src 'self' wss://client.relay.crisp.chat/ https://client.crisp.chat/static/ https://matomo.inclusion.beta.gouv.fr https://sentry.fabrique.social.gouv.fr; font-src 'self' data: https://client.crisp.chat/static/; img-src 'self' data: https://*.crisp.chat/; media-src 'self' nextcloud.fabrique.social.gouv.fr; script-src 'self'  https://client.crisp.chat/ https://matomo.inclusion.beta.gouv.fr 'nonce-o85tTxVbVPxYLx8uFyDNxQ=='; style-src 'self' *.crisp.chat 'unsafe-inline'; base-uri 'self'",
+							"evidence": "default-src 'self' https://matomo.inclusion.beta.gouv.fr; connect-src 'self' wss://client.relay.crisp.chat/ https://client.crisp.chat/static/ https://matomo.inclusion.beta.gouv.fr https://sentry.gip-inclusion.cloud-ed.fr; font-src 'self' data: https://client.crisp.chat/static/; img-src 'self' data: https://*.crisp.chat/; media-src 'self' nextcloud.fabrique.social.gouv.fr; script-src 'self'  https://client.crisp.chat/ https://matomo.inclusion.beta.gouv.fr 'nonce-Mgh1G11IUHajil1JQ4Kr5g=='; style-src 'self' *.crisp.chat 'unsafe-inline'; base-uri 'self'",
 							"otherinfo": "The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: \nframe-ancestors, form-action\n\nThe directive(s): frame-ancestors, form-action are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything."
 						}
 					],
@@ -51,7 +51,7 @@
 							"method": "GET",
 							"param": "content-security-policy",
 							"attack": "",
-							"evidence": "default-src 'self' https://matomo.inclusion.beta.gouv.fr; connect-src 'self' wss://client.relay.crisp.chat/ https://client.crisp.chat/static/ https://matomo.inclusion.beta.gouv.fr https://sentry.fabrique.social.gouv.fr; font-src 'self' data: https://client.crisp.chat/static/; img-src 'self' data: https://*.crisp.chat/; media-src 'self' nextcloud.fabrique.social.gouv.fr; script-src 'self'  https://client.crisp.chat/ https://matomo.inclusion.beta.gouv.fr 'nonce-o85tTxVbVPxYLx8uFyDNxQ=='; style-src 'self' *.crisp.chat 'unsafe-inline'; base-uri 'self'",
+							"evidence": "default-src 'self' https://matomo.inclusion.beta.gouv.fr; connect-src 'self' wss://client.relay.crisp.chat/ https://client.crisp.chat/static/ https://matomo.inclusion.beta.gouv.fr https://sentry.gip-inclusion.cloud-ed.fr; font-src 'self' data: https://client.crisp.chat/static/; img-src 'self' data: https://*.crisp.chat/; media-src 'self' nextcloud.fabrique.social.gouv.fr; script-src 'self'  https://client.crisp.chat/ https://matomo.inclusion.beta.gouv.fr 'nonce-Mgh1G11IUHajil1JQ4Kr5g=='; style-src 'self' *.crisp.chat 'unsafe-inline'; base-uri 'self'",
 							"otherinfo": "style-src includes unsafe-inline."
 						}
 					],
@@ -230,12 +230,12 @@
 							"param": "",
 							"attack": "",
 							"evidence": "user",
-							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected 2 times, the first in the element starting with: \"<script type=\"text/javascript\" nonce=\"o85tTxVbVPxYLx8uFyDNxQ==\">\n      tarteaucitron.user.crispID = \"2f9fd96d-44a0-4588-8f7e-a06\", see evidence field for the suspicious comment/snippet."
+							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected 2 times, the first in the element starting with: \"<script type=\"text/javascript\" nonce=\"Mgh1G11IUHajil1JQ4Kr5g==\">\n      tarteaucitron.user.crispID = \"2f9fd96d-44a0-4588-8f7e-a06\", see evidence field for the suspicious comment/snippet."
 						}
 					],
 					"count": "1",
 					"solution": "<p>Remove all comments that return information that may help an attacker and fix any underlying problems they refer to.</p>",
-					"otherinfo": "<p>The following pattern was used: \\bUSER\\b and was detected 2 times, the first in the element starting with: \"<script type=\"text/javascript\" nonce=\"o85tTxVbVPxYLx8uFyDNxQ==\"></p><p>      tarteaucitron.user.crispID = \"2f9fd96d-44a0-4588-8f7e-a06\", see evidence field for the suspicious comment/snippet.</p>",
+					"otherinfo": "<p>The following pattern was used: \\bUSER\\b and was detected 2 times, the first in the element starting with: \"<script type=\"text/javascript\" nonce=\"Mgh1G11IUHajil1JQ4Kr5g==\"></p><p>      tarteaucitron.user.crispID = \"2f9fd96d-44a0-4588-8f7e-a06\", see evidence field for the suspicious comment/snippet.</p>",
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
@@ -296,6 +296,146 @@
 					"sourceid": "1"
 				},
 				{
+					"pluginid": "90005",
+					"alertRef": "90005-3",
+					"alert": "Sec-Fetch-Dest Header is Missing",
+					"name": "Sec-Fetch-Dest Header is Missing",
+					"riskcode": "0",
+					"confidence": "3",
+					"riskdesc": "Informational (High)",
+					"desc": "<p>Specifies how and where the data would be used. For instance, if the value is audio, then the requested resource must be audio data and not any other type of resource.</p>",
+					"instances":[ 
+						{
+							"uri": "https://carnet-de-bord-preprod.dev.fabrique.social.gouv.fr",
+							"method": "GET",
+							"param": "Sec-Fetch-Dest",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://carnet-de-bord-preprod.dev.fabrique.social.gouv.fr/robots.txt",
+							"method": "GET",
+							"param": "Sec-Fetch-Dest",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						}
+					],
+					"count": "2",
+					"solution": "<p>Ensure that Sec-Fetch-Dest header is included in request headers.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Dest</p>",
+					"cweid": "352",
+					"wascid": "9",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "90005",
+					"alertRef": "90005-2",
+					"alert": "Sec-Fetch-Mode Header is Missing",
+					"name": "Sec-Fetch-Mode Header is Missing",
+					"riskcode": "0",
+					"confidence": "3",
+					"riskdesc": "Informational (High)",
+					"desc": "<p>Allows to differentiate between requests for navigating between HTML pages and requests for loading resources like images, audio etc.</p>",
+					"instances":[ 
+						{
+							"uri": "https://carnet-de-bord-preprod.dev.fabrique.social.gouv.fr",
+							"method": "GET",
+							"param": "Sec-Fetch-Mode",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://carnet-de-bord-preprod.dev.fabrique.social.gouv.fr/robots.txt",
+							"method": "GET",
+							"param": "Sec-Fetch-Mode",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						}
+					],
+					"count": "2",
+					"solution": "<p>Ensure that Sec-Fetch-Mode header is included in request headers.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Mode</p>",
+					"cweid": "352",
+					"wascid": "9",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "90005",
+					"alertRef": "90005-1",
+					"alert": "Sec-Fetch-Site Header is Missing",
+					"name": "Sec-Fetch-Site Header is Missing",
+					"riskcode": "0",
+					"confidence": "3",
+					"riskdesc": "Informational (High)",
+					"desc": "<p>Specifies the relationship between request initiator's origin and target's origin.</p>",
+					"instances":[ 
+						{
+							"uri": "https://carnet-de-bord-preprod.dev.fabrique.social.gouv.fr",
+							"method": "GET",
+							"param": "Sec-Fetch-Site",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://carnet-de-bord-preprod.dev.fabrique.social.gouv.fr/robots.txt",
+							"method": "GET",
+							"param": "Sec-Fetch-Site",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						}
+					],
+					"count": "2",
+					"solution": "<p>Ensure that Sec-Fetch-Site header is included in request headers.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Site</p>",
+					"cweid": "352",
+					"wascid": "9",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "90005",
+					"alertRef": "90005-4",
+					"alert": "Sec-Fetch-User Header is Missing",
+					"name": "Sec-Fetch-User Header is Missing",
+					"riskcode": "0",
+					"confidence": "3",
+					"riskdesc": "Informational (High)",
+					"desc": "<p>Specifies if a navigation request was initiated by a user.</p>",
+					"instances":[ 
+						{
+							"uri": "https://carnet-de-bord-preprod.dev.fabrique.social.gouv.fr",
+							"method": "GET",
+							"param": "Sec-Fetch-User",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://carnet-de-bord-preprod.dev.fabrique.social.gouv.fr/robots.txt",
+							"method": "GET",
+							"param": "Sec-Fetch-User",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						}
+					],
+					"count": "2",
+					"solution": "<p>Ensure that Sec-Fetch-User header is included in user initiated requests.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-User</p>",
+					"cweid": "352",
+					"wascid": "9",
+					"sourceid": "1"
+				},
+				{
 					"pluginid": "10049",
 					"alertRef": "10049",
 					"alert": "Storable and Cacheable Content",
@@ -336,7 +476,7 @@
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "6"
+					"sourceid": "1"
 				}
 			]
 		}
