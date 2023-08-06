@@ -1,7 +1,7 @@
 {
 	"@programName": "OWASP ZAP",
 	"@version": "2.13.0",
-	"@generated": "Sun, 30 Jul 2023 14:23:01",
+	"@generated": "Sun, 6 Aug 2023 15:05:13",
 	"site":[ 
 		{
 			"@name": "https://www.data.gouv.fr",
@@ -9,6 +9,33 @@
 			"@port": "443",
 			"@ssl": "true",
 			"alerts": [ 
+				{
+					"pluginid": "10062",
+					"alertRef": "10062",
+					"alert": "PII Disclosure",
+					"name": "PII Disclosure",
+					"riskcode": "3",
+					"confidence": "3",
+					"riskdesc": "High (High)",
+					"desc": "<p>The response contains Personally Identifiable Information, such as CC number, SSN and similar sensitive data.</p>",
+					"instances":[ 
+						{
+							"uri": "https://www.data.gouv.fr/fr/datasets/trackdechets-donnees-statistiques-relatives-aux-dechets-dangereux-en-france/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "580940337992",
+							"otherinfo": "Credit Card Type detected: Maestro\nBank Identification Number: 580940\nBrand: MAESTRO\nCategory: \nIssuer: "
+						}
+					],
+					"count": "1",
+					"solution": "<p>Check the response for the potential presence of personally identifiable information (PII), ensure nothing sensitive is leaked by the application.</p>",
+					"otherinfo": "<p>Credit Card Type detected: Maestro</p><p>Bank Identification Number: 580940</p><p>Brand: MAESTRO</p><p>Category: </p><p>Issuer: </p>",
+					"reference": "",
+					"cweid": "359",
+					"wascid": "13",
+					"sourceid": "559"
+				},
 				{
 					"pluginid": "10202",
 					"alertRef": "10202",
@@ -21,14 +48,6 @@
 					"instances":[ 
 						{
 							"uri": "https://www.data.gouv.fr",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<form action=\"/datasets\">",
-							"otherinfo": "No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"search-input\" ]."
-						},
-						{
-							"uri": "https://www.data.gouv.fr/en/datasets/r/09f013c5-9531-444b-ab6c-7a0e88efd77d",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -77,6 +96,14 @@
 						},
 						{
 							"uri": "https://www.data.gouv.fr/es/tabular/preview/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form action=\"/datasets\">",
+							"otherinfo": "No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"search-input\" ]."
+						},
+						{
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -143,14 +170,6 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/en/datasets/r/09f013c5-9531-444b-ab6c-7a0e88efd77d",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
 							"uri": "https://www.data.gouv.fr/en/datasets/r/0ab442c5-57d1-4139-92c2-19672336401c",
 							"method": "GET",
 							"param": "",
@@ -192,6 +211,14 @@
 						},
 						{
 							"uri": "https://www.data.gouv.fr/es/tabular/preview/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -282,14 +309,6 @@
 							"otherinfo": "The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing."
 						},
 						{
-							"uri": "https://www.data.gouv.fr/en/reuses.csv",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "access-control-allow-origin: *",
-							"otherinfo": "The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing."
-						},
-						{
 							"uri": "https://www.data.gouv.fr/es/datasets.csv",
 							"method": "GET",
 							"param": "",
@@ -306,6 +325,14 @@
 							"otherinfo": "The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing."
 						},
 						{
+							"uri": "https://www.data.gouv.fr/fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "access-control-allow-origin: *",
+							"otherinfo": "The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing."
+						},
+						{
 							"uri": "https://www.data.gouv.fr/fr/datasets.csv",
 							"method": "GET",
 							"param": "",
@@ -315,14 +342,6 @@
 						},
 						{
 							"uri": "https://www.data.gouv.fr/fr/resources.csv",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "access-control-allow-origin: *",
-							"otherinfo": "The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing."
-						},
-						{
-							"uri": "https://www.data.gouv.fr/fr/reuses.csv",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -346,13 +365,13 @@
 							"otherinfo": "The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing."
 						}
 					],
-					"count": "12",
+					"count": "11",
 					"solution": "<p>Ensure that sensitive data is not available in an unauthenticated manner (using IP address white-listing, for instance).</p><p>Configure the \"Access-Control-Allow-Origin\" HTTP header to a more restrictive set of domains, or remove all CORS headers entirely, to allow the web browser to enforce the Same Origin Policy (SOP) in a more restrictive manner.</p>",
 					"otherinfo": "<p>The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing.</p>",
 					"reference": "<p>https://vulncat.fortify.com/en/detail?id=desc.config.dotnet.html5_overly_permissive_cors_policy</p>",
 					"cweid": "264",
 					"wascid": "14",
-					"sourceid": "54"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10099",
@@ -373,23 +392,7 @@
 							"otherinfo": "Update frequency not set\n    "
 						},
 						{
-							"uri": "https://www.data.gouv.fr/en/datasets/associations-sportives-dissy-les-moulineaux/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "Update frequency not set\n    ",
-							"otherinfo": "Update frequency not set\n    "
-						},
-						{
 							"uri": "https://www.data.gouv.fr/es/datasets/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "Update frequency not set\n    ",
-							"otherinfo": "Update frequency not set\n    "
-						},
-						{
-							"uri": "https://www.data.gouv.fr/es/datasets/associations-sportives-dissy-les-moulineaux/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -397,13 +400,13 @@
 							"otherinfo": "Update frequency not set\n    "
 						}
 					],
-					"count": "4",
+					"count": "2",
 					"solution": "<p>Ensure that application Source Code is not available with alternative extensions, and ensure that source code is not present within other files or data deployed to the web server, or served by the web server. </p>",
 					"otherinfo": "<p>Update frequency not set</p><p>    </p>",
 					"reference": "<p>http://blogs.wsj.com/cio/2013/10/08/adobe-source-code-leak-is-bad-news-for-u-s-government/</p>",
 					"cweid": "540",
 					"wascid": "13",
-					"sourceid": "848"
+					"sourceid": "2303"
 				},
 				{
 					"pluginid": "90003",
@@ -416,7 +419,7 @@
 					"desc": "<p>The integrity attribute is missing on a script or link tag served by an external server. The integrity tag prevents an attacker who have gained access to this server from injecting a malicious content. </p>",
 					"instances":[ 
 						{
-							"uri": "https://www.data.gouv.fr",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -424,7 +427,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -432,7 +435,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -440,7 +443,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -448,7 +451,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -456,7 +459,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -464,7 +467,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -472,7 +475,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -480,7 +483,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -488,7 +491,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -496,7 +499,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -504,7 +507,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -512,7 +515,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -520,7 +523,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -534,7 +537,7 @@
 					"reference": "<p>https://developer.mozilla.org/en/docs/Web/Security/Subresource_Integrity</p>",
 					"cweid": "345",
 					"wascid": "15",
-					"sourceid": "1"
+					"sourceid": "42"
 				},
 				{
 					"pluginid": "10044",
@@ -552,7 +555,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "Location header URI length: 126 [https://static.data.gouv.fr/resources/catalogue-des-donnees-de-data-gouv-fr/20230730-054637/export-dataset-20230730-054637.csv].\nPredicted response size: 426.\nResponse Body Length: 439."
+							"otherinfo": "Location header URI length: 126 [https://static.data.gouv.fr/resources/catalogue-des-donnees-de-data-gouv-fr/20230806-054647/export-dataset-20230806-054647.csv].\nPredicted response size: 426.\nResponse Body Length: 439."
 						},
 						{
 							"uri": "https://www.data.gouv.fr/en/organizations.csv",
@@ -560,7 +563,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "Location header URI length: 131 [https://static.data.gouv.fr/resources/catalogue-des-donnees-de-data-gouv-fr/20230730-055338/export-organization-20230730-055338.csv].\nPredicted response size: 431.\nResponse Body Length: 449."
+							"otherinfo": "Location header URI length: 131 [https://static.data.gouv.fr/resources/catalogue-des-donnees-de-data-gouv-fr/20230806-055418/export-organization-20230806-055418.csv].\nPredicted response size: 431.\nResponse Body Length: 449."
 						},
 						{
 							"uri": "https://www.data.gouv.fr/en/resources.csv",
@@ -568,7 +571,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "Location header URI length: 127 [https://static.data.gouv.fr/resources/catalogue-des-donnees-de-data-gouv-fr/20230730-055110/export-resource-20230730-055110.csv].\nPredicted response size: 427.\nResponse Body Length: 441."
+							"otherinfo": "Location header URI length: 127 [https://static.data.gouv.fr/resources/catalogue-des-donnees-de-data-gouv-fr/20230806-055133/export-resource-20230806-055133.csv].\nPredicted response size: 427.\nResponse Body Length: 441."
 						},
 						{
 							"uri": "https://www.data.gouv.fr/en/reuses.csv",
@@ -576,7 +579,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "Location header URI length: 124 [https://static.data.gouv.fr/resources/catalogue-des-donnees-de-data-gouv-fr/20230730-055417/export-reuse-20230730-055417.csv].\nPredicted response size: 424.\nResponse Body Length: 435."
+							"otherinfo": "Location header URI length: 124 [https://static.data.gouv.fr/resources/catalogue-des-donnees-de-data-gouv-fr/20230806-055459/export-reuse-20230806-055459.csv].\nPredicted response size: 424.\nResponse Body Length: 435."
 						},
 						{
 							"uri": "https://www.data.gouv.fr/es/datasets.csv",
@@ -584,7 +587,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "Location header URI length: 126 [https://static.data.gouv.fr/resources/catalogue-des-donnees-de-data-gouv-fr/20230730-054637/export-dataset-20230730-054637.csv].\nPredicted response size: 426.\nResponse Body Length: 439."
+							"otherinfo": "Location header URI length: 126 [https://static.data.gouv.fr/resources/catalogue-des-donnees-de-data-gouv-fr/20230806-054647/export-dataset-20230806-054647.csv].\nPredicted response size: 426.\nResponse Body Length: 439."
 						},
 						{
 							"uri": "https://www.data.gouv.fr/es/organizations.csv",
@@ -592,7 +595,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "Location header URI length: 131 [https://static.data.gouv.fr/resources/catalogue-des-donnees-de-data-gouv-fr/20230730-055338/export-organization-20230730-055338.csv].\nPredicted response size: 431.\nResponse Body Length: 449."
+							"otherinfo": "Location header URI length: 131 [https://static.data.gouv.fr/resources/catalogue-des-donnees-de-data-gouv-fr/20230806-055418/export-organization-20230806-055418.csv].\nPredicted response size: 431.\nResponse Body Length: 449."
 						},
 						{
 							"uri": "https://www.data.gouv.fr/es/resources.csv",
@@ -600,7 +603,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "Location header URI length: 127 [https://static.data.gouv.fr/resources/catalogue-des-donnees-de-data-gouv-fr/20230730-055110/export-resource-20230730-055110.csv].\nPredicted response size: 427.\nResponse Body Length: 441."
+							"otherinfo": "Location header URI length: 127 [https://static.data.gouv.fr/resources/catalogue-des-donnees-de-data-gouv-fr/20230806-055133/export-resource-20230806-055133.csv].\nPredicted response size: 427.\nResponse Body Length: 441."
 						},
 						{
 							"uri": "https://www.data.gouv.fr/es/reuses.csv",
@@ -608,7 +611,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "Location header URI length: 124 [https://static.data.gouv.fr/resources/catalogue-des-donnees-de-data-gouv-fr/20230730-055417/export-reuse-20230730-055417.csv].\nPredicted response size: 424.\nResponse Body Length: 435."
+							"otherinfo": "Location header URI length: 124 [https://static.data.gouv.fr/resources/catalogue-des-donnees-de-data-gouv-fr/20230806-055459/export-reuse-20230806-055459.csv].\nPredicted response size: 424.\nResponse Body Length: 435."
 						},
 						{
 							"uri": "https://www.data.gouv.fr/fr/datasets.csv",
@@ -616,7 +619,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "Location header URI length: 126 [https://static.data.gouv.fr/resources/catalogue-des-donnees-de-data-gouv-fr/20230730-054637/export-dataset-20230730-054637.csv].\nPredicted response size: 426.\nResponse Body Length: 439."
+							"otherinfo": "Location header URI length: 126 [https://static.data.gouv.fr/resources/catalogue-des-donnees-de-data-gouv-fr/20230806-054647/export-dataset-20230806-054647.csv].\nPredicted response size: 426.\nResponse Body Length: 439."
 						},
 						{
 							"uri": "https://www.data.gouv.fr/fr/organizations.csv",
@@ -624,7 +627,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "Location header URI length: 131 [https://static.data.gouv.fr/resources/catalogue-des-donnees-de-data-gouv-fr/20230730-055338/export-organization-20230730-055338.csv].\nPredicted response size: 431.\nResponse Body Length: 449."
+							"otherinfo": "Location header URI length: 131 [https://static.data.gouv.fr/resources/catalogue-des-donnees-de-data-gouv-fr/20230806-055418/export-organization-20230806-055418.csv].\nPredicted response size: 431.\nResponse Body Length: 449."
 						},
 						{
 							"uri": "https://www.data.gouv.fr/fr/resources.csv",
@@ -632,7 +635,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "Location header URI length: 127 [https://static.data.gouv.fr/resources/catalogue-des-donnees-de-data-gouv-fr/20230730-055110/export-resource-20230730-055110.csv].\nPredicted response size: 427.\nResponse Body Length: 441."
+							"otherinfo": "Location header URI length: 127 [https://static.data.gouv.fr/resources/catalogue-des-donnees-de-data-gouv-fr/20230806-055133/export-resource-20230806-055133.csv].\nPredicted response size: 427.\nResponse Body Length: 441."
 						},
 						{
 							"uri": "https://www.data.gouv.fr/fr/reuses.csv",
@@ -640,16 +643,16 @@
 							"param": "",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "Location header URI length: 124 [https://static.data.gouv.fr/resources/catalogue-des-donnees-de-data-gouv-fr/20230730-055417/export-reuse-20230730-055417.csv].\nPredicted response size: 424.\nResponse Body Length: 435."
+							"otherinfo": "Location header URI length: 124 [https://static.data.gouv.fr/resources/catalogue-des-donnees-de-data-gouv-fr/20230806-055459/export-reuse-20230806-055459.csv].\nPredicted response size: 424.\nResponse Body Length: 435."
 						}
 					],
 					"count": "12",
 					"solution": "<p>Ensure that no sensitive information is leaked via redirect responses. Redirect responses should have almost no content.</p>",
-					"otherinfo": "<p>Location header URI length: 126 [https://static.data.gouv.fr/resources/catalogue-des-donnees-de-data-gouv-fr/20230730-054637/export-dataset-20230730-054637.csv].</p><p>Predicted response size: 426.</p><p>Response Body Length: 439.</p>",
+					"otherinfo": "<p>Location header URI length: 126 [https://static.data.gouv.fr/resources/catalogue-des-donnees-de-data-gouv-fr/20230806-054647/export-dataset-20230806-054647.csv].</p><p>Predicted response size: 426.</p><p>Response Body Length: 439.</p>",
 					"reference": "",
 					"cweid": "201",
 					"wascid": "13",
-					"sourceid": "60"
+					"sourceid": "58"
 				},
 				{
 					"pluginid": "10011",
@@ -670,7 +673,15 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/datasets/r/1be77ca5-dc1b-4e50-af2b-0240147e0346",
+							"uri": "https://www.data.gouv.fr/datasets.csv",
+							"method": "GET",
+							"param": "session",
+							"attack": "",
+							"evidence": "set-cookie: session",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://www.data.gouv.fr/en/?format=xls&tag=donnees-ouvertes",
 							"method": "GET",
 							"param": "session",
 							"attack": "",
@@ -694,7 +705,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/en/datasets/r/1be77ca5-dc1b-4e50-af2b-0240147e0346",
+							"uri": "https://www.data.gouv.fr/en/datasets.csv",
 							"method": "GET",
 							"param": "session",
 							"attack": "",
@@ -702,7 +713,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/en/tabular/preview/",
+							"uri": "https://www.data.gouv.fr/en/login?next=%2Fen%2Fdatasets%2Finfrastructures-de-recharge-pour-vehicules-electriques-organisation-zeborne-kia-chalons%2F",
 							"method": "GET",
 							"param": "session",
 							"attack": "",
@@ -710,7 +721,15 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/es/tabular/preview/",
+							"uri": "https://www.data.gouv.fr/fr/",
+							"method": "GET",
+							"param": "session",
+							"attack": "",
+							"evidence": "set-cookie: session",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://www.data.gouv.fr/fr/?format=xls&tag=donnees-ouvertes",
 							"method": "GET",
 							"param": "session",
 							"attack": "",
@@ -735,22 +754,6 @@
 						},
 						{
 							"uri": "https://www.data.gouv.fr/fr/datasets/catalogue-des-donnees-de-data-gouv-fr/",
-							"method": "GET",
-							"param": "session",
-							"attack": "",
-							"evidence": "set-cookie: session",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://www.data.gouv.fr/fr/tabular/preview/",
-							"method": "GET",
-							"param": "session",
-							"attack": "",
-							"evidence": "set-cookie: session",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://www.data.gouv.fr/tabular/preview/",
 							"method": "GET",
 							"param": "session",
 							"attack": "",
@@ -785,7 +788,15 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/datasets/r/1be77ca5-dc1b-4e50-af2b-0240147e0346",
+							"uri": "https://www.data.gouv.fr/datasets.csv",
+							"method": "GET",
+							"param": "session",
+							"attack": "",
+							"evidence": "set-cookie: session",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://www.data.gouv.fr/en/?format=xls&tag=donnees-ouvertes",
 							"method": "GET",
 							"param": "session",
 							"attack": "",
@@ -809,7 +820,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/en/datasets/r/1be77ca5-dc1b-4e50-af2b-0240147e0346",
+							"uri": "https://www.data.gouv.fr/en/datasets.csv",
 							"method": "GET",
 							"param": "session",
 							"attack": "",
@@ -817,7 +828,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/en/tabular/preview/",
+							"uri": "https://www.data.gouv.fr/en/login?next=%2Fen%2Fdatasets%2Finfrastructures-de-recharge-pour-vehicules-electriques-organisation-zeborne-kia-chalons%2F",
 							"method": "GET",
 							"param": "session",
 							"attack": "",
@@ -825,7 +836,15 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/es/tabular/preview/",
+							"uri": "https://www.data.gouv.fr/fr/",
+							"method": "GET",
+							"param": "session",
+							"attack": "",
+							"evidence": "set-cookie: session",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://www.data.gouv.fr/fr/?format=xls&tag=donnees-ouvertes",
 							"method": "GET",
 							"param": "session",
 							"attack": "",
@@ -850,22 +869,6 @@
 						},
 						{
 							"uri": "https://www.data.gouv.fr/fr/datasets/catalogue-des-donnees-de-data-gouv-fr/",
-							"method": "GET",
-							"param": "session",
-							"attack": "",
-							"evidence": "set-cookie: session",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://www.data.gouv.fr/fr/tabular/preview/",
-							"method": "GET",
-							"param": "session",
-							"attack": "",
-							"evidence": "set-cookie: session",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://www.data.gouv.fr/tabular/preview/",
 							"method": "GET",
 							"param": "session",
 							"attack": "",
@@ -972,7 +975,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/tabular/preview/",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "https://static.data.gouv.fr/_themes/gouvfr/js/_commonjsHelpers-legacy.3.2.5.js",
 							"attack": "",
@@ -980,7 +983,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/tabular/preview/",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "https://static.data.gouv.fr/_themes/gouvfr/js/es-module-shims.js?_=3.2.5",
 							"attack": "",
@@ -988,7 +991,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/tabular/preview/",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "https://static.data.gouv.fr/_themes/gouvfr/js/index-legacy.js?_=3.2.5",
 							"attack": "",
@@ -996,7 +999,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/tabular/preview/",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "https://static.data.gouv.fr/_themes/gouvfr/js/index.js?_=3.2.5",
 							"attack": "",
@@ -1004,7 +1007,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/tabular/preview/",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "https://static.data.gouv.fr/_themes/gouvfr/js/polyfills-legacy.js?_=3.2.5",
 							"attack": "",
@@ -1012,7 +1015,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/tabular/preview/",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "https://static.data.gouv.fr/_themes/gouvfr/js/s.min.js?_=3.2.5",
 							"attack": "",
@@ -1020,7 +1023,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/tabular/preview/",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "https://static.data.gouv.fr/_themes/gouvfr/js/vue-content-loader.es-legacy.js?_=3.2.5",
 							"attack": "",
@@ -1028,7 +1031,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/tabular/preview/",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "https://static.data.gouv.fr/_themes/gouvfr/js/vue-content-loader.es.js?_=3.2.5",
 							"attack": "",
@@ -1036,7 +1039,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/tabular/preview/",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "https://static.data.gouv.fr/_themes/gouvfr/js/vue.esm-browser.prod-legacy.js?_=3.2.5",
 							"attack": "",
@@ -1044,7 +1047,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/tabular/preview/",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "https://static.data.gouv.fr/_themes/gouvfr/js/vue.esm-browser.prod.js?_=3.2.5",
 							"attack": "",
@@ -1072,14 +1075,6 @@
 					"instances":[ 
 						{
 							"uri": "https://www.data.gouv.fr",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://www.data.gouv.fr/en/datasets/r/09f013c5-9531-444b-ab6c-7a0e88efd77d",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1135,6 +1130,14 @@
 							"otherinfo": ""
 						},
 						{
+							"uri": "https://www.data.gouv.fr/fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
 							"uri": "https://www.data.gouv.fr/fr/datasets/r/0ab442c5-57d1-4139-92c2-19672336401c",
 							"method": "GET",
 							"param": "",
@@ -1176,6 +1179,33 @@
 					"sourceid": "1"
 				},
 				{
+					"pluginid": "10040",
+					"alertRef": "10040",
+					"alert": "Secure Pages Include Mixed Content",
+					"name": "Secure Pages Include Mixed Content",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>The page includes mixed content, that is content accessed via HTTP instead of HTTPS.</p>",
+					"instances":[ 
+						{
+							"uri": "https://www.data.gouv.fr/fr/organizations/institut-national-de-l-information-geographique-et-forestiere/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "http://www.ign.fr/sites/all/files/portail_cat-offre_634.jpg",
+							"otherinfo": "tag=img src=http://www.ign.fr/sites/all/files/portail_cat-offre_634.jpg\n"
+						}
+					],
+					"count": "1",
+					"solution": "<p>A page that is available over SSL/TLS must be comprised completely of content which is transmitted over SSL/TLS.</p><p>The page must not contain any content that is transmitted over unencrypted HTTP.</p><p> This includes content from third party sites.</p>",
+					"otherinfo": "<p>tag=img src=http://www.ign.fr/sites/all/files/portail_cat-offre_634.jpg</p><p></p>",
+					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html</p>",
+					"cweid": "311",
+					"wascid": "4",
+					"sourceid": "1344"
+				},
+				{
 					"pluginid": "10035",
 					"alertRef": "10035",
 					"alert": "Strict-Transport-Security Header Not Set",
@@ -1186,7 +1216,7 @@
 					"desc": "<p>HTTP Strict Transport Security (HSTS) is a web security policy mechanism whereby a web server declares that complying user agents (such as a web browser) are to interact with it using only secure HTTPS connections (i.e. HTTP layered over TLS/SSL). HSTS is an IETF standards track protocol and is specified in RFC 6797.</p>",
 					"instances":[ 
 						{
-							"uri": "https://www.data.gouv.fr/en/datasets.csv",
+							"uri": "https://www.data.gouv.fr",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1194,7 +1224,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/en/organizations.csv",
+							"uri": "https://www.data.gouv.fr/en/datasets.csv",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1234,7 +1264,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/es/reuses.csv",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1288,7 +1318,7 @@
 					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html</p><p>https://owasp.org/www-community/Security_Headers</p><p>http://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security</p><p>http://caniuse.com/stricttransportsecurity</p><p>http://tools.ietf.org/html/rfc6797</p>",
 					"cweid": "319",
 					"wascid": "15",
-					"sourceid": "60"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10096",
@@ -1301,21 +1331,45 @@
 					"desc": "<p>A timestamp was disclosed by the application/web server - Unix</p>",
 					"instances":[ 
 						{
+							"uri": "https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1448544354",
+							"otherinfo": "1448544354, which evaluates to: 2015-11-26 13:25:54"
+						},
+						{
+							"uri": "https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1687145183",
+							"otherinfo": "1687145183, which evaluates to: 2023-06-19 03:26:23"
+						},
+						{
 							"uri": "https://www.data.gouv.fr/fr/datasets/bureaux-de-vote-et-adresses-de-leurs-electeurs/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "1896219713",
 							"otherinfo": "1896219713, which evaluates to: 2030-02-01 23:41:53"
+						},
+						{
+							"uri": "https://www.data.gouv.fr/fr/datasets/plan-cadastral-informatise/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "1696433670",
+							"otherinfo": "1696433670, which evaluates to: 2023-10-04 15:34:30"
 						}
 					],
-					"count": "1",
+					"count": "4",
 					"solution": "<p>Manually confirm that the timestamp data is not sensitive, and that the data cannot be aggregated to disclose exploitable patterns.</p>",
-					"otherinfo": "<p>1896219713, which evaluates to: 2030-02-01 23:41:53</p>",
+					"otherinfo": "<p>1448544354, which evaluates to: 2015-11-26 13:25:54</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "1510"
+					"sourceid": "1212"
 				},
 				{
 					"pluginid": "10111",
@@ -1342,7 +1396,7 @@
 					"reference": "<p>https://www.zaproxy.org/docs/desktop/addons/authentication-helper/auth-req-id/</p>",
 					"cweid": "-1",
 					"wascid": "-1",
-					"sourceid": "1500"
+					"sourceid": "2779"
 				},
 				{
 					"pluginid": "10094",
@@ -1359,101 +1413,109 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "eyJjc3JmX3Rva2VuIjoiY2E5MTUxOTNhODM5MTc5YjliZmNiMDhkNTU0ZGM1ZDk3OTI4Yzc2ZSJ9",
-							"otherinfo": "{\"csrf_token\":\"ca915193a839179b9bfcb08d554dc5d97928c76e\"}"
+							"evidence": "eyJjc3JmX3Rva2VuIjoiODdkMDNiYzE5MDdjYjY4MzU5Y2ZmNWE2NGJjMDdhOTA4N2RjOTdlMiJ9",
+							"otherinfo": "{\"csrf_token\":\"87d03bc1907cb68359cff5a64bc07a9087dc97e2\"}"
 						},
 						{
-							"uri": "https://www.data.gouv.fr/datasets/r/1be77ca5-dc1b-4e50-af2b-0240147e0346",
+							"uri": "https://www.data.gouv.fr/datasets.csv",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "eyJfZnJlc2giOmZhbHNlLCJjc3JmX3Rva2VuIjoiZTU5NTkzMWE3ZWRmNTM3YzNiODY2ZGExMmRmNmU5NmQxM2VhYzhhYyJ9",
-							"otherinfo": "{\"_fresh\":false,\"csrf_token\":\"e595931a7edf537c3b866da12df6e96d13eac8ac\"}"
+							"evidence": "eyJfZnJlc2giOmZhbHNlLCJjc3JmX3Rva2VuIjoiZTA1MGE2Y2NhZmE4NDY5NTYwMzFmMDM4Y2Y0NDZhNWI3ZjM3ZDBjNiJ9",
+							"otherinfo": "{\"_fresh\":false,\"csrf_token\":\"e050a6ccafa846956031f038cf446a5b7f37d0c6\"}"
 						},
 						{
-							"uri": "https://www.data.gouv.fr/en/datasets/r/1be77ca5-dc1b-4e50-af2b-0240147e0346",
+							"uri": "https://www.data.gouv.fr/en/datasets.csv",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "eyJfZnJlc2giOmZhbHNlLCJjc3JmX3Rva2VuIjoiZTU5NTkzMWE3ZWRmNTM3YzNiODY2ZGExMmRmNmU5NmQxM2VhYzhhYyJ9",
-							"otherinfo": "{\"_fresh\":false,\"csrf_token\":\"e595931a7edf537c3b866da12df6e96d13eac8ac\"}"
+							"evidence": "eyJfZnJlc2giOmZhbHNlLCJjc3JmX3Rva2VuIjoiZTA1MGE2Y2NhZmE4NDY5NTYwMzFmMDM4Y2Y0NDZhNWI3ZjM3ZDBjNiJ9",
+							"otherinfo": "{\"_fresh\":false,\"csrf_token\":\"e050a6ccafa846956031f038cf446a5b7f37d0c6\"}"
+						},
+						{
+							"uri": "https://www.data.gouv.fr/en/datasets/r/0ab442c5-57d1-4139-92c2-19672336401c",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "ImUwNTBhNmNjYWZhODQ2OTU2MDMxZjAzOGNmNDQ2YTViN2YzN2QwYzYi",
+							"otherinfo": "\"e050a6ccafa846956031f038cf446a5b7f37d0c6\""
 						},
 						{
 							"uri": "https://www.data.gouv.fr/en/datasets/r/7161c9f2-3d91-4caf-afa2-cfe535807f04",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "ImU1OTU5MzFhN2VkZjUzN2MzYjg2NmRhMTJkZjZlOTZkMTNlYWM4YWMi",
-							"otherinfo": "\"e595931a7edf537c3b866da12df6e96d13eac8ac\""
+							"evidence": "ImUwNTBhNmNjYWZhODQ2OTU2MDMxZjAzOGNmNDQ2YTViN2YzN2QwYzYi",
+							"otherinfo": "\"e050a6ccafa846956031f038cf446a5b7f37d0c6\""
 						},
 						{
 							"uri": "https://www.data.gouv.fr/en/tabular/preview/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "eyJjc3JmX3Rva2VuIjoiZTU5NTkzMWE3ZWRmNTM3YzNiODY2ZGExMmRmNmU5NmQxM2VhYzhhYyJ9",
-							"otherinfo": "{\"csrf_token\":\"e595931a7edf537c3b866da12df6e96d13eac8ac\"}"
-						},
-						{
-							"uri": "https://www.data.gouv.fr/en/tags.csv",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "Arrete-ministeriel-du-28-02-2000",
-							"otherinfo": "\\x0002\uFFFD\u07B5\uF98Ax\uFFFD\uFFFD\uFFFD\uFFFDz_\uFFFD\uFFFD\uFFFD\uFFFDM\uFFFD\uFFFDM4"
+							"evidence": "ImUwNTBhNmNjYWZhODQ2OTU2MDMxZjAzOGNmNDQ2YTViN2YzN2QwYzYi",
+							"otherinfo": "\"e050a6ccafa846956031f038cf446a5b7f37d0c6\""
 						},
 						{
 							"uri": "https://www.data.gouv.fr/es/datasets/r/7161c9f2-3d91-4caf-afa2-cfe535807f04",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "ImU1OTU5MzFhN2VkZjUzN2MzYjg2NmRhMTJkZjZlOTZkMTNlYWM4YWMi",
-							"otherinfo": "\"e595931a7edf537c3b866da12df6e96d13eac8ac\""
+							"evidence": "ImUwNTBhNmNjYWZhODQ2OTU2MDMxZjAzOGNmNDQ2YTViN2YzN2QwYzYi",
+							"otherinfo": "\"e050a6ccafa846956031f038cf446a5b7f37d0c6\""
 						},
 						{
 							"uri": "https://www.data.gouv.fr/es/tabular/preview/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "eyJfZnJlc2giOmZhbHNlLCJjc3JmX3Rva2VuIjoiZTU5NTkzMWE3ZWRmNTM3YzNiODY2ZGExMmRmNmU5NmQxM2VhYzhhYyJ9",
-							"otherinfo": "{\"_fresh\":false,\"csrf_token\":\"e595931a7edf537c3b866da12df6e96d13eac8ac\"}"
+							"evidence": "ImUwNTBhNmNjYWZhODQ2OTU2MDMxZjAzOGNmNDQ2YTViN2YzN2QwYzYi",
+							"otherinfo": "\"e050a6ccafa846956031f038cf446a5b7f37d0c6\""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/es/tags.csv",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "Arrete-ministeriel-du-28-02-2000",
-							"otherinfo": "\\x0002\uFFFD\u07B5\uF98Ax\uFFFD\uFFFD\uFFFD\uFFFDz_\uFFFD\uFFFD\uFFFD\uFFFDM\uFFFD\uFFFDM4"
+							"evidence": "eyJjc3JmX3Rva2VuIjoiZTA1MGE2Y2NhZmE4NDY5NTYwMzFmMDM4Y2Y0NDZhNWI3ZjM3ZDBjNiJ9",
+							"otherinfo": "{\"csrf_token\":\"e050a6ccafa846956031f038cf446a5b7f37d0c6\"}"
+						},
+						{
+							"uri": "https://www.data.gouv.fr/fr/datasets/r/0ab442c5-57d1-4139-92c2-19672336401c",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "ImUwNTBhNmNjYWZhODQ2OTU2MDMxZjAzOGNmNDQ2YTViN2YzN2QwYzYi",
+							"otherinfo": "\"e050a6ccafa846956031f038cf446a5b7f37d0c6\""
 						},
 						{
 							"uri": "https://www.data.gouv.fr/fr/datasets/r/7161c9f2-3d91-4caf-afa2-cfe535807f04",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "ImU1OTU5MzFhN2VkZjUzN2MzYjg2NmRhMTJkZjZlOTZkMTNlYWM4YWMi",
-							"otherinfo": "\"e595931a7edf537c3b866da12df6e96d13eac8ac\""
+							"evidence": "ImUwNTBhNmNjYWZhODQ2OTU2MDMxZjAzOGNmNDQ2YTViN2YzN2QwYzYi",
+							"otherinfo": "\"e050a6ccafa846956031f038cf446a5b7f37d0c6\""
 						},
 						{
 							"uri": "https://www.data.gouv.fr/fr/tabular/preview/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "eyJjc3JmX3Rva2VuIjoiNDkyZDM0ZmRlNGUxNzFkZjg4MTU3ZWNjNjhmNWFiODM1Yjk2YjJjYyJ9",
-							"otherinfo": "{\"csrf_token\":\"492d34fde4e171df88157ecc68f5ab835b96b2cc\"}"
+							"evidence": "ImUwNTBhNmNjYWZhODQ2OTU2MDMxZjAzOGNmNDQ2YTViN2YzN2QwYzYi",
+							"otherinfo": "\"e050a6ccafa846956031f038cf446a5b7f37d0c6\""
 						},
 						{
 							"uri": "https://www.data.gouv.fr/tabular/preview/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "eyJjc3JmX3Rva2VuIjoiMzBlYTdlMDMzNDUwYWM0MWNkMTdiNmZlZGE0OGEyYTgwMDNhNWJmZCJ9",
-							"otherinfo": "{\"csrf_token\":\"30ea7e033450ac41cd17b6feda48a2a8003a5bfd\"}"
+							"evidence": "ImUwNTBhNmNjYWZhODQ2OTU2MDMxZjAzOGNmNDQ2YTViN2YzN2QwYzYi",
+							"otherinfo": "\"e050a6ccafa846956031f038cf446a5b7f37d0c6\""
 						}
 					],
-					"count": "12",
+					"count": "13",
 					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
-					"otherinfo": "<p>{\"csrf_token\":\"ca915193a839179b9bfcb08d554dc5d97928c76e\"}</p>",
+					"otherinfo": "<p>{\"csrf_token\":\"87d03bc1907cb68359cff5a64bc07a9087dc97e2\"}</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
@@ -1572,7 +1634,7 @@
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "194"
+					"sourceid": "254"
 				},
 				{
 					"pluginid": "10109",
@@ -1590,14 +1652,6 @@
 							"param": "",
 							"attack": "",
 							"evidence": "<a\n                                class=\"fr-nav__link\"\n                                href=\"/fr/datasets/\"\n                                \n                                target=\"_self\"\n                            >\n                                Donn\u00E9es\n                            </a>",
-							"otherinfo": "Links have been found with a target of '_self' - this is often used by modern frameworks to force a full page reload."
-						},
-						{
-							"uri": "https://www.data.gouv.fr/en/datasets/r/09f013c5-9531-444b-ab6c-7a0e88efd77d",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<a\n                                class=\"fr-nav__link\"\n                                href=\"/en/datasets/\"\n                                aria-current=\"page\" \n                                target=\"_self\"\n                            >\n                                Data\n                            </a>",
 							"otherinfo": "Links have been found with a target of '_self' - this is often used by modern frameworks to force a full page reload."
 						},
 						{
@@ -1642,6 +1696,14 @@
 						},
 						{
 							"uri": "https://www.data.gouv.fr/es/tabular/preview/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<a\n                                class=\"fr-nav__link\"\n                                href=\"/fr/datasets/\"\n                                \n                                target=\"_self\"\n                            >\n                                Donn\u00E9es\n                            </a>",
+							"otherinfo": "Links have been found with a target of '_self' - this is often used by modern frameworks to force a full page reload."
+						},
+						{
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1708,22 +1770,6 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/en/tags.csv",
-							"method": "GET",
-							"param": "cache-control",
-							"attack": "",
-							"evidence": "public",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://www.data.gouv.fr/es/tags.csv",
-							"method": "GET",
-							"param": "cache-control",
-							"attack": "",
-							"evidence": "public",
-							"otherinfo": ""
-						},
-						{
 							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "cache-control",
@@ -1733,6 +1779,14 @@
 						},
 						{
 							"uri": "https://www.data.gouv.fr/fr/datasets/",
+							"method": "GET",
+							"param": "cache-control",
+							"attack": "",
+							"evidence": "public",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://www.data.gouv.fr/fr/datasets/bureaux-de-vote-et-adresses-de-leurs-electeurs/",
 							"method": "GET",
 							"param": "cache-control",
 							"attack": "",
@@ -1764,6 +1818,14 @@
 							"otherinfo": ""
 						},
 						{
+							"uri": "https://www.data.gouv.fr/fr/posts/suivi-des-sorties-juillet-2023/",
+							"method": "GET",
+							"param": "cache-control",
+							"attack": "",
+							"evidence": "public",
+							"otherinfo": ""
+						},
+						{
 							"uri": "https://www.data.gouv.fr/fr/register?next=%2Ffr%2F",
 							"method": "GET",
 							"param": "cache-control",
@@ -1780,7 +1842,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/fr/tags.csv",
+							"uri": "https://www.data.gouv.fr/robots.txt",
 							"method": "GET",
 							"param": "cache-control",
 							"attack": "",
@@ -1788,7 +1850,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/robots.txt",
+							"uri": "https://www.data.gouv.fr/sitemap.xml",
 							"method": "GET",
 							"param": "cache-control",
 							"attack": "",
@@ -1823,7 +1885,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/datasets.csv",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "Sec-Fetch-Dest",
 							"attack": "",
@@ -1845,7 +1907,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Dest</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "54"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "90005",
@@ -1866,7 +1928,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/datasets.csv",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "Sec-Fetch-Mode",
 							"attack": "",
@@ -1888,7 +1950,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Mode</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "54"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "90005",
@@ -1909,7 +1971,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/datasets.csv",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "Sec-Fetch-Site",
 							"attack": "",
@@ -1931,7 +1993,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Site</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "54"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "90005",
@@ -1952,7 +2014,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://www.data.gouv.fr/datasets.csv",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "Sec-Fetch-User",
 							"attack": "",
@@ -1974,7 +2036,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-User</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "54"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10112",
@@ -1991,99 +2053,51 @@
 							"method": "GET",
 							"param": "session",
 							"attack": "",
-							"evidence": "d1~eyJjc3JmX3Rva2VuIjoiY2E5MTUxOTNhODM5MTc5YjliZmNiMDhkNTU0ZGM1ZDk3OTI4Yzc2ZSJ9.ZMZyAA.pmyz6T-PQP9opf-vcWshNVo4dQg",
+							"evidence": "d2~eyJjc3JmX3Rva2VuIjoiODdkMDNiYzE5MDdjYjY4MzU5Y2ZmNWE2NGJjMDdhOTA4N2RjOTdlMiJ9.ZM-2YQ.Bg2Bdla3b1gMsODN3GoW3bJe06c",
 							"otherinfo": "\ncookie:session"
 						},
 						{
-							"uri": "https://www.data.gouv.fr/datasets/r/1be77ca5-dc1b-4e50-af2b-0240147e0346",
+							"uri": "https://www.data.gouv.fr/datasets.csv",
 							"method": "GET",
 							"param": "session",
 							"attack": "",
-							"evidence": "d3~eyJfZnJlc2giOmZhbHNlLCJjc3JmX3Rva2VuIjoiZTU5NTkzMWE3ZWRmNTM3YzNiODY2ZGExMmRmNmU5NmQxM2VhYzhhYyJ9.ZMZyBQ.0Dij-v1d_S_tFYjAKj790jR8KJk",
+							"evidence": "d1~eyJfZnJlc2giOmZhbHNlLCJjc3JmX3Rva2VuIjoiZTA1MGE2Y2NhZmE4NDY5NTYwMzFmMDM4Y2Y0NDZhNWI3ZjM3ZDBjNiJ9.ZM-2Yg.ZQQVIOU1rWAaa-rj_YYC4bW3RRk",
 							"otherinfo": "\ncookie:session"
 						},
 						{
-							"uri": "https://www.data.gouv.fr/en/admin/dataset/new/",
+							"uri": "https://www.data.gouv.fr/en/datasets.csv",
 							"method": "GET",
 							"param": "session",
 							"attack": "",
-							"evidence": "d3~.eJwNzEEKwyAQAMCvLHsOBSua6Ct6LyFsdY1S0ZL1FvL35jS3OXFLlSSzoH-fCOMGS0sdJ3xVJmGofYfSYHSgEFgERi4CP9r5geu1TvdwsGT0iarwhEGOtI3-5YYe2TjjtKKZYzJ6DvqzWBtJPWOy7GxUmiksFPD6A1oLLHk.ZMZyCg.8kQB_BX2MlGRNnlaWYL11NjFTNQ",
+							"evidence": "d1~eyJfZnJlc2giOmZhbHNlLCJjc3JmX3Rva2VuIjoiZTA1MGE2Y2NhZmE4NDY5NTYwMzFmMDM4Y2Y0NDZhNWI3ZjM3ZDBjNiJ9.ZM-2Yg.ZQQVIOU1rWAaa-rj_YYC4bW3RRk",
 							"otherinfo": "\ncookie:session"
 						},
 						{
-							"uri": "https://www.data.gouv.fr/en/admin/reuse/new/",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "session",
 							"attack": "",
-							"evidence": "d3~.eJydzUEKwyAQQNGrDLOWgpWY6Cm6LyFMdYxSiSXjLuTuyRm6-qvHP3BJlSSzoH8fCP0Oli01VPiqTMJQ2wplg96AQmAR6LkI_GjlB86n-gfN6t7uLBl9oiqsMMielt6-vKFHHtzgjKaRYxrMGMxnsjaSfsZk2dmoDVOYKOB5AY2zPdI.ZMZyCg.AnMd925U1td-eHgGNWi7qiSY86s",
+							"evidence": "d1~eyJjc3JmX3Rva2VuIjoiZTA1MGE2Y2NhZmE4NDY5NTYwMzFmMDM4Y2Y0NDZhNWI3ZjM3ZDBjNiJ9.ZM-2Yg.rk7N4YnwLbbZ5hJfAerJekYy-i0",
 							"otherinfo": "\ncookie:session"
 						},
 						{
-							"uri": "https://www.data.gouv.fr/en/datasets/r/1be77ca5-dc1b-4e50-af2b-0240147e0346",
+							"uri": "https://www.data.gouv.fr/en/datasets.csv",
 							"method": "GET",
 							"param": "session",
 							"attack": "",
-							"evidence": "d3~eyJfZnJlc2giOmZhbHNlLCJjc3JmX3Rva2VuIjoiZTU5NTkzMWE3ZWRmNTM3YzNiODY2ZGExMmRmNmU5NmQxM2VhYzhhYyJ9.ZMZyBQ.0Dij-v1d_S_tFYjAKj790jR8KJk",
+							"evidence": "d1~eyJfZnJlc2giOmZhbHNlLCJjc3JmX3Rva2VuIjoiZTA1MGE2Y2NhZmE4NDY5NTYwMzFmMDM4Y2Y0NDZhNWI3ZjM3ZDBjNiJ9.ZM-2Yg.ZQQVIOU1rWAaa-rj_YYC4bW3RRk",
 							"otherinfo": "\ncookie:session"
 						},
 						{
-							"uri": "https://www.data.gouv.fr/en/tabular/preview/",
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "session",
 							"attack": "",
-							"evidence": "d3~eyJjc3JmX3Rva2VuIjoiZTU5NTkzMWE3ZWRmNTM3YzNiODY2ZGExMmRmNmU5NmQxM2VhYzhhYyJ9.ZMZyBA.0p5cYud1rDDS0u3LEZa9tEli4JY",
-							"otherinfo": "\ncookie:session"
-						},
-						{
-							"uri": "https://www.data.gouv.fr/es/tabular/preview/",
-							"method": "GET",
-							"param": "session",
-							"attack": "",
-							"evidence": "d3~eyJfZnJlc2giOmZhbHNlLCJjc3JmX3Rva2VuIjoiZTU5NTkzMWE3ZWRmNTM3YzNiODY2ZGExMmRmNmU5NmQxM2VhYzhhYyJ9.ZMZyBQ.0Dij-v1d_S_tFYjAKj790jR8KJk",
-							"otherinfo": "\ncookie:session"
-						},
-						{
-							"uri": "https://www.data.gouv.fr/fr/admin/dataset/new/",
-							"method": "GET",
-							"param": "session",
-							"attack": "",
-							"evidence": "d3~.eJwNzEEKwyAQAMCvLHsOBSua6Ct6LyFsdY1S0ZL1FvL35jS3OXFLlSSzoH-fCOMGS0sdJ3xVJmGofYfSYHSgEFgERi4CP9r5geu1TvdwsGT0iarwhEGOtI3-5YYe2TjjtKKZYzJ6DvqzWBtJPWOy7GxUmiksFPD6A1oLLHk.ZMZyBw.rwTMVgU9fbH9TZnxE6RNvnsJKew",
-							"otherinfo": "\ncookie:session"
-						},
-						{
-							"uri": "https://www.data.gouv.fr/fr/admin/reuse/new/",
-							"method": "GET",
-							"param": "session",
-							"attack": "",
-							"evidence": "d3~.eJydzUEKwyAQQNGrDLOWgpWY6Cm6LyFMdYxSiSXjLuTuyRm6-qvHP3BJlSSzoH8fCP0Oli01VPiqTMJQ2wplg96AQmAR6LkI_GjlB86n-gfN6t7uLBl9oiqsMMielt6-vKFHHtzgjKaRYxrMGMxnsjaSfsZk2dmoDVOYKOB5AY2zPdI.ZMZyBw.kfGv5ZUHmYHTQwy5RW3wzFe6Yzo",
-							"otherinfo": "\ncookie:session"
-						},
-						{
-							"uri": "https://www.data.gouv.fr/fr/datasets/catalogue-des-donnees-de-data-gouv-fr/",
-							"method": "GET",
-							"param": "session",
-							"attack": "",
-							"evidence": "d3~eyJfZnJlc2giOmZhbHNlLCJjc3JmX3Rva2VuIjoiZTU5NTkzMWE3ZWRmNTM3YzNiODY2ZGExMmRmNmU5NmQxM2VhYzhhYyJ9.ZMZyBw.s0no0dAlG3axh_qCr8-g7u4E4HQ",
-							"otherinfo": "\ncookie:session"
-						},
-						{
-							"uri": "https://www.data.gouv.fr/fr/tabular/preview/",
-							"method": "GET",
-							"param": "session",
-							"attack": "",
-							"evidence": "d2~eyJjc3JmX3Rva2VuIjoiNDkyZDM0ZmRlNGUxNzFkZjg4MTU3ZWNjNjhmNWFiODM1Yjk2YjJjYyJ9.ZMZyBA.pG-opxKG1SA2bpMYbP-N5gXyeMc",
-							"otherinfo": "\ncookie:session"
-						},
-						{
-							"uri": "https://www.data.gouv.fr/tabular/preview/",
-							"method": "GET",
-							"param": "session",
-							"attack": "",
-							"evidence": "d1~eyJjc3JmX3Rva2VuIjoiMzBlYTdlMDMzNDUwYWM0MWNkMTdiNmZlZGE0OGEyYTgwMDNhNWJmZCJ9.ZMZyBA.ZNkyucMjeT9Yt5lHSa1crWyQr5s",
+							"evidence": "d1~eyJjc3JmX3Rva2VuIjoiZTA1MGE2Y2NhZmE4NDY5NTYwMzFmMDM4Y2Y0NDZhNWI3ZjM3ZDBjNiJ9.ZM-2Yg.rk7N4YnwLbbZ5hJfAerJekYy-i0",
 							"otherinfo": "\ncookie:session"
 						}
 					],
-					"count": "12",
+					"count": "6",
 					"solution": "<p>This is an informational alert rather than a vulnerability and so there is nothing to fix.</p>",
 					"otherinfo": "<p></p><p>cookie:session</p>",
 					"reference": "<p>https://www.zaproxy.org/docs/desktop/addons/authentication-helper/session-mgmt-id</p>",
@@ -2134,14 +2148,6 @@
 							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
 						},
 						{
-							"uri": "https://www.data.gouv.fr/en/reuses.csv",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
-						},
-						{
 							"uri": "https://www.data.gouv.fr/es/datasets.csv",
 							"method": "GET",
 							"param": "",
@@ -2151,6 +2157,14 @@
 						},
 						{
 							"uri": "https://www.data.gouv.fr/es/resources.csv",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
+						},
+						{
+							"uri": "https://www.data.gouv.fr/fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -2182,14 +2196,6 @@
 							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
 						},
 						{
-							"uri": "https://www.data.gouv.fr/reuses.csv",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
-						},
-						{
 							"uri": "https://www.data.gouv.fr/robots.txt",
 							"method": "GET",
 							"param": "",
@@ -2198,13 +2204,13 @@
 							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
 						}
 					],
-					"count": "12",
+					"count": "11",
 					"solution": "<p>Validate that the response does not contain sensitive, personal or user-specific information.  If it does, consider the use of the following HTTP response headers, to limit, or prevent the content being stored and retrieved from the cache by another user:</p><p>Cache-Control: no-cache, no-store, must-revalidate, private</p><p>Pragma: no-cache</p><p>Expires: 0</p><p>This configuration directs both HTTP 1.0 and HTTP 1.1 compliant caching servers to not store the response, and to not retrieve the response (without validation) from the cache, in response to a similar request. </p>",
 					"otherinfo": "<p>In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.</p>",
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "54"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10031",
@@ -2479,7 +2485,7 @@
 					"reference": "<p>http://websecuritytool.codeplex.com/wikipage?title=Checks#user-controlled-html-attribute</p>",
 					"cweid": "20",
 					"wascid": "20",
-					"sourceid": "216"
+					"sourceid": "276"
 				}
 			]
 		}
