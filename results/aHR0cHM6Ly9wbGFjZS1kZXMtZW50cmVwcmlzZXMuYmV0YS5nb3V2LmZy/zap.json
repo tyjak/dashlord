@@ -1,7 +1,7 @@
 {
 	"@programName": "OWASP ZAP",
 	"@version": "2.13.0",
-	"@generated": "Sun, 6 Aug 2023 13:17:14",
+	"@generated": "Sun, 13 Aug 2023 13:19:11",
 	"site":[ 
 		{
 			"@name": "https://place-des-entreprises.beta.gouv.fr",
@@ -9,6 +9,470 @@
 			"@port": "443",
 			"@ssl": "true",
 			"alerts": [ 
+				{
+					"pluginid": "10202",
+					"alertRef": "10202",
+					"alert": "Absence of Anti-CSRF Tokens",
+					"name": "Absence of Anti-CSRF Tokens",
+					"riskcode": "2",
+					"confidence": "1",
+					"riskdesc": "Medium (Low)",
+					"desc": "<p>No Anti-CSRF tokens were found in a HTML submission form.</p><p>A cross-site request forgery is an attack that involves forcing a victim to send an HTTP request to a target destination without their knowledge or intent in order to perform an action as the victim. The underlying cause is application functionality using predictable URL/form actions in a repeatable way. The nature of the attack is that CSRF exploits the trust that a web site has for a user. By contrast, cross-site scripting (XSS) exploits the trust that a user has for a web site. Like XSS, CSRF attacks are not necessarily cross-site, but they can be. Cross-site request forgery is also known as CSRF, XSRF, one-click attack, session riding, confused deputy, and sea surf.</p><p></p><p>CSRF attacks are effective in a number of situations, including:</p><p>    * The victim has an active session on the target site.</p><p>    * The victim is authenticated via HTTP auth on the target site.</p><p>    * The victim is on the same local network as the target site.</p><p></p><p>CSRF has primarily been used to perform an action against a target site using the victim's privileges, but recent techniques have been discovered to disclose information by gaining access to the response. The risk of information disclosure is dramatically increased when the target site is vulnerable to XSS, because XSS can be used as a platform for CSRF, allowing the attack to operate within the bounds of the same-origin policy.</p>",
+					"instances":[ 
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/stats",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form action=\"/stats\" accept-charset=\"UTF-8\" method=\"get\">",
+							"otherinfo": "No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"anchor\" \"commit\" \"end_date\" \"start_date\" ]."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/stats?anchor=stats-charts&commit=Filtrer&end_date=2023-08-13&start_date=2023-02-01&territory=126&theme=8",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form action=\"/stats\" accept-charset=\"UTF-8\" method=\"get\">",
+							"otherinfo": "No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"anchor\" \"commit\" \"end_date\" \"start_date\" ]."
+						}
+					],
+					"count": "2",
+					"solution": "<p>Phase: Architecture and Design</p><p>Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid.</p><p>For example, use anti-CSRF packages such as the OWASP CSRFGuard.</p><p></p><p>Phase: Implementation</p><p>Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.</p><p></p><p>Phase: Architecture and Design</p><p>Generate a unique nonce for each form, place the nonce into the form, and verify the nonce upon receipt of the form. Be sure that the nonce is not predictable (CWE-330).</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Identify especially dangerous operations. When the user performs a dangerous operation, send a separate confirmation request to ensure that the user intended to perform that operation.</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Use the ESAPI Session Management control.</p><p>This control includes a component for CSRF.</p><p></p><p>Do not use the GET method for any request that triggers a state change.</p><p></p><p>Phase: Implementation</p><p>Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.</p>",
+					"otherinfo": "<p>No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"anchor\" \"commit\" \"end_date\" \"start_date\" ].</p>",
+					"reference": "<p>http://projects.webappsec.org/Cross-Site-Request-Forgery</p><p>http://cwe.mitre.org/data/definitions/352.html</p>",
+					"cweid": "352",
+					"wascid": "9",
+					"sourceid": "176"
+				},
+				{
+					"pluginid": "10055",
+					"alertRef": "10055-4",
+					"alert": "CSP: Wildcard Directive",
+					"name": "CSP: Wildcard Directive",
+					"riskcode": "2",
+					"confidence": "3",
+					"riskdesc": "Medium (High)",
+					"desc": "<p>Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks. Including (but not limited to) Cross Site Scripting (XSS), and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware. CSP provides a set of standard HTTP headers that allow website owners to declare approved sources of content that browsers should be allowed to load on that page \u2014 covered types are JavaScript, CSS, HTML frames, fonts, images and embeddable objects such as Java applets, ActiveX, audio and video files.</p>",
+					"instances":[ 
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr",
+							"method": "GET",
+							"param": "Content-Security-Policy",
+							"attack": "",
+							"evidence": "default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-Og6YEVwYc8nw3tI3yVCOGw=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-Og6YEVwYc8nw3tI3yVCOGw=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b",
+							"otherinfo": "The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: \nframe-ancestors, form-action\n\nThe directive(s): frame-ancestors, form-action are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr",
+							"method": "GET",
+							"param": "Content-Security-Policy",
+							"attack": "",
+							"evidence": "default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-YCNmpAYgcm5/wHCpitakqw=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-YCNmpAYgcm5/wHCpitakqw=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b",
+							"otherinfo": "The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: \nframe-ancestors, form-action\n\nThe directive(s): frame-ancestors, form-action are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/",
+							"method": "GET",
+							"param": "Content-Security-Policy",
+							"attack": "",
+							"evidence": "default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-2w/SfZJ41s4gcvb4uknE1Q=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-2w/SfZJ41s4gcvb4uknE1Q=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b",
+							"otherinfo": "The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: \nframe-ancestors, form-action\n\nThe directive(s): frame-ancestors, form-action are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/e/",
+							"method": "GET",
+							"param": "Content-Security-Policy",
+							"attack": "",
+							"evidence": "default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-uGwZTXURfYk5762FcnuabA=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-uGwZTXURfYk5762FcnuabA=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b",
+							"otherinfo": "The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: \nframe-ancestors, form-action\n\nThe directive(s): frame-ancestors, form-action are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything."
+						}
+					],
+					"count": "4",
+					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is properly configured to set the Content-Security-Policy header.</p>",
+					"otherinfo": "<p>The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: </p><p>frame-ancestors, form-action</p><p></p><p>The directive(s): frame-ancestors, form-action are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything.</p>",
+					"reference": "<p>http://www.w3.org/TR/CSP2/</p><p>http://www.w3.org/TR/CSP/</p><p>http://caniuse.com/#search=content+security+policy</p><p>http://content-security-policy.com/</p><p>https://github.com/shapesecurity/salvation</p><p>https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources</p>",
+					"cweid": "693",
+					"wascid": "15",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10055",
+					"alertRef": "10055-6",
+					"alert": "CSP: style-src unsafe-inline",
+					"name": "CSP: style-src unsafe-inline",
+					"riskcode": "2",
+					"confidence": "3",
+					"riskdesc": "Medium (High)",
+					"desc": "<p>Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks. Including (but not limited to) Cross Site Scripting (XSS), and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware. CSP provides a set of standard HTTP headers that allow website owners to declare approved sources of content that browsers should be allowed to load on that page \u2014 covered types are JavaScript, CSS, HTML frames, fonts, images and embeddable objects such as Java applets, ActiveX, audio and video files.</p>",
+					"instances":[ 
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr",
+							"method": "GET",
+							"param": "Content-Security-Policy",
+							"attack": "",
+							"evidence": "default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-Og6YEVwYc8nw3tI3yVCOGw=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-Og6YEVwYc8nw3tI3yVCOGw=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b",
+							"otherinfo": "style-src includes unsafe-inline."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr",
+							"method": "GET",
+							"param": "Content-Security-Policy",
+							"attack": "",
+							"evidence": "default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-YCNmpAYgcm5/wHCpitakqw=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-YCNmpAYgcm5/wHCpitakqw=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b",
+							"otherinfo": "style-src includes unsafe-inline."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/",
+							"method": "GET",
+							"param": "Content-Security-Policy",
+							"attack": "",
+							"evidence": "default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-2w/SfZJ41s4gcvb4uknE1Q=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-2w/SfZJ41s4gcvb4uknE1Q=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b",
+							"otherinfo": "style-src includes unsafe-inline."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/e/",
+							"method": "GET",
+							"param": "Content-Security-Policy",
+							"attack": "",
+							"evidence": "default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-uGwZTXURfYk5762FcnuabA=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-uGwZTXURfYk5762FcnuabA=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b",
+							"otherinfo": "style-src includes unsafe-inline."
+						}
+					],
+					"count": "4",
+					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is properly configured to set the Content-Security-Policy header.</p>",
+					"otherinfo": "<p>style-src includes unsafe-inline.</p>",
+					"reference": "<p>http://www.w3.org/TR/CSP2/</p><p>http://www.w3.org/TR/CSP/</p><p>http://caniuse.com/#search=content+security+policy</p><p>http://content-security-policy.com/</p><p>https://github.com/shapesecurity/salvation</p><p>https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources</p>",
+					"cweid": "693",
+					"wascid": "15",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10003",
+					"alertRef": "10003",
+					"alert": "Vulnerable JS Library",
+					"name": "Vulnerable JS Library",
+					"riskcode": "2",
+					"confidence": "2",
+					"riskdesc": "Medium (Medium)",
+					"desc": "<p>The identified library highcharts, version 6.0.3 is vulnerable.</p>",
+					"instances":[ 
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/assets/highcharts-0324613cf0913e5d351dd2c998025b401f7eafc107af25cb7c3c2cc37199f48b.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "product:\"Highcharts\",version:\"6.0.3\"",
+							"otherinfo": "CVE-2018-20801\nCVE-2021-29489\n"
+						}
+					],
+					"count": "1",
+					"solution": "<p>Please upgrade to the latest version of highcharts.</p>",
+					"otherinfo": "<p>CVE-2018-20801</p><p>CVE-2021-29489</p><p></p>",
+					"reference": "<p>https://security.snyk.io/vuln/SNYK-JS-HIGHCHARTS-1290057</p><p>https://github.com/highcharts/highcharts/issues/13559</p><p></p>",
+					"cweid": "829",
+					"wascid": "-1",
+					"sourceid": "368"
+				},
+				{
+					"pluginid": "90022",
+					"alertRef": "90022",
+					"alert": "Application Error Disclosure",
+					"name": "Application Error Disclosure",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>This page contains an error/warning message that may disclose sensitive information like the location of the file that produced the unhandled exception. This information can be used to launch further attacks against the web application. The alert could be a false positive if the error message is found inside a documentation page.</p>",
+					"instances":[ 
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/demande/clients",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "HTTP/1.1 500 Internal Server Error",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/contactez-nous/demande/agrement-esus",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "HTTP/1.1 500 Internal Server Error",
+							"otherinfo": ""
+						}
+					],
+					"count": "2",
+					"solution": "<p>Review the source code of this page. Implement custom error pages. Consider implementing a mechanism to provide a unique error reference/identifier to the client (browser) while logging the details on the server side and not exposing them to the user.</p>",
+					"otherinfo": "",
+					"reference": "",
+					"cweid": "200",
+					"wascid": "13",
+					"sourceid": "250"
+				},
+				{
+					"pluginid": "10055",
+					"alertRef": "10055-3",
+					"alert": "CSP: Notices",
+					"name": "CSP: Notices",
+					"riskcode": "1",
+					"confidence": "3",
+					"riskdesc": "Low (High)",
+					"desc": "<p>Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks. Including (but not limited to) Cross Site Scripting (XSS), and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware. CSP provides a set of standard HTTP headers that allow website owners to declare approved sources of content that browsers should be allowed to load on that page \u2014 covered types are JavaScript, CSS, HTML frames, fonts, images and embeddable objects such as Java applets, ActiveX, audio and video files.</p>",
+					"instances":[ 
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr",
+							"method": "GET",
+							"param": "Content-Security-Policy",
+							"attack": "",
+							"evidence": "default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-Og6YEVwYc8nw3tI3yVCOGw=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-Og6YEVwYc8nw3tI3yVCOGw=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b",
+							"otherinfo": "Warnings:\nThe report-uri directive has been deprecated in favor of the new report-to directive\n"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr",
+							"method": "GET",
+							"param": "Content-Security-Policy",
+							"attack": "",
+							"evidence": "default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-YCNmpAYgcm5/wHCpitakqw=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-YCNmpAYgcm5/wHCpitakqw=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b",
+							"otherinfo": "Warnings:\nThe report-uri directive has been deprecated in favor of the new report-to directive\n"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/",
+							"method": "GET",
+							"param": "Content-Security-Policy",
+							"attack": "",
+							"evidence": "default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-2w/SfZJ41s4gcvb4uknE1Q=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-2w/SfZJ41s4gcvb4uknE1Q=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b",
+							"otherinfo": "Warnings:\nThe report-uri directive has been deprecated in favor of the new report-to directive\n"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/e/",
+							"method": "GET",
+							"param": "Content-Security-Policy",
+							"attack": "",
+							"evidence": "default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-uGwZTXURfYk5762FcnuabA=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-uGwZTXURfYk5762FcnuabA=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b",
+							"otherinfo": "Warnings:\nThe report-uri directive has been deprecated in favor of the new report-to directive\n"
+						}
+					],
+					"count": "4",
+					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is properly configured to set the Content-Security-Policy header.</p>",
+					"otherinfo": "<p>Warnings:</p><p>The report-uri directive has been deprecated in favor of the new report-to directive</p><p></p>",
+					"reference": "<p>http://www.w3.org/TR/CSP2/</p><p>http://www.w3.org/TR/CSP/</p><p>http://caniuse.com/#search=content+security+policy</p><p>http://content-security-policy.com/</p><p>https://github.com/shapesecurity/salvation</p><p>https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources</p>",
+					"cweid": "693",
+					"wascid": "15",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10110",
+					"alertRef": "10110",
+					"alert": "Dangerous JS Functions",
+					"name": "Dangerous JS Functions",
+					"riskcode": "1",
+					"confidence": "1",
+					"riskdesc": "Low (Low)",
+					"desc": "<p>A dangerous JS function seems to be in use that would leave the site vulnerable.</p>",
+					"instances":[ 
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "eval",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "eval",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/theme/developpement-commercial",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "eval",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/theme/droit-du-travail",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "eval",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/theme/entreprise-en-difficulte",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "eval",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/theme/financement-projets",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "eval",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/theme/recrutement-formation",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "eval",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/crise-energetique",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "eval",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/comment_ca_marche",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "eval",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/mon_compte/sign_in",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "eval",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/packs/js/pages-ad3cd363ab3249698715.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "Eval",
+							"otherinfo": ""
+						}
+					],
+					"count": "11",
+					"solution": "<p>See the references for security advice on the use of these functions.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://angular.io/guide/security</p>",
+					"cweid": "749",
+					"wascid": "-1",
+					"sourceid": "6"
+				},
+				{
+					"pluginid": "10063",
+					"alertRef": "10063-1",
+					"alert": "Permissions Policy Header Not Set",
+					"name": "Permissions Policy Header Not Set",
+					"riskcode": "1",
+					"confidence": "2",
+					"riskdesc": "Low (Medium)",
+					"desc": "<p>Permissions Policy Header is an added layer of security that helps to restrict from unauthorized access or usage of browser/client features by web resources. This policy ensures the user privacy by limiting or specifying the features of the browsers can be used by the web resources. Permissions Policy provides a set of standard HTTP headers that allow website owners to limit which features of browsers can be used by the page such as camera, microphone, location, full screen etc.</p>",
+					"instances":[ 
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/theme/droit-du-travail",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/theme/financement-projets",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/theme/recrutement-formation",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/crise-energetique",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/assets/pages-b58b817d91e520f29b4e6045adc2b62f403f1c7137a72d1c719a5fbd4b126e9e.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/comment_ca_marche",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/mon_compte/sign_in",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/packs/js/gouvfr-module-b39eaf3e827950ec47e3.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/packs/js/gouvfr-nomodule-b03d6193b19550771c10.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						}
+					],
+					"count": "11",
+					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to set the Permissions-Policy header.</p>",
+					"otherinfo": "",
+					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy</p><p>https://developers.google.com/web/updates/2018/06/feature-policy</p><p>https://scotthelme.co.uk/a-new-security-header-feature-policy/</p><p>https://w3c.github.io/webappsec-feature-policy/</p><p>https://www.smashingmagazine.com/2018/12/feature-policy/</p>",
+					"cweid": "693",
+					"wascid": "15",
+					"sourceid": "6"
+				},
 				{
 					"pluginid": "10035",
 					"alertRef": "10035",
@@ -28,7 +492,63 @@
 							"otherinfo": ""
 						},
 						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/assets/pages-7bb5256e3fbfbf4b0623637f54499bff788491128752ca43b511e2b83562355e.css",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/assets/pages-b58b817d91e520f29b4e6045adc2b62f403f1c7137a72d1c719a5fbd4b126e9e.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/comment_ca_marche",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
 							"uri": "https://place-des-entreprises.beta.gouv.fr/e/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/mon_compte/sign_in",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/packs/js/gouvfr-module-b39eaf3e827950ec47e3.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/packs/js/gouvfr-nomodule-b03d6193b19550771c10.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -52,13 +572,147 @@
 							"otherinfo": ""
 						}
 					],
-					"count": "4",
+					"count": "11",
 					"solution": "<p>Ensure that only one component in your stack: code, web server, application server, load balancer, etc. is configured to set or add a HTTP Strict-Transport-Security (HSTS) header.</p>",
 					"otherinfo": "",
 					"reference": "<p>http://tools.ietf.org/html/rfc6797#section-8.1</p>",
 					"cweid": "319",
 					"wascid": "15",
 					"sourceid": "1"
+				},
+				{
+					"pluginid": "10111",
+					"alertRef": "10111",
+					"alert": "Authentication Request Identified",
+					"name": "Authentication Request Identified",
+					"riskcode": "0",
+					"confidence": "1",
+					"riskdesc": "Informational (Low)",
+					"desc": "<p>The given request has been identified as an authentication request. The 'Other Info' field contains a set of key=value lines which identify any relevant fields. If the request is in a context which has an Authentication Method set to \"Auto-Detect\" then this rule will change the authentication to match the request identified.</p>",
+					"instances":[ 
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/mon_compte/sign_in",
+							"method": "POST",
+							"param": "user[email]",
+							"attack": "",
+							"evidence": "user[password]",
+							"otherinfo": "userParam=user[email]\nuserValue=foo-bar@example.com\npasswordParam=user[password]\nreferer=https://place-des-entreprises.beta.gouv.fr/mon_compte/sign_in\ncsrfToken=authenticity_token"
+						}
+					],
+					"count": "1",
+					"solution": "<p>This is an informational alert rather than a vulnerability and so there is nothing to fix.</p>",
+					"otherinfo": "<p>userParam=user[email]</p><p>userValue=foo-bar@example.com</p><p>passwordParam=user[password]</p><p>referer=https://place-des-entreprises.beta.gouv.fr/mon_compte/sign_in</p><p>csrfToken=authenticity_token</p>",
+					"reference": "<p>https://www.zaproxy.org/docs/desktop/addons/authentication-helper/auth-req-id/</p>",
+					"cweid": "-1",
+					"wascid": "-1",
+					"sourceid": "352"
+				},
+				{
+					"pluginid": "10094",
+					"alertRef": "10094-3",
+					"alert": "Base64 Disclosure",
+					"name": "Base64 Disclosure",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>Base64 encoded data was disclosed by the application/web server. Note: in the interests of performance not all base64 strings in the response were analyzed individually, the entire response should be looked at by the analyst/security team/developer(s).</p>",
+					"instances":[ 
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "sha384-uwCOEtT/vtuzGz5QiQB6J1L3YFYSbznHZGi3B5Vc6+bnyGS3O9nnDfh6dCvLrQ7X",
+							"otherinfo": "\uFFFD\\x0016\uFFFD\uFFFD\uFFFD#\uFFFD\uFFFD?\uFFFD\uFFFD\uFFFD\u03D4\"@\\x001e\uFFFD\u053D\uFFFD\\x0015\uFFFD\uFFFD\uFFFDq\uFFFD\\x001a-\uFFFD\uFFFDW:\uFFFD\uFFFD\uFFFD\\x0019-\uFFFD\uFFFDy\uFFFD~\\x001e\uFFFD\n\uFFFD\uFFFDC\uFFFD"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "sha384-uwCOEtT/vtuzGz5QiQB6J1L3YFYSbznHZGi3B5Vc6+bnyGS3O9nnDfh6dCvLrQ7X",
+							"otherinfo": "\uFFFD\\x0016\uFFFD\uFFFD\uFFFD#\uFFFD\uFFFD?\uFFFD\uFFFD\uFFFD\u03D4\"@\\x001e\uFFFD\u053D\uFFFD\\x0015\uFFFD\uFFFD\uFFFDq\uFFFD\\x001a-\uFFFD\uFFFDW:\uFFFD\uFFFD\uFFFD\\x0019-\uFFFD\uFFFDy\uFFFD~\\x001e\uFFFD\n\uFFFD\uFFFDC\uFFFD"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/theme/droit-du-travail",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "sha384-uwCOEtT/vtuzGz5QiQB6J1L3YFYSbznHZGi3B5Vc6+bnyGS3O9nnDfh6dCvLrQ7X",
+							"otherinfo": "\uFFFD\\x0016\uFFFD\uFFFD\uFFFD#\uFFFD\uFFFD?\uFFFD\uFFFD\uFFFD\u03D4\"@\\x001e\uFFFD\u053D\uFFFD\\x0015\uFFFD\uFFFD\uFFFDq\uFFFD\\x001a-\uFFFD\uFFFDW:\uFFFD\uFFFD\uFFFD\\x0019-\uFFFD\uFFFDy\uFFFD~\\x001e\uFFFD\n\uFFFD\uFFFDC\uFFFD"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/theme/financement-projets",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "sha384-uwCOEtT/vtuzGz5QiQB6J1L3YFYSbznHZGi3B5Vc6+bnyGS3O9nnDfh6dCvLrQ7X",
+							"otherinfo": "\uFFFD\\x0016\uFFFD\uFFFD\uFFFD#\uFFFD\uFFFD?\uFFFD\uFFFD\uFFFD\u03D4\"@\\x001e\uFFFD\u053D\uFFFD\\x0015\uFFFD\uFFFD\uFFFDq\uFFFD\\x001a-\uFFFD\uFFFDW:\uFFFD\uFFFD\uFFFD\\x0019-\uFFFD\uFFFDy\uFFFD~\\x001e\uFFFD\n\uFFFD\uFFFDC\uFFFD"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/theme/recrutement-formation",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "sha384-uwCOEtT/vtuzGz5QiQB6J1L3YFYSbznHZGi3B5Vc6+bnyGS3O9nnDfh6dCvLrQ7X",
+							"otherinfo": "\uFFFD\\x0016\uFFFD\uFFFD\uFFFD#\uFFFD\uFFFD?\uFFFD\uFFFD\uFFFD\u03D4\"@\\x001e\uFFFD\u053D\uFFFD\\x0015\uFFFD\uFFFD\uFFFDq\uFFFD\\x001a-\uFFFD\uFFFDW:\uFFFD\uFFFD\uFFFD\\x0019-\uFFFD\uFFFDy\uFFFD~\\x001e\uFFFD\n\uFFFD\uFFFDC\uFFFD"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/crise-energetique",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "sha384-uwCOEtT/vtuzGz5QiQB6J1L3YFYSbznHZGi3B5Vc6+bnyGS3O9nnDfh6dCvLrQ7X",
+							"otherinfo": "\uFFFD\\x0016\uFFFD\uFFFD\uFFFD#\uFFFD\uFFFD?\uFFFD\uFFFD\uFFFD\u03D4\"@\\x001e\uFFFD\u053D\uFFFD\\x0015\uFFFD\uFFFD\uFFFDq\uFFFD\\x001a-\uFFFD\uFFFDW:\uFFFD\uFFFD\uFFFD\\x0019-\uFFFD\uFFFDy\uFFFD~\\x001e\uFFFD\n\uFFFD\uFFFDC\uFFFD"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/comment_ca_marche",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "sha384-uwCOEtT/vtuzGz5QiQB6J1L3YFYSbznHZGi3B5Vc6+bnyGS3O9nnDfh6dCvLrQ7X",
+							"otherinfo": "\uFFFD\\x0016\uFFFD\uFFFD\uFFFD#\uFFFD\uFFFD?\uFFFD\uFFFD\uFFFD\u03D4\"@\\x001e\uFFFD\u053D\uFFFD\\x0015\uFFFD\uFFFD\uFFFDq\uFFFD\\x001a-\uFFFD\uFFFDW:\uFFFD\uFFFD\uFFFD\\x0019-\uFFFD\uFFFDy\uFFFD~\\x001e\uFFFD\n\uFFFD\uFFFDC\uFFFD"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/mon_compte/sign_in",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "2B5Sp3MtF277jOhQz9jbK6WbLxmyFHPO59XmZYrysjiE5b4i6c",
+							"otherinfo": "\uFFFD\\x001eR\uFFFDs-\\x0017n\uFFFD\uFFFD\uFFFDP\uFFFD\uFFFD\uFFFD+\uFFFD\uFFFD/\\x0019\uFFFD\\x0014s\uFFFD\uFFFD\uFFFD\uFFFDe\uFFFD\uFFFD8\uFFFD\uFFFD\"\uFFFD"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/packs/css/pages-334b1a24.css",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "/packs/media/fonts/Marianne-Light-0c3211fd",
+							"otherinfo": "\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDy\u061A\uFFFD\uFFFD'\uFFFD\uFFFD\uFFFDj\uFFFD\uFFFD\uFFFDw\uFFFD.(!\uFFFD\uFFFD\\x001c\uFFFDmu}"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/packs/js/gouvfr-nomodule-b03d6193b19550771c10.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "com/Financial-Times/polyfill-service/issues/317",
+							"otherinfo": "r\uFFFD\uFFFD\\x0016)\u069D\u021A\uFFFD\uFFFD\uFFFD\uFFFD?\uFFFD\uFFFDr~)e\uFFFD\u01EB\uFFFD'\\x001e\uFFFD+,\uFFFD\uFFFD?\uFFFD^"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/sitemap.xml",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "2BdbxYFqN9lWGAhZc53fd2JLnQeZYuHFS6QTT6JB758OQGpDMDI6Z98TcP",
+							"otherinfo": "\uFFFD\\x0017[\u0141j7\uFFFDV\\x0018\\x0008Ys\uFFFD\uFFFDwbK\uFFFD\\x0007\uFFFDb\uFFFD\uFFFDK\uFFFD\\x0013O\uFFFDA\uFFFD\\x000e@jC02:g\uFFFD\\x0013p"
+						}
+					],
+					"count": "11",
+					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
+					"otherinfo": "<p>\uFFFD\\x0016\uFFFD\uFFFD\uFFFD#\uFFFD\uFFFD?\uFFFD\uFFFD\uFFFD\u03D4\"@\\x001e\uFFFD\u053D\uFFFD\\x0015\uFFFD\uFFFD\uFFFDq\uFFFD\\x001a-\uFFFD\uFFFDW:\uFFFD\uFFFD\uFFFD\\x0019-\uFFFD\uFFFDy\uFFFD~\\x001e\uFFFD</p><p>\uFFFD\uFFFDC\uFFFD</p>",
+					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
+					"cweid": "200",
+					"wascid": "13",
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10019",
@@ -71,37 +725,339 @@
 					"desc": "<p>The Content-Type header was either missing or empty.</p>",
 					"instances":[ 
 						{
-							"uri": "https://place-des-entreprises.beta.gouv.fr",
-							"method": "GET",
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/demande/conseil-retraite",
+							"method": "POST",
 							"param": "",
 							"attack": "",
 							"evidence": "",
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://place-des-entreprises.beta.gouv.fr/e/",
-							"method": "GET",
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/demande/financer-projet",
+							"method": "POST",
 							"param": "",
 							"attack": "",
 							"evidence": "",
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://place-des-entreprises.beta.gouv.fr/sitemap.xml",
-							"method": "GET",
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/demande/former",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/demande/handicap-entreprise",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/demande/litige",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/demande/organisation-du-travail",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/demande/preparer-le-depart-ou-la-reconversion-de-salaries",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/demande/projet-immobilier",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/demande/projet-innovation",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/demande/recruter",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/demande/reduction-impots",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/demande/tresorerie",
+							"method": "POST",
 							"param": "",
 							"attack": "",
 							"evidence": "",
 							"otherinfo": ""
 						}
 					],
-					"count": "3",
+					"count": "12",
 					"solution": "<p>Ensure each page is setting the specific and appropriate content-type value for the content being delivered.</p>",
 					"otherinfo": "",
 					"reference": "<p>http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx</p>",
 					"cweid": "345",
 					"wascid": "12",
-					"sourceid": "11"
+					"sourceid": "369"
+				},
+				{
+					"pluginid": "10027",
+					"alertRef": "10027",
+					"alert": "Information Disclosure - Suspicious Comments",
+					"name": "Information Disclosure - Suspicious Comments",
+					"riskcode": "0",
+					"confidence": "1",
+					"riskdesc": "Informational (Low)",
+					"desc": "<p>The response appears to contain suspicious comments which may help an attacker. Note: Matches made within script blocks or files are against the entire content not only comments.</p>",
+					"instances":[ 
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "from",
+							"otherinfo": "The following pattern was used: \\bFROM\\b and was detected in the element starting with: \"<script data-turbo-eval=\"false\" nonce=\"Og6YEVwYc8nw3tI3yVCOGw==\">\n//<![CDATA[\n  var _paq = _paq || [];\n  // Configure Matomo ana\", see evidence field for the suspicious comment/snippet."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "from",
+							"otherinfo": "The following pattern was used: \\bFROM\\b and was detected in the element starting with: \"<script data-turbo-eval=\"false\" nonce=\"YCNmpAYgcm5/wHCpitakqw==\">\n//<![CDATA[\n  var _paq = _paq || [];\n  // Configure Matomo ana\", see evidence field for the suspicious comment/snippet."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "user",
+							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"Og6YEVwYc8nw3tI3yVCOGw==\">\n//<![CDATA[\n  tarteaucitron.services.google_ads = {\n    \"key\": \"google_ads\",\n    \"type\", see evidence field for the suspicious comment/snippet."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "user",
+							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"YCNmpAYgcm5/wHCpitakqw==\">\n//<![CDATA[\n  tarteaucitron.services.google_ads = {\n    \"key\": \"google_ads\",\n    \"type\", see evidence field for the suspicious comment/snippet."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "from",
+							"otherinfo": "The following pattern was used: \\bFROM\\b and was detected in the element starting with: \"<script data-turbo-eval=\"false\" nonce=\"2w/SfZJ41s4gcvb4uknE1Q==\">\n//<![CDATA[\n  var _paq = _paq || [];\n  // Configure Matomo ana\", see evidence field for the suspicious comment/snippet."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "user",
+							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"2w/SfZJ41s4gcvb4uknE1Q==\">\n//<![CDATA[\n  tarteaucitron.services.google_ads = {\n    \"key\": \"google_ads\",\n    \"type\", see evidence field for the suspicious comment/snippet."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/assets/pages-b58b817d91e520f29b4e6045adc2b62f403f1c7137a72d1c719a5fbd4b126e9e.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "from",
+							"otherinfo": "The following pattern was used: \\bFROM\\b and was detected in the element starting with: \"document.addEventListener(\"turbo:load\",(function(){const e=document.getElementsByClassName(\"click-on-landing\");0!==e.length&&Arr\", see evidence field for the suspicious comment/snippet."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/comment_ca_marche",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "from",
+							"otherinfo": "The following pattern was used: \\bFROM\\b and was detected in the element starting with: \"<script data-turbo-eval=\"false\" nonce=\"qHlzlG9FmfUFpcxRtHn1jA==\">\n//<![CDATA[\n  var _paq = _paq || [];\n  // Configure Matomo ana\", see evidence field for the suspicious comment/snippet."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/comment_ca_marche",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "user",
+							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"qHlzlG9FmfUFpcxRtHn1jA==\">\n//<![CDATA[\n  tarteaucitron.services.google_ads = {\n    \"key\": \"google_ads\",\n    \"type\", see evidence field for the suspicious comment/snippet."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/mon_compte/sign_in",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "from",
+							"otherinfo": "The following pattern was used: \\bFROM\\b and was detected in the element starting with: \"<script data-turbo-eval=\"false\" nonce=\"zTlTnCckOvSpd8TdqJQU9w==\">\n//<![CDATA[\n  var _paq = _paq || [];\n  // Configure Matomo ana\", see evidence field for the suspicious comment/snippet."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/packs/js/gouvfr-module-b39eaf3e827950ec47e3.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "select",
+							"otherinfo": "The following pattern was used: \\bSELECT\\b and was detected in the element starting with: \"!function(e){var t={};function n(i){if(t[i])return t[i].exports;var s=t[i]={i:i,l:!1,exports:{}};return e[i].call(s.exports,s,s.\", see evidence field for the suspicious comment/snippet."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/packs/js/gouvfr-nomodule-b03d6193b19550771c10.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "select",
+							"otherinfo": "The following pattern was used: \\bSELECT\\b and was detected in the element starting with: \"!function(t){var e={};function n(i){if(e[i])return e[i].exports;var s=e[i]={i:i,l:!1,exports:{}};return t[i].call(s.exports,s,s.\", see evidence field for the suspicious comment/snippet."
+						}
+					],
+					"count": "12",
+					"solution": "<p>Remove all comments that return information that may help an attacker and fix any underlying problems they refer to.</p>",
+					"otherinfo": "<p>The following pattern was used: \\bFROM\\b and was detected in the element starting with: \"<script data-turbo-eval=\"false\" nonce=\"Og6YEVwYc8nw3tI3yVCOGw==\"></p><p>//<![CDATA[</p><p>  var _paq = _paq || [];</p><p>  // Configure Matomo ana\", see evidence field for the suspicious comment/snippet.</p>",
+					"reference": "",
+					"cweid": "200",
+					"wascid": "13",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10109",
+					"alertRef": "10109",
+					"alert": "Modern Web Application",
+					"name": "Modern Web Application",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>The application appears to be a modern web application. If you need to explore it automatically then the Ajax Spider may well be more effective than the standard one.</p>",
+					"instances":[ 
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/accessibilite",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<a class=\"fr-breadcrumb__link\" aria-current=\"page\" href=\"#\">Accessibilit\u00E9</a>",
+							"otherinfo": "Links have been found that do not have traditional href attributes, which is an indication that this is a modern web application."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/theme/cession-reprise",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<a class=\"fr-breadcrumb__link\" aria-current=\"page\" href=\"#\">Vendre ou reprendre une entreprise</a>",
+							"otherinfo": "Links have been found that do not have traditional href attributes, which is an indication that this is a modern web application."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/theme/developpement-commercial",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<a class=\"fr-breadcrumb__link\" aria-current=\"page\" href=\"#\">Rebondir et d\u00E9velopper votre activit\u00E9 commerciale</a>",
+							"otherinfo": "Links have been found that do not have traditional href attributes, which is an indication that this is a modern web application."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/theme/droit-du-travail",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<a class=\"fr-breadcrumb__link\" aria-current=\"page\" href=\"#\">\u00CAtre conseill\u00E9 en droit du travail</a>",
+							"otherinfo": "Links have been found that do not have traditional href attributes, which is an indication that this is a modern web application."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/theme/entreprise-en-difficulte",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<a class=\"fr-breadcrumb__link\" aria-current=\"page\" href=\"#\">R\u00E9soudre un probl\u00E8me de tr\u00E9sorerie, financier ou contractuel</a>",
+							"otherinfo": "Links have been found that do not have traditional href attributes, which is an indication that this is a modern web application."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/theme/environnement-transition-ecologique",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<a class=\"fr-breadcrumb__link\" aria-current=\"page\" href=\"#\">Mettre en oeuvre votre transition \u00E9cologique &amp; RSE</a>",
+							"otherinfo": "Links have been found that do not have traditional href attributes, which is an indication that this is a modern web application."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/theme/financement-projets",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<a class=\"fr-breadcrumb__link\" aria-current=\"page\" href=\"#\">Financer vos investissements</a>",
+							"otherinfo": "Links have been found that do not have traditional href attributes, which is an indication that this is a modern web application."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/theme/internet-web",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<a class=\"fr-breadcrumb__link\" aria-current=\"page\" href=\"#\">D\u00E9velopper votre activit\u00E9 sur internet</a>",
+							"otherinfo": "Links have been found that do not have traditional href attributes, which is an indication that this is a modern web application."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/theme/recrutement-formation",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<a class=\"fr-breadcrumb__link\" aria-current=\"page\" href=\"#\">Recruter ou former vos salari\u00E9s, am\u00E9liorer l\u2019organisation du travail</a>",
+							"otherinfo": "Links have been found that do not have traditional href attributes, which is an indication that this is a modern web application."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/theme/sante-securite-travail",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<a class=\"fr-breadcrumb__link\" aria-current=\"page\" href=\"#\">Am\u00E9liorer les conditions de travail, la sant\u00E9 et s\u00E9curit\u00E9 de vos salari\u00E9s</a>",
+							"otherinfo": "Links have been found that do not have traditional href attributes, which is an indication that this is a modern web application."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/comment_ca_marche",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<a class=\"fr-breadcrumb__link\" aria-current=\"page\" href=\"#\">Comment \u00E7a marche\u00A0?</a>",
+							"otherinfo": "Links have been found that do not have traditional href attributes, which is an indication that this is a modern web application."
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/mentions_legales",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<a class=\"fr-breadcrumb__link\" aria-current=\"page\" href=\"#\">Mentions l\u00E9gales</a>",
+							"otherinfo": "Links have been found that do not have traditional href attributes, which is an indication that this is a modern web application."
+						}
+					],
+					"count": "12",
+					"solution": "<p>This is an informational alert and so no changes are required.</p>",
+					"otherinfo": "<p>Links have been found that do not have traditional href attributes, which is an indication that this is a modern web application.</p>",
+					"reference": "",
+					"cweid": "-1",
+					"wascid": "-1",
+					"sourceid": "170"
 				},
 				{
 					"pluginid": "10049",
@@ -118,15 +1074,31 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "503",
+							"evidence": "no-store",
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://place-des-entreprises.beta.gouv.fr/e/",
+							"uri": "https://place-des-entreprises.beta.gouv.fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "503",
+							"evidence": "no-store",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/comment_ca_marche",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "no-store",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/mon_compte/sign_in",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "no-store",
 							"otherinfo": ""
 						},
 						{
@@ -134,17 +1106,17 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "503",
+							"evidence": "no-store",
 							"otherinfo": ""
 						}
 					],
-					"count": "3",
+					"count": "5",
 					"solution": "<p>The content may be marked as storable by ensuring that the following conditions are satisfied:</p><p>The request method must be understood by the cache and defined as being cacheable (\"GET\", \"HEAD\", and \"POST\" are currently defined as cacheable)</p><p>The response status code must be understood by the cache (one of the 1XX, 2XX, 3XX, 4XX, or 5XX response classes are generally understood)</p><p>The \"no-store\" cache directive must not appear in the request or response header fields</p><p>For caching by \"shared\" caches such as \"proxy\" caches, the \"private\" response directive must not appear in the response</p><p>For caching by \"shared\" caches such as \"proxy\" caches, the \"Authorization\" header field must not appear in the request, unless the response explicitly allows it (using one of the \"must-revalidate\", \"public\", or \"s-maxage\" Cache-Control response directives)</p><p>In addition to the conditions above, at least one of the following conditions must also be satisfied by the response:</p><p>It must contain an \"Expires\" header field</p><p>It must contain a \"max-age\" response directive</p><p>For \"shared\" caches such as \"proxy\" caches, it must contain a \"s-maxage\" response directive</p><p>It must contain a \"Cache Control Extension\" that allows it to be cached</p><p>It must have a status code that is defined as cacheable by default (200, 203, 204, 206, 300, 301, 404, 405, 410, 414, 501).   </p>",
 					"otherinfo": "",
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10015",
@@ -157,15 +1129,95 @@
 					"desc": "<p>The cache-control header has not been set properly or is missing, allowing the browser and proxies to cache content. For static assets like css, js, or image files this might be intended, however, the resources should be reviewed to ensure that no sensitive content will be cached.</p>",
 					"instances":[ 
 						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr",
+							"method": "GET",
+							"param": "cache-control",
+							"attack": "",
+							"evidence": "no-store",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/",
+							"method": "GET",
+							"param": "cache-control",
+							"attack": "",
+							"evidence": "no-store",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/theme/droit-du-travail",
+							"method": "GET",
+							"param": "cache-control",
+							"attack": "",
+							"evidence": "no-store",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/theme/entreprise-en-difficulte",
+							"method": "GET",
+							"param": "cache-control",
+							"attack": "",
+							"evidence": "no-store",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/theme/financement-projets",
+							"method": "GET",
+							"param": "cache-control",
+							"attack": "",
+							"evidence": "no-store",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/accueil/theme/recrutement-formation",
+							"method": "GET",
+							"param": "cache-control",
+							"attack": "",
+							"evidence": "no-store",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/aide-entreprise/crise-energetique",
+							"method": "GET",
+							"param": "cache-control",
+							"attack": "",
+							"evidence": "no-store",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/comment_ca_marche",
+							"method": "GET",
+							"param": "cache-control",
+							"attack": "",
+							"evidence": "no-store",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/mon_compte/sign_in",
+							"method": "GET",
+							"param": "cache-control",
+							"attack": "",
+							"evidence": "no-store",
+							"otherinfo": ""
+						},
+						{
 							"uri": "https://place-des-entreprises.beta.gouv.fr/robots.txt",
 							"method": "GET",
 							"param": "cache-control",
 							"attack": "",
 							"evidence": "public, s-maxage=31536000, max-age=15552000",
 							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/sitemap.xml",
+							"method": "GET",
+							"param": "cache-control",
+							"attack": "",
+							"evidence": "no-store",
+							"otherinfo": ""
 						}
 					],
-					"count": "1",
+					"count": "11",
 					"solution": "<p>For secure content, ensure the cache-control HTTP header is set with \"no-cache, no-store, must-revalidate\". If an asset should be cached consider setting the directives \"public, max-age, immutable\".</p>",
 					"otherinfo": "",
 					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching</p><p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control</p><p>https://grayduck.mn/2021/09/13/cache-control-recommendations/</p>",
@@ -192,23 +1244,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://place-des-entreprises.beta.gouv.fr/e/",
-							"method": "GET",
-							"param": "Sec-Fetch-Dest",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://place-des-entreprises.beta.gouv.fr/robots.txt",
-							"method": "GET",
-							"param": "Sec-Fetch-Dest",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://place-des-entreprises.beta.gouv.fr/sitemap.xml",
+							"uri": "https://place-des-entreprises.beta.gouv.fr/assets/pages-7bb5256e3fbfbf4b0623637f54499bff788491128752ca43b511e2b83562355e.css",
 							"method": "GET",
 							"param": "Sec-Fetch-Dest",
 							"attack": "",
@@ -216,13 +1252,13 @@
 							"otherinfo": ""
 						}
 					],
-					"count": "4",
+					"count": "2",
 					"solution": "<p>Ensure that Sec-Fetch-Dest header is included in request headers.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Dest</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "90005",
@@ -243,23 +1279,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://place-des-entreprises.beta.gouv.fr/e/",
-							"method": "GET",
-							"param": "Sec-Fetch-Mode",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://place-des-entreprises.beta.gouv.fr/robots.txt",
-							"method": "GET",
-							"param": "Sec-Fetch-Mode",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://place-des-entreprises.beta.gouv.fr/sitemap.xml",
+							"uri": "https://place-des-entreprises.beta.gouv.fr/assets/pages-7bb5256e3fbfbf4b0623637f54499bff788491128752ca43b511e2b83562355e.css",
 							"method": "GET",
 							"param": "Sec-Fetch-Mode",
 							"attack": "",
@@ -267,13 +1287,13 @@
 							"otherinfo": ""
 						}
 					],
-					"count": "4",
+					"count": "2",
 					"solution": "<p>Ensure that Sec-Fetch-Mode header is included in request headers.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Mode</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "90005",
@@ -294,23 +1314,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://place-des-entreprises.beta.gouv.fr/e/",
-							"method": "GET",
-							"param": "Sec-Fetch-Site",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://place-des-entreprises.beta.gouv.fr/robots.txt",
-							"method": "GET",
-							"param": "Sec-Fetch-Site",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://place-des-entreprises.beta.gouv.fr/sitemap.xml",
+							"uri": "https://place-des-entreprises.beta.gouv.fr/assets/pages-7bb5256e3fbfbf4b0623637f54499bff788491128752ca43b511e2b83562355e.css",
 							"method": "GET",
 							"param": "Sec-Fetch-Site",
 							"attack": "",
@@ -318,13 +1322,13 @@
 							"otherinfo": ""
 						}
 					],
-					"count": "4",
+					"count": "2",
 					"solution": "<p>Ensure that Sec-Fetch-Site header is included in request headers.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Site</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "90005",
@@ -345,23 +1349,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://place-des-entreprises.beta.gouv.fr/e/",
-							"method": "GET",
-							"param": "Sec-Fetch-User",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://place-des-entreprises.beta.gouv.fr/robots.txt",
-							"method": "GET",
-							"param": "Sec-Fetch-User",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://place-des-entreprises.beta.gouv.fr/sitemap.xml",
+							"uri": "https://place-des-entreprises.beta.gouv.fr/assets/pages-7bb5256e3fbfbf4b0623637f54499bff788491128752ca43b511e2b83562355e.css",
 							"method": "GET",
 							"param": "Sec-Fetch-User",
 							"attack": "",
@@ -369,12 +1357,79 @@
 							"otherinfo": ""
 						}
 					],
-					"count": "4",
+					"count": "2",
 					"solution": "<p>Ensure that Sec-Fetch-User header is included in user initiated requests.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-User</p>",
 					"cweid": "352",
 					"wascid": "9",
+					"sourceid": "6"
+				},
+				{
+					"pluginid": "10112",
+					"alertRef": "10112",
+					"alert": "Session Management Response Identified",
+					"name": "Session Management Response Identified",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>The given response has been identified as containing a session management token. The 'Other Info' field contains a set of header tokens that can be used in the Header Based Session Management Method. If the request is in a context which has a Session Management Method set to \"Auto-Detect\" then this rule will change the session management to use the tokens identified.</p>",
+					"instances":[ 
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr",
+							"method": "GET",
+							"param": "_PlaceDesEntreprises_session",
+							"attack": "",
+							"evidence": "R2XC1cqbfqP6ymYM8UKlkNgrlynJ%2B%2BKdYZURxYxPtaQhynYR8Ge5Oi%2BxqoEPrR87uQVOVY%2FIUayoyQloc1wDchGTM676cAuF4i4yWY4BCURpdK17gUTtrCrkWsO1Hv2Rm1KtFlGaZt%2F4kYPIZAgInxFFPHh7HTITzYlnqs4C7KNtIE2dBS6YmNrrKwkpZzNhk4%2BsMF1%2BE55oGe0PYQYEHbgdwEddLpbmgUEpTx7foul5MFPpsyia3qTWWpqvAaBCOWLxrLcGgi9pav%2Fz2rreKFwIYS5WFjEeSz6W7478lpgq32NR--VFBflSjjuMDsxMkm--0VepKsChyRwBqtCY0sIjlw%3D%3D",
+							"otherinfo": "\ncookie:_PlaceDesEntreprises_session"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr",
+							"method": "GET",
+							"param": "_PlaceDesEntreprises_session",
+							"attack": "",
+							"evidence": "uZ5kBW%2Fn3GgaIp63eMHGUarwjowBumv2dRs%2BThtaYaGv1eSo4KsMWmekm6MeixERD2H6%2FZrF%2BBgWy%2BJ7ysLR9%2B%2FC1YL0mgwiOQryUhBjCVkoqm3bjj3BTASLXKuhjg6qPDAzASGH%2FfCJLwRvfNGUm4HEDE9E%2F5tA7RinhNF6oEJS0ZBdaUyM59I25HL%2BA2HCoRCCynGI0pvWC2e2qafYtVkK736OUk8tw5fpdnADrE6BEqPWeyEN4Z2faMPJqCFbFm8qOopI3ccLHRi6T%2FNbaTZ6j16ToMzl%2FFyWTi19Nu0N7M%2BE--7TlybQOC79Ig%2Bg%2Fk--8bm705A%2BCH8Nr2AYV4D2uw%3D%3D",
+							"otherinfo": "\ncookie:_PlaceDesEntreprises_session"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/",
+							"method": "GET",
+							"param": "_PlaceDesEntreprises_session",
+							"attack": "",
+							"evidence": "2nKta4tQpUK81hK2NPlkVmH6yTbxgC05YG%2BYq1c4MK03cWMDJe%2FterJoCgd4GPlLPCdZK1lQ1c2AHfoNnOtOHjy%2FFEOE4Md8xx3K78j3uv8z2SH7ovKJmbM68bLinI9XQnd96lOKnM0suztjsAiq2z6IuEy4JlRc6butzitadDqbLgHeyCMjAH2AkVzlIB5TnSbRwygQ7rzRYR3Ui6VZAetCLSEjJu3YVRiBWJWwbZ2%2FuY1CVDHpN8XxM%2FsJIX4TE2x9GgjDAQotWwSA0eXG1hlEgUS2CpxRPfnNdzhOJspMaPtf--HXDWipgCTrajIiEm--DbmFAI6h12NkPu%2BqEbJE2Q%3D%3D",
+							"otherinfo": "\ncookie:_PlaceDesEntreprises_session"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/sitemap.xml",
+							"method": "GET",
+							"param": "_PlaceDesEntreprises_session",
+							"attack": "",
+							"evidence": "zhCTTYNvr7kFqIts%2BdbxYFqN9lWGAhZc53fd2JLnQeZYuHFS6QTT6JB758OQGpDMDI6Z98TcP%2FifNj2XHp8k%2Fha4%2Fb%2BHMvylYvo0mO1AuZkvBP0zucEo4eX1r8c8%2FD1ahOykthY07oE%2BOUGdOoHzHjCLJSM%2BKIZcRoqRKZMK29iru3c2zdRwd2ac2uBxgUG1r9AoFFIdX%2BHUt72aW%2B%2F%2BSKrqn3kBo67yRCZ1LD3gF5L%2Fv2I1%2Bxnq%2F3STRhkU56q36%2F%2BsRfZ9e%2Fq41h2qTp%2FB0TAi1kXfdI4Ha%2BA%2BDyg7cYCkPaoX--CdaPoiQPjfdwkyoO--GwA%2BCWRPs6Jri9WSAnq8bA%3D%3D",
+							"otherinfo": "\ncookie:_PlaceDesEntreprises_session"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr",
+							"method": "GET",
+							"param": "_PlaceDesEntreprises_session",
+							"attack": "",
+							"evidence": "uZ5kBW%2Fn3GgaIp63eMHGUarwjowBumv2dRs%2BThtaYaGv1eSo4KsMWmekm6MeixERD2H6%2FZrF%2BBgWy%2BJ7ysLR9%2B%2FC1YL0mgwiOQryUhBjCVkoqm3bjj3BTASLXKuhjg6qPDAzASGH%2FfCJLwRvfNGUm4HEDE9E%2F5tA7RinhNF6oEJS0ZBdaUyM59I25HL%2BA2HCoRCCynGI0pvWC2e2qafYtVkK736OUk8tw5fpdnADrE6BEqPWeyEN4Z2faMPJqCFbFm8qOopI3ccLHRi6T%2FNbaTZ6j16ToMzl%2FFyWTi19Nu0N7M%2BE--7TlybQOC79Ig%2Bg%2Fk--8bm705A%2BCH8Nr2AYV4D2uw%3D%3D",
+							"otherinfo": "\ncookie:_PlaceDesEntreprises_session"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/sitemap.xml",
+							"method": "GET",
+							"param": "_PlaceDesEntreprises_session",
+							"attack": "",
+							"evidence": "zhCTTYNvr7kFqIts%2BdbxYFqN9lWGAhZc53fd2JLnQeZYuHFS6QTT6JB758OQGpDMDI6Z98TcP%2FifNj2XHp8k%2Fha4%2Fb%2BHMvylYvo0mO1AuZkvBP0zucEo4eX1r8c8%2FD1ahOykthY07oE%2BOUGdOoHzHjCLJSM%2BKIZcRoqRKZMK29iru3c2zdRwd2ac2uBxgUG1r9AoFFIdX%2BHUt72aW%2B%2F%2BSKrqn3kBo67yRCZ1LD3gF5L%2Fv2I1%2Bxnq%2F3STRhkU56q36%2F%2BsRfZ9e%2Fq41h2qTp%2FB0TAi1kXfdI4Ha%2BA%2BDyg7cYCkPaoX--CdaPoiQPjfdwkyoO--GwA%2BCWRPs6Jri9WSAnq8bA%3D%3D",
+							"otherinfo": "\ncookie:_PlaceDesEntreprises_session"
+						}
+					],
+					"count": "6",
+					"solution": "<p>This is an informational alert rather than a vulnerability and so there is nothing to fix.</p>",
+					"otherinfo": "<p></p><p>cookie:_PlaceDesEntreprises_session</p>",
+					"reference": "<p>https://www.zaproxy.org/docs/desktop/addons/authentication-helper/session-mgmt-id</p>",
+					"cweid": "-1",
+					"wascid": "-1",
 					"sourceid": "1"
 				},
 				{
@@ -388,6 +1443,38 @@
 					"desc": "<p>The response contents are storable by caching components such as proxy servers, and may be retrieved directly from the cache, rather than from the origin server by the caching servers, in response to similar requests from other users.  If the response data is sensitive, personal or user-specific, this may result in sensitive information being leaked. In some cases, this may even result in a user gaining complete control of the session of another user, depending on the configuration of the caching components in use in their environment. This is primarily an issue where \"shared\" caching servers such as \"proxy\" caches are configured on the local network. This configuration is typically found in corporate or educational environments, for instance.</p>",
 					"instances":[ 
 						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/assets/pages-7bb5256e3fbfbf4b0623637f54499bff788491128752ca43b511e2b83562355e.css",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "s-maxage=31536000",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/assets/pages-b58b817d91e520f29b4e6045adc2b62f403f1c7137a72d1c719a5fbd4b126e9e.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "s-maxage=31536000",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/packs/js/gouvfr-module-b39eaf3e827950ec47e3.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "s-maxage=31536000",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/packs/js/gouvfr-nomodule-b03d6193b19550771c10.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "s-maxage=31536000",
+							"otherinfo": ""
+						},
+						{
 							"uri": "https://place-des-entreprises.beta.gouv.fr/robots.txt",
 							"method": "GET",
 							"param": "",
@@ -396,13 +1483,147 @@
 							"otherinfo": ""
 						}
 					],
-					"count": "1",
+					"count": "5",
 					"solution": "<p>Validate that the response does not contain sensitive, personal or user-specific information.  If it does, consider the use of the following HTTP response headers, to limit, or prevent the content being stored and retrieved from the cache by another user:</p><p>Cache-Control: no-cache, no-store, must-revalidate, private</p><p>Pragma: no-cache</p><p>Expires: 0</p><p>This configuration directs both HTTP 1.0 and HTTP 1.1 compliant caching servers to not store the response, and to not retrieve the response (without validation) from the cache, in response to a similar request. </p>",
 					"otherinfo": "",
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "6"
+					"sourceid": "59"
+				},
+				{
+					"pluginid": "10049",
+					"alertRef": "10049",
+					"alert": "Storable but Non-Cacheable Content",
+					"name": "Storable but Non-Cacheable Content",
+					"riskcode": "0",
+					"confidence": "2",
+					"riskdesc": "Informational (Medium)",
+					"desc": "<p>The response contents are storable by caching components such as proxy servers, but will not be retrieved directly from the cache, without validating the request upstream, in response to similar requests from other users. </p>",
+					"instances":[ 
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/e/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "no-cache",
+							"otherinfo": ""
+						}
+					],
+					"count": "1",
+					"solution": "",
+					"otherinfo": "",
+					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
+					"cweid": "524",
+					"wascid": "13",
+					"sourceid": "128"
+				},
+				{
+					"pluginid": "10031",
+					"alertRef": "10031",
+					"alert": "User Controllable HTML Element Attribute (Potential XSS)",
+					"name": "User Controllable HTML Element Attribute (Potential XSS)",
+					"riskcode": "0",
+					"confidence": "1",
+					"riskdesc": "Informational (Low)",
+					"desc": "<p>This check looks at user-supplied input in query string parameters and POST data to identify where certain HTML attribute values might be controlled. This provides hot-spot detection for XSS (cross-site scripting) that will require further review by a security analyst to determine exploitability.</p>",
+					"instances":[ 
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/stats?anchor=stats-charts&commit=Filtrer&end_date=2023-08-13&start_date=2023-02-01&territory=126&theme=8",
+							"method": "GET",
+							"param": "anchor",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://place-des-entreprises.beta.gouv.fr/stats?anchor=stats-charts&commit=Filtrer&end_date=2023-08-13&start_date=2023-02-01&territory=126&theme=8\r\n\r\nappears to include user input in: \r\n\r\na(n) [div] tag [data-controller] attribute \r\n\r\nThe user input found was:\r\nanchor=stats-charts\r\n\r\nThe user-controlled value was:\r\nstats-charts"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/stats?anchor=stats-charts&commit=Filtrer&end_date=2023-08-13&start_date=2023-02-01&territory=126&theme=8",
+							"method": "GET",
+							"param": "anchor",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://place-des-entreprises.beta.gouv.fr/stats?anchor=stats-charts&commit=Filtrer&end_date=2023-08-13&start_date=2023-02-01&territory=126&theme=8\r\n\r\nappears to include user input in: \r\n\r\na(n) [div] tag [id] attribute \r\n\r\nThe user input found was:\r\nanchor=stats-charts\r\n\r\nThe user-controlled value was:\r\nstats-charts"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/stats?anchor=stats-charts&commit=Filtrer&end_date=2023-08-13&start_date=2023-02-01&territory=126&theme=8",
+							"method": "GET",
+							"param": "anchor",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://place-des-entreprises.beta.gouv.fr/stats?anchor=stats-charts&commit=Filtrer&end_date=2023-08-13&start_date=2023-02-01&territory=126&theme=8\r\n\r\nappears to include user input in: \r\n\r\na(n) [input] tag [value] attribute \r\n\r\nThe user input found was:\r\nanchor=stats-charts\r\n\r\nThe user-controlled value was:\r\nstats-charts"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/stats?anchor=stats-charts&commit=Filtrer&end_date=2023-08-13&start_date=2023-02-01&territory=126&theme=8",
+							"method": "GET",
+							"param": "commit",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://place-des-entreprises.beta.gouv.fr/stats?anchor=stats-charts&commit=Filtrer&end_date=2023-08-13&start_date=2023-02-01&territory=126&theme=8\r\n\r\nappears to include user input in: \r\n\r\na(n) [input] tag [data-disable-with] attribute \r\n\r\nThe user input found was:\r\ncommit=Filtrer\r\n\r\nThe user-controlled value was:\r\nfiltrer"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/stats?anchor=stats-charts&commit=Filtrer&end_date=2023-08-13&start_date=2023-02-01&territory=126&theme=8",
+							"method": "GET",
+							"param": "commit",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://place-des-entreprises.beta.gouv.fr/stats?anchor=stats-charts&commit=Filtrer&end_date=2023-08-13&start_date=2023-02-01&territory=126&theme=8\r\n\r\nappears to include user input in: \r\n\r\na(n) [input] tag [value] attribute \r\n\r\nThe user input found was:\r\ncommit=Filtrer\r\n\r\nThe user-controlled value was:\r\nfiltrer"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/stats?anchor=stats-charts&commit=Filtrer&end_date=2023-08-13&start_date=2023-02-01&territory=126&theme=8",
+							"method": "GET",
+							"param": "end_date",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://place-des-entreprises.beta.gouv.fr/stats?anchor=stats-charts&commit=Filtrer&end_date=2023-08-13&start_date=2023-02-01&territory=126&theme=8\r\n\r\nappears to include user input in: \r\n\r\na(n) [input] tag [value] attribute \r\n\r\nThe user input found was:\r\nend_date=2023-08-13\r\n\r\nThe user-controlled value was:\r\n2023-08-13"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/stats?anchor=stats-charts&commit=Filtrer&end_date=2023-08-13&start_date=2023-02-01&territory=126&theme=8",
+							"method": "GET",
+							"param": "start_date",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://place-des-entreprises.beta.gouv.fr/stats?anchor=stats-charts&commit=Filtrer&end_date=2023-08-13&start_date=2023-02-01&territory=126&theme=8\r\n\r\nappears to include user input in: \r\n\r\na(n) [input] tag [value] attribute \r\n\r\nThe user input found was:\r\nstart_date=2023-02-01\r\n\r\nThe user-controlled value was:\r\n2023-02-01"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/stats?anchor=stats-charts&commit=Filtrer&end_date=2023-08-13&start_date=2023-02-01&territory=126&theme=8",
+							"method": "GET",
+							"param": "territory",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://place-des-entreprises.beta.gouv.fr/stats?anchor=stats-charts&commit=Filtrer&end_date=2023-08-13&start_date=2023-02-01&territory=126&theme=8\r\n\r\nappears to include user input in: \r\n\r\na(n) [option] tag [value] attribute \r\n\r\nThe user input found was:\r\nterritory=126\r\n\r\nThe user-controlled value was:\r\n126"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/mon_compte/sign_in",
+							"method": "POST",
+							"param": "commit",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://place-des-entreprises.beta.gouv.fr/mon_compte/sign_in\r\n\r\nappears to include user input in: \r\n\r\na(n) [input] tag [data-disable-with] attribute \r\n\r\nThe user input found was:\r\ncommit=Connexion\r\n\r\nThe user-controlled value was:\r\nconnexion"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/mon_compte/sign_in",
+							"method": "POST",
+							"param": "commit",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://place-des-entreprises.beta.gouv.fr/mon_compte/sign_in\r\n\r\nappears to include user input in: \r\n\r\na(n) [input] tag [value] attribute \r\n\r\nThe user input found was:\r\ncommit=Connexion\r\n\r\nThe user-controlled value was:\r\nconnexion"
+						},
+						{
+							"uri": "https://place-des-entreprises.beta.gouv.fr/mon_compte/sign_in",
+							"method": "POST",
+							"param": "user[email]",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://place-des-entreprises.beta.gouv.fr/mon_compte/sign_in\r\n\r\nappears to include user input in: \r\n\r\na(n) [input] tag [value] attribute \r\n\r\nThe user input found was:\r\nuser[email]=foo-bar@example.com\r\n\r\nThe user-controlled value was:\r\nfoo-bar@example.com"
+						}
+					],
+					"count": "11",
+					"solution": "<p>Validate all input and sanitize output it before writing to any HTML attributes.</p>",
+					"otherinfo": "<p>User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:</p><p></p><p>https://place-des-entreprises.beta.gouv.fr/stats?anchor=stats-charts&commit=Filtrer&end_date=2023-08-13&start_date=2023-02-01&territory=126&theme=8</p><p></p><p>appears to include user input in: </p><p></p><p>a(n) [div] tag [data-controller] attribute </p><p></p><p>The user input found was:</p><p>anchor=stats-charts</p><p></p><p>The user-controlled value was:</p><p>stats-charts</p>",
+					"reference": "<p>http://websecuritytool.codeplex.com/wikipage?title=Checks#user-controlled-html-attribute</p>",
+					"cweid": "20",
+					"wascid": "20",
+					"sourceid": "367"
 				}
 			]
 		}
