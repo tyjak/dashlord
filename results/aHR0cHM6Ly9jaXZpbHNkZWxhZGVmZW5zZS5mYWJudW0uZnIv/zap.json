@@ -1,7 +1,7 @@
 {
-	"@programName": "OWASP ZAP",
+	"@programName": "ZAP",
 	"@version": "2.13.0",
-	"@generated": "Sun, 13 Aug 2023 15:36:54",
+	"@generated": "Sun, 20 Aug 2023 15:32:28",
 	"site":[ 
 		{
 			"@name": "https://civilsdeladefense.fabnum.fr",
@@ -131,7 +131,7 @@
 					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html</p><p>https://owasp.org/www-community/Security_Headers</p><p>http://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security</p><p>http://caniuse.com/stricttransportsecurity</p><p>http://tools.ietf.org/html/rfc6797</p>",
 					"cweid": "319",
 					"wascid": "15",
-					"sourceid": "7"
+					"sourceid": "8"
 				},
 				{
 					"pluginid": "10094",
@@ -148,13 +148,13 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2FZsx1Yh0iX8u6Umc0snQe4vOnaHlVwTBkuyhyQ9N7wKUNSjuJrXnFIeWxiyaZXZ6RT5FlTtfWXyHZrZaLoV5cZoaWBcuYF773te69yYtCgtIr5xt17x2FY05XpvjnUN6M",
-							"otherinfo": "\uFFFDVl\uFFFDV!\uFFFD%\uFFFD\uFFFD\uFFFD&sK'A\uFFFD/:v\uFFFD\uFFFD\\\\x0013\\x0006K\uFFFD\uFFFD$=7\uFFFD\nP\u0523\uFFFD\uFFFD\u05DCR\\x001e[\\x0018\uFFFDi\uFFFD\uFFFD\uFFFD\\x0014\uFFFD\\x0016T\uFFFD}e\uFFFD\\x001d\uFFFD\uFFFDh\uFFFD\\x0015\uFFFD\uFFFDhi`\\\uFFFD\uFFFD{\uFFFD{^\uFFFD\u0718\uFFFD(-\"\uFFFDq\uFFFD^\uFFFD\uFFFDV4\uFFFDzo\uFFFDu\r\uFFFD"
+							"evidence": "fExXeIhh4rl7NhdK6jNlQ3hkQTn7PLpzAbiN1ZASJetrC8n7",
+							"otherinfo": "|LWx\uFFFDa\uFFFD{6\\x0017J\uFFFD3eCxdA9\uFFFD<\uFFFDs\\x0001\uFFFD\uFFFD\u0550\\x0012%\uFFFDk\\x000b\uFFFD\uFFFD"
 						}
 					],
 					"count": "1",
 					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
-					"otherinfo": "<p>\uFFFDVl\uFFFDV!\uFFFD%\uFFFD\uFFFD\uFFFD&sK'A\uFFFD/:v\uFFFD\uFFFD\\\\x0013\\x0006K\uFFFD\uFFFD$=7\uFFFD</p><p>P\u0523\uFFFD\uFFFD\u05DCR\\x001e[\\x0018\uFFFDi\uFFFD\uFFFD\uFFFD\\x0014\uFFFD\\x0016T\uFFFD}e\uFFFD\\x001d\uFFFD\uFFFDh\uFFFD\\x0015\uFFFD\uFFFDhi`\\\uFFFD\uFFFD{\uFFFD{^\uFFFD\u0718\uFFFD(-\"\uFFFDq\uFFFD^\uFFFD\uFFFDV4\uFFFDzo\uFFFDu\r\uFFFD</p>",
+					"otherinfo": "<p>|LWx\uFFFDa\uFFFD{6\\x0017J\uFFFD3eCxdA9\uFFFD<\uFFFDs\\x0001\uFFFD\uFFFD\u0550\\x0012%\uFFFDk\\x000b\uFFFD\uFFFD</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
@@ -184,6 +184,33 @@
 					"otherinfo": "",
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "524",
+					"wascid": "13",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10015",
+					"alertRef": "10015",
+					"alert": "Re-examine Cache-control Directives",
+					"name": "Re-examine Cache-control Directives",
+					"riskcode": "0",
+					"confidence": "1",
+					"riskdesc": "Informational (Low)",
+					"desc": "<p>The cache-control header has not been set properly or is missing, allowing the browser and proxies to cache content. For static assets like css, js, or image files this might be intended, however, the resources should be reviewed to ensure that no sensitive content will be cached.</p>",
+					"instances":[ 
+						{
+							"uri": "https://civilsdeladefense.fabnum.fr/",
+							"method": "GET",
+							"param": "cache-control",
+							"attack": "",
+							"evidence": "max-age=0, private, must-revalidate",
+							"otherinfo": ""
+						}
+					],
+					"count": "1",
+					"solution": "<p>For secure content, ensure the cache-control HTTP header is set with \"no-cache, no-store, must-revalidate\". If an asset should be cached consider setting the directives \"public, max-age, immutable\".</p>",
+					"otherinfo": "",
+					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching</p><p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control</p><p>https://grayduck.mn/2021/09/13/cache-control-recommendations/</p>",
+					"cweid": "525",
 					"wascid": "13",
 					"sourceid": "1"
 				},
@@ -228,7 +255,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Dest</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "7"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "90005",
@@ -271,7 +298,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Mode</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "7"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "90005",
@@ -314,7 +341,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Site</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "7"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "90005",
@@ -357,7 +384,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-User</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "7"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10112",
@@ -374,7 +401,7 @@
 							"method": "GET",
 							"param": "_civilsdeladefense_session",
 							"attack": "",
-							"evidence": "lzLWSEkmEcTjhxj0t3%2B21EBtEdOIP%2B1gMBcCQaq2go%2FKaddYppAd7esJAmP8AkPF7ei59gHVCSJywQgjUT5bb3%2FxrMshyAsCxq1LXhmzG4q%2FZsx1Yh0iX8u6Umc0snQe4vOnaHlVwTBkuyhyQ9N7wKUNSjuJrXnFIeWxiyaZXZ6RT5FlTtfWXyHZrZaLoV5cZoaWBcuYF773te69yYtCgtIr5xt17x2FY05XpvjnUN6M%2Ft2whj0Ob66Uw7eiGgKzb%2FfnYfchxu9GZZoOEL%2FtTXMyDHTURzF%2BHIAMo0WvTqdoSw%3D%3D--6cjPHW9xWVVhudCF--XpkNQrMf83slkhINnhUDZw%3D%3D",
+							"evidence": "fExXeIhh4rl7NhdK6jNlQ3hkQTn7PLpzAbiN1ZASJetrC8n7%2FAi%2BCJ5n3%2BoyiEeZ%2Bingr5Rrd%2B4j6N2gMp0EHLvHVR%2BOsdtDYS4F17wueLuMZsAr0ZNuZyXahmX8aODA1X5RgrHm%2BQy3yiYO%2BfdslTvn6r8CyS%2BXnaKk8RuSMqZe7IrRwei1TvAdJUof5yegwWAUmWah8RWy8%2Ftvzs%2Fdsx5%2F2YXmZPozAWIvQPsSQuoVbOCZX07zv62OHajjzcJ1qvEy3Okuk%2Ff8oCfJMO0e8Q%2FLUt6mSXTGAJZosu5dncrvAg%3D%3D--PVTX5rzY4daeQWgI--C5XZ%2FXgM0oavRGJ3uVxWRA%3D%3D",
 							"otherinfo": "\ncookie:_civilsdeladefense_session"
 						}
 					],
@@ -427,7 +454,7 @@
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "7"
+					"sourceid": "8"
 				}
 			]
 		}
