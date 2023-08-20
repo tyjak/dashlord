@@ -1,7 +1,7 @@
 {
-	"@programName": "OWASP ZAP",
+	"@programName": "ZAP",
 	"@version": "2.13.0",
-	"@generated": "Sun, 13 Aug 2023 18:34:10",
+	"@generated": "Sun, 20 Aug 2023 18:14:53",
 	"site":[ 
 		{
 			"@name": "https://api.app.eva.beta.gouv.fr",
@@ -271,13 +271,13 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2FLhLwwrWXTQ2iS0A8tvNYKsuXA5sBuNV9MdQbkmcCXVWKJo",
-							"otherinfo": "\uFFFDR\uFFFD/\\x000c+Yt\uFFFD\uFFFD$\uFFFD\\x0003\uFFFDo5\uFFFD\uFFFD\uFFFDp9\uFFFD\\x001b\uFFFDW\uFFFD\\x001dA\uFFFD&p%\uFFFDX\uFFFDh"
+							"evidence": "UsUByO--qFDVmhTjxeCkmnGRmjibZJPBzbcc7qijmfbjD3-Pno6h62Pfw336lGeenUvRojt8YbLWko0E63NqVA",
+							"otherinfo": "R\uFFFD\\x0001\uFFFD\uFFA8P\u055A\\x0014\uFFFD\uFFFD\u091Aq\uFFFD\uFFFD8\uFFFDd\uFFFD\uFFFD\u0377\\x001c\uEA23\uFFFD\uFFFD\uFFFD\\x000f\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDc\uFFFD\uFFFD}\uFFFD\uFFFDg\uFFFD\uFFFDK\u0462;|a\uFFFD\u0592\uFFFD\\x0004\uFFFDsjT"
 						}
 					],
 					"count": "1",
 					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
-					"otherinfo": "<p>\uFFFDR\uFFFD/\\x000c+Yt\uFFFD\uFFFD$\uFFFD\\x0003\uFFFDo5\uFFFD\uFFFD\uFFFDp9\uFFFD\\x001b\uFFFDW\uFFFD\\x001dA\uFFFD&p%\uFFFDX\uFFFDh</p>",
+					"otherinfo": "<p>R\uFFFD\\x0001\uFFFD\uFFA8P\u055A\\x0014\uFFFD\uFFFD\u091Aq\uFFFD\uFFFD8\uFFFDd\uFFFD\uFFFD\u0377\\x001c\uEA23\uFFFD\uFFFD\uFFFD\\x000f\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDc\uFFFD\uFFFD}\uFFFD\uFFFDg\uFFFD\uFFFDK\u0462;|a\uFFFD\u0592\uFFFD\\x0004\uFFFDsjT</p>",
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
@@ -307,6 +307,33 @@
 					"otherinfo": "",
 					"reference": "<p>https://tools.ietf.org/html/rfc7234</p><p>https://tools.ietf.org/html/rfc7231</p><p>http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html (obsoleted by rfc7234)</p>",
 					"cweid": "524",
+					"wascid": "13",
+					"sourceid": "1"
+				},
+				{
+					"pluginid": "10015",
+					"alertRef": "10015",
+					"alert": "Re-examine Cache-control Directives",
+					"name": "Re-examine Cache-control Directives",
+					"riskcode": "0",
+					"confidence": "1",
+					"riskdesc": "Informational (Low)",
+					"desc": "<p>The cache-control header has not been set properly or is missing, allowing the browser and proxies to cache content. For static assets like css, js, or image files this might be intended, however, the resources should be reviewed to ensure that no sensitive content will be cached.</p>",
+					"instances":[ 
+						{
+							"uri": "https://api.app.eva.beta.gouv.fr",
+							"method": "GET",
+							"param": "cache-control",
+							"attack": "",
+							"evidence": "max-age=0, private, must-revalidate",
+							"otherinfo": ""
+						}
+					],
+					"count": "1",
+					"solution": "<p>For secure content, ensure the cache-control HTTP header is set with \"no-cache, no-store, must-revalidate\". If an asset should be cached consider setting the directives \"public, max-age, immutable\".</p>",
+					"otherinfo": "",
+					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching</p><p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control</p><p>https://grayduck.mn/2021/09/13/cache-control-recommendations/</p>",
+					"cweid": "525",
 					"wascid": "13",
 					"sourceid": "1"
 				},
@@ -497,7 +524,7 @@
 							"method": "GET",
 							"param": "_session_id",
 							"attack": "",
-							"evidence": "p2Xhr%2F4h0GRm5%2FLhLwwrWXTQ2iS0A8tvNYKsuXA5sBuNV9MdQbkmcCXVWKJo%2FoHi2HTa7BKBhUPX%2FILUxI71on0YEACgru4KcMcUABjxcI4Q%2B6jgJ6gQRpdGsD11n4X4ka%2FTuI3EYPGZxUWKKghkaMP9nZBpGeJkTDPtPrFh%2FdgXKumKMbaPyAfV29J8plOzSVfJhdFagEjYNH5%2FniQof6T6SPzfQrDYJJL0s5BuAw4TucPjnCY%2Btq107wSpWYL61R%2B88dgHUiT5nSJJH2KpOpeQMg%3D%3D--DE5ugP7aYfghDkks--hVoyI9kZUo0tggjsikTgCQ%3D%3D",
+							"evidence": "Qjh6OUbY7eppXACY%2FMWdUbnWb8cvFmJmMbj3WVFAvObhDz1czWkwwLWrEajyqgNyM3MtQaJw42R1umDa6H0PW0P2al70l3ECcNGbtqnEopyQ3pWtiI5otNOkpmIasOt9xU6VIoPBAFsAlgNz%2BBGU5KqilsnpSl%2Bje1oxETRLqMEC3%2FGd%2BNF9054EqUcqHNymB6ZFgAz3K%2BQUVwBHlmCxrCUOtf%2BTkuWfHr%2BFyAWXDH6iAJMtMzlOCFXFjC1IDV10qyAO9YvSwT8b31aByGsX7xx9Iw%3D%3D--2WTNYQTCERnYixs%2B--XFQn10ONGYezBbyoo65Jiw%3D%3D",
 							"otherinfo": "\ncookie:_session_id"
 						}
 					],
