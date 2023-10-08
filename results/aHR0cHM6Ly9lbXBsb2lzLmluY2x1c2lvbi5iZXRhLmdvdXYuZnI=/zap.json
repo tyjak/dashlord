@@ -1,7 +1,7 @@
 {
 	"@programName": "ZAP",
 	"@version": "2.13.0",
-	"@generated": "Sun, 1 Oct 2023 04:23:39",
+	"@generated": "Sun, 8 Oct 2023 04:39:33",
 	"site":[ 
 		{
 			"@name": "https://emplois.inclusion.beta.gouv.fr",
@@ -28,7 +28,7 @@
 							"otherinfo": "No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"id_city\" \"id_city_name\" ]."
 						},
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/search/employers",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -61,6 +61,14 @@
 						},
 						{
 							"uri": "https://emplois.inclusion.beta.gouv.fr/search/job-descriptions/results",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form id=\"search-form\" method=\"get\" class=\"d-block w-100\">",
+							"otherinfo": "No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"id_city\" \"id_city_name\" \"id_contract_types_0\" \"id_contract_types_1\" \"id_contract_types_10\" \"id_contract_types_11\" \"id_contract_types_12\" \"id_contract_types_13\" \"id_contract_types_14\" \"id_contract_types_2\" \"id_contract_types_3\" \"id_contract_types_4\" \"id_contract_types_5\" \"id_contract_types_6\" \"id_contract_types_7\" \"id_contract_types_8\" \"id_contract_types_9\" \"id_distance_0\" \"id_distance_1\" \"id_distance_2\" \"id_distance_3\" \"id_distance_4\" \"id_distance_5\" \"id_distance_6\" \"id_domains_0\" \"id_domains_1\" \"id_domains_10\" \"id_domains_11\" \"id_domains_12\" \"id_domains_13\" \"id_domains_2\" \"id_domains_3\" \"id_domains_4\" \"id_domains_5\" \"id_domains_6\" \"id_domains_7\" \"id_domains_8\" \"id_domains_9\" \"id_kinds_0\" \"id_kinds_1\" \"id_kinds_2\" \"id_kinds_3\" \"id_kinds_4\" \"id_kinds_5\" \"id_kinds_6\" \"id_kinds_7\" \"id_kinds_8\" ]."
+						},
+						{
+							"uri": "https://emplois.inclusion.beta.gouv.fr/search/job-descriptions/results?city=East+Romaineburgh&city_name=ZAP&contract_types=FIXED_TERM&distance=5&domains=A&kinds=EI",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -108,7 +116,7 @@
 							"otherinfo": "No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"id_siren\" ]."
 						}
 					],
-					"count": "11",
+					"count": "12",
 					"solution": "<p>Phase: Architecture and Design</p><p>Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid.</p><p>For example, use anti-CSRF packages such as the OWASP CSRFGuard.</p><p></p><p>Phase: Implementation</p><p>Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.</p><p></p><p>Phase: Architecture and Design</p><p>Generate a unique nonce for each form, place the nonce into the form, and verify the nonce upon receipt of the form. Be sure that the nonce is not predictable (CWE-330).</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Identify especially dangerous operations. When the user performs a dangerous operation, send a separate confirmation request to ensure that the user intended to perform that operation.</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Use the ESAPI Session Management control.</p><p>This control includes a component for CSRF.</p><p></p><p>Do not use the GET method for any request that triggers a state change.</p><p></p><p>Phase: Implementation</p><p>Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.</p>",
 					"otherinfo": "<p>No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"id_city\" \"id_city_name\" ].</p>",
 					"reference": "<p>http://projects.webappsec.org/Cross-Site-Request-Forgery</p><p>http://cwe.mitre.org/data/definitions/352.html</p>",
@@ -131,7 +139,7 @@
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
-							"evidence": "object-src 'none'; font-src 'self' data:; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org *.hotjar.com https://cdn.redoc.ly https://matomo.inclusion.beta.gouv.fr/; default-src 'self'; frame-ancestors https://pilotage.inclusion.beta.gouv.fr; worker-src 'self' blob:; script-src 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-/POhKi+4RUYI+AmJRrmu5A=='; base-uri 'none'; script-src-elem 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-/POhKi+4RUYI+AmJRrmu5A=='; style-src 'self' 'unsafe-inline'; frame-src https://app.livestorm.co *.hotjar.com https://tally.so https://stats.inclusion.beta.gouv.fr https://pilotage.inclusion.beta.gouv.fr https://communaute.inclusion.beta.gouv.fr https://inclusion.beta.gouv.fr blob: data:; connect-src 'self' *.sentry.io *.hotjar.com *.hotjar.io wss://*.hotjar.com https://matomo.inclusion.beta.gouv.fr/ https://cellar-c2.services.clever-cloud.com",
+							"evidence": "script-src 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-zQxOoCuXhVEmv+WTRG5Ccg=='; base-uri 'none'; connect-src 'self' *.sentry.io *.hotjar.com *.hotjar.io wss://*.hotjar.com https://matomo.inclusion.beta.gouv.fr/ https://cellar-c2.services.clever-cloud.com; frame-src https://app.livestorm.co *.hotjar.com https://tally.so https://stats.inclusion.beta.gouv.fr https://pilotage.inclusion.beta.gouv.fr https://communaute.inclusion.beta.gouv.fr https://inclusion.beta.gouv.fr blob: data:; script-src-elem 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-zQxOoCuXhVEmv+WTRG5Ccg=='; font-src 'self' data:; default-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline'; frame-ancestors https://pilotage.inclusion.beta.gouv.fr; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org *.hotjar.com https://cdn.redoc.ly https://matomo.inclusion.beta.gouv.fr/; worker-src 'self' blob:",
 							"otherinfo": "The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: \nform-action\n\nThe directive(s): form-action are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything."
 						},
 						{
@@ -139,15 +147,15 @@
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
-							"evidence": "object-src 'none'; font-src 'self' data:; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org *.hotjar.com https://cdn.redoc.ly https://matomo.inclusion.beta.gouv.fr/; default-src 'self'; frame-ancestors https://pilotage.inclusion.beta.gouv.fr; worker-src 'self' blob:; script-src 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-u4Z/KiqOdRf5BBvH4Qri8A=='; base-uri 'none'; script-src-elem 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-u4Z/KiqOdRf5BBvH4Qri8A=='; style-src 'self' 'unsafe-inline'; frame-src https://app.livestorm.co *.hotjar.com https://tally.so https://stats.inclusion.beta.gouv.fr https://pilotage.inclusion.beta.gouv.fr https://communaute.inclusion.beta.gouv.fr https://inclusion.beta.gouv.fr blob: data:; connect-src 'self' *.sentry.io *.hotjar.com *.hotjar.io wss://*.hotjar.com https://matomo.inclusion.beta.gouv.fr/ https://cellar-c2.services.clever-cloud.com",
+							"evidence": "script-src 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/; base-uri 'none'; connect-src 'self' *.sentry.io *.hotjar.com *.hotjar.io wss://*.hotjar.com https://matomo.inclusion.beta.gouv.fr/ https://cellar-c2.services.clever-cloud.com; frame-src https://app.livestorm.co *.hotjar.com https://tally.so https://stats.inclusion.beta.gouv.fr https://pilotage.inclusion.beta.gouv.fr https://communaute.inclusion.beta.gouv.fr https://inclusion.beta.gouv.fr blob: data:; script-src-elem 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/; font-src 'self' data:; default-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline'; frame-ancestors https://pilotage.inclusion.beta.gouv.fr; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org *.hotjar.com https://cdn.redoc.ly https://matomo.inclusion.beta.gouv.fr/; worker-src 'self' blob:",
 							"otherinfo": "The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: \nform-action\n\nThe directive(s): form-action are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything."
 						},
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/login/job_seeker",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/",
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
-							"evidence": "object-src 'none'; font-src 'self' data:; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org *.hotjar.com https://cdn.redoc.ly https://matomo.inclusion.beta.gouv.fr/; default-src 'self'; frame-ancestors https://pilotage.inclusion.beta.gouv.fr; worker-src 'self' blob:; script-src 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-BD2M15HlphoBQvp9WOEzQQ=='; base-uri 'none'; script-src-elem 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-BD2M15HlphoBQvp9WOEzQQ=='; style-src 'self' 'unsafe-inline'; frame-src https://app.livestorm.co *.hotjar.com https://tally.so https://stats.inclusion.beta.gouv.fr https://pilotage.inclusion.beta.gouv.fr https://communaute.inclusion.beta.gouv.fr https://inclusion.beta.gouv.fr blob: data:; connect-src 'self' *.sentry.io *.hotjar.com *.hotjar.io wss://*.hotjar.com https://matomo.inclusion.beta.gouv.fr/ https://cellar-c2.services.clever-cloud.com",
+							"evidence": "script-src 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/; base-uri 'none'; connect-src 'self' *.sentry.io *.hotjar.com *.hotjar.io wss://*.hotjar.com https://matomo.inclusion.beta.gouv.fr/ https://cellar-c2.services.clever-cloud.com; frame-src https://app.livestorm.co *.hotjar.com https://tally.so https://stats.inclusion.beta.gouv.fr https://pilotage.inclusion.beta.gouv.fr https://communaute.inclusion.beta.gouv.fr https://inclusion.beta.gouv.fr blob: data:; script-src-elem 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/; font-src 'self' data:; default-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline'; frame-ancestors https://pilotage.inclusion.beta.gouv.fr; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org *.hotjar.com https://cdn.redoc.ly https://matomo.inclusion.beta.gouv.fr/; worker-src 'self' blob:",
 							"otherinfo": "The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: \nform-action\n\nThe directive(s): form-action are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything."
 						},
 						{
@@ -155,7 +163,7 @@
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
-							"evidence": "object-src 'none'; font-src 'self' data:; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org *.hotjar.com https://cdn.redoc.ly https://matomo.inclusion.beta.gouv.fr/; default-src 'self'; frame-ancestors https://pilotage.inclusion.beta.gouv.fr; worker-src 'self' blob:; script-src 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-ASh6OsuqA1hZ6Y1vmuS5jQ=='; base-uri 'none'; script-src-elem 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-ASh6OsuqA1hZ6Y1vmuS5jQ=='; style-src 'self' 'unsafe-inline'; frame-src https://app.livestorm.co *.hotjar.com https://tally.so https://stats.inclusion.beta.gouv.fr https://pilotage.inclusion.beta.gouv.fr https://communaute.inclusion.beta.gouv.fr https://inclusion.beta.gouv.fr blob: data:; connect-src 'self' *.sentry.io *.hotjar.com *.hotjar.io wss://*.hotjar.com https://matomo.inclusion.beta.gouv.fr/ https://cellar-c2.services.clever-cloud.com",
+							"evidence": "script-src 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-FGVXVyTpLCz0Vxb/EmLwsA=='; base-uri 'none'; connect-src 'self' *.sentry.io *.hotjar.com *.hotjar.io wss://*.hotjar.com https://matomo.inclusion.beta.gouv.fr/ https://cellar-c2.services.clever-cloud.com; frame-src https://app.livestorm.co *.hotjar.com https://tally.so https://stats.inclusion.beta.gouv.fr https://pilotage.inclusion.beta.gouv.fr https://communaute.inclusion.beta.gouv.fr https://inclusion.beta.gouv.fr blob: data:; script-src-elem 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-FGVXVyTpLCz0Vxb/EmLwsA=='; font-src 'self' data:; default-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline'; frame-ancestors https://pilotage.inclusion.beta.gouv.fr; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org *.hotjar.com https://cdn.redoc.ly https://matomo.inclusion.beta.gouv.fr/; worker-src 'self' blob:",
 							"otherinfo": "The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: \nform-action\n\nThe directive(s): form-action are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything."
 						},
 						{
@@ -163,7 +171,7 @@
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
-							"evidence": "object-src 'none'; font-src 'self' data:; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org *.hotjar.com https://cdn.redoc.ly https://matomo.inclusion.beta.gouv.fr/; default-src 'self'; frame-ancestors https://pilotage.inclusion.beta.gouv.fr; worker-src 'self' blob:; script-src 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-4+tZzVMBPIUmR4plvF+MIw=='; base-uri 'none'; script-src-elem 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-4+tZzVMBPIUmR4plvF+MIw=='; style-src 'self' 'unsafe-inline'; frame-src https://app.livestorm.co *.hotjar.com https://tally.so https://stats.inclusion.beta.gouv.fr https://pilotage.inclusion.beta.gouv.fr https://communaute.inclusion.beta.gouv.fr https://inclusion.beta.gouv.fr blob: data:; connect-src 'self' *.sentry.io *.hotjar.com *.hotjar.io wss://*.hotjar.com https://matomo.inclusion.beta.gouv.fr/ https://cellar-c2.services.clever-cloud.com",
+							"evidence": "script-src 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-zO61ZORkBnZJEiS9VkQEog=='; base-uri 'none'; connect-src 'self' *.sentry.io *.hotjar.com *.hotjar.io wss://*.hotjar.com https://matomo.inclusion.beta.gouv.fr/ https://cellar-c2.services.clever-cloud.com; frame-src https://app.livestorm.co *.hotjar.com https://tally.so https://stats.inclusion.beta.gouv.fr https://pilotage.inclusion.beta.gouv.fr https://communaute.inclusion.beta.gouv.fr https://inclusion.beta.gouv.fr blob: data:; script-src-elem 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-zO61ZORkBnZJEiS9VkQEog=='; font-src 'self' data:; default-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline'; frame-ancestors https://pilotage.inclusion.beta.gouv.fr; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org *.hotjar.com https://cdn.redoc.ly https://matomo.inclusion.beta.gouv.fr/; worker-src 'self' blob:",
 							"otherinfo": "The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: \nform-action\n\nThe directive(s): form-action are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything."
 						},
 						{
@@ -171,7 +179,7 @@
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
-							"evidence": "object-src 'none'; font-src 'self' data:; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org *.hotjar.com https://cdn.redoc.ly https://matomo.inclusion.beta.gouv.fr/; default-src 'self'; frame-ancestors https://pilotage.inclusion.beta.gouv.fr; worker-src 'self' blob:; script-src 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-upNGGjssKZd7O00PcdIM3g=='; base-uri 'none'; script-src-elem 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-upNGGjssKZd7O00PcdIM3g=='; style-src 'self' 'unsafe-inline'; frame-src https://app.livestorm.co *.hotjar.com https://tally.so https://stats.inclusion.beta.gouv.fr https://pilotage.inclusion.beta.gouv.fr https://communaute.inclusion.beta.gouv.fr https://inclusion.beta.gouv.fr blob: data:; connect-src 'self' *.sentry.io *.hotjar.com *.hotjar.io wss://*.hotjar.com https://matomo.inclusion.beta.gouv.fr/ https://cellar-c2.services.clever-cloud.com",
+							"evidence": "script-src 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-elVLRR2c9C5qyy8ek/jwjA=='; base-uri 'none'; connect-src 'self' *.sentry.io *.hotjar.com *.hotjar.io wss://*.hotjar.com https://matomo.inclusion.beta.gouv.fr/ https://cellar-c2.services.clever-cloud.com; frame-src https://app.livestorm.co *.hotjar.com https://tally.so https://stats.inclusion.beta.gouv.fr https://pilotage.inclusion.beta.gouv.fr https://communaute.inclusion.beta.gouv.fr https://inclusion.beta.gouv.fr blob: data:; script-src-elem 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-elVLRR2c9C5qyy8ek/jwjA=='; font-src 'self' data:; default-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline'; frame-ancestors https://pilotage.inclusion.beta.gouv.fr; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org *.hotjar.com https://cdn.redoc.ly https://matomo.inclusion.beta.gouv.fr/; worker-src 'self' blob:",
 							"otherinfo": "The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: \nform-action\n\nThe directive(s): form-action are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything."
 						}
 					],
@@ -181,7 +189,7 @@
 					"reference": "<p>http://www.w3.org/TR/CSP2/</p><p>http://www.w3.org/TR/CSP/</p><p>http://caniuse.com/#search=content+security+policy</p><p>http://content-security-policy.com/</p><p>https://github.com/shapesecurity/salvation</p><p>https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "7"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10055",
@@ -198,7 +206,7 @@
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
-							"evidence": "object-src 'none'; font-src 'self' data:; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org *.hotjar.com https://cdn.redoc.ly https://matomo.inclusion.beta.gouv.fr/; default-src 'self'; frame-ancestors https://pilotage.inclusion.beta.gouv.fr; worker-src 'self' blob:; script-src 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-/POhKi+4RUYI+AmJRrmu5A=='; base-uri 'none'; script-src-elem 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-/POhKi+4RUYI+AmJRrmu5A=='; style-src 'self' 'unsafe-inline'; frame-src https://app.livestorm.co *.hotjar.com https://tally.so https://stats.inclusion.beta.gouv.fr https://pilotage.inclusion.beta.gouv.fr https://communaute.inclusion.beta.gouv.fr https://inclusion.beta.gouv.fr blob: data:; connect-src 'self' *.sentry.io *.hotjar.com *.hotjar.io wss://*.hotjar.com https://matomo.inclusion.beta.gouv.fr/ https://cellar-c2.services.clever-cloud.com",
+							"evidence": "script-src 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-zQxOoCuXhVEmv+WTRG5Ccg=='; base-uri 'none'; connect-src 'self' *.sentry.io *.hotjar.com *.hotjar.io wss://*.hotjar.com https://matomo.inclusion.beta.gouv.fr/ https://cellar-c2.services.clever-cloud.com; frame-src https://app.livestorm.co *.hotjar.com https://tally.so https://stats.inclusion.beta.gouv.fr https://pilotage.inclusion.beta.gouv.fr https://communaute.inclusion.beta.gouv.fr https://inclusion.beta.gouv.fr blob: data:; script-src-elem 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-zQxOoCuXhVEmv+WTRG5Ccg=='; font-src 'self' data:; default-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline'; frame-ancestors https://pilotage.inclusion.beta.gouv.fr; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org *.hotjar.com https://cdn.redoc.ly https://matomo.inclusion.beta.gouv.fr/; worker-src 'self' blob:",
 							"otherinfo": "style-src includes unsafe-inline."
 						},
 						{
@@ -206,15 +214,15 @@
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
-							"evidence": "object-src 'none'; font-src 'self' data:; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org *.hotjar.com https://cdn.redoc.ly https://matomo.inclusion.beta.gouv.fr/; default-src 'self'; frame-ancestors https://pilotage.inclusion.beta.gouv.fr; worker-src 'self' blob:; script-src 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-u4Z/KiqOdRf5BBvH4Qri8A=='; base-uri 'none'; script-src-elem 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-u4Z/KiqOdRf5BBvH4Qri8A=='; style-src 'self' 'unsafe-inline'; frame-src https://app.livestorm.co *.hotjar.com https://tally.so https://stats.inclusion.beta.gouv.fr https://pilotage.inclusion.beta.gouv.fr https://communaute.inclusion.beta.gouv.fr https://inclusion.beta.gouv.fr blob: data:; connect-src 'self' *.sentry.io *.hotjar.com *.hotjar.io wss://*.hotjar.com https://matomo.inclusion.beta.gouv.fr/ https://cellar-c2.services.clever-cloud.com",
+							"evidence": "script-src 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/; base-uri 'none'; connect-src 'self' *.sentry.io *.hotjar.com *.hotjar.io wss://*.hotjar.com https://matomo.inclusion.beta.gouv.fr/ https://cellar-c2.services.clever-cloud.com; frame-src https://app.livestorm.co *.hotjar.com https://tally.so https://stats.inclusion.beta.gouv.fr https://pilotage.inclusion.beta.gouv.fr https://communaute.inclusion.beta.gouv.fr https://inclusion.beta.gouv.fr blob: data:; script-src-elem 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/; font-src 'self' data:; default-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline'; frame-ancestors https://pilotage.inclusion.beta.gouv.fr; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org *.hotjar.com https://cdn.redoc.ly https://matomo.inclusion.beta.gouv.fr/; worker-src 'self' blob:",
 							"otherinfo": "style-src includes unsafe-inline."
 						},
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/login/job_seeker",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/",
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
-							"evidence": "object-src 'none'; font-src 'self' data:; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org *.hotjar.com https://cdn.redoc.ly https://matomo.inclusion.beta.gouv.fr/; default-src 'self'; frame-ancestors https://pilotage.inclusion.beta.gouv.fr; worker-src 'self' blob:; script-src 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-BD2M15HlphoBQvp9WOEzQQ=='; base-uri 'none'; script-src-elem 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-BD2M15HlphoBQvp9WOEzQQ=='; style-src 'self' 'unsafe-inline'; frame-src https://app.livestorm.co *.hotjar.com https://tally.so https://stats.inclusion.beta.gouv.fr https://pilotage.inclusion.beta.gouv.fr https://communaute.inclusion.beta.gouv.fr https://inclusion.beta.gouv.fr blob: data:; connect-src 'self' *.sentry.io *.hotjar.com *.hotjar.io wss://*.hotjar.com https://matomo.inclusion.beta.gouv.fr/ https://cellar-c2.services.clever-cloud.com",
+							"evidence": "script-src 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/; base-uri 'none'; connect-src 'self' *.sentry.io *.hotjar.com *.hotjar.io wss://*.hotjar.com https://matomo.inclusion.beta.gouv.fr/ https://cellar-c2.services.clever-cloud.com; frame-src https://app.livestorm.co *.hotjar.com https://tally.so https://stats.inclusion.beta.gouv.fr https://pilotage.inclusion.beta.gouv.fr https://communaute.inclusion.beta.gouv.fr https://inclusion.beta.gouv.fr blob: data:; script-src-elem 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/; font-src 'self' data:; default-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline'; frame-ancestors https://pilotage.inclusion.beta.gouv.fr; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org *.hotjar.com https://cdn.redoc.ly https://matomo.inclusion.beta.gouv.fr/; worker-src 'self' blob:",
 							"otherinfo": "style-src includes unsafe-inline."
 						},
 						{
@@ -222,7 +230,7 @@
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
-							"evidence": "object-src 'none'; font-src 'self' data:; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org *.hotjar.com https://cdn.redoc.ly https://matomo.inclusion.beta.gouv.fr/; default-src 'self'; frame-ancestors https://pilotage.inclusion.beta.gouv.fr; worker-src 'self' blob:; script-src 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-ASh6OsuqA1hZ6Y1vmuS5jQ=='; base-uri 'none'; script-src-elem 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-ASh6OsuqA1hZ6Y1vmuS5jQ=='; style-src 'self' 'unsafe-inline'; frame-src https://app.livestorm.co *.hotjar.com https://tally.so https://stats.inclusion.beta.gouv.fr https://pilotage.inclusion.beta.gouv.fr https://communaute.inclusion.beta.gouv.fr https://inclusion.beta.gouv.fr blob: data:; connect-src 'self' *.sentry.io *.hotjar.com *.hotjar.io wss://*.hotjar.com https://matomo.inclusion.beta.gouv.fr/ https://cellar-c2.services.clever-cloud.com",
+							"evidence": "script-src 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-FGVXVyTpLCz0Vxb/EmLwsA=='; base-uri 'none'; connect-src 'self' *.sentry.io *.hotjar.com *.hotjar.io wss://*.hotjar.com https://matomo.inclusion.beta.gouv.fr/ https://cellar-c2.services.clever-cloud.com; frame-src https://app.livestorm.co *.hotjar.com https://tally.so https://stats.inclusion.beta.gouv.fr https://pilotage.inclusion.beta.gouv.fr https://communaute.inclusion.beta.gouv.fr https://inclusion.beta.gouv.fr blob: data:; script-src-elem 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-FGVXVyTpLCz0Vxb/EmLwsA=='; font-src 'self' data:; default-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline'; frame-ancestors https://pilotage.inclusion.beta.gouv.fr; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org *.hotjar.com https://cdn.redoc.ly https://matomo.inclusion.beta.gouv.fr/; worker-src 'self' blob:",
 							"otherinfo": "style-src includes unsafe-inline."
 						},
 						{
@@ -230,7 +238,7 @@
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
-							"evidence": "object-src 'none'; font-src 'self' data:; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org *.hotjar.com https://cdn.redoc.ly https://matomo.inclusion.beta.gouv.fr/; default-src 'self'; frame-ancestors https://pilotage.inclusion.beta.gouv.fr; worker-src 'self' blob:; script-src 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-4+tZzVMBPIUmR4plvF+MIw=='; base-uri 'none'; script-src-elem 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-4+tZzVMBPIUmR4plvF+MIw=='; style-src 'self' 'unsafe-inline'; frame-src https://app.livestorm.co *.hotjar.com https://tally.so https://stats.inclusion.beta.gouv.fr https://pilotage.inclusion.beta.gouv.fr https://communaute.inclusion.beta.gouv.fr https://inclusion.beta.gouv.fr blob: data:; connect-src 'self' *.sentry.io *.hotjar.com *.hotjar.io wss://*.hotjar.com https://matomo.inclusion.beta.gouv.fr/ https://cellar-c2.services.clever-cloud.com",
+							"evidence": "script-src 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-zO61ZORkBnZJEiS9VkQEog=='; base-uri 'none'; connect-src 'self' *.sentry.io *.hotjar.com *.hotjar.io wss://*.hotjar.com https://matomo.inclusion.beta.gouv.fr/ https://cellar-c2.services.clever-cloud.com; frame-src https://app.livestorm.co *.hotjar.com https://tally.so https://stats.inclusion.beta.gouv.fr https://pilotage.inclusion.beta.gouv.fr https://communaute.inclusion.beta.gouv.fr https://inclusion.beta.gouv.fr blob: data:; script-src-elem 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-zO61ZORkBnZJEiS9VkQEog=='; font-src 'self' data:; default-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline'; frame-ancestors https://pilotage.inclusion.beta.gouv.fr; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org *.hotjar.com https://cdn.redoc.ly https://matomo.inclusion.beta.gouv.fr/; worker-src 'self' blob:",
 							"otherinfo": "style-src includes unsafe-inline."
 						},
 						{
@@ -238,7 +246,7 @@
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
-							"evidence": "object-src 'none'; font-src 'self' data:; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org *.hotjar.com https://cdn.redoc.ly https://matomo.inclusion.beta.gouv.fr/; default-src 'self'; frame-ancestors https://pilotage.inclusion.beta.gouv.fr; worker-src 'self' blob:; script-src 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-upNGGjssKZd7O00PcdIM3g=='; base-uri 'none'; script-src-elem 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-upNGGjssKZd7O00PcdIM3g=='; style-src 'self' 'unsafe-inline'; frame-src https://app.livestorm.co *.hotjar.com https://tally.so https://stats.inclusion.beta.gouv.fr https://pilotage.inclusion.beta.gouv.fr https://communaute.inclusion.beta.gouv.fr https://inclusion.beta.gouv.fr blob: data:; connect-src 'self' *.sentry.io *.hotjar.com *.hotjar.io wss://*.hotjar.com https://matomo.inclusion.beta.gouv.fr/ https://cellar-c2.services.clever-cloud.com",
+							"evidence": "script-src 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-elVLRR2c9C5qyy8ek/jwjA=='; base-uri 'none'; connect-src 'self' *.sentry.io *.hotjar.com *.hotjar.io wss://*.hotjar.com https://matomo.inclusion.beta.gouv.fr/ https://cellar-c2.services.clever-cloud.com; frame-src https://app.livestorm.co *.hotjar.com https://tally.so https://stats.inclusion.beta.gouv.fr https://pilotage.inclusion.beta.gouv.fr https://communaute.inclusion.beta.gouv.fr https://inclusion.beta.gouv.fr blob: data:; script-src-elem 'self' https://stats.inclusion.beta.gouv.fr *.hotjar.com https://tally.so https://matomo.inclusion.beta.gouv.fr/ 'nonce-elVLRR2c9C5qyy8ek/jwjA=='; font-src 'self' data:; default-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline'; frame-ancestors https://pilotage.inclusion.beta.gouv.fr; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org *.hotjar.com https://cdn.redoc.ly https://matomo.inclusion.beta.gouv.fr/; worker-src 'self' blob:",
 							"otherinfo": "style-src includes unsafe-inline."
 						}
 					],
@@ -248,7 +256,7 @@
 					"reference": "<p>http://www.w3.org/TR/CSP2/</p><p>http://www.w3.org/TR/CSP/</p><p>http://caniuse.com/#search=content+security+policy</p><p>http://content-security-policy.com/</p><p>https://github.com/shapesecurity/salvation</p><p>https://developers.google.com/web/fundamentals/security/csp#policy_applies_to_a_wide_variety_of_resources</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "7"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "90003",
@@ -275,7 +283,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity</p>",
 					"cweid": "345",
 					"wascid": "15",
-					"sourceid": "86"
+					"sourceid": "95"
 				},
 				{
 					"pluginid": "10017",
@@ -302,7 +310,7 @@
 					"reference": "",
 					"cweid": "829",
 					"wascid": "15",
-					"sourceid": "86"
+					"sourceid": "95"
 				},
 				{
 					"pluginid": "10110",
@@ -315,7 +323,7 @@
 					"desc": "<p>A dangerous JS function seems to be in use that would leave the site vulnerable.</p>",
 					"instances":[ 
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/htmx-1.8.2/htmx.min.5fab9329fc84.js",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/htmx/htmx.min.5fab9329fc84.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -323,7 +331,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/jquery-3.6.1/jquery-3.6.1.min.00727d1d5d9c.js",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/jquery/jquery.min.00727d1d5d9c.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -345,7 +353,7 @@
 					"reference": "<p>https://angular.io/guide/security</p>",
 					"cweid": "749",
 					"wascid": "-1",
-					"sourceid": "133"
+					"sourceid": "128"
 				},
 				{
 					"pluginid": "10063",
@@ -366,7 +374,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/accessibility/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -374,7 +382,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/accessibility/",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/legal/notice/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -422,6 +430,14 @@
 							"otherinfo": ""
 						},
 						{
+							"uri": "https://emplois.inclusion.beta.gouv.fr/search/employers",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
 							"uri": "https://emplois.inclusion.beta.gouv.fr/search/prescribers",
 							"method": "GET",
 							"param": "",
@@ -446,7 +462,7 @@
 							"otherinfo": ""
 						}
 					],
-					"count": "11",
+					"count": "12",
 					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to set the Permissions-Policy header.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy</p><p>https://developer.chrome.com/blog/feature-policy/</p><p>https://scotthelme.co.uk/a-new-security-header-feature-policy/</p><p>https://w3c.github.io/webappsec-feature-policy/</p><p>https://www.smashingmagazine.com/2018/12/feature-policy/</p>",
@@ -473,7 +489,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/bootstrap-4.6.2/bootstrap.min.a3b2689424c3.js",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/bootstrap/bootstrap.min.a3b2689424c3.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -481,7 +497,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/bootstrap-4.6.2/popper.min.47dc3aaf2942.js",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/bootstrap/popper.min.47dc3aaf2942.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -489,7 +505,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/duetds-date-picker-1.4.0/duet.dbfcb59d4538.js",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/duetds-date-picker/duet.dbfcb59d4538.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -497,7 +513,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/duetds-date-picker-1.4.0/themes/default.b38a64ac08f9.css",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/duetds-date-picker/themes/default.b38a64ac08f9.css",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -505,7 +521,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/jquery-3.6.1/jquery-3.6.1.min.00727d1d5d9c.js",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/jquery-ui/jquery-ui.min.5a5a1763f59f.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -513,7 +529,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/jquery-ui-1.13.2/jquery-ui.min.1efa74461176.css",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/jquery-ui/jquery-ui.min.6ea3d54c1cf7.css",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -521,7 +537,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/jquery-ui-1.13.2/jquery-ui.min.450c5ebb41a8.js",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/jquery/jquery.min.00727d1d5d9c.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -545,7 +561,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/theme-inclusion/javascripts/app.71e482c03ead.js",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/theme-inclusion/javascripts/app.3947473439cd.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -567,7 +583,7 @@
 					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html</p><p>https://owasp.org/www-community/Security_Headers</p><p>http://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security</p><p>http://caniuse.com/stricttransportsecurity</p><p>http://tools.ietf.org/html/rfc6797</p>",
 					"cweid": "319",
 					"wascid": "15",
-					"sourceid": "115"
+					"sourceid": "107"
 				},
 				{
 					"pluginid": "10096",
@@ -594,7 +610,7 @@
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "83"
+					"sourceid": "87"
 				},
 				{
 					"pluginid": "10021",
@@ -615,7 +631,7 @@
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
 						},
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/bootstrap-4.6.2/bootstrap.min.a3b2689424c3.js",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/bootstrap/bootstrap.min.a3b2689424c3.js",
 							"method": "GET",
 							"param": "x-content-type-options",
 							"attack": "",
@@ -623,7 +639,7 @@
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
 						},
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/bootstrap-4.6.2/popper.min.47dc3aaf2942.js",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/bootstrap/popper.min.47dc3aaf2942.js",
 							"method": "GET",
 							"param": "x-content-type-options",
 							"attack": "",
@@ -631,7 +647,7 @@
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
 						},
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/duetds-date-picker-1.4.0/duet.dbfcb59d4538.js",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/duetds-date-picker/duet.dbfcb59d4538.js",
 							"method": "GET",
 							"param": "x-content-type-options",
 							"attack": "",
@@ -639,7 +655,7 @@
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
 						},
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/duetds-date-picker-1.4.0/themes/default.b38a64ac08f9.css",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/duetds-date-picker/themes/default.b38a64ac08f9.css",
 							"method": "GET",
 							"param": "x-content-type-options",
 							"attack": "",
@@ -647,7 +663,7 @@
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
 						},
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/jquery-3.6.1/jquery-3.6.1.min.00727d1d5d9c.js",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/htmx/htmx.min.5fab9329fc84.js",
 							"method": "GET",
 							"param": "x-content-type-options",
 							"attack": "",
@@ -655,7 +671,7 @@
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
 						},
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/jquery-ui-1.13.2/jquery-ui.min.1efa74461176.css",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/jquery-ui/jquery-ui.min.5a5a1763f59f.js",
 							"method": "GET",
 							"param": "x-content-type-options",
 							"attack": "",
@@ -663,7 +679,15 @@
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
 						},
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/jquery-ui-1.13.2/jquery-ui.min.450c5ebb41a8.js",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/jquery-ui/jquery-ui.min.6ea3d54c1cf7.css",
+							"method": "GET",
+							"param": "x-content-type-options",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
+						},
+						{
+							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/jquery/jquery.min.00727d1d5d9c.js",
 							"method": "GET",
 							"param": "x-content-type-options",
 							"attack": "",
@@ -687,15 +711,7 @@
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
 						},
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/theme-inclusion/javascripts/app.71e482c03ead.js",
-							"method": "GET",
-							"param": "x-content-type-options",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
-						},
-						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/theme-inclusion/stylesheets/app.4f8dd5bb79eb.css",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/static/vendor/theme-inclusion/javascripts/app.3947473439cd.js",
 							"method": "GET",
 							"param": "x-content-type-options",
 							"attack": "",
@@ -709,7 +725,7 @@
 					"reference": "<p>http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx</p><p>https://owasp.org/www-community/Security_Headers</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "115"
+					"sourceid": "107"
 				},
 				{
 					"pluginid": "10111",
@@ -760,7 +776,7 @@
 					"reference": "<p>https://www.zaproxy.org/docs/desktop/addons/authentication-helper/auth-req-id/</p>",
 					"cweid": "-1",
 					"wascid": "-1",
-					"sourceid": "167"
+					"sourceid": "163"
 				},
 				{
 					"pluginid": "10094",
@@ -781,7 +797,7 @@
 							"otherinfo": "~\uFFFD\uFFFDs\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD^\uFFFD\uFFFDx\uFFFD}\uFFFD\uFFFD}\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\u0A1A\uFFFD\u079D\uFFFD\uFFFD\uFFFD_\uFFFD\\x0000"
 						},
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/accessibility/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -789,7 +805,7 @@
 							"otherinfo": "~\uFFFD\uFFFDs\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD^\uFFFD\uFFFDx\uFFFD}\uFFFD\uFFFD}\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\u0A1A\uFFFD\u079D\uFFFD\uFFFD\uFFFD_\uFFFD\\x0000"
 						},
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/accessibility/",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/legal/notice/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -837,6 +853,14 @@
 							"otherinfo": "~\uFFFD\uFFFDs\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD^\uFFFD\uFFFDx\uFFFD}\uFFFD\uFFFD}\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\u0A1A\uFFFD\u079D\uFFFD\uFFFD\uFFFD_\uFFFD\\x0000"
 						},
 						{
+							"uri": "https://emplois.inclusion.beta.gouv.fr/search/employers",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "fr/hc/fr/articles/14733403281937--Comprendre-l-IAE",
+							"otherinfo": "~\uFFFD\uFFFDs\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD^\uFFFD\uFFFDx\uFFFD}\uFFFD\uFFFD}\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\u0A1A\uFFFD\u079D\uFFFD\uFFFD\uFFFD_\uFFFD\\x0000"
+						},
+						{
 							"uri": "https://emplois.inclusion.beta.gouv.fr/search/prescribers",
 							"method": "GET",
 							"param": "",
@@ -861,7 +885,7 @@
 							"otherinfo": "~\uFFFD\uFFFDs\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD^\uFFFD\uFFFDx\uFFFD}\uFFFD\uFFFD}\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\u0A1A\uFFFD\u079D\uFFFD\uFFFD\uFFFD_\uFFFD\\x0000"
 						}
 					],
-					"count": "11",
+					"count": "12",
 					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
 					"otherinfo": "<p>~\uFFFD\uFFFDs\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD^\uFFFD\uFFFDx\uFFFD}\uFFFD\uFFFD}\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\u0A1A\uFFFD\u079D\uFFFD\uFFFD\uFFFD_\uFFFD\\x0000</p>",
 					"reference": "<p>https://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
@@ -918,7 +942,7 @@
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "259"
+					"sourceid": "245"
 				},
 				{
 					"pluginid": "10027",
@@ -936,23 +960,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "user",
-							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"/POhKi+4RUYI+AmJRrmu5A==\">\n            // Tarteaucitron's language is set according to the browser configuration\n\", see evidence field for the suspicious comment/snippet."
-						},
-						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "user",
-							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"u4Z/KiqOdRf5BBvH4Qri8A==\">\n            // Tarteaucitron's language is set according to the browser configuration\n\", see evidence field for the suspicious comment/snippet."
-						},
-						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "user",
-							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"AYXUeR32OFGs5DAuPyIddw==\">\n            // Tarteaucitron's language is set according to the browser configuration\n\", see evidence field for the suspicious comment/snippet."
+							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"zQxOoCuXhVEmv+WTRG5Ccg==\">\n            // Tarteaucitron's language is set according to the browser configuration\n\", see evidence field for the suspicious comment/snippet."
 						},
 						{
 							"uri": "https://emplois.inclusion.beta.gouv.fr/accessibility/",
@@ -960,7 +968,15 @@
 							"param": "",
 							"attack": "",
 							"evidence": "user",
-							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"Mzh8QqJtYcRPPFSuaFfVdA==\">\n            // Tarteaucitron's language is set according to the browser configuration\n\", see evidence field for the suspicious comment/snippet."
+							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"gzWpwBYg6jyp+7xoejcs/Q==\">\n            // Tarteaucitron's language is set according to the browser configuration\n\", see evidence field for the suspicious comment/snippet."
+						},
+						{
+							"uri": "https://emplois.inclusion.beta.gouv.fr/legal/notice/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "user",
+							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"J9j6AvX7twedwtHsSsoqiA==\">\n            // Tarteaucitron's language is set according to the browser configuration\n\", see evidence field for the suspicious comment/snippet."
 						},
 						{
 							"uri": "https://emplois.inclusion.beta.gouv.fr/login/job_seeker",
@@ -968,7 +984,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "user",
-							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"BD2M15HlphoBQvp9WOEzQQ==\">\n            // Tarteaucitron's language is set according to the browser configuration\n\", see evidence field for the suspicious comment/snippet."
+							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"6IcIaq8rI9+3SVJa0kqhOA==\">\n            // Tarteaucitron's language is set according to the browser configuration\n\", see evidence field for the suspicious comment/snippet."
 						},
 						{
 							"uri": "https://emplois.inclusion.beta.gouv.fr/login/labor_inspector",
@@ -976,7 +992,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "user",
-							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"YL3uShn2bdOfAyxAIuoCiQ==\">\n            // Tarteaucitron's language is set according to the browser configuration\n\", see evidence field for the suspicious comment/snippet."
+							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"kJNmF5yIHzNcsoHIDkxMvg==\">\n            // Tarteaucitron's language is set according to the browser configuration\n\", see evidence field for the suspicious comment/snippet."
 						},
 						{
 							"uri": "https://emplois.inclusion.beta.gouv.fr/login/prescriber",
@@ -984,7 +1000,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "user",
-							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"8zc3o2F+4zkTy6pm+6LMhQ==\">\n            // Tarteaucitron's language is set according to the browser configuration\n\", see evidence field for the suspicious comment/snippet."
+							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"GhzyntsfjXzqj09uZYxhxQ==\">\n            // Tarteaucitron's language is set according to the browser configuration\n\", see evidence field for the suspicious comment/snippet."
 						},
 						{
 							"uri": "https://emplois.inclusion.beta.gouv.fr/login/siae_staff",
@@ -992,7 +1008,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "user",
-							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"PIYNOchAJnh8eurEs6f2uA==\">\n            // Tarteaucitron's language is set according to the browser configuration\n\", see evidence field for the suspicious comment/snippet."
+							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"7DnfL/otM25YmeIAk6/yDA==\">\n            // Tarteaucitron's language is set according to the browser configuration\n\", see evidence field for the suspicious comment/snippet."
 						},
 						{
 							"uri": "https://emplois.inclusion.beta.gouv.fr/robots.txt",
@@ -1000,7 +1016,15 @@
 							"param": "",
 							"attack": "",
 							"evidence": "user",
-							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"ASh6OsuqA1hZ6Y1vmuS5jQ==\">\n            // Tarteaucitron's language is set according to the browser configuration\n\", see evidence field for the suspicious comment/snippet."
+							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"FGVXVyTpLCz0Vxb/EmLwsA==\">\n            // Tarteaucitron's language is set according to the browser configuration\n\", see evidence field for the suspicious comment/snippet."
+						},
+						{
+							"uri": "https://emplois.inclusion.beta.gouv.fr/search/employers",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "user",
+							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"wzaXxDCbEqjwjz3rtQW9Vw==\">\n            // Tarteaucitron's language is set according to the browser configuration\n\", see evidence field for the suspicious comment/snippet."
 						},
 						{
 							"uri": "https://emplois.inclusion.beta.gouv.fr/search/prescribers",
@@ -1008,7 +1032,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "user",
-							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"CokIuHYrS5KGaF8onefrvg==\">\n            // Tarteaucitron's language is set according to the browser configuration\n\", see evidence field for the suspicious comment/snippet."
+							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"6WVku45AE5t3m3DBO7gCXg==\">\n            // Tarteaucitron's language is set according to the browser configuration\n\", see evidence field for the suspicious comment/snippet."
 						},
 						{
 							"uri": "https://emplois.inclusion.beta.gouv.fr/signup/",
@@ -1016,7 +1040,7 @@
 							"param": "",
 							"attack": "",
 							"evidence": "user",
-							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"4+tZzVMBPIUmR4plvF+MIw==\">\n            // Tarteaucitron's language is set according to the browser configuration\n\", see evidence field for the suspicious comment/snippet."
+							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"zO61ZORkBnZJEiS9VkQEog==\">\n            // Tarteaucitron's language is set according to the browser configuration\n\", see evidence field for the suspicious comment/snippet."
 						},
 						{
 							"uri": "https://emplois.inclusion.beta.gouv.fr/sitemap.xml",
@@ -1024,16 +1048,16 @@
 							"param": "",
 							"attack": "",
 							"evidence": "user",
-							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"upNGGjssKZd7O00PcdIM3g==\">\n            // Tarteaucitron's language is set according to the browser configuration\n\", see evidence field for the suspicious comment/snippet."
+							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"elVLRR2c9C5qyy8ek/jwjA==\">\n            // Tarteaucitron's language is set according to the browser configuration\n\", see evidence field for the suspicious comment/snippet."
 						}
 					],
 					"count": "12",
 					"solution": "<p>Remove all comments that return information that may help an attacker and fix any underlying problems they refer to.</p>",
-					"otherinfo": "<p>The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"/POhKi+4RUYI+AmJRrmu5A==\"></p><p>            // Tarteaucitron's language is set according to the browser configuration</p><p>\", see evidence field for the suspicious comment/snippet.</p>",
+					"otherinfo": "<p>The following pattern was used: \\bUSER\\b and was detected in the element starting with: \"<script nonce=\"zQxOoCuXhVEmv+WTRG5Ccg==\"></p><p>            // Tarteaucitron's language is set according to the browser configuration</p><p>\", see evidence field for the suspicious comment/snippet.</p>",
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "7"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10109",
@@ -1100,7 +1124,7 @@
 					"reference": "",
 					"cweid": "-1",
 					"wascid": "-1",
-					"sourceid": "83"
+					"sourceid": "87"
 				},
 				{
 					"pluginid": "10049",
@@ -1112,6 +1136,22 @@
 					"riskdesc": "Informational (Medium)",
 					"desc": "<p>The response contents are not storable by caching components such as proxy servers. If the response does not contain sensitive, personal or user-specific information, it may benefit from being stored and cached, to improve performance.</p>",
 					"instances":[ 
+						{
+							"uri": "https://emplois.inclusion.beta.gouv.fr",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "302",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://emplois.inclusion.beta.gouv.fr/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "302",
+							"otherinfo": ""
+						},
 						{
 							"uri": "https://emplois.inclusion.beta.gouv.fr/login/job_seeker",
 							"method": "GET",
@@ -1145,13 +1185,13 @@
 							"otherinfo": ""
 						}
 					],
-					"count": "4",
+					"count": "6",
 					"solution": "<p>The content may be marked as storable by ensuring that the following conditions are satisfied:</p><p>The request method must be understood by the cache and defined as being cacheable (\"GET\", \"HEAD\", and \"POST\" are currently defined as cacheable)</p><p>The response status code must be understood by the cache (one of the 1XX, 2XX, 3XX, 4XX, or 5XX response classes are generally understood)</p><p>The \"no-store\" cache directive must not appear in the request or response header fields</p><p>For caching by \"shared\" caches such as \"proxy\" caches, the \"private\" response directive must not appear in the response</p><p>For caching by \"shared\" caches such as \"proxy\" caches, the \"Authorization\" header field must not appear in the request, unless the response explicitly allows it (using one of the \"must-revalidate\", \"public\", or \"s-maxage\" Cache-Control response directives)</p><p>In addition to the conditions above, at least one of the following conditions must also be satisfied by the response:</p><p>It must contain an \"Expires\" header field</p><p>It must contain a \"max-age\" response directive</p><p>For \"shared\" caches such as \"proxy\" caches, it must contain a \"s-maxage\" response directive</p><p>It must contain a \"Cache Control Extension\" that allows it to be cached</p><p>It must have a status code that is defined as cacheable by default (200, 203, 204, 206, 300, 301, 404, 405, 410, 414, 501).   </p>",
 					"otherinfo": "",
 					"reference": "<p>https://datatracker.ietf.org/doc/html/rfc7234</p><p>https://datatracker.ietf.org/doc/html/rfc7231</p><p>https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "51"
+					"sourceid": "7"
 				},
 				{
 					"pluginid": "10015",
@@ -1172,7 +1212,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/accessibility/",
 							"method": "GET",
 							"param": "cache-control",
 							"attack": "",
@@ -1180,7 +1220,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/accessibility/",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/accounts/password/reset/",
 							"method": "GET",
 							"param": "cache-control",
 							"attack": "",
@@ -1220,6 +1260,14 @@
 							"otherinfo": ""
 						},
 						{
+							"uri": "https://emplois.inclusion.beta.gouv.fr/search/employers",
+							"method": "GET",
+							"param": "cache-control",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
 							"uri": "https://emplois.inclusion.beta.gouv.fr/search/prescribers",
 							"method": "GET",
 							"param": "cache-control",
@@ -1252,7 +1300,7 @@
 							"otherinfo": ""
 						}
 					],
-					"count": "11",
+					"count": "12",
 					"solution": "<p>For secure content, ensure the cache-control HTTP header is set with \"no-cache, no-store, must-revalidate\". If an asset should be cached consider setting the directives \"public, max-age, immutable\".</p>",
 					"otherinfo": "",
 					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching</p><p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control</p><p>https://grayduck.mn/2021/09/13/cache-control-recommendations/</p>",
@@ -1285,17 +1333,9 @@
 							"attack": "",
 							"evidence": "",
 							"otherinfo": ""
-						},
-						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/sitemap.xml",
-							"method": "GET",
-							"param": "Sec-Fetch-Dest",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
 						}
 					],
-					"count": "3",
+					"count": "2",
 					"solution": "<p>Ensure that Sec-Fetch-Dest header is included in request headers.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Dest</p>",
@@ -1328,17 +1368,9 @@
 							"attack": "",
 							"evidence": "",
 							"otherinfo": ""
-						},
-						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/sitemap.xml",
-							"method": "GET",
-							"param": "Sec-Fetch-Mode",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
 						}
 					],
-					"count": "3",
+					"count": "2",
 					"solution": "<p>Ensure that Sec-Fetch-Mode header is included in request headers.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Mode</p>",
@@ -1371,17 +1403,9 @@
 							"attack": "",
 							"evidence": "",
 							"otherinfo": ""
-						},
-						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/sitemap.xml",
-							"method": "GET",
-							"param": "Sec-Fetch-Site",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
 						}
 					],
-					"count": "3",
+					"count": "2",
 					"solution": "<p>Ensure that Sec-Fetch-Site header is included in request headers.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Site</p>",
@@ -1414,17 +1438,9 @@
 							"attack": "",
 							"evidence": "",
 							"otherinfo": ""
-						},
-						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/sitemap.xml",
-							"method": "GET",
-							"param": "Sec-Fetch-User",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
 						}
 					],
-					"count": "3",
+					"count": "2",
 					"solution": "<p>Ensure that Sec-Fetch-User header is included in user initiated requests.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-User</p>",
@@ -1447,7 +1463,7 @@
 							"method": "GET",
 							"param": "sessionid",
 							"attack": "",
-							"evidence": "koymd633op38ynh08bbqknmj8olct43s",
+							"evidence": "am32xiep9dldqaeygjz48v7eocy720ol",
 							"otherinfo": "\ncookie:sessionid"
 						},
 						{
@@ -1455,7 +1471,7 @@
 							"method": "GET",
 							"param": "sessionid",
 							"attack": "",
-							"evidence": "b5eeqqmx35angzdn07r1bhh8te02mlly",
+							"evidence": "j1w9k6sl4nxe226k7vc2tvkdop2yqqff",
 							"otherinfo": "\ncookie:sessionid"
 						},
 						{
@@ -1463,7 +1479,7 @@
 							"method": "GET",
 							"param": "sessionid",
 							"attack": "",
-							"evidence": "koymd633op38ynh08bbqknmj8olct43s",
+							"evidence": "am32xiep9dldqaeygjz48v7eocy720ol",
 							"otherinfo": "\ncookie:sessionid"
 						},
 						{
@@ -1471,7 +1487,7 @@
 							"method": "GET",
 							"param": "sessionid",
 							"attack": "",
-							"evidence": "koymd633op38ynh08bbqknmj8olct43s",
+							"evidence": "am32xiep9dldqaeygjz48v7eocy720ol",
 							"otherinfo": "\ncookie:sessionid"
 						},
 						{
@@ -1479,25 +1495,17 @@
 							"method": "GET",
 							"param": "sessionid",
 							"attack": "",
-							"evidence": "koymd633op38ynh08bbqknmj8olct43s",
-							"otherinfo": "\ncookie:sessionid"
-						},
-						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/accounts/peamu/login/",
-							"method": "POST",
-							"param": "sessionid",
-							"attack": "",
-							"evidence": "koymd633op38ynh08bbqknmj8olct43s",
+							"evidence": "am32xiep9dldqaeygjz48v7eocy720ol",
 							"otherinfo": "\ncookie:sessionid"
 						}
 					],
-					"count": "6",
+					"count": "5",
 					"solution": "<p>This is an informational alert rather than a vulnerability and so there is nothing to fix.</p>",
 					"otherinfo": "<p></p><p>cookie:sessionid</p>",
 					"reference": "<p>https://www.zaproxy.org/docs/desktop/addons/authentication-helper/session-mgmt-id</p>",
 					"cweid": "-1",
 					"wascid": "-1",
-					"sourceid": "51"
+					"sourceid": "47"
 				},
 				{
 					"pluginid": "10049",
@@ -1511,14 +1519,6 @@
 					"instances":[ 
 						{
 							"uri": "https://emplois.inclusion.beta.gouv.fr",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
-						},
-						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1542,7 +1542,7 @@
 							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
 						},
 						{
-							"uri": "https://emplois.inclusion.beta.gouv.fr/search/prescribers",
+							"uri": "https://emplois.inclusion.beta.gouv.fr/search/employers",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1566,7 +1566,7 @@
 							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
 						}
 					],
-					"count": "7",
+					"count": "6",
 					"solution": "<p>Validate that the response does not contain sensitive, personal or user-specific information.  If it does, consider the use of the following HTTP response headers, to limit, or prevent the content being stored and retrieved from the cache by another user:</p><p>Cache-Control: no-cache, no-store, must-revalidate, private</p><p>Pragma: no-cache</p><p>Expires: 0</p><p>This configuration directs both HTTP 1.0 and HTTP 1.1 compliant caching servers to not store the response, and to not retrieve the response (without validation) from the cache, in response to a similar request. </p>",
 					"otherinfo": "<p>In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.</p>",
 					"reference": "<p>https://datatracker.ietf.org/doc/html/rfc7234</p><p>https://datatracker.ietf.org/doc/html/rfc7231</p><p>https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html</p>",
@@ -1687,7 +1687,7 @@
 					"reference": "<p>http://websecuritytool.codeplex.com/wikipage?title=Checks#user-controlled-html-attribute</p>",
 					"cweid": "20",
 					"wascid": "20",
-					"sourceid": "159"
+					"sourceid": "164"
 				}
 			]
 		}
