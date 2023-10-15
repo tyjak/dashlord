@@ -1,0 +1,504 @@
+[
+  [
+    {
+      "template": "dns/dns-saas-service-detection.yaml",
+      "template-url": "https://templates.nuclei.sh/public/dns-saas-service-detection",
+      "template-id": "dns-saas-service-detection",
+      "template-path": "/home/runner/nuclei-templates/dns/dns-saas-service-detection.yaml",
+      "info": {
+        "name": "DNS SaaS Service Detection",
+        "author": [
+          "noah @thesubtlety",
+          "pdteam"
+        ],
+        "tags": [
+          "dns",
+          "service"
+        ],
+        "description": "A CNAME DNS record was discovered",
+        "reference": [
+          "https://ns1.com/resources/cname",
+          "https://www.theregister.com/2021/02/24/dns_cname_tracking/",
+          "https://www.ionos.com/digitalguide/hosting/technical-matters/cname-record/"
+        ],
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "type": "dns",
+      "host": "admin.snu.gouv.fr.",
+      "matched-at": "admin.snu.gouv.fr",
+      "extracted-results": [
+        "ttrbatwx-snu-admin.baleen.cshield.net."
+      ],
+      "request": ";; opcode: QUERY, status: NOERROR, id: 42668\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 4096\n\n;; QUESTION SECTION:\n;admin.snu.gouv.fr.\tIN\t CNAME\n",
+      "response": ";; opcode: QUERY, status: NOERROR, id: 42668\n;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 1232\n\n;; QUESTION SECTION:\n;admin.snu.gouv.fr.\tIN\t CNAME\n\n;; ANSWER SECTION:\nadmin.snu.gouv.fr.\t86400\tIN\tCNAME\tttrbatwx-snu-admin.baleen.cshield.net.\n",
+      "timestamp": "2023-10-15T12:54:36.14848598Z",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/xss-deprecated-header.yaml",
+      "template-url": "https://templates.nuclei.sh/public/xss-deprecated-header",
+      "template-id": "xss-deprecated-header",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/xss-deprecated-header.yaml",
+      "info": {
+        "name": "XSS-Protection Header - Cross-Site Scripting",
+        "author": [
+          "joshlarsen"
+        ],
+        "tags": [
+          "xss",
+          "misconfig",
+          "generic"
+        ],
+        "description": "Setting the XSS-Protection header is deprecated. Setting the header to anything other than `0` can actually introduce an XSS vulnerability.",
+        "reference": [
+          "https://developer.mozilla.org/en-us/docs/web/http/headers/x-xss-protection",
+          "https://owasp.org/www-project-secure-headers/#x-xss-protection"
+        ],
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        },
+        "classification": {
+          "cve-id": null,
+          "cwe-id": null,
+          "cvss-metrics": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N"
+        }
+      },
+      "type": "http",
+      "host": "https://admin.snu.gouv.fr",
+      "matched-at": "https://admin.snu.gouv.fr",
+      "extracted-results": [
+        "1; mode=block"
+      ],
+      "request": "GET / HTTP/1.1\r\nHost: admin.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache\r\nContent-Type: text/html\r\nDate: Sun, 15 Oct 2023 12:54:51 GMT\r\nReferrer-Policy: no-referrer\r\nStrict-Transport-Security: max-age=63072000\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctypehtml><meta name=\"viewport\"content=\"width=device-width\"><meta charset=\"utf-8\"><script></script><script>var __blnChallengeStore={\"unregisterServiceWorker\":false,\"domain\":\".snu.gouv.fr\",\"checkChallengeParams\":{\"tracking_id\":\"\",\"request_fate\":\"challengejs\",\"rule_id\":\"\",\"bot_category\":\"unknown\"},\"cookie\":{\"value\":\"wmgh7MrSHvpvttttFsmIuDb81hoWSktTZ26mjHCDkUPDBYpdDWGrfZZbvZ4xrV-L0GZkXTOcM9ptIzqjMIgfYThc9OJG3aCTxANL4JpPxsDLRReEO5DESmON0ttudl2MC0uVLnMBJnYUs93uh1sLHgHbRBvFM1KdvTLgVfSEJ0E79pobbnQsZsECGztkn_f1nbiiKzD8kR2Lo2Ilm_8QNw\",\"maxAge\":900,\"path\":\"\\/\",\"name\":\"bln_challengejs\"}};(()=>{\"use strict\";const e=function*({domain:e,maxAge:n,name:o,path:a,secure:t,value:i}){yield`${o}=${i}`,void 0!==e&&\"\"!==e&&(yield`Domain=${e}`),void 0!==a&&\"\"!==a&&(yield`Path=${a}`),void 0!==n&&(yield`Max-Age=${n}`),t&&(yield\"Secure\")},n=e=>{const n=document.cookie.match(`${e}=([a-zA-Z0-9-_]*);?`);if(n)return{name:e,value:n[1]}},o=n=>{const o=[...e(n)].join(\"; \");document.cookie=o},a=(e,n)=>{if(!e||!e.name)return n;const o=new RegExp(`([?&])(${e.name})=([^&#]*)`,\"u\");if(!n.match(o)){const o=n.startsWith(\"?\")?\"&\":\"?\";return`${n}${o}${e.name}=${e.value}`}return n.replace(o,`$1$2=${e.value}`)},t=()=>{const{cookie:e,checkChallengeParams:n={}}=__blnChallengeStore,{name:o,value:a}=e,t=new XMLHttpRequest,i=`/.well-known/baleen/challengejs/check?${o}=${a}`,r=Object.entries(n).map((([e,n])=>`${e}=${n}`)).join(\"&\");t.open(\"POST\",i),t.send(r)},i=e=>setTimeout((()=>{e?window.location=e:window.location.reload()}),2),r=()=>{if(!(()=>{const{cookie:a,cookieReferer:r,domain:c}=__blnChallengeStore;return!!(()=>{const a={domain:__blnChallengeStore.domain,name:\"tst_bln_cookie_enabled\",value:\"1\"};return o(a),!!n(a.name)&&((({name:n,domain:o})=>{const a=[...e({domain:o,maxAge:-1,name:n,value:\"\"})].join(\"; \");document.cookie=a})(a),!0)})()&&(o({domain:c,...a}),!!n(a.name)&&(r&&o({domain:c,...r}),t(),i(),!0))})()){const e=(()=>{const{cookie:e,cookieReferer:n}=__blnChallengeStore||{},{origin:o,pathname:t,search:i,hash:r}=window.location;return`${o}${t}${a(n,a(e,i))}${r}`})();setTimeout((()=>{t(),i(e)}),1e3)}};(()=>{const{unregisterServiceWorker:e}=__blnChallengeStore||{};e&&navigator&&navigator.serviceWorker?navigator.serviceWorker.getRegistrations().then((e=>Promise.all(e.map((e=>e.unregister()))))).then((()=>r())).catch((()=>r())):r()})()})();</script><link href=\"https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap\"rel=\"stylesheet\"><link href=\"/.well-known/baleen/challengejs/assets/style.css\"rel=\"stylesheet\"><body><noscript><div class=\"challengejs-container\"><div class=\"container\"><div class=\"challengejs-body\"><div class=\"challengejs-card\"><img src=\"/.well-known/baleen/challengejs/assets/logo.svg\"><div class=\"challengejs-message-1\">Le JavaScript n'est pas activé sur votre navigateur.</div><div class=\"separator\"></div><div class=\"challengejs-message-2\">Le JavaScript n'est pas activé sur votre navigateur. Pour vous permettre de naviguer correctement sur notre site, il est nécessaire qu'il soit activé.</div><div class=\"challengejs-message-3\"><div class=\"how\"><span>Comment activer le JavaScript ?</span></div><div class=\"drop\"><div class=\"how-to chrome\"><div>Chrome</div><a href=\"https://support.google.com/chrome\">https://support.google.com/chrome</a></div><div class=\"how-to firefox\"><div>Mozilla Firefox</div><a href=\"https://support.mozilla.org/fr/home\">https://support.mozilla.org/fr/home</a></div><div class=\"how-to safari\"><div>Safari</div><a href=\"https://www.apple.com/support/safari/\">https://www.apple.com/support/safari/</a></div><div class=\"how-to opera\"><div>Opera</div><a href=\"https://support.google.com/adsense/answer/12654?hl=fr\">https://support.google.com/adsense/answer/12654?hl=fr</a></div><div class=\"how-to explorer\"><div>Internet Explorer</div><a href=\"https://support.microsoft.com/product/internet-explorer\">https://support.microsoft.com/product/internet-explorer</a></div></div></div></div></div></div></div></noscript>",
+      "ip": "185.231.167.165",
+      "timestamp": "2023-10-15T12:54:51.33526976Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://admin.snu.gouv.fr'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/technologies/tech-detect.yaml",
+      "template-url": "https://templates.nuclei.sh/public/tech-detect",
+      "template-id": "tech-detect",
+      "template-path": "/home/runner/nuclei-templates/http/technologies/tech-detect.yaml",
+      "info": {
+        "name": "Wappalyzer Technology Detection",
+        "author": [
+          "hakluke"
+        ],
+        "tags": [
+          "tech"
+        ],
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "google-font-api",
+      "type": "http",
+      "host": "https://admin.snu.gouv.fr",
+      "matched-at": "https://admin.snu.gouv.fr",
+      "request": "GET / HTTP/1.1\r\nHost: admin.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache\r\nContent-Type: text/html\r\nDate: Sun, 15 Oct 2023 12:55:11 GMT\r\nReferrer-Policy: no-referrer\r\nStrict-Transport-Security: max-age=63072000\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctypehtml><meta name=\"viewport\"content=\"width=device-width\"><meta charset=\"utf-8\"><script></script><script>var __blnChallengeStore={\"unregisterServiceWorker\":false,\"checkChallengeParams\":{\"tracking_id\":\"\",\"request_fate\":\"challengejs\",\"rule_id\":\"\",\"bot_category\":\"unknown\"},\"cookie\":{\"value\":\"wmgh7MrSHvpvttttFsmIuEh_EZj5NLA9LjyixZGY5GWyF635-zLZJaF-gF1XR61qkqJU91CQrXZ19_2lMOzgMTVVHlmP3gnf5ZcsiWuqfeuGvpYNfVSdvhpO6ATQPw1krr6G7-8IztkKfnXHZ5Z7SmRCfu4I7d8jg2U0R0uZWEEzAcgfFg9qpxb0wm76T3wnIT3sVYilQxohEUWTattSdQ\",\"path\":\"\\/\",\"maxAge\":900,\"name\":\"bln_challengejs\"},\"domain\":\".snu.gouv.fr\"};(()=>{\"use strict\";const e=function*({domain:e,maxAge:n,name:o,path:a,secure:t,value:i}){yield`${o}=${i}`,void 0!==e&&\"\"!==e&&(yield`Domain=${e}`),void 0!==a&&\"\"!==a&&(yield`Path=${a}`),void 0!==n&&(yield`Max-Age=${n}`),t&&(yield\"Secure\")},n=e=>{const n=document.cookie.match(`${e}=([a-zA-Z0-9-_]*);?`);if(n)return{name:e,value:n[1]}},o=n=>{const o=[...e(n)].join(\"; \");document.cookie=o},a=(e,n)=>{if(!e||!e.name)return n;const o=new RegExp(`([?&])(${e.name})=([^&#]*)`,\"u\");if(!n.match(o)){const o=n.startsWith(\"?\")?\"&\":\"?\";return`${n}${o}${e.name}=${e.value}`}return n.replace(o,`$1$2=${e.value}`)},t=()=>{const{cookie:e,checkChallengeParams:n={}}=__blnChallengeStore,{name:o,value:a}=e,t=new XMLHttpRequest,i=`/.well-known/baleen/challengejs/check?${o}=${a}`,r=Object.entries(n).map((([e,n])=>`${e}=${n}`)).join(\"&\");t.open(\"POST\",i),t.send(r)},i=e=>setTimeout((()=>{e?window.location=e:window.location.reload()}),2),r=()=>{if(!(()=>{const{cookie:a,cookieReferer:r,domain:c}=__blnChallengeStore;return!!(()=>{const a={domain:__blnChallengeStore.domain,name:\"tst_bln_cookie_enabled\",value:\"1\"};return o(a),!!n(a.name)&&((({name:n,domain:o})=>{const a=[...e({domain:o,maxAge:-1,name:n,value:\"\"})].join(\"; \");document.cookie=a})(a),!0)})()&&(o({domain:c,...a}),!!n(a.name)&&(r&&o({domain:c,...r}),t(),i(),!0))})()){const e=(()=>{const{cookie:e,cookieReferer:n}=__blnChallengeStore||{},{origin:o,pathname:t,search:i,hash:r}=window.location;return`${o}${t}${a(n,a(e,i))}${r}`})();setTimeout((()=>{t(),i(e)}),1e3)}};(()=>{const{unregisterServiceWorker:e}=__blnChallengeStore||{};e&&navigator&&navigator.serviceWorker?navigator.serviceWorker.getRegistrations().then((e=>Promise.all(e.map((e=>e.unregister()))))).then((()=>r())).catch((()=>r())):r()})()})();</script><link href=\"https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap\"rel=\"stylesheet\"><link href=\"/.well-known/baleen/challengejs/assets/style.css\"rel=\"stylesheet\"><body><noscript><div class=\"challengejs-container\"><div class=\"container\"><div class=\"challengejs-body\"><div class=\"challengejs-card\"><img src=\"/.well-known/baleen/challengejs/assets/logo.svg\"><div class=\"challengejs-message-1\">Le JavaScript n'est pas activé sur votre navigateur.</div><div class=\"separator\"></div><div class=\"challengejs-message-2\">Le JavaScript n'est pas activé sur votre navigateur. Pour vous permettre de naviguer correctement sur notre site, il est nécessaire qu'il soit activé.</div><div class=\"challengejs-message-3\"><div class=\"how\"><span>Comment activer le JavaScript ?</span></div><div class=\"drop\"><div class=\"how-to chrome\"><div>Chrome</div><a href=\"https://support.google.com/chrome\">https://support.google.com/chrome</a></div><div class=\"how-to firefox\"><div>Mozilla Firefox</div><a href=\"https://support.mozilla.org/fr/home\">https://support.mozilla.org/fr/home</a></div><div class=\"how-to safari\"><div>Safari</div><a href=\"https://www.apple.com/support/safari/\">https://www.apple.com/support/safari/</a></div><div class=\"how-to opera\"><div>Opera</div><a href=\"https://support.google.com/adsense/answer/12654?hl=fr\">https://support.google.com/adsense/answer/12654?hl=fr</a></div><div class=\"how-to explorer\"><div>Internet Explorer</div><a href=\"https://support.microsoft.com/product/internet-explorer\">https://support.microsoft.com/product/internet-explorer</a></div></div></div></div></div></div></div></noscript>",
+      "ip": "185.231.167.165",
+      "timestamp": "2023-10-15T12:55:11.777388661Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://admin.snu.gouv.fr'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "cross-origin-embedder-policy",
+      "type": "http",
+      "host": "https://admin.snu.gouv.fr",
+      "matched-at": "https://admin.snu.gouv.fr",
+      "request": "GET / HTTP/1.1\r\nHost: admin.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache\r\nContent-Type: text/html\r\nDate: Sun, 15 Oct 2023 12:55:28 GMT\r\nReferrer-Policy: no-referrer\r\nStrict-Transport-Security: max-age=63072000\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctypehtml><meta name=\"viewport\"content=\"width=device-width\"><meta charset=\"utf-8\"><script></script><script>var __blnChallengeStore={\"unregisterServiceWorker\":false,\"domain\":\".snu.gouv.fr\",\"checkChallengeParams\":{\"tracking_id\":\"\",\"request_fate\":\"challengejs\",\"rule_id\":\"\",\"bot_category\":\"unknown\"},\"cookie\":{\"value\":\"wmgh7MrSHvpvttttFsmIuDb81hoWSktTZ26mjHCDkUPDBYpdDWGrfZZbvZ4xrV-LAkCDBAMpJps7MPPdGgkAgMg7uXzTN_CO7QbRWa8T5NoIlv3VS5LmjMSRFKEjXSqXJtrHYliAxlQHnKiX6tS0CRgq4TuR-Q-P3-2FlVdHU5bqOC2beJJQmWRCNUrj1tim0-pH5v0A-5sTXGqZG4TKjA\",\"maxAge\":900,\"path\":\"\\/\",\"name\":\"bln_challengejs\"}};(()=>{\"use strict\";const e=function*({domain:e,maxAge:n,name:o,path:a,secure:t,value:i}){yield`${o}=${i}`,void 0!==e&&\"\"!==e&&(yield`Domain=${e}`),void 0!==a&&\"\"!==a&&(yield`Path=${a}`),void 0!==n&&(yield`Max-Age=${n}`),t&&(yield\"Secure\")},n=e=>{const n=document.cookie.match(`${e}=([a-zA-Z0-9-_]*);?`);if(n)return{name:e,value:n[1]}},o=n=>{const o=[...e(n)].join(\"; \");document.cookie=o},a=(e,n)=>{if(!e||!e.name)return n;const o=new RegExp(`([?&])(${e.name})=([^&#]*)`,\"u\");if(!n.match(o)){const o=n.startsWith(\"?\")?\"&\":\"?\";return`${n}${o}${e.name}=${e.value}`}return n.replace(o,`$1$2=${e.value}`)},t=()=>{const{cookie:e,checkChallengeParams:n={}}=__blnChallengeStore,{name:o,value:a}=e,t=new XMLHttpRequest,i=`/.well-known/baleen/challengejs/check?${o}=${a}`,r=Object.entries(n).map((([e,n])=>`${e}=${n}`)).join(\"&\");t.open(\"POST\",i),t.send(r)},i=e=>setTimeout((()=>{e?window.location=e:window.location.reload()}),2),r=()=>{if(!(()=>{const{cookie:a,cookieReferer:r,domain:c}=__blnChallengeStore;return!!(()=>{const a={domain:__blnChallengeStore.domain,name:\"tst_bln_cookie_enabled\",value:\"1\"};return o(a),!!n(a.name)&&((({name:n,domain:o})=>{const a=[...e({domain:o,maxAge:-1,name:n,value:\"\"})].join(\"; \");document.cookie=a})(a),!0)})()&&(o({domain:c,...a}),!!n(a.name)&&(r&&o({domain:c,...r}),t(),i(),!0))})()){const e=(()=>{const{cookie:e,cookieReferer:n}=__blnChallengeStore||{},{origin:o,pathname:t,search:i,hash:r}=window.location;return`${o}${t}${a(n,a(e,i))}${r}`})();setTimeout((()=>{t(),i(e)}),1e3)}};(()=>{const{unregisterServiceWorker:e}=__blnChallengeStore||{};e&&navigator&&navigator.serviceWorker?navigator.serviceWorker.getRegistrations().then((e=>Promise.all(e.map((e=>e.unregister()))))).then((()=>r())).catch((()=>r())):r()})()})();</script><link href=\"https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap\"rel=\"stylesheet\"><link href=\"/.well-known/baleen/challengejs/assets/style.css\"rel=\"stylesheet\"><body><noscript><div class=\"challengejs-container\"><div class=\"container\"><div class=\"challengejs-body\"><div class=\"challengejs-card\"><img src=\"/.well-known/baleen/challengejs/assets/logo.svg\"><div class=\"challengejs-message-1\">Le JavaScript n'est pas activé sur votre navigateur.</div><div class=\"separator\"></div><div class=\"challengejs-message-2\">Le JavaScript n'est pas activé sur votre navigateur. Pour vous permettre de naviguer correctement sur notre site, il est nécessaire qu'il soit activé.</div><div class=\"challengejs-message-3\"><div class=\"how\"><span>Comment activer le JavaScript ?</span></div><div class=\"drop\"><div class=\"how-to chrome\"><div>Chrome</div><a href=\"https://support.google.com/chrome\">https://support.google.com/chrome</a></div><div class=\"how-to firefox\"><div>Mozilla Firefox</div><a href=\"https://support.mozilla.org/fr/home\">https://support.mozilla.org/fr/home</a></div><div class=\"how-to safari\"><div>Safari</div><a href=\"https://www.apple.com/support/safari/\">https://www.apple.com/support/safari/</a></div><div class=\"how-to opera\"><div>Opera</div><a href=\"https://support.google.com/adsense/answer/12654?hl=fr\">https://support.google.com/adsense/answer/12654?hl=fr</a></div><div class=\"how-to explorer\"><div>Internet Explorer</div><a href=\"https://support.microsoft.com/product/internet-explorer\">https://support.microsoft.com/product/internet-explorer</a></div></div></div></div></div></div></div></noscript>",
+      "ip": "185.231.167.165",
+      "timestamp": "2023-10-15T12:55:28.742210743Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://admin.snu.gouv.fr'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "cross-origin-opener-policy",
+      "type": "http",
+      "host": "https://admin.snu.gouv.fr",
+      "matched-at": "https://admin.snu.gouv.fr",
+      "request": "GET / HTTP/1.1\r\nHost: admin.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache\r\nContent-Type: text/html\r\nDate: Sun, 15 Oct 2023 12:55:28 GMT\r\nReferrer-Policy: no-referrer\r\nStrict-Transport-Security: max-age=63072000\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctypehtml><meta name=\"viewport\"content=\"width=device-width\"><meta charset=\"utf-8\"><script></script><script>var __blnChallengeStore={\"unregisterServiceWorker\":false,\"domain\":\".snu.gouv.fr\",\"checkChallengeParams\":{\"tracking_id\":\"\",\"request_fate\":\"challengejs\",\"rule_id\":\"\",\"bot_category\":\"unknown\"},\"cookie\":{\"value\":\"wmgh7MrSHvpvttttFsmIuDb81hoWSktTZ26mjHCDkUPDBYpdDWGrfZZbvZ4xrV-LAkCDBAMpJps7MPPdGgkAgMg7uXzTN_CO7QbRWa8T5NoIlv3VS5LmjMSRFKEjXSqXJtrHYliAxlQHnKiX6tS0CRgq4TuR-Q-P3-2FlVdHU5bqOC2beJJQmWRCNUrj1tim0-pH5v0A-5sTXGqZG4TKjA\",\"maxAge\":900,\"path\":\"\\/\",\"name\":\"bln_challengejs\"}};(()=>{\"use strict\";const e=function*({domain:e,maxAge:n,name:o,path:a,secure:t,value:i}){yield`${o}=${i}`,void 0!==e&&\"\"!==e&&(yield`Domain=${e}`),void 0!==a&&\"\"!==a&&(yield`Path=${a}`),void 0!==n&&(yield`Max-Age=${n}`),t&&(yield\"Secure\")},n=e=>{const n=document.cookie.match(`${e}=([a-zA-Z0-9-_]*);?`);if(n)return{name:e,value:n[1]}},o=n=>{const o=[...e(n)].join(\"; \");document.cookie=o},a=(e,n)=>{if(!e||!e.name)return n;const o=new RegExp(`([?&])(${e.name})=([^&#]*)`,\"u\");if(!n.match(o)){const o=n.startsWith(\"?\")?\"&\":\"?\";return`${n}${o}${e.name}=${e.value}`}return n.replace(o,`$1$2=${e.value}`)},t=()=>{const{cookie:e,checkChallengeParams:n={}}=__blnChallengeStore,{name:o,value:a}=e,t=new XMLHttpRequest,i=`/.well-known/baleen/challengejs/check?${o}=${a}`,r=Object.entries(n).map((([e,n])=>`${e}=${n}`)).join(\"&\");t.open(\"POST\",i),t.send(r)},i=e=>setTimeout((()=>{e?window.location=e:window.location.reload()}),2),r=()=>{if(!(()=>{const{cookie:a,cookieReferer:r,domain:c}=__blnChallengeStore;return!!(()=>{const a={domain:__blnChallengeStore.domain,name:\"tst_bln_cookie_enabled\",value:\"1\"};return o(a),!!n(a.name)&&((({name:n,domain:o})=>{const a=[...e({domain:o,maxAge:-1,name:n,value:\"\"})].join(\"; \");document.cookie=a})(a),!0)})()&&(o({domain:c,...a}),!!n(a.name)&&(r&&o({domain:c,...r}),t(),i(),!0))})()){const e=(()=>{const{cookie:e,cookieReferer:n}=__blnChallengeStore||{},{origin:o,pathname:t,search:i,hash:r}=window.location;return`${o}${t}${a(n,a(e,i))}${r}`})();setTimeout((()=>{t(),i(e)}),1e3)}};(()=>{const{unregisterServiceWorker:e}=__blnChallengeStore||{};e&&navigator&&navigator.serviceWorker?navigator.serviceWorker.getRegistrations().then((e=>Promise.all(e.map((e=>e.unregister()))))).then((()=>r())).catch((()=>r())):r()})()})();</script><link href=\"https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap\"rel=\"stylesheet\"><link href=\"/.well-known/baleen/challengejs/assets/style.css\"rel=\"stylesheet\"><body><noscript><div class=\"challengejs-container\"><div class=\"container\"><div class=\"challengejs-body\"><div class=\"challengejs-card\"><img src=\"/.well-known/baleen/challengejs/assets/logo.svg\"><div class=\"challengejs-message-1\">Le JavaScript n'est pas activé sur votre navigateur.</div><div class=\"separator\"></div><div class=\"challengejs-message-2\">Le JavaScript n'est pas activé sur votre navigateur. Pour vous permettre de naviguer correctement sur notre site, il est nécessaire qu'il soit activé.</div><div class=\"challengejs-message-3\"><div class=\"how\"><span>Comment activer le JavaScript ?</span></div><div class=\"drop\"><div class=\"how-to chrome\"><div>Chrome</div><a href=\"https://support.google.com/chrome\">https://support.google.com/chrome</a></div><div class=\"how-to firefox\"><div>Mozilla Firefox</div><a href=\"https://support.mozilla.org/fr/home\">https://support.mozilla.org/fr/home</a></div><div class=\"how-to safari\"><div>Safari</div><a href=\"https://www.apple.com/support/safari/\">https://www.apple.com/support/safari/</a></div><div class=\"how-to opera\"><div>Opera</div><a href=\"https://support.google.com/adsense/answer/12654?hl=fr\">https://support.google.com/adsense/answer/12654?hl=fr</a></div><div class=\"how-to explorer\"><div>Internet Explorer</div><a href=\"https://support.microsoft.com/product/internet-explorer\">https://support.microsoft.com/product/internet-explorer</a></div></div></div></div></div></div></div></noscript>",
+      "ip": "185.231.167.165",
+      "timestamp": "2023-10-15T12:55:28.742269644Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://admin.snu.gouv.fr'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "cross-origin-resource-policy",
+      "type": "http",
+      "host": "https://admin.snu.gouv.fr",
+      "matched-at": "https://admin.snu.gouv.fr",
+      "request": "GET / HTTP/1.1\r\nHost: admin.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache\r\nContent-Type: text/html\r\nDate: Sun, 15 Oct 2023 12:55:28 GMT\r\nReferrer-Policy: no-referrer\r\nStrict-Transport-Security: max-age=63072000\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctypehtml><meta name=\"viewport\"content=\"width=device-width\"><meta charset=\"utf-8\"><script></script><script>var __blnChallengeStore={\"unregisterServiceWorker\":false,\"domain\":\".snu.gouv.fr\",\"checkChallengeParams\":{\"tracking_id\":\"\",\"request_fate\":\"challengejs\",\"rule_id\":\"\",\"bot_category\":\"unknown\"},\"cookie\":{\"value\":\"wmgh7MrSHvpvttttFsmIuDb81hoWSktTZ26mjHCDkUPDBYpdDWGrfZZbvZ4xrV-LAkCDBAMpJps7MPPdGgkAgMg7uXzTN_CO7QbRWa8T5NoIlv3VS5LmjMSRFKEjXSqXJtrHYliAxlQHnKiX6tS0CRgq4TuR-Q-P3-2FlVdHU5bqOC2beJJQmWRCNUrj1tim0-pH5v0A-5sTXGqZG4TKjA\",\"maxAge\":900,\"path\":\"\\/\",\"name\":\"bln_challengejs\"}};(()=>{\"use strict\";const e=function*({domain:e,maxAge:n,name:o,path:a,secure:t,value:i}){yield`${o}=${i}`,void 0!==e&&\"\"!==e&&(yield`Domain=${e}`),void 0!==a&&\"\"!==a&&(yield`Path=${a}`),void 0!==n&&(yield`Max-Age=${n}`),t&&(yield\"Secure\")},n=e=>{const n=document.cookie.match(`${e}=([a-zA-Z0-9-_]*);?`);if(n)return{name:e,value:n[1]}},o=n=>{const o=[...e(n)].join(\"; \");document.cookie=o},a=(e,n)=>{if(!e||!e.name)return n;const o=new RegExp(`([?&])(${e.name})=([^&#]*)`,\"u\");if(!n.match(o)){const o=n.startsWith(\"?\")?\"&\":\"?\";return`${n}${o}${e.name}=${e.value}`}return n.replace(o,`$1$2=${e.value}`)},t=()=>{const{cookie:e,checkChallengeParams:n={}}=__blnChallengeStore,{name:o,value:a}=e,t=new XMLHttpRequest,i=`/.well-known/baleen/challengejs/check?${o}=${a}`,r=Object.entries(n).map((([e,n])=>`${e}=${n}`)).join(\"&\");t.open(\"POST\",i),t.send(r)},i=e=>setTimeout((()=>{e?window.location=e:window.location.reload()}),2),r=()=>{if(!(()=>{const{cookie:a,cookieReferer:r,domain:c}=__blnChallengeStore;return!!(()=>{const a={domain:__blnChallengeStore.domain,name:\"tst_bln_cookie_enabled\",value:\"1\"};return o(a),!!n(a.name)&&((({name:n,domain:o})=>{const a=[...e({domain:o,maxAge:-1,name:n,value:\"\"})].join(\"; \");document.cookie=a})(a),!0)})()&&(o({domain:c,...a}),!!n(a.name)&&(r&&o({domain:c,...r}),t(),i(),!0))})()){const e=(()=>{const{cookie:e,cookieReferer:n}=__blnChallengeStore||{},{origin:o,pathname:t,search:i,hash:r}=window.location;return`${o}${t}${a(n,a(e,i))}${r}`})();setTimeout((()=>{t(),i(e)}),1e3)}};(()=>{const{unregisterServiceWorker:e}=__blnChallengeStore||{};e&&navigator&&navigator.serviceWorker?navigator.serviceWorker.getRegistrations().then((e=>Promise.all(e.map((e=>e.unregister()))))).then((()=>r())).catch((()=>r())):r()})()})();</script><link href=\"https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap\"rel=\"stylesheet\"><link href=\"/.well-known/baleen/challengejs/assets/style.css\"rel=\"stylesheet\"><body><noscript><div class=\"challengejs-container\"><div class=\"container\"><div class=\"challengejs-body\"><div class=\"challengejs-card\"><img src=\"/.well-known/baleen/challengejs/assets/logo.svg\"><div class=\"challengejs-message-1\">Le JavaScript n'est pas activé sur votre navigateur.</div><div class=\"separator\"></div><div class=\"challengejs-message-2\">Le JavaScript n'est pas activé sur votre navigateur. Pour vous permettre de naviguer correctement sur notre site, il est nécessaire qu'il soit activé.</div><div class=\"challengejs-message-3\"><div class=\"how\"><span>Comment activer le JavaScript ?</span></div><div class=\"drop\"><div class=\"how-to chrome\"><div>Chrome</div><a href=\"https://support.google.com/chrome\">https://support.google.com/chrome</a></div><div class=\"how-to firefox\"><div>Mozilla Firefox</div><a href=\"https://support.mozilla.org/fr/home\">https://support.mozilla.org/fr/home</a></div><div class=\"how-to safari\"><div>Safari</div><a href=\"https://www.apple.com/support/safari/\">https://www.apple.com/support/safari/</a></div><div class=\"how-to opera\"><div>Opera</div><a href=\"https://support.google.com/adsense/answer/12654?hl=fr\">https://support.google.com/adsense/answer/12654?hl=fr</a></div><div class=\"how-to explorer\"><div>Internet Explorer</div><a href=\"https://support.microsoft.com/product/internet-explorer\">https://support.microsoft.com/product/internet-explorer</a></div></div></div></div></div></div></div></noscript>",
+      "ip": "185.231.167.165",
+      "timestamp": "2023-10-15T12:55:28.742284944Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://admin.snu.gouv.fr'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "content-security-policy",
+      "type": "http",
+      "host": "https://admin.snu.gouv.fr",
+      "matched-at": "https://admin.snu.gouv.fr",
+      "request": "GET / HTTP/1.1\r\nHost: admin.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache\r\nContent-Type: text/html\r\nDate: Sun, 15 Oct 2023 12:55:28 GMT\r\nReferrer-Policy: no-referrer\r\nStrict-Transport-Security: max-age=63072000\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctypehtml><meta name=\"viewport\"content=\"width=device-width\"><meta charset=\"utf-8\"><script></script><script>var __blnChallengeStore={\"unregisterServiceWorker\":false,\"domain\":\".snu.gouv.fr\",\"checkChallengeParams\":{\"tracking_id\":\"\",\"request_fate\":\"challengejs\",\"rule_id\":\"\",\"bot_category\":\"unknown\"},\"cookie\":{\"value\":\"wmgh7MrSHvpvttttFsmIuDb81hoWSktTZ26mjHCDkUPDBYpdDWGrfZZbvZ4xrV-LAkCDBAMpJps7MPPdGgkAgMg7uXzTN_CO7QbRWa8T5NoIlv3VS5LmjMSRFKEjXSqXJtrHYliAxlQHnKiX6tS0CRgq4TuR-Q-P3-2FlVdHU5bqOC2beJJQmWRCNUrj1tim0-pH5v0A-5sTXGqZG4TKjA\",\"maxAge\":900,\"path\":\"\\/\",\"name\":\"bln_challengejs\"}};(()=>{\"use strict\";const e=function*({domain:e,maxAge:n,name:o,path:a,secure:t,value:i}){yield`${o}=${i}`,void 0!==e&&\"\"!==e&&(yield`Domain=${e}`),void 0!==a&&\"\"!==a&&(yield`Path=${a}`),void 0!==n&&(yield`Max-Age=${n}`),t&&(yield\"Secure\")},n=e=>{const n=document.cookie.match(`${e}=([a-zA-Z0-9-_]*);?`);if(n)return{name:e,value:n[1]}},o=n=>{const o=[...e(n)].join(\"; \");document.cookie=o},a=(e,n)=>{if(!e||!e.name)return n;const o=new RegExp(`([?&])(${e.name})=([^&#]*)`,\"u\");if(!n.match(o)){const o=n.startsWith(\"?\")?\"&\":\"?\";return`${n}${o}${e.name}=${e.value}`}return n.replace(o,`$1$2=${e.value}`)},t=()=>{const{cookie:e,checkChallengeParams:n={}}=__blnChallengeStore,{name:o,value:a}=e,t=new XMLHttpRequest,i=`/.well-known/baleen/challengejs/check?${o}=${a}`,r=Object.entries(n).map((([e,n])=>`${e}=${n}`)).join(\"&\");t.open(\"POST\",i),t.send(r)},i=e=>setTimeout((()=>{e?window.location=e:window.location.reload()}),2),r=()=>{if(!(()=>{const{cookie:a,cookieReferer:r,domain:c}=__blnChallengeStore;return!!(()=>{const a={domain:__blnChallengeStore.domain,name:\"tst_bln_cookie_enabled\",value:\"1\"};return o(a),!!n(a.name)&&((({name:n,domain:o})=>{const a=[...e({domain:o,maxAge:-1,name:n,value:\"\"})].join(\"; \");document.cookie=a})(a),!0)})()&&(o({domain:c,...a}),!!n(a.name)&&(r&&o({domain:c,...r}),t(),i(),!0))})()){const e=(()=>{const{cookie:e,cookieReferer:n}=__blnChallengeStore||{},{origin:o,pathname:t,search:i,hash:r}=window.location;return`${o}${t}${a(n,a(e,i))}${r}`})();setTimeout((()=>{t(),i(e)}),1e3)}};(()=>{const{unregisterServiceWorker:e}=__blnChallengeStore||{};e&&navigator&&navigator.serviceWorker?navigator.serviceWorker.getRegistrations().then((e=>Promise.all(e.map((e=>e.unregister()))))).then((()=>r())).catch((()=>r())):r()})()})();</script><link href=\"https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap\"rel=\"stylesheet\"><link href=\"/.well-known/baleen/challengejs/assets/style.css\"rel=\"stylesheet\"><body><noscript><div class=\"challengejs-container\"><div class=\"container\"><div class=\"challengejs-body\"><div class=\"challengejs-card\"><img src=\"/.well-known/baleen/challengejs/assets/logo.svg\"><div class=\"challengejs-message-1\">Le JavaScript n'est pas activé sur votre navigateur.</div><div class=\"separator\"></div><div class=\"challengejs-message-2\">Le JavaScript n'est pas activé sur votre navigateur. Pour vous permettre de naviguer correctement sur notre site, il est nécessaire qu'il soit activé.</div><div class=\"challengejs-message-3\"><div class=\"how\"><span>Comment activer le JavaScript ?</span></div><div class=\"drop\"><div class=\"how-to chrome\"><div>Chrome</div><a href=\"https://support.google.com/chrome\">https://support.google.com/chrome</a></div><div class=\"how-to firefox\"><div>Mozilla Firefox</div><a href=\"https://support.mozilla.org/fr/home\">https://support.mozilla.org/fr/home</a></div><div class=\"how-to safari\"><div>Safari</div><a href=\"https://www.apple.com/support/safari/\">https://www.apple.com/support/safari/</a></div><div class=\"how-to opera\"><div>Opera</div><a href=\"https://support.google.com/adsense/answer/12654?hl=fr\">https://support.google.com/adsense/answer/12654?hl=fr</a></div><div class=\"how-to explorer\"><div>Internet Explorer</div><a href=\"https://support.microsoft.com/product/internet-explorer\">https://support.microsoft.com/product/internet-explorer</a></div></div></div></div></div></div></div></noscript>",
+      "ip": "185.231.167.165",
+      "timestamp": "2023-10-15T12:55:28.742295745Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://admin.snu.gouv.fr'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "permissions-policy",
+      "type": "http",
+      "host": "https://admin.snu.gouv.fr",
+      "matched-at": "https://admin.snu.gouv.fr",
+      "request": "GET / HTTP/1.1\r\nHost: admin.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache\r\nContent-Type: text/html\r\nDate: Sun, 15 Oct 2023 12:55:28 GMT\r\nReferrer-Policy: no-referrer\r\nStrict-Transport-Security: max-age=63072000\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctypehtml><meta name=\"viewport\"content=\"width=device-width\"><meta charset=\"utf-8\"><script></script><script>var __blnChallengeStore={\"unregisterServiceWorker\":false,\"domain\":\".snu.gouv.fr\",\"checkChallengeParams\":{\"tracking_id\":\"\",\"request_fate\":\"challengejs\",\"rule_id\":\"\",\"bot_category\":\"unknown\"},\"cookie\":{\"value\":\"wmgh7MrSHvpvttttFsmIuDb81hoWSktTZ26mjHCDkUPDBYpdDWGrfZZbvZ4xrV-LAkCDBAMpJps7MPPdGgkAgMg7uXzTN_CO7QbRWa8T5NoIlv3VS5LmjMSRFKEjXSqXJtrHYliAxlQHnKiX6tS0CRgq4TuR-Q-P3-2FlVdHU5bqOC2beJJQmWRCNUrj1tim0-pH5v0A-5sTXGqZG4TKjA\",\"maxAge\":900,\"path\":\"\\/\",\"name\":\"bln_challengejs\"}};(()=>{\"use strict\";const e=function*({domain:e,maxAge:n,name:o,path:a,secure:t,value:i}){yield`${o}=${i}`,void 0!==e&&\"\"!==e&&(yield`Domain=${e}`),void 0!==a&&\"\"!==a&&(yield`Path=${a}`),void 0!==n&&(yield`Max-Age=${n}`),t&&(yield\"Secure\")},n=e=>{const n=document.cookie.match(`${e}=([a-zA-Z0-9-_]*);?`);if(n)return{name:e,value:n[1]}},o=n=>{const o=[...e(n)].join(\"; \");document.cookie=o},a=(e,n)=>{if(!e||!e.name)return n;const o=new RegExp(`([?&])(${e.name})=([^&#]*)`,\"u\");if(!n.match(o)){const o=n.startsWith(\"?\")?\"&\":\"?\";return`${n}${o}${e.name}=${e.value}`}return n.replace(o,`$1$2=${e.value}`)},t=()=>{const{cookie:e,checkChallengeParams:n={}}=__blnChallengeStore,{name:o,value:a}=e,t=new XMLHttpRequest,i=`/.well-known/baleen/challengejs/check?${o}=${a}`,r=Object.entries(n).map((([e,n])=>`${e}=${n}`)).join(\"&\");t.open(\"POST\",i),t.send(r)},i=e=>setTimeout((()=>{e?window.location=e:window.location.reload()}),2),r=()=>{if(!(()=>{const{cookie:a,cookieReferer:r,domain:c}=__blnChallengeStore;return!!(()=>{const a={domain:__blnChallengeStore.domain,name:\"tst_bln_cookie_enabled\",value:\"1\"};return o(a),!!n(a.name)&&((({name:n,domain:o})=>{const a=[...e({domain:o,maxAge:-1,name:n,value:\"\"})].join(\"; \");document.cookie=a})(a),!0)})()&&(o({domain:c,...a}),!!n(a.name)&&(r&&o({domain:c,...r}),t(),i(),!0))})()){const e=(()=>{const{cookie:e,cookieReferer:n}=__blnChallengeStore||{},{origin:o,pathname:t,search:i,hash:r}=window.location;return`${o}${t}${a(n,a(e,i))}${r}`})();setTimeout((()=>{t(),i(e)}),1e3)}};(()=>{const{unregisterServiceWorker:e}=__blnChallengeStore||{};e&&navigator&&navigator.serviceWorker?navigator.serviceWorker.getRegistrations().then((e=>Promise.all(e.map((e=>e.unregister()))))).then((()=>r())).catch((()=>r())):r()})()})();</script><link href=\"https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap\"rel=\"stylesheet\"><link href=\"/.well-known/baleen/challengejs/assets/style.css\"rel=\"stylesheet\"><body><noscript><div class=\"challengejs-container\"><div class=\"container\"><div class=\"challengejs-body\"><div class=\"challengejs-card\"><img src=\"/.well-known/baleen/challengejs/assets/logo.svg\"><div class=\"challengejs-message-1\">Le JavaScript n'est pas activé sur votre navigateur.</div><div class=\"separator\"></div><div class=\"challengejs-message-2\">Le JavaScript n'est pas activé sur votre navigateur. Pour vous permettre de naviguer correctement sur notre site, il est nécessaire qu'il soit activé.</div><div class=\"challengejs-message-3\"><div class=\"how\"><span>Comment activer le JavaScript ?</span></div><div class=\"drop\"><div class=\"how-to chrome\"><div>Chrome</div><a href=\"https://support.google.com/chrome\">https://support.google.com/chrome</a></div><div class=\"how-to firefox\"><div>Mozilla Firefox</div><a href=\"https://support.mozilla.org/fr/home\">https://support.mozilla.org/fr/home</a></div><div class=\"how-to safari\"><div>Safari</div><a href=\"https://www.apple.com/support/safari/\">https://www.apple.com/support/safari/</a></div><div class=\"how-to opera\"><div>Opera</div><a href=\"https://support.google.com/adsense/answer/12654?hl=fr\">https://support.google.com/adsense/answer/12654?hl=fr</a></div><div class=\"how-to explorer\"><div>Internet Explorer</div><a href=\"https://support.microsoft.com/product/internet-explorer\">https://support.microsoft.com/product/internet-explorer</a></div></div></div></div></div></div></div></noscript>",
+      "ip": "185.231.167.165",
+      "timestamp": "2023-10-15T12:55:28.742307545Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://admin.snu.gouv.fr'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "x-permitted-cross-domain-policies",
+      "type": "http",
+      "host": "https://admin.snu.gouv.fr",
+      "matched-at": "https://admin.snu.gouv.fr",
+      "request": "GET / HTTP/1.1\r\nHost: admin.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache\r\nContent-Type: text/html\r\nDate: Sun, 15 Oct 2023 12:55:28 GMT\r\nReferrer-Policy: no-referrer\r\nStrict-Transport-Security: max-age=63072000\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctypehtml><meta name=\"viewport\"content=\"width=device-width\"><meta charset=\"utf-8\"><script></script><script>var __blnChallengeStore={\"unregisterServiceWorker\":false,\"domain\":\".snu.gouv.fr\",\"checkChallengeParams\":{\"tracking_id\":\"\",\"request_fate\":\"challengejs\",\"rule_id\":\"\",\"bot_category\":\"unknown\"},\"cookie\":{\"value\":\"wmgh7MrSHvpvttttFsmIuDb81hoWSktTZ26mjHCDkUPDBYpdDWGrfZZbvZ4xrV-LAkCDBAMpJps7MPPdGgkAgMg7uXzTN_CO7QbRWa8T5NoIlv3VS5LmjMSRFKEjXSqXJtrHYliAxlQHnKiX6tS0CRgq4TuR-Q-P3-2FlVdHU5bqOC2beJJQmWRCNUrj1tim0-pH5v0A-5sTXGqZG4TKjA\",\"maxAge\":900,\"path\":\"\\/\",\"name\":\"bln_challengejs\"}};(()=>{\"use strict\";const e=function*({domain:e,maxAge:n,name:o,path:a,secure:t,value:i}){yield`${o}=${i}`,void 0!==e&&\"\"!==e&&(yield`Domain=${e}`),void 0!==a&&\"\"!==a&&(yield`Path=${a}`),void 0!==n&&(yield`Max-Age=${n}`),t&&(yield\"Secure\")},n=e=>{const n=document.cookie.match(`${e}=([a-zA-Z0-9-_]*);?`);if(n)return{name:e,value:n[1]}},o=n=>{const o=[...e(n)].join(\"; \");document.cookie=o},a=(e,n)=>{if(!e||!e.name)return n;const o=new RegExp(`([?&])(${e.name})=([^&#]*)`,\"u\");if(!n.match(o)){const o=n.startsWith(\"?\")?\"&\":\"?\";return`${n}${o}${e.name}=${e.value}`}return n.replace(o,`$1$2=${e.value}`)},t=()=>{const{cookie:e,checkChallengeParams:n={}}=__blnChallengeStore,{name:o,value:a}=e,t=new XMLHttpRequest,i=`/.well-known/baleen/challengejs/check?${o}=${a}`,r=Object.entries(n).map((([e,n])=>`${e}=${n}`)).join(\"&\");t.open(\"POST\",i),t.send(r)},i=e=>setTimeout((()=>{e?window.location=e:window.location.reload()}),2),r=()=>{if(!(()=>{const{cookie:a,cookieReferer:r,domain:c}=__blnChallengeStore;return!!(()=>{const a={domain:__blnChallengeStore.domain,name:\"tst_bln_cookie_enabled\",value:\"1\"};return o(a),!!n(a.name)&&((({name:n,domain:o})=>{const a=[...e({domain:o,maxAge:-1,name:n,value:\"\"})].join(\"; \");document.cookie=a})(a),!0)})()&&(o({domain:c,...a}),!!n(a.name)&&(r&&o({domain:c,...r}),t(),i(),!0))})()){const e=(()=>{const{cookie:e,cookieReferer:n}=__blnChallengeStore||{},{origin:o,pathname:t,search:i,hash:r}=window.location;return`${o}${t}${a(n,a(e,i))}${r}`})();setTimeout((()=>{t(),i(e)}),1e3)}};(()=>{const{unregisterServiceWorker:e}=__blnChallengeStore||{};e&&navigator&&navigator.serviceWorker?navigator.serviceWorker.getRegistrations().then((e=>Promise.all(e.map((e=>e.unregister()))))).then((()=>r())).catch((()=>r())):r()})()})();</script><link href=\"https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap\"rel=\"stylesheet\"><link href=\"/.well-known/baleen/challengejs/assets/style.css\"rel=\"stylesheet\"><body><noscript><div class=\"challengejs-container\"><div class=\"container\"><div class=\"challengejs-body\"><div class=\"challengejs-card\"><img src=\"/.well-known/baleen/challengejs/assets/logo.svg\"><div class=\"challengejs-message-1\">Le JavaScript n'est pas activé sur votre navigateur.</div><div class=\"separator\"></div><div class=\"challengejs-message-2\">Le JavaScript n'est pas activé sur votre navigateur. Pour vous permettre de naviguer correctement sur notre site, il est nécessaire qu'il soit activé.</div><div class=\"challengejs-message-3\"><div class=\"how\"><span>Comment activer le JavaScript ?</span></div><div class=\"drop\"><div class=\"how-to chrome\"><div>Chrome</div><a href=\"https://support.google.com/chrome\">https://support.google.com/chrome</a></div><div class=\"how-to firefox\"><div>Mozilla Firefox</div><a href=\"https://support.mozilla.org/fr/home\">https://support.mozilla.org/fr/home</a></div><div class=\"how-to safari\"><div>Safari</div><a href=\"https://www.apple.com/support/safari/\">https://www.apple.com/support/safari/</a></div><div class=\"how-to opera\"><div>Opera</div><a href=\"https://support.google.com/adsense/answer/12654?hl=fr\">https://support.google.com/adsense/answer/12654?hl=fr</a></div><div class=\"how-to explorer\"><div>Internet Explorer</div><a href=\"https://support.microsoft.com/product/internet-explorer\">https://support.microsoft.com/product/internet-explorer</a></div></div></div></div></div></div></div></noscript>",
+      "ip": "185.231.167.165",
+      "timestamp": "2023-10-15T12:55:28.742319745Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://admin.snu.gouv.fr'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "clear-site-data",
+      "type": "http",
+      "host": "https://admin.snu.gouv.fr",
+      "matched-at": "https://admin.snu.gouv.fr",
+      "request": "GET / HTTP/1.1\r\nHost: admin.snu.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-cache\r\nContent-Type: text/html\r\nDate: Sun, 15 Oct 2023 12:55:28 GMT\r\nReferrer-Policy: no-referrer\r\nStrict-Transport-Security: max-age=63072000\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Xss-Protection: 1; mode=block\r\n\r\n<!doctypehtml><meta name=\"viewport\"content=\"width=device-width\"><meta charset=\"utf-8\"><script></script><script>var __blnChallengeStore={\"unregisterServiceWorker\":false,\"domain\":\".snu.gouv.fr\",\"checkChallengeParams\":{\"tracking_id\":\"\",\"request_fate\":\"challengejs\",\"rule_id\":\"\",\"bot_category\":\"unknown\"},\"cookie\":{\"value\":\"wmgh7MrSHvpvttttFsmIuDb81hoWSktTZ26mjHCDkUPDBYpdDWGrfZZbvZ4xrV-LAkCDBAMpJps7MPPdGgkAgMg7uXzTN_CO7QbRWa8T5NoIlv3VS5LmjMSRFKEjXSqXJtrHYliAxlQHnKiX6tS0CRgq4TuR-Q-P3-2FlVdHU5bqOC2beJJQmWRCNUrj1tim0-pH5v0A-5sTXGqZG4TKjA\",\"maxAge\":900,\"path\":\"\\/\",\"name\":\"bln_challengejs\"}};(()=>{\"use strict\";const e=function*({domain:e,maxAge:n,name:o,path:a,secure:t,value:i}){yield`${o}=${i}`,void 0!==e&&\"\"!==e&&(yield`Domain=${e}`),void 0!==a&&\"\"!==a&&(yield`Path=${a}`),void 0!==n&&(yield`Max-Age=${n}`),t&&(yield\"Secure\")},n=e=>{const n=document.cookie.match(`${e}=([a-zA-Z0-9-_]*);?`);if(n)return{name:e,value:n[1]}},o=n=>{const o=[...e(n)].join(\"; \");document.cookie=o},a=(e,n)=>{if(!e||!e.name)return n;const o=new RegExp(`([?&])(${e.name})=([^&#]*)`,\"u\");if(!n.match(o)){const o=n.startsWith(\"?\")?\"&\":\"?\";return`${n}${o}${e.name}=${e.value}`}return n.replace(o,`$1$2=${e.value}`)},t=()=>{const{cookie:e,checkChallengeParams:n={}}=__blnChallengeStore,{name:o,value:a}=e,t=new XMLHttpRequest,i=`/.well-known/baleen/challengejs/check?${o}=${a}`,r=Object.entries(n).map((([e,n])=>`${e}=${n}`)).join(\"&\");t.open(\"POST\",i),t.send(r)},i=e=>setTimeout((()=>{e?window.location=e:window.location.reload()}),2),r=()=>{if(!(()=>{const{cookie:a,cookieReferer:r,domain:c}=__blnChallengeStore;return!!(()=>{const a={domain:__blnChallengeStore.domain,name:\"tst_bln_cookie_enabled\",value:\"1\"};return o(a),!!n(a.name)&&((({name:n,domain:o})=>{const a=[...e({domain:o,maxAge:-1,name:n,value:\"\"})].join(\"; \");document.cookie=a})(a),!0)})()&&(o({domain:c,...a}),!!n(a.name)&&(r&&o({domain:c,...r}),t(),i(),!0))})()){const e=(()=>{const{cookie:e,cookieReferer:n}=__blnChallengeStore||{},{origin:o,pathname:t,search:i,hash:r}=window.location;return`${o}${t}${a(n,a(e,i))}${r}`})();setTimeout((()=>{t(),i(e)}),1e3)}};(()=>{const{unregisterServiceWorker:e}=__blnChallengeStore||{};e&&navigator&&navigator.serviceWorker?navigator.serviceWorker.getRegistrations().then((e=>Promise.all(e.map((e=>e.unregister()))))).then((()=>r())).catch((()=>r())):r()})()})();</script><link href=\"https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap\"rel=\"stylesheet\"><link href=\"/.well-known/baleen/challengejs/assets/style.css\"rel=\"stylesheet\"><body><noscript><div class=\"challengejs-container\"><div class=\"container\"><div class=\"challengejs-body\"><div class=\"challengejs-card\"><img src=\"/.well-known/baleen/challengejs/assets/logo.svg\"><div class=\"challengejs-message-1\">Le JavaScript n'est pas activé sur votre navigateur.</div><div class=\"separator\"></div><div class=\"challengejs-message-2\">Le JavaScript n'est pas activé sur votre navigateur. Pour vous permettre de naviguer correctement sur notre site, il est nécessaire qu'il soit activé.</div><div class=\"challengejs-message-3\"><div class=\"how\"><span>Comment activer le JavaScript ?</span></div><div class=\"drop\"><div class=\"how-to chrome\"><div>Chrome</div><a href=\"https://support.google.com/chrome\">https://support.google.com/chrome</a></div><div class=\"how-to firefox\"><div>Mozilla Firefox</div><a href=\"https://support.mozilla.org/fr/home\">https://support.mozilla.org/fr/home</a></div><div class=\"how-to safari\"><div>Safari</div><a href=\"https://www.apple.com/support/safari/\">https://www.apple.com/support/safari/</a></div><div class=\"how-to opera\"><div>Opera</div><a href=\"https://support.google.com/adsense/answer/12654?hl=fr\">https://support.google.com/adsense/answer/12654?hl=fr</a></div><div class=\"how-to explorer\"><div>Internet Explorer</div><a href=\"https://support.microsoft.com/product/internet-explorer\">https://support.microsoft.com/product/internet-explorer</a></div></div></div></div></div></div></div></noscript>",
+      "ip": "185.231.167.165",
+      "timestamp": "2023-10-15T12:55:28.742334846Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://admin.snu.gouv.fr'",
+      "matcher-status": true
+    },
+    {
+      "template": "ssl/detect-ssl-issuer.yaml",
+      "template-url": "https://templates.nuclei.sh/public/ssl-issuer",
+      "template-id": "ssl-issuer",
+      "template-path": "/home/runner/nuclei-templates/ssl/detect-ssl-issuer.yaml",
+      "info": {
+        "name": "Detect SSL Certificate Issuer",
+        "author": [
+          "lingtren"
+        ],
+        "tags": [
+          "ssl"
+        ],
+        "description": "Extract the issuer's organization from the target's certificate. Issuers are entities which sign and distribute certificates.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "type": "ssl",
+      "host": "admin.snu.gouv.fr",
+      "matched-at": "admin.snu.gouv.fr:443",
+      "extracted-results": [
+        "Let's Encrypt"
+      ],
+      "ip": "185.231.167.165",
+      "timestamp": "2023-10-15T12:57:07.649882728Z",
+      "matcher-status": true
+    },
+    {
+      "template": "ssl/ssl-dns-names.yaml",
+      "template-url": "https://templates.nuclei.sh/public/ssl-dns-names",
+      "template-id": "ssl-dns-names",
+      "template-path": "/home/runner/nuclei-templates/ssl/ssl-dns-names.yaml",
+      "info": {
+        "name": "SSL DNS Names",
+        "author": [
+          "pdteam"
+        ],
+        "tags": [
+          "ssl"
+        ],
+        "description": "Extract the Subject Alternative Name (SAN) from the target's certificate. SAN facilitates the usage of additional hostnames with the same certificate.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "type": "ssl",
+      "host": "admin.snu.gouv.fr",
+      "matched-at": "admin.snu.gouv.fr:443",
+      "extracted-results": [
+        "admin.snu.gouv.fr"
+      ],
+      "ip": "185.231.167.165",
+      "timestamp": "2023-10-15T12:57:07.650429741Z",
+      "matcher-status": true
+    },
+    {
+      "template": "ssl/tls-version.yaml",
+      "template-url": "https://templates.nuclei.sh/public/tls-version",
+      "template-id": "tls-version",
+      "template-path": "/home/runner/nuclei-templates/ssl/tls-version.yaml",
+      "info": {
+        "name": "TLS Version - Detect",
+        "author": [
+          "pdteam",
+          "pussycat0x"
+        ],
+        "tags": [
+          "ssl"
+        ],
+        "description": "TLS version detection is a security process used to determine the version of the Transport Layer Security (TLS) protocol used by a computer or server.\nIt is important to detect the TLS version in order to ensure secure communication between two computers or servers.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 4
+        }
+      },
+      "type": "ssl",
+      "host": "admin.snu.gouv.fr",
+      "matched-at": "admin.snu.gouv.fr:443",
+      "extracted-results": [
+        "tls12"
+      ],
+      "ip": "185.231.167.165",
+      "timestamp": "2023-10-15T12:57:08.702526897Z",
+      "matcher-status": true
+    },
+    {
+      "template": "ssl/tls-version.yaml",
+      "template-url": "https://templates.nuclei.sh/public/tls-version",
+      "template-id": "tls-version",
+      "template-path": "/home/runner/nuclei-templates/ssl/tls-version.yaml",
+      "info": {
+        "name": "TLS Version - Detect",
+        "author": [
+          "pdteam",
+          "pussycat0x"
+        ],
+        "tags": [
+          "ssl"
+        ],
+        "description": "TLS version detection is a security process used to determine the version of the Transport Layer Security (TLS) protocol used by a computer or server.\nIt is important to detect the TLS version in order to ensure secure communication between two computers or servers.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 4
+        }
+      },
+      "type": "ssl",
+      "host": "admin.snu.gouv.fr",
+      "matched-at": "admin.snu.gouv.fr:443",
+      "extracted-results": [
+        "tls13"
+      ],
+      "ip": "185.231.167.165",
+      "timestamp": "2023-10-15T12:57:08.871094815Z",
+      "matcher-status": true
+    }
+  ]
+]
