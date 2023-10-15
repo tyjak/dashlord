@@ -1,7 +1,7 @@
 {
 	"@programName": "ZAP",
-	"@version": "2.13.0",
-	"@generated": "Sun, 8 Oct 2023 04:45:45",
+	"@version": "2.14.0",
+	"@generated": "Sun, 15 Oct 2023 05:48:45",
 	"site":[ 
 		{
 			"@name": "https://eva.beta.gouv.fr",
@@ -34,7 +34,7 @@
 					"reference": "",
 					"cweid": "359",
 					"wascid": "13",
-					"sourceid": "465"
+					"sourceid": "461"
 				},
 				{
 					"pluginid": "10202",
@@ -47,6 +47,14 @@
 					"desc": "<p>No Anti-CSRF tokens were found in a HTML submission form.</p><p>A cross-site request forgery is an attack that involves forcing a victim to send an HTTP request to a target destination without their knowledge or intent in order to perform an action as the victim. The underlying cause is application functionality using predictable URL/form actions in a repeatable way. The nature of the attack is that CSRF exploits the trust that a web site has for a user. By contrast, cross-site scripting (XSS) exploits the trust that a user has for a web site. Like XSS, CSRF attacks are not necessarily cross-site, but they can be. Cross-site request forgery is also known as CSRF, XSRF, one-click attack, session riding, confused deputy, and sea surf.</p><p></p><p>CSRF attacks are effective in a number of situations, including:</p><p>    * The victim has an active session on the target site.</p><p>    * The victim is authenticated via HTTP auth on the target site.</p><p>    * The victim is on the same local network as the target site.</p><p></p><p>CSRF has primarily been used to perform an action against a target site using the victim's privileges, but recent techniques have been discovered to disclose information by gaining access to the response. The risk of information disclosure is dramatically increased when the target site is vulnerable to XSS, because XSS can be used as a platform for CSRF, allowing the attack to operate within the bounds of the same-origin policy.</p>",
 					"instances":[ 
 						{
+							"uri": "https://eva.beta.gouv.fr/?p=1235",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<form role=\"search\" method=\"get\" class=\"search-form\" action=\"https://eva.beta.gouv.fr/\">",
+							"otherinfo": "No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"s\" ]."
+						},
+						{
 							"uri": "https://eva.beta.gouv.fr/?p=1250",
 							"method": "GET",
 							"param": "",
@@ -56,14 +64,6 @@
 						},
 						{
 							"uri": "https://eva.beta.gouv.fr/?p=143",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<form role=\"search\" method=\"get\" class=\"search-form\" action=\"https://eva.beta.gouv.fr/\">",
-							"otherinfo": "No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"s\" ]."
-						},
-						{
-							"uri": "https://eva.beta.gouv.fr/?p=1726",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -146,10 +146,10 @@
 					"count": "12",
 					"solution": "<p>Phase: Architecture and Design</p><p>Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid.</p><p>For example, use anti-CSRF packages such as the OWASP CSRFGuard.</p><p></p><p>Phase: Implementation</p><p>Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.</p><p></p><p>Phase: Architecture and Design</p><p>Generate a unique nonce for each form, place the nonce into the form, and verify the nonce upon receipt of the form. Be sure that the nonce is not predictable (CWE-330).</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Identify especially dangerous operations. When the user performs a dangerous operation, send a separate confirmation request to ensure that the user intended to perform that operation.</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Use the ESAPI Session Management control.</p><p>This control includes a component for CSRF.</p><p></p><p>Do not use the GET method for any request that triggers a state change.</p><p></p><p>Phase: Implementation</p><p>Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.</p>",
 					"otherinfo": "<p>No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"s\" ].</p>",
-					"reference": "<p>http://projects.webappsec.org/Cross-Site-Request-Forgery</p><p>http://cwe.mitre.org/data/definitions/352.html</p>",
+					"reference": "<p>http://projects.webappsec.org/Cross-Site-Request-Forgery</p><p>https://cwe.mitre.org/data/definitions/352.html</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "800"
+					"sourceid": "789"
 				},
 				{
 					"pluginid": "10038",
@@ -171,14 +171,6 @@
 						},
 						{
 							"uri": "https://eva.beta.gouv.fr/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://eva.beta.gouv.fr/articles/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -242,6 +234,14 @@
 							"otherinfo": ""
 						},
 						{
+							"uri": "https://eva.beta.gouv.fr/statistiques/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
 							"uri": "https://eva.beta.gouv.fr/temoignages/",
 							"method": "GET",
 							"param": "",
@@ -278,14 +278,6 @@
 						},
 						{
 							"uri": "https://eva.beta.gouv.fr/",
-							"method": "GET",
-							"param": "x-frame-options",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://eva.beta.gouv.fr/articles/",
 							"method": "GET",
 							"param": "x-frame-options",
 							"attack": "",
@@ -349,6 +341,14 @@
 							"otherinfo": ""
 						},
 						{
+							"uri": "https://eva.beta.gouv.fr/statistiques/",
+							"method": "GET",
+							"param": "x-frame-options",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
 							"uri": "https://eva.beta.gouv.fr/temoignages/",
 							"method": "GET",
 							"param": "x-frame-options",
@@ -404,7 +404,7 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "<link rel='stylesheet' id='google-fonts-1-css' href='https://fonts.googleapis.com/css?family=Quicksand%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto+Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CWork+Sans%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&#038;display=auto&#038;ver=6.3.1' media='all' />",
+							"evidence": "<link rel='stylesheet' id='google-fonts-1-css' href='https://fonts.googleapis.com/css?family=Quicksand%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto+Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CWork+Sans%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&#038;display=auto&#038;ver=6.3.2' media='all' />",
 							"otherinfo": ""
 						},
 						{
@@ -444,7 +444,7 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "<link rel='stylesheet' id='google-fonts-1-css' href='https://fonts.googleapis.com/css?family=Quicksand%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto+Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CWork+Sans%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&#038;display=auto&#038;ver=6.3.1' media='all' />",
+							"evidence": "<link rel='stylesheet' id='google-fonts-1-css' href='https://fonts.googleapis.com/css?family=Quicksand%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto+Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CWork+Sans%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&#038;display=auto&#038;ver=6.3.2' media='all' />",
 							"otherinfo": ""
 						},
 						{
@@ -454,9 +454,17 @@
 							"attack": "",
 							"evidence": "<script type=\"text/javascript\" src=\"https://app.mailjet.com/pas-nc-embedded-v1.js\"></script>",
 							"otherinfo": ""
+						},
+						{
+							"uri": "https://eva.beta.gouv.fr/wp-json/wp/v2/pages/407",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "<link rel=\\\"canonical\\\" href=\\\"https:\\/\\/eva.beta.gouv.fr\\/\\\" \\/>",
+							"otherinfo": ""
 						}
 					],
-					"count": "10",
+					"count": "11",
 					"solution": "<p>Provide a valid integrity attribute to the tag.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity</p>",
@@ -620,7 +628,7 @@
 					"reference": "<p>https://angular.io/guide/security</p>",
 					"cweid": "749",
 					"wascid": "-1",
-					"sourceid": "740"
+					"sourceid": "762"
 				},
 				{
 					"pluginid": "10063",
@@ -642,14 +650,6 @@
 						},
 						{
 							"uri": "https://eva.beta.gouv.fr/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://eva.beta.gouv.fr/articles/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -713,6 +713,14 @@
 							"otherinfo": ""
 						},
 						{
+							"uri": "https://eva.beta.gouv.fr/statistiques/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
 							"uri": "https://eva.beta.gouv.fr/temoignages/",
 							"method": "GET",
 							"param": "",
@@ -727,7 +735,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy</p><p>https://developer.chrome.com/blog/feature-policy/</p><p>https://scotthelme.co.uk/a-new-security-header-feature-policy/</p><p>https://w3c.github.io/webappsec-feature-policy/</p><p>https://www.smashingmagazine.com/2018/12/feature-policy/</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "1"
+					"sourceid": "8"
 				},
 				{
 					"pluginid": "10037",
@@ -756,7 +764,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://eva.beta.gouv.fr/jeu/assets/apple-touch-icon-120x120.png",
+							"uri": "https://eva.beta.gouv.fr/jeu/assets/apple-touch-icon-144x144.png",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -842,7 +850,7 @@
 					"reference": "<p>http://blogs.msdn.com/b/varunm/archive/2013/04/23/remove-unwanted-http-response-headers.aspx</p><p>http://www.troyhunt.com/2012/02/shhh-dont-let-your-response-headers.html</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "154"
+					"sourceid": "183"
 				},
 				{
 					"pluginid": "10035",
@@ -949,7 +957,7 @@
 					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html</p><p>https://owasp.org/www-community/Security_Headers</p><p>http://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security</p><p>http://caniuse.com/stricttransportsecurity</p><p>http://tools.ietf.org/html/rfc6797</p>",
 					"cweid": "319",
 					"wascid": "15",
-					"sourceid": "1"
+					"sourceid": "8"
 				},
 				{
 					"pluginid": "10096",
@@ -1016,7 +1024,7 @@
 					"reference": "<p>http://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "1"
+					"sourceid": "8"
 				},
 				{
 					"pluginid": "10021",
@@ -1038,14 +1046,6 @@
 						},
 						{
 							"uri": "https://eva.beta.gouv.fr/",
-							"method": "GET",
-							"param": "x-content-type-options",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
-						},
-						{
-							"uri": "https://eva.beta.gouv.fr/articles/",
 							"method": "GET",
 							"param": "x-content-type-options",
 							"attack": "",
@@ -1109,6 +1109,14 @@
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
 						},
 						{
+							"uri": "https://eva.beta.gouv.fr/statistiques/",
+							"method": "GET",
+							"param": "x-content-type-options",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
+						},
+						{
 							"uri": "https://eva.beta.gouv.fr/temoignages/",
 							"method": "GET",
 							"param": "x-content-type-options",
@@ -1123,7 +1131,42 @@
 					"reference": "<p>http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx</p><p>https://owasp.org/www-community/Security_Headers</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "1"
+					"sourceid": "8"
+				},
+				{
+					"pluginid": "10111",
+					"alertRef": "10111",
+					"alert": "Authentication Request Identified",
+					"name": "Authentication Request Identified",
+					"riskcode": "0",
+					"confidence": "3",
+					"riskdesc": "Informational (High)",
+					"desc": "<p>The given request has been identified as an authentication request. The 'Other Info' field contains a set of key=value lines which identify any relevant fields. If the request is in a context which has an Authentication Method set to \"Auto-Detect\" then this rule will change the authentication to match the request identified.</p>",
+					"instances":[ 
+						{
+							"uri": "https://eva.beta.gouv.fr/pro/admin/login",
+							"method": "POST",
+							"param": "compte[email]",
+							"attack": "",
+							"evidence": "compte[password]",
+							"otherinfo": "userParam=compte[email]\nuserValue=foo-bar@example.com\npasswordParam=compte[password]\nreferer=https://eva.beta.gouv.fr/pro/admin/login\ncsrfToken=authenticity_token"
+						},
+						{
+							"uri": "https://eva.beta.gouv.fr/pro/admin/login",
+							"method": "POST",
+							"param": "compte[email]",
+							"attack": "",
+							"evidence": "compte[password]",
+							"otherinfo": "userParam=compte[email]\nuserValue=foo-bar@example.com\npasswordParam=compte[password]\nreferer=https://eva.beta.gouv.fr/pro/admin/login?code=ZAP&code_erreur=Le+code+saisi+n%27est+pas+correct.+Saisissez-le+%C3%A0+nouveau%2C+ou+demandez+de+l%27aide+%C3%A0+la+personne+qui+vous+accompagne.\ncsrfToken=authenticity_token"
+						}
+					],
+					"count": "2",
+					"solution": "<p>This is an informational alert rather than a vulnerability and so there is nothing to fix.</p>",
+					"otherinfo": "<p>userParam=compte[email]</p><p>userValue=foo-bar@example.com</p><p>passwordParam=compte[password]</p><p>referer=https://eva.beta.gouv.fr/pro/admin/login</p><p>csrfToken=authenticity_token</p>",
+					"reference": "<p>https://www.zaproxy.org/docs/desktop/addons/authentication-helper/auth-req-id/</p>",
+					"cweid": "-1",
+					"wascid": "-1",
+					"sourceid": "1098"
 				},
 				{
 					"pluginid": "10094",
@@ -1145,14 +1188,6 @@
 						},
 						{
 							"uri": "https://eva.beta.gouv.fr/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "fr/wp-content/uploads/2021/05/1200px-Republique-francaise-logo",
-							"otherinfo": "~\uFFFD\uFFFD\uFFFD(\uFFFD\u05E7\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD_\uFFFD\uFFFD\uFFFDv\uFFFDJq\uFFFD\\x0017\uFFFD\uFFFD\uFFFDb\uFFFD\uFFFD~\uFFFD\uFFFDq\uFFFD\uFFFD{\uFFFDh\uFFFD"
-						},
-						{
-							"uri": "https://eva.beta.gouv.fr/articles/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1196,8 +1231,8 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "2BtNYxeAXztdTh1bCv7lPSVSeTmKoaMEj9jKsEuAvcYauOnwONGhrp86mTgQW09mCi8rszvfLHu1rkJBzg",
-							"otherinfo": "\uFFFD\\x001bMc\\x0017\uFFFD_;]N\\x001d[\n\uFFFD\uFFFD=%Ry9\uFFFD\uFFFD\uFFFD\\x0004\uFFFD\uFFFD\u02B0K\uFFFD\uFFFD\uFFFD\\x001a\uFFFD\uFFFD\uFFFD8\u0461\uFFFD\uFFFD:\uFFFD8\\x0010[Of\n/+\uFFFD;\uFFFD,{\uFFFD\uFFFDBA\uFFFD"
+							"evidence": "2FlGzRxjpIskI7H9OSBiBZG1hXP5Zs8VLUptr1zs6fEckGxjFkamM4VKgsqt5IMbHoexluZPLV6kKED1OLnEAwqjHln8EA9KeKSex0wfjMNYnC23yfEyKhmYgKs8Cd",
+							"otherinfo": "\uFFFDYF\uFFFD\\x001cc\uFFFD\uFFFD$#\uFFFD\uFFFD9 b\\x0005\uFFFD\uFFFD\uFFFDs\uFFFDf\uFFFD\\x0015-Jm\uFFFD\\\uFFFD\uFFFD\uFFFD\\x001c\uFFFDlc\\x0016F\uFFFD3\uFFFDJ\uFFFD\u02AD\uFFFD\\x001b\\x001e\uFFFD\uFFFD\uFFFD\uFFFDO-^\uFFFD(@\uFFFD8\uFFFD\uFFFD\\x0003\n\uFFFD\\x001eY\uFFFD\\x0010\\x000fJx\uFFFD\uFFFD\uFFFDL\\x001f\uFFFD\uFFFDX\uFFFD-\uFFFD\uFFFD\uFFFD2*\\x0019\uFFFD\uFFFD\uFFFD<\t"
 						},
 						{
 							"uri": "https://eva.beta.gouv.fr/qui-sommes-nous/",
@@ -1216,6 +1251,14 @@
 							"otherinfo": "~\uFFFD\uFFFD\uFFFD(\uFFFD\u05E7\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD_\uFFFD\uFFFD\uFFFD+\uFFFD\uFFFD^w\uFFFD+\uFFFD\uFFFD^w\uFFFD\u808F\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDLu\uFFFD"
 						},
 						{
+							"uri": "https://eva.beta.gouv.fr/statistiques/",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "fr/wp-content/uploads/2021/05/1200px-Republique-francaise-logo",
+							"otherinfo": "~\uFFFD\uFFFD\uFFFD(\uFFFD\u05E7\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD_\uFFFD\uFFFD\uFFFDv\uFFFDJq\uFFFD\\x0017\uFFFD\uFFFD\uFFFDb\uFFFD\uFFFD~\uFFFD\uFFFDq\uFFFD\uFFFD{\uFFFDh\uFFFD"
+						},
+						{
 							"uri": "https://eva.beta.gouv.fr/temoignages/",
 							"method": "GET",
 							"param": "",
@@ -1230,7 +1273,7 @@
 					"reference": "<p>https://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "1"
+					"sourceid": "8"
 				},
 				{
 					"pluginid": "90011",
@@ -1345,7 +1388,7 @@
 					"reference": "<p>http://code.google.com/p/browsersec/wiki/Part2#Character_set_handling_and_detection</p>",
 					"cweid": "436",
 					"wascid": "15",
-					"sourceid": "414"
+					"sourceid": "417"
 				},
 				{
 					"pluginid": "10019",
@@ -1372,7 +1415,7 @@
 					"reference": "<p>http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx</p>",
 					"cweid": "345",
 					"wascid": "12",
-					"sourceid": "422"
+					"sourceid": "416"
 				},
 				{
 					"pluginid": "10027",
@@ -1599,14 +1642,6 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://eva.beta.gouv.fr/en-savoir-plus-sur-les-referentiels-devaluation/",
-							"method": "GET",
-							"param": "cache-control",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
 							"uri": "https://eva.beta.gouv.fr/faq/",
 							"method": "GET",
 							"param": "cache-control",
@@ -1640,6 +1675,14 @@
 						},
 						{
 							"uri": "https://eva.beta.gouv.fr/robots.txt",
+							"method": "GET",
+							"param": "cache-control",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://eva.beta.gouv.fr/sessions-de-presentation-eva/",
 							"method": "GET",
 							"param": "cache-control",
 							"attack": "",
@@ -1704,23 +1747,15 @@
 							"attack": "",
 							"evidence": "",
 							"otherinfo": ""
-						},
-						{
-							"uri": "https://eva.beta.gouv.fr/sitemap.xml",
-							"method": "GET",
-							"param": "Sec-Fetch-Dest",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
 						}
 					],
-					"count": "3",
+					"count": "2",
 					"solution": "<p>Ensure that Sec-Fetch-Dest header is included in request headers.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Dest</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "1"
+					"sourceid": "8"
 				},
 				{
 					"pluginid": "90005",
@@ -1747,23 +1782,15 @@
 							"attack": "",
 							"evidence": "",
 							"otherinfo": ""
-						},
-						{
-							"uri": "https://eva.beta.gouv.fr/sitemap.xml",
-							"method": "GET",
-							"param": "Sec-Fetch-Mode",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
 						}
 					],
-					"count": "3",
+					"count": "2",
 					"solution": "<p>Ensure that Sec-Fetch-Mode header is included in request headers.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Mode</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "1"
+					"sourceid": "8"
 				},
 				{
 					"pluginid": "90005",
@@ -1790,23 +1817,15 @@
 							"attack": "",
 							"evidence": "",
 							"otherinfo": ""
-						},
-						{
-							"uri": "https://eva.beta.gouv.fr/sitemap.xml",
-							"method": "GET",
-							"param": "Sec-Fetch-Site",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
 						}
 					],
-					"count": "3",
+					"count": "2",
 					"solution": "<p>Ensure that Sec-Fetch-Site header is included in request headers.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Site</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "1"
+					"sourceid": "8"
 				},
 				{
 					"pluginid": "90005",
@@ -1833,23 +1852,15 @@
 							"attack": "",
 							"evidence": "",
 							"otherinfo": ""
-						},
-						{
-							"uri": "https://eva.beta.gouv.fr/sitemap.xml",
-							"method": "GET",
-							"param": "Sec-Fetch-User",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
 						}
 					],
-					"count": "3",
+					"count": "2",
 					"solution": "<p>Ensure that Sec-Fetch-User header is included in user initiated requests.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-User</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "1"
+					"sourceid": "8"
 				},
 				{
 					"pluginid": "10112",
@@ -1866,7 +1877,23 @@
 							"method": "GET",
 							"param": "_session_id",
 							"attack": "",
-							"evidence": "YTY60dI%2BT8iAo3jGYctgN1%2FVTpn0h7jkNt%2FbVOnfKGniTAndjWCl%2B%2BJ%2B%2Fe%2BozQYXHJ0B2Mtuev%2Fulr9LcasufhcS6%2B0slAAYhRndDoxX07Ce0ZIxD1BCmJnxBqA6Zt4Uq5aBd67VnkwzlBi2YSoyqADfUX0qGsUYxg4rgMm14J9UnLfyTERMdEzi99qBc7bpxUKRcLYNEcrfhQUrP3si%2Bwnmu6oML1EF6A9TOVqXCi%2FtcY7%2BH6Roz1g2ebA3ZxTTX9nT9nox3GHyQVQzTN0ByqSzyw%3D%3D--zlhP7VW3iaIJBNCs--dY2UE1Aa0mTsDKMn3GkkJw%3D%3D",
+							"evidence": "3MxKcOlXOoOQuuxx%2BLtXyYNRk0%2FnIieMLTYyEX4Jw5wc4gbpjcfNQhfI6WBb54E1jCjMsJAkkhHgzjEEVtE0HYwE%2FdDT2HqsZXoUPqUWnsiFGkhTI0yfO2aAenRxW2%2FbsuweDak4XtYC%2FIij7Mx4nFPEvdWwqC2Do3EOKw6R6gQ5WdMpwA5Gxe%2BAOG0qT8db2IGfdcYVJJNwEZFHMYF8f3OJudwnZdCz8a46FK31hDQMrmJCgzXbZiVpgA087qNAFK%2BuJO9I%2BtxBWrb6VWmzmAmoug%3D%3D--RhK59NR0tBslqArC--qreS9p5oXQyc%2B%2Bpc0JBu1w%3D%3D",
+							"otherinfo": "\ncookie:_session_id"
+						},
+						{
+							"uri": "https://eva.beta.gouv.fr/pro/admin/login?code=ZAP&code_erreur=Le+code+saisi+n%27est+pas+correct.+Saisissez-le+%C3%A0+nouveau%2C+ou+demandez+de+l%27aide+%C3%A0+la+personne+qui+vous+accompagne.",
+							"method": "GET",
+							"param": "_session_id",
+							"attack": "",
+							"evidence": "kr4Lp83R2rXPpVfDkgaxoF2R9qF4mUmu8T63NCvnKTjX5YSE5DpJG87Ufk1b5PiewmwiWWSyeNSb%2BUuaSrWmHAeA7jq2rw5Y928mXiUWTLMZMOFHbuUGXvgB9Ok%2BXYzmyyVOjSZFDXQR380o2%2F21LgFUwkfgPGx5lymmAfYmkzce3fteaZmCi33vRYIb7gopojODHWSGP3vkyiQ2jEh2HRxE%2FntaOPhfDr3mo9t7griOIDHEnwjFRyXYY4AsKZuLsLZZ4jpGTEd1jA2BulXbmd5bYw%3D%3D--cc3NpwDt0sg156Ld--YuMK6V8w6FRu0iOJrm1wCg%3D%3D",
+							"otherinfo": "\ncookie:_session_id"
+						},
+						{
+							"uri": "https://eva.beta.gouv.fr/pro/admin/password/new",
+							"method": "GET",
+							"param": "_session_id",
+							"attack": "",
+							"evidence": "4ZkwKjpCUj9LPvszWiopuXmweQg1jeooYP36IMu%2BYY%2FZEqc%2BLQl1c4zu1hMSPGcMk6lR7X7dK1YxF%2F5d2WR5M69r4ZYqdFCRVBew%2BGaSKfLlYqIb%2F4h%2BwjFqC2beFkEb9PYDS3UT%2BwuLiL4oo%2BsscFlTZTROo1eyI5Yh%2Bh0DT7UeBshO%2FAEwWVqAvcJPy%2BQLK0KQ%2F5FIrEMuO7nAVcPPsaBD6ufR%2F7opbvnbMoMZeSIJgS0HyocQtC2ZlEYcYNebqZV2tpiyGp5dvG99xbYf4EkWwA%3D%3D--tVRZJ8XtdOl0V%2Bjw--Hu6iQ3KpyPGr4LxwYBDtog%3D%3D",
 							"otherinfo": "\ncookie:_session_id"
 						},
 						{
@@ -1874,7 +1901,7 @@
 							"method": "GET",
 							"param": "_session_id",
 							"attack": "",
-							"evidence": "ON4Cgj1FaodcoYa4tfBv%2F4N%2BLaV7quqaIWLUc7d5Swt%2B6CgUaMiECq%2BtNYxeAXztdTh1bCv7lPSVSeTmKoaMEj9jKsEuAvcYauOnwONGhrp86mTgQW09mCi8rszvfLHu1rkJBzg%2FGBSOJV1ay1neROwuOpASEmDu61GstQ8aSZa6QFCuwmTO4MCYRGisQy%2BBPi8e5l%2BQA5j7fbhkDFhPZ813T9fcgt0bBlLm1wG%2Bh8rRqWBJwl5vTJWplFrzW%2BqY2NY8tn4cu88jZndz8DKC71Oy9g%3D%3D--abQse4S284XWMTks--S1PSHsN%2Bu28UR6i5JwedcQ%3D%3D",
+							"evidence": "j%2BU3O57Y%2BPqPXyepU0TF2w%2B2WxfVysz%2FdF4GJgUruG5e%2BV0prV8%2BVg9ZaND%2FlGzRxjpIskI7H9OSBiBZG1hXP5Zs8VLUptr1zs6fEckGxjFkamM4VKgsqt5IMbHoexluZPLV6kKED1OLnEAwqjHln8EA9KeKSex0wfjMNYnC23yfEyKhmYgKs8Cd%2F00d8w1uL7vWJDOPFdmr8Ojm0bI7ns89r1AfWMKlOj4WLOertT%2BD7rfgrvItgNS8tmIqrTQC3ONEJiWAv5GBTmE17G%2F6RuEsrw%3D%3D--7AIdJSrWdk%2FYbc78--3zVQBbRVdXtkF5%2FCow7MmQ%3D%3D",
 							"otherinfo": "\ncookie:_session_id"
 						},
 						{
@@ -1882,33 +1909,33 @@
 							"method": "GET",
 							"param": "_session_id",
 							"attack": "",
-							"evidence": "6CPduXltkiwJRMCZt%2F%2FEntUeu7ydi5cOMMONgSXTf6brndo%2FMl4I3SY%2BslDtfS3J8BHpwOsdRYn8iz1o5cTR%2BDGFE5%2ByzmmyoMvf8lsm5scRoj07k19KXEBnI1%2FVxJs8WvmCM1gU4KkLwxVUStIu4bz5QKllwyddL7qXxCQyphjmiRFtgRO9l%2FVwIWjdCJaofdiy8zJregh%2Fr3TpJ%2FXzUdwnXf%2FHmgxVKZg%2FmUPLobHHIxiPcZP0saPNC0ga1C3oAAELHRAKFbi8u4m3kG0ulgNhbw%3D%3D--N27KAGtyQ%2B80Vo7n--YKgbWfHlT2wVyVEizWYtlg%3D%3D",
+							"evidence": "%2Bq8SOMvBOO18MD7TEqeIJuU01i2lFM080pCMyk1zlV%2FS6afDQBwBTK1UcAbCxwPZ7wr1LclFE8%2BBf0F%2F9v20TGMNbXsvhjxXUbDGh6bYysTJatwzXwqisVTNry9EiG75wTvkTEd99Hdajbw6TIRumISYSywbfK8SJP8aqCONNO9UODG%2BBXBJRQ1ppOeeTZBZpX0%2Fuoot6u6BLgo3WEN3soucRn6gzDYVkfSXgad8cY5BND9IyFgsVh66TZDkh2rI7ja8ZK6I4jmlNzjEl6nErxnj2w%3D%3D--OdVp0%2F%2F35Zj5LsSw--VqLhYE%2FplAMa2aZ%2ByQyyCA%3D%3D",
 							"otherinfo": "\ncookie:_session_id"
 						},
 						{
-							"uri": "https://eva.beta.gouv.fr/pro/admin/login",
-							"method": "GET",
+							"uri": "https://eva.beta.gouv.fr/pro/admin/password",
+							"method": "POST",
 							"param": "_session_id",
 							"attack": "",
-							"evidence": "YTY60dI%2BT8iAo3jGYctgN1%2FVTpn0h7jkNt%2FbVOnfKGniTAndjWCl%2B%2BJ%2B%2Fe%2BozQYXHJ0B2Mtuev%2Fulr9LcasufhcS6%2B0slAAYhRndDoxX07Ce0ZIxD1BCmJnxBqA6Zt4Uq5aBd67VnkwzlBi2YSoyqADfUX0qGsUYxg4rgMm14J9UnLfyTERMdEzi99qBc7bpxUKRcLYNEcrfhQUrP3si%2Bwnmu6oML1EF6A9TOVqXCi%2FtcY7%2BH6Roz1g2ebA3ZxTTX9nT9nox3GHyQVQzTN0ByqSzyw%3D%3D--zlhP7VW3iaIJBNCs--dY2UE1Aa0mTsDKMn3GkkJw%3D%3D",
+							"evidence": "b5x6%2BcrgiPhHtCU%2BQx4rZUOaiWQmxxAMERQvUi2sp1FFc9ebvn3sQxZdonzUXydOM6ZdFjt9lEmg9ekUrWqHhXeFG7SPRYv7dWAFkNXcdCHpd6RHjr%2BXGAFO%2BYV9pbE%2BO2zpLlvlMqkja53cwoDQLPg0LixcZ7pFSx9yU7R2zrvzKxAnhnl6ntoEIwqY3oOpRE%2B9j0666l6eV%2FnYoYHD6eKGlToL9dz40ycOMO%2FBfHqoJ3AbjnqQZb%2FD6aUuNHG%2BtDyJjpY1kw%2Bcob9HWt7S1v9mpQ%3D%3D--OCAiI77UY5EfsOtr--kJ7o2419oEa30%2FRS2T7DzQ%3D%3D",
 							"otherinfo": "\ncookie:_session_id"
 						},
 						{
-							"uri": "https://eva.beta.gouv.fr/pro/structures",
-							"method": "GET",
+							"uri": "https://eva.beta.gouv.fr/pro/admin/password",
+							"method": "POST",
 							"param": "_session_id",
 							"attack": "",
-							"evidence": "ON4Cgj1FaodcoYa4tfBv%2F4N%2BLaV7quqaIWLUc7d5Swt%2B6CgUaMiECq%2BtNYxeAXztdTh1bCv7lPSVSeTmKoaMEj9jKsEuAvcYauOnwONGhrp86mTgQW09mCi8rszvfLHu1rkJBzg%2FGBSOJV1ay1neROwuOpASEmDu61GstQ8aSZa6QFCuwmTO4MCYRGisQy%2BBPi8e5l%2BQA5j7fbhkDFhPZ813T9fcgt0bBlLm1wG%2Bh8rRqWBJwl5vTJWplFrzW%2BqY2NY8tn4cu88jZndz8DKC71Oy9g%3D%3D--abQse4S284XWMTks--S1PSHsN%2Bu28UR6i5JwedcQ%3D%3D",
+							"evidence": "b5x6%2BcrgiPhHtCU%2BQx4rZUOaiWQmxxAMERQvUi2sp1FFc9ebvn3sQxZdonzUXydOM6ZdFjt9lEmg9ekUrWqHhXeFG7SPRYv7dWAFkNXcdCHpd6RHjr%2BXGAFO%2BYV9pbE%2BO2zpLlvlMqkja53cwoDQLPg0LixcZ7pFSx9yU7R2zrvzKxAnhnl6ntoEIwqY3oOpRE%2B9j0666l6eV%2FnYoYHD6eKGlToL9dz40ycOMO%2FBfHqoJ3AbjnqQZb%2FD6aUuNHG%2BtDyJjpY1kw%2Bcob9HWt7S1v9mpQ%3D%3D--OCAiI77UY5EfsOtr--kJ7o2419oEa30%2FRS2T7DzQ%3D%3D",
 							"otherinfo": "\ncookie:_session_id"
 						}
 					],
-					"count": "5",
+					"count": "7",
 					"solution": "<p>This is an informational alert rather than a vulnerability and so there is nothing to fix.</p>",
 					"otherinfo": "<p></p><p>cookie:_session_id</p>",
 					"reference": "<p>https://www.zaproxy.org/docs/desktop/addons/authentication-helper/session-mgmt-id</p>",
 					"cweid": "-1",
 					"wascid": "-1",
-					"sourceid": "709"
+					"sourceid": "661"
 				},
 				{
 					"pluginid": "10049",
@@ -1999,7 +2026,7 @@
 					"reference": "<p>https://datatracker.ietf.org/doc/html/rfc7234</p><p>https://datatracker.ietf.org/doc/html/rfc7231</p><p>https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "1"
+					"sourceid": "8"
 				},
 				{
 					"pluginid": "10049",
@@ -2034,7 +2061,7 @@
 					"reference": "<p>https://datatracker.ietf.org/doc/html/rfc7234</p><p>https://datatracker.ietf.org/doc/html/rfc7231</p><p>https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "143"
+					"sourceid": "104"
 				},
 				{
 					"pluginid": "10031",
@@ -2149,7 +2176,7 @@
 					"reference": "<p>http://websecuritytool.codeplex.com/wikipage?title=Checks#user-controlled-html-attribute</p>",
 					"cweid": "20",
 					"wascid": "20",
-					"sourceid": "754"
+					"sourceid": "769"
 				}
 			]
 		}
