@@ -1,7 +1,7 @@
 {
 	"@programName": "ZAP",
-	"@version": "2.13.0",
-	"@generated": "Sun, 8 Oct 2023 08:22:37",
+	"@version": "2.14.0",
+	"@generated": "Sun, 15 Oct 2023 10:13:49",
 	"site":[ 
 		{
 			"@name": "https://potentiel.beta.gouv.fr",
@@ -31,10 +31,10 @@
 					"count": "1",
 					"solution": "<p>Phase: Architecture and Design</p><p>Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid.</p><p>For example, use anti-CSRF packages such as the OWASP CSRFGuard.</p><p></p><p>Phase: Implementation</p><p>Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.</p><p></p><p>Phase: Architecture and Design</p><p>Generate a unique nonce for each form, place the nonce into the form, and verify the nonce upon receipt of the form. Be sure that the nonce is not predictable (CWE-330).</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Identify especially dangerous operations. When the user performs a dangerous operation, send a separate confirmation request to ensure that the user intended to perform that operation.</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Use the ESAPI Session Management control.</p><p>This control includes a component for CSRF.</p><p></p><p>Do not use the GET method for any request that triggers a state change.</p><p></p><p>Phase: Implementation</p><p>Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.</p>",
 					"otherinfo": "<p>No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"email\" \"firstname\" \"lastname\" \"utilisateurInvit\u00E9\" ].</p>",
-					"reference": "<p>http://projects.webappsec.org/Cross-Site-Request-Forgery</p><p>http://cwe.mitre.org/data/definitions/352.html</p>",
+					"reference": "<p>http://projects.webappsec.org/Cross-Site-Request-Forgery</p><p>https://cwe.mitre.org/data/definitions/352.html</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "34"
+					"sourceid": "33"
 				},
 				{
 					"pluginid": "10055",
@@ -63,6 +63,14 @@
 							"otherinfo": "The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: \nframe-ancestors, form-action\n\nThe directive(s): frame-ancestors, form-action are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything."
 						},
 						{
+							"uri": "https://potentiel.beta.gouv.fr/accessibilite.html",
+							"method": "GET",
+							"param": "Content-Security-Policy",
+							"attack": "",
+							"evidence": "default-src 'self' blob: metabase.potentiel.beta.gouv.fr;connect-src 'self' 'unsafe-inline' analytics.potentiel.beta.gouv.fr client.crisp.chat wss://client.relay.crisp.chat;img-src 'self' data: client.crisp.chat image.crisp.chat;font-src 'self' data: client.crisp.chat;style-src 'self' data: 'unsafe-inline' client.crisp.chat;script-src 'unsafe-inline' 'self' metabase.potentiel.beta.gouv.fr analytics.potentiel.beta.gouv.fr client.crisp.chat;object-src 'none'",
+							"otherinfo": "The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: \nframe-ancestors, form-action\n\nThe directive(s): frame-ancestors, form-action are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything."
+						},
+						{
 							"uri": "https://potentiel.beta.gouv.fr/robots.txt",
 							"method": "GET",
 							"param": "Content-Security-Policy",
@@ -76,14 +84,6 @@
 							"param": "Content-Security-Policy",
 							"attack": "",
 							"evidence": "default-src 'none'",
-							"otherinfo": "The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: \nframe-ancestors, form-action\n\nThe directive(s): frame-ancestors, form-action are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything."
-						},
-						{
-							"uri": "https://potentiel.beta.gouv.fr/stats.html",
-							"method": "GET",
-							"param": "Content-Security-Policy",
-							"attack": "",
-							"evidence": "default-src 'self' blob: metabase.potentiel.beta.gouv.fr;connect-src 'self' 'unsafe-inline' analytics.potentiel.beta.gouv.fr client.crisp.chat wss://client.relay.crisp.chat;img-src 'self' data: client.crisp.chat image.crisp.chat;font-src 'self' data: client.crisp.chat;style-src 'self' data: 'unsafe-inline' client.crisp.chat;script-src 'unsafe-inline' 'self' metabase.potentiel.beta.gouv.fr analytics.potentiel.beta.gouv.fr client.crisp.chat;object-src 'none'",
 							"otherinfo": "The following directives either allow wildcard sources (or ancestors), are not defined, or are overly broadly defined: \nframe-ancestors, form-action\n\nThe directive(s): frame-ancestors, form-action are among the directives that do not fallback to default-src, missing/excluding them is the same as allowing anything."
 						}
 					],
@@ -122,7 +122,7 @@
 							"otherinfo": "script-src includes unsafe-inline."
 						},
 						{
-							"uri": "https://potentiel.beta.gouv.fr/stats.html",
+							"uri": "https://potentiel.beta.gouv.fr/accessibilite.html",
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
@@ -165,7 +165,7 @@
 							"otherinfo": "style-src includes unsafe-inline."
 						},
 						{
-							"uri": "https://potentiel.beta.gouv.fr/stats.html",
+							"uri": "https://potentiel.beta.gouv.fr/accessibilite.html",
 							"method": "GET",
 							"param": "Content-Security-Policy",
 							"attack": "",
@@ -281,7 +281,7 @@
 					"reference": "<p>https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site</p>",
 					"cweid": "1275",
 					"wascid": "13",
-					"sourceid": "26"
+					"sourceid": "27"
 				},
 				{
 					"pluginid": "10017",
@@ -356,7 +356,7 @@
 					"reference": "",
 					"cweid": "829",
 					"wascid": "15",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10063",
@@ -393,7 +393,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://potentiel.beta.gouv.fr/js/d%C3%A9clarationAccessibilit%C3%A9.js?1696671877556",
+							"uri": "https://potentiel.beta.gouv.fr/js/d%C3%A9clarationAccessibilit%C3%A9.js?1697352661635",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -401,7 +401,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://potentiel.beta.gouv.fr/js/home.js?1696671877556",
+							"uri": "https://potentiel.beta.gouv.fr/js/home.js?1697352661635",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -409,7 +409,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://potentiel.beta.gouv.fr/js/signup.js?1696671877556",
+							"uri": "https://potentiel.beta.gouv.fr/js/signup.js?1697352661635",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -417,7 +417,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://potentiel.beta.gouv.fr/js/statistiques.js?1696671877556",
+							"uri": "https://potentiel.beta.gouv.fr/js/statistiques.js?1697352661635",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -463,7 +463,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy</p><p>https://developer.chrome.com/blog/feature-policy/</p><p>https://scotthelme.co.uk/a-new-security-header-feature-policy/</p><p>https://w3c.github.io/webappsec-feature-policy/</p><p>https://www.smashingmagazine.com/2018/12/feature-policy/</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10035",
@@ -587,8 +587,8 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "3AEL8ldvEB70-5YLgKJ1bgUByRihG_Q_cN",
-							"otherinfo": "\uFFFD\\x0001\\x000b\uFFFDWo\\x0010\\x001e\uFFFD\uFFFD\uFFFD\\x000b\uFFFD\uFFFDun\\x0005\\x0001\uFFFD\\x0018\uFFFD\\x001b\uFFFD?p"
+							"evidence": "3A5Uon438kHQgeOJcmMYKVDrrnGjwKTCDG",
+							"otherinfo": "\uFFFD\\x000eT\uFFFD~7\uFFFDA\u0401\uFFFDrc\\x0018)P\uFFFDq\uFFFD\uFFFD\uFFFD\uFFFD\\x000c"
 						},
 						{
 							"uri": "https://potentiel.beta.gouv.fr/stats.html",
@@ -601,11 +601,11 @@
 					],
 					"count": "2",
 					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
-					"otherinfo": "<p>\uFFFD\\x0001\\x000b\uFFFDWo\\x0010\\x001e\uFFFD\uFFFD\uFFFD\\x000b\uFFFD\uFFFDun\\x0005\\x0001\uFFFD\\x0018\uFFFD\\x001b\uFFFD?p</p>",
+					"otherinfo": "<p>\uFFFD\\x000eT\uFFFD~7\uFFFDA\u0401\uFFFDrc\\x0018)P\uFFFDq\uFFFD\uFFFD\uFFFD\uFFFD\\x000c</p>",
 					"reference": "<p>https://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "26"
+					"sourceid": "27"
 				},
 				{
 					"pluginid": "10024",
@@ -632,7 +632,7 @@
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "53"
+					"sourceid": "54"
 				},
 				{
 					"pluginid": "10027",
@@ -669,7 +669,7 @@
 							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script>\n          window.__INITIAL_PROPS__ = {\"request\":{\"query\":{}}};\n        </script>\", see evidence field for the suspicious comment/snippet."
 						},
 						{
-							"uri": "https://potentiel.beta.gouv.fr/js/d%C3%A9clarationAccessibilit%C3%A9.js?1696671877556",
+							"uri": "https://potentiel.beta.gouv.fr/js/d%C3%A9clarationAccessibilit%C3%A9.js?1697352661635",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -677,7 +677,7 @@
 							"otherinfo": "The following pattern was used: \\bADMIN\\b and was detected in the element starting with: \"\"use strict\";(self.webpackChunkpotentiel_beta_gouv_fr=self.webpackChunkpotentiel_beta_gouv_fr||[]).push([[6840],{901:(e,t,r)=>{r\", see evidence field for the suspicious comment/snippet."
 						},
 						{
-							"uri": "https://potentiel.beta.gouv.fr/js/home.js?1696671877556",
+							"uri": "https://potentiel.beta.gouv.fr/js/home.js?1697352661635",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -693,7 +693,7 @@
 							"otherinfo": "The following pattern was used: \\bDB\\b and was detected in the element starting with: \"(()=>{var M,b={8:(M,b,z)=>{z(5177).tz.load(z(1128))},5177:function(M,b,z){var p,O,e;!function(o,c){\"use strict\";M.exports?M.expo\", see evidence field for the suspicious comment/snippet."
 						},
 						{
-							"uri": "https://potentiel.beta.gouv.fr/js/statistiques.js?1696671877556",
+							"uri": "https://potentiel.beta.gouv.fr/js/statistiques.js?1697352661635",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -731,7 +731,7 @@
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10049",
@@ -758,7 +758,7 @@
 					"reference": "<p>https://datatracker.ietf.org/doc/html/rfc7234</p><p>https://datatracker.ietf.org/doc/html/rfc7231</p><p>https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "26"
+					"sourceid": "27"
 				},
 				{
 					"pluginid": "10015",
@@ -854,7 +854,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://potentiel.beta.gouv.fr/sitemap.xml",
+							"uri": "https://potentiel.beta.gouv.fr/robots.txt",
 							"method": "GET",
 							"param": "Sec-Fetch-Dest",
 							"attack": "",
@@ -889,7 +889,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://potentiel.beta.gouv.fr/sitemap.xml",
+							"uri": "https://potentiel.beta.gouv.fr/robots.txt",
 							"method": "GET",
 							"param": "Sec-Fetch-Mode",
 							"attack": "",
@@ -903,7 +903,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Mode</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "90005",
@@ -924,7 +924,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://potentiel.beta.gouv.fr/sitemap.xml",
+							"uri": "https://potentiel.beta.gouv.fr/robots.txt",
 							"method": "GET",
 							"param": "Sec-Fetch-Site",
 							"attack": "",
@@ -938,7 +938,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Site</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "90005",
@@ -959,7 +959,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://potentiel.beta.gouv.fr/sitemap.xml",
+							"uri": "https://potentiel.beta.gouv.fr/robots.txt",
 							"method": "GET",
 							"param": "Sec-Fetch-User",
 							"attack": "",
@@ -973,7 +973,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-User</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10112",
@@ -990,7 +990,7 @@
 							"method": "GET",
 							"param": "connect.sid",
 							"attack": "",
-							"evidence": "s%3AEL8ldvEB70-5YLgKJ1bgUByRihG_Q_cN.xIdeXlvC7LqR%2FPFkwAK5uWqBw7yYL8CRc%2FnyJ73U7vc",
+							"evidence": "s%3A5Uon438kHQgeOJcmMYKVDrrnGjwKTCDG.LaDdJK5Kj48BKhZEKEVek6FgvSWTiHGVo6x1iF3jUA0",
 							"otherinfo": "\ncookie:connect.sid"
 						},
 						{
@@ -998,7 +998,7 @@
 							"method": "GET",
 							"param": "connect.sid",
 							"attack": "",
-							"evidence": "s%3AEL8ldvEB70-5YLgKJ1bgUByRihG_Q_cN.xIdeXlvC7LqR%2FPFkwAK5uWqBw7yYL8CRc%2FnyJ73U7vc",
+							"evidence": "s%3A5Uon438kHQgeOJcmMYKVDrrnGjwKTCDG.LaDdJK5Kj48BKhZEKEVek6FgvSWTiHGVo6x1iF3jUA0",
 							"otherinfo": "\ncookie:connect.sid"
 						}
 					],
@@ -1008,7 +1008,7 @@
 					"reference": "<p>https://www.zaproxy.org/docs/desktop/addons/authentication-helper/session-mgmt-id</p>",
 					"cweid": "-1",
 					"wascid": "-1",
-					"sourceid": "26"
+					"sourceid": "27"
 				},
 				{
 					"pluginid": "10049",
@@ -1083,7 +1083,7 @@
 					"reference": "<p>https://datatracker.ietf.org/doc/html/rfc7234</p><p>https://datatracker.ietf.org/doc/html/rfc7231</p><p>https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10049",
@@ -1153,7 +1153,7 @@
 					"reference": "<p>http://websecuritytool.codeplex.com/wikipage?title=Checks#user-controlled-html-attribute</p>",
 					"cweid": "20",
 					"wascid": "20",
-					"sourceid": "53"
+					"sourceid": "54"
 				}
 			]
 		}
