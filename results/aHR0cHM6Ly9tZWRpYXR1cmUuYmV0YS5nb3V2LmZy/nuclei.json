@@ -1,47 +1,6 @@
 [
   [
     {
-      "template": "dns/txt-fingerprint.yaml",
-      "template-url": "https://templates.nuclei.sh/public/txt-fingerprint",
-      "template-id": "txt-fingerprint",
-      "template-path": "/home/runner/nuclei-templates/dns/txt-fingerprint.yaml",
-      "info": {
-        "name": "DNS TXT Record Detected",
-        "author": [
-          "pdteam"
-        ],
-        "tags": [
-          "dns",
-          "txt"
-        ],
-        "description": "A DNS TXT record was detected. The TXT record lets a domain admin leave notes on a DNS server.",
-        "reference": [
-          "https://www.netspi.com/blog/technical/network-penetration-testing/analyzing-dns-txt-records-to-fingerprint-service-providers/"
-        ],
-        "severity": "info",
-        "metadata": {
-          "max-request": 1
-        },
-        "classification": {
-          "cve-id": null,
-          "cwe-id": [
-            "cwe-200"
-          ]
-        }
-      },
-      "type": "dns",
-      "host": "mediature.beta.gouv.fr.",
-      "matched-at": "mediature.beta.gouv.fr",
-      "extracted-results": [
-        "\"sendinblue-code:15754e1df38b862433eadf5bfaf41a3e\"",
-        "\"v=spf1 include:spf.mailjet.com include:spf.sendinblue.com mx ~all\""
-      ],
-      "request": ";; opcode: QUERY, status: NOERROR, id: 43829\n;; flags: rd ad; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 4096\n\n;; QUESTION SECTION:\n;mediature.beta.gouv.fr.\tIN\t TXT\n",
-      "response": ";; opcode: QUERY, status: NOERROR, id: 43829\n;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 512\n\n;; QUESTION SECTION:\n;mediature.beta.gouv.fr.\tIN\t TXT\n\n;; ANSWER SECTION:\nmediature.beta.gouv.fr.\t300\tIN\tTXT\t\"v=spf1 include:spf.mailjet.com include:spf.sendinblue.com mx ~all\"\nmediature.beta.gouv.fr.\t300\tIN\tTXT\t\"sendinblue-code:15754e1df38b862433eadf5bfaf41a3e\"\n",
-      "timestamp": "2023-10-15T07:24:56.310702398Z",
-      "matcher-status": true
-    },
-    {
       "template": "dns/dmarc-detect.yaml",
       "template-url": "https://templates.nuclei.sh/public/dmarc-detect",
       "template-id": "dmarc-detect",
@@ -78,9 +37,88 @@
       "extracted-results": [
         "\"v=DMARC1;p=none;\""
       ],
-      "request": ";; opcode: QUERY, status: NOERROR, id: 20329\n;; flags: rd ad; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 4096\n\n;; QUESTION SECTION:\n;_dmarc.mediature.beta.gouv.fr.\tIN\t TXT\n",
-      "response": ";; opcode: QUERY, status: NOERROR, id: 20329\n;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 512\n\n;; QUESTION SECTION:\n;_dmarc.mediature.beta.gouv.fr.\tIN\t TXT\n\n;; ANSWER SECTION:\n_dmarc.mediature.beta.gouv.fr.\t300\tIN\tTXT\t\"v=DMARC1;p=none;\"\n",
-      "timestamp": "2023-10-15T07:24:56.313887855Z",
+      "request": ";; opcode: QUERY, status: NOERROR, id: 52366\n;; flags: rd ad; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 4096\n\n;; QUESTION SECTION:\n;_dmarc.mediature.beta.gouv.fr.\tIN\t TXT\n",
+      "response": ";; opcode: QUERY, status: NOERROR, id: 52366\n;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 512\n\n;; QUESTION SECTION:\n;_dmarc.mediature.beta.gouv.fr.\tIN\t TXT\n\n;; ANSWER SECTION:\n_dmarc.mediature.beta.gouv.fr.\t300\tIN\tTXT\t\"v=DMARC1;p=none;\"\n",
+      "timestamp": "2023-10-22T07:11:51.066768067Z",
+      "matcher-status": true
+    },
+    {
+      "template": "dns/nameserver-fingerprint.yaml",
+      "template-url": "https://templates.nuclei.sh/public/nameserver-fingerprint",
+      "template-id": "nameserver-fingerprint",
+      "template-path": "/home/runner/nuclei-templates/dns/nameserver-fingerprint.yaml",
+      "info": {
+        "name": "NS Record Detection",
+        "author": [
+          "pdteam"
+        ],
+        "tags": [
+          "dns",
+          "ns"
+        ],
+        "description": "An NS record was detected. An NS record delegates a subdomain to a set of name servers.",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        },
+        "classification": {
+          "cve-id": null,
+          "cwe-id": [
+            "cwe-200"
+          ]
+        }
+      },
+      "type": "dns",
+      "host": "mediature.beta.gouv.fr.",
+      "matched-at": "mediature.beta.gouv.fr",
+      "extracted-results": [
+        "dns2.alwaysdata.com.",
+        "dns1.alwaysdata.com."
+      ],
+      "request": ";; opcode: QUERY, status: NOERROR, id: 35115\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 4096\n\n;; QUESTION SECTION:\n;mediature.beta.gouv.fr.\tIN\t NS\n",
+      "response": ";; opcode: QUERY, status: NOERROR, id: 35115\n;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 512\n\n;; QUESTION SECTION:\n;mediature.beta.gouv.fr.\tIN\t NS\n\n;; ANSWER SECTION:\nmediature.beta.gouv.fr.\t300\tIN\tNS\tdns2.alwaysdata.com.\nmediature.beta.gouv.fr.\t300\tIN\tNS\tdns1.alwaysdata.com.\n",
+      "timestamp": "2023-10-22T07:11:52.161124295Z",
+      "matcher-status": true
+    },
+    {
+      "template": "dns/txt-fingerprint.yaml",
+      "template-url": "https://templates.nuclei.sh/public/txt-fingerprint",
+      "template-id": "txt-fingerprint",
+      "template-path": "/home/runner/nuclei-templates/dns/txt-fingerprint.yaml",
+      "info": {
+        "name": "DNS TXT Record Detected",
+        "author": [
+          "pdteam"
+        ],
+        "tags": [
+          "dns",
+          "txt"
+        ],
+        "description": "A DNS TXT record was detected. The TXT record lets a domain admin leave notes on a DNS server.",
+        "reference": [
+          "https://www.netspi.com/blog/technical/network-penetration-testing/analyzing-dns-txt-records-to-fingerprint-service-providers/"
+        ],
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        },
+        "classification": {
+          "cve-id": null,
+          "cwe-id": [
+            "cwe-200"
+          ]
+        }
+      },
+      "type": "dns",
+      "host": "mediature.beta.gouv.fr.",
+      "matched-at": "mediature.beta.gouv.fr",
+      "extracted-results": [
+        "\"v=spf1 include:spf.mailjet.com include:spf.sendinblue.com mx ~all\"",
+        "\"sendinblue-code:15754e1df38b862433eadf5bfaf41a3e\""
+      ],
+      "request": ";; opcode: QUERY, status: NOERROR, id: 35329\n;; flags: rd ad; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 4096\n\n;; QUESTION SECTION:\n;mediature.beta.gouv.fr.\tIN\t TXT\n",
+      "response": ";; opcode: QUERY, status: NOERROR, id: 35329\n;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 512\n\n;; QUESTION SECTION:\n;mediature.beta.gouv.fr.\tIN\t TXT\n\n;; ANSWER SECTION:\nmediature.beta.gouv.fr.\t300\tIN\tTXT\t\"v=spf1 include:spf.mailjet.com include:spf.sendinblue.com mx ~all\"\nmediature.beta.gouv.fr.\t300\tIN\tTXT\t\"sendinblue-code:15754e1df38b862433eadf5bfaf41a3e\"\n",
+      "timestamp": "2023-10-22T07:11:52.165249968Z",
       "matcher-status": true
     },
     {
@@ -119,47 +157,9 @@
       "extracted-results": [
         "0 parse.mailjet.com."
       ],
-      "request": ";; opcode: QUERY, status: NOERROR, id: 28263\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 4096\n\n;; QUESTION SECTION:\n;mediature.beta.gouv.fr.\tIN\t MX\n",
-      "response": ";; opcode: QUERY, status: NOERROR, id: 28263\n;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 512\n\n;; QUESTION SECTION:\n;mediature.beta.gouv.fr.\tIN\t MX\n\n;; ANSWER SECTION:\nmediature.beta.gouv.fr.\t300\tIN\tMX\t0 parse.mailjet.com.\n",
-      "timestamp": "2023-10-15T07:24:56.422719291Z",
-      "matcher-status": true
-    },
-    {
-      "template": "dns/nameserver-fingerprint.yaml",
-      "template-url": "https://templates.nuclei.sh/public/nameserver-fingerprint",
-      "template-id": "nameserver-fingerprint",
-      "template-path": "/home/runner/nuclei-templates/dns/nameserver-fingerprint.yaml",
-      "info": {
-        "name": "NS Record Detection",
-        "author": [
-          "pdteam"
-        ],
-        "tags": [
-          "dns",
-          "ns"
-        ],
-        "description": "An NS record was detected. An NS record delegates a subdomain to a set of name servers.",
-        "severity": "info",
-        "metadata": {
-          "max-request": 1
-        },
-        "classification": {
-          "cve-id": null,
-          "cwe-id": [
-            "cwe-200"
-          ]
-        }
-      },
-      "type": "dns",
-      "host": "mediature.beta.gouv.fr.",
-      "matched-at": "mediature.beta.gouv.fr",
-      "extracted-results": [
-        "dns2.alwaysdata.com.",
-        "dns1.alwaysdata.com."
-      ],
-      "request": ";; opcode: QUERY, status: NOERROR, id: 36094\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 4096\n\n;; QUESTION SECTION:\n;mediature.beta.gouv.fr.\tIN\t NS\n",
-      "response": ";; opcode: QUERY, status: NOERROR, id: 36094\n;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 1232\n\n;; QUESTION SECTION:\n;mediature.beta.gouv.fr.\tIN\t NS\n\n;; ANSWER SECTION:\nmediature.beta.gouv.fr.\t300\tIN\tNS\tdns2.alwaysdata.com.\nmediature.beta.gouv.fr.\t300\tIN\tNS\tdns1.alwaysdata.com.\n",
-      "timestamp": "2023-10-15T07:24:56.527595958Z",
+      "request": ";; opcode: QUERY, status: NOERROR, id: 60923\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 4096\n\n;; QUESTION SECTION:\n;mediature.beta.gouv.fr.\tIN\t MX\n",
+      "response": ";; opcode: QUERY, status: NOERROR, id: 60923\n;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 1232\n\n;; QUESTION SECTION:\n;mediature.beta.gouv.fr.\tIN\t MX\n\n;; ANSWER SECTION:\nmediature.beta.gouv.fr.\t300\tIN\tMX\t0 parse.mailjet.com.\n",
+      "timestamp": "2023-10-22T07:11:52.173360112Z",
       "matcher-status": true
     },
     {
@@ -188,7 +188,7 @@
         "Let's Encrypt"
       ],
       "ip": "185.21.194.105",
-      "timestamp": "2023-10-15T07:29:01.637051541Z",
+      "timestamp": "2023-10-22T07:16:06.724179126Z",
       "matcher-status": true
     },
     {
@@ -217,7 +217,7 @@
         "mediature.beta.gouv.fr"
       ],
       "ip": "185.21.194.105",
-      "timestamp": "2023-10-15T07:29:01.637197143Z",
+      "timestamp": "2023-10-22T07:16:06.72444123Z",
       "matcher-status": true
     },
     {
@@ -247,7 +247,7 @@
         "tls12"
       ],
       "ip": "185.21.194.105",
-      "timestamp": "2023-10-15T07:29:05.273570119Z",
+      "timestamp": "2023-10-22T07:16:08.786023186Z",
       "matcher-status": true
     },
     {
@@ -277,7 +277,7 @@
         "tls13"
       ],
       "ip": "185.21.194.105",
-      "timestamp": "2023-10-15T07:29:05.533744958Z",
+      "timestamp": "2023-10-22T07:16:09.053369836Z",
       "matcher-status": true
     }
   ]
