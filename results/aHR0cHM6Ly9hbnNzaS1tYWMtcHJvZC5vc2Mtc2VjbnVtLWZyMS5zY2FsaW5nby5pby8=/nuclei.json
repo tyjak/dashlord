@@ -1,0 +1,690 @@
+[
+  [
+    {
+      "template": "dns/caa-fingerprint.yaml",
+      "template-url": "https://templates.nuclei.sh/public/caa-fingerprint",
+      "template-id": "caa-fingerprint",
+      "template-path": "/home/runner/nuclei-templates/dns/caa-fingerprint.yaml",
+      "info": {
+        "name": "CAA Record",
+        "author": [
+          "pdteam"
+        ],
+        "tags": [
+          "dns",
+          "caa"
+        ],
+        "description": "A CAA record was discovered. A CAA record is used to specify which certificate authorities (CAs) are allowed to issue certificates for a domain.",
+        "reference": [
+          "https://support.dnsimple.com/articles/caa-record/#whats-a-caa-record"
+        ],
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        },
+        "classification": {
+          "cve-id": null,
+          "cwe-id": [
+            "cwe-200"
+          ]
+        }
+      },
+      "type": "dns",
+      "host": "anssi-mac-prod.osc-secnum-fr1.scalingo.io.",
+      "matched-at": "anssi-mac-prod.osc-secnum-fr1.scalingo.io",
+      "request": ";; opcode: QUERY, status: NOERROR, id: 43174\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 4096\n\n;; QUESTION SECTION:\n;anssi-mac-prod.osc-secnum-fr1.scalingo.io.\tIN\t CAA\n",
+      "response": ";; opcode: QUERY, status: NOERROR, id: 43174\n;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 1, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 512\n\n;; QUESTION SECTION:\n;anssi-mac-prod.osc-secnum-fr1.scalingo.io.\tIN\t CAA\n\n;; ANSWER SECTION:\nanssi-mac-prod.osc-secnum-fr1.scalingo.io.\t300\tIN\tCNAME\tsc-lb-pool-01.osc-secnum-fr1.scalingo-network.com.\n\n;; AUTHORITY SECTION:\nscalingo-network.com.\t1800\tIN\tSOA\tburt.ns.cloudflare.com. dns.cloudflare.com. 2323953355 10000 2400 604800 1800\n",
+      "timestamp": "2023-10-30T00:01:29.135479026Z",
+      "matcher-status": true
+    },
+    {
+      "template": "dns/dns-saas-service-detection.yaml",
+      "template-url": "https://templates.nuclei.sh/public/dns-saas-service-detection",
+      "template-id": "dns-saas-service-detection",
+      "template-path": "/home/runner/nuclei-templates/dns/dns-saas-service-detection.yaml",
+      "info": {
+        "name": "DNS SaaS Service Detection",
+        "author": [
+          "noah @thesubtlety",
+          "pdteam"
+        ],
+        "tags": [
+          "dns",
+          "service"
+        ],
+        "description": "A CNAME DNS record was discovered",
+        "reference": [
+          "https://ns1.com/resources/cname",
+          "https://www.theregister.com/2021/02/24/dns_cname_tracking/",
+          "https://www.ionos.com/digitalguide/hosting/technical-matters/cname-record/"
+        ],
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "type": "dns",
+      "host": "anssi-mac-prod.osc-secnum-fr1.scalingo.io.",
+      "matched-at": "anssi-mac-prod.osc-secnum-fr1.scalingo.io",
+      "extracted-results": [
+        "sc-lb-pool-01.osc-secnum-fr1.scalingo-network.com."
+      ],
+      "request": ";; opcode: QUERY, status: NOERROR, id: 47661\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 4096\n\n;; QUESTION SECTION:\n;anssi-mac-prod.osc-secnum-fr1.scalingo.io.\tIN\t CNAME\n",
+      "response": ";; opcode: QUERY, status: NOERROR, id: 47661\n;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 1232\n\n;; QUESTION SECTION:\n;anssi-mac-prod.osc-secnum-fr1.scalingo.io.\tIN\t CNAME\n\n;; ANSWER SECTION:\nanssi-mac-prod.osc-secnum-fr1.scalingo.io.\t300\tIN\tCNAME\tsc-lb-pool-01.osc-secnum-fr1.scalingo-network.com.\n",
+      "timestamp": "2023-10-30T00:01:29.137858212Z",
+      "matcher-status": true
+    },
+    {
+      "template": "http/technologies/tech-detect.yaml",
+      "template-url": "https://templates.nuclei.sh/public/tech-detect",
+      "template-id": "tech-detect",
+      "template-path": "/home/runner/nuclei-templates/http/technologies/tech-detect.yaml",
+      "info": {
+        "name": "Wappalyzer Technology Detection",
+        "author": [
+          "hakluke"
+        ],
+        "tags": [
+          "tech"
+        ],
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "express",
+      "type": "http",
+      "host": "https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/",
+      "matched-at": "https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/",
+      "request": "GET / HTTP/1.1\r\nHost: anssi-mac-prod.osc-secnum-fr1.scalingo.io\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 85\r\nContent-Type: text/html; charset=utf-8\r\nDate: Mon, 30 Oct 2023 00:02:10 GMT\r\nEtag: W/\"55-xpTjc7rnTGK9qKEMDhDMxCdj1SY\"\r\nRatelimit-Limit: 100\r\nRatelimit-Remaining: 0\r\nRatelimit-Reset: 23\r\nRetry-After: 300\r\nX-Powered-By: Express\r\nX-Request-Id: 112677c0-494c-4233-818c-24c12524aacd\r\n\r\nVous avez atteint le nombre maximal de requête. Veuillez réessayer ultérieurement.",
+      "ip": "148.253.96.193",
+      "timestamp": "2023-10-30T00:02:10.860570652Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "cross-origin-opener-policy",
+      "type": "http",
+      "host": "https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/",
+      "matched-at": "https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/",
+      "request": "GET / HTTP/1.1\r\nHost: anssi-mac-prod.osc-secnum-fr1.scalingo.io\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 85\r\nContent-Type: text/html; charset=utf-8\r\nDate: Mon, 30 Oct 2023 00:02:21 GMT\r\nEtag: W/\"55-xpTjc7rnTGK9qKEMDhDMxCdj1SY\"\r\nRatelimit-Limit: 100\r\nRatelimit-Remaining: 0\r\nRatelimit-Reset: 11\r\nRetry-After: 300\r\nX-Powered-By: Express\r\nX-Request-Id: 2ca8ad64-22d9-4964-921d-d97e4e0002b0\r\n\r\nVous avez atteint le nombre maximal de requête. Veuillez réessayer ultérieurement.",
+      "ip": "148.253.96.193",
+      "timestamp": "2023-10-30T00:02:21.970628466Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "cross-origin-resource-policy",
+      "type": "http",
+      "host": "https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/",
+      "matched-at": "https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/",
+      "request": "GET / HTTP/1.1\r\nHost: anssi-mac-prod.osc-secnum-fr1.scalingo.io\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 85\r\nContent-Type: text/html; charset=utf-8\r\nDate: Mon, 30 Oct 2023 00:02:21 GMT\r\nEtag: W/\"55-xpTjc7rnTGK9qKEMDhDMxCdj1SY\"\r\nRatelimit-Limit: 100\r\nRatelimit-Remaining: 0\r\nRatelimit-Reset: 11\r\nRetry-After: 300\r\nX-Powered-By: Express\r\nX-Request-Id: 2ca8ad64-22d9-4964-921d-d97e4e0002b0\r\n\r\nVous avez atteint le nombre maximal de requête. Veuillez réessayer ultérieurement.",
+      "ip": "148.253.96.193",
+      "timestamp": "2023-10-30T00:02:21.970706569Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "content-security-policy",
+      "type": "http",
+      "host": "https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/",
+      "matched-at": "https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/",
+      "request": "GET / HTTP/1.1\r\nHost: anssi-mac-prod.osc-secnum-fr1.scalingo.io\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 85\r\nContent-Type: text/html; charset=utf-8\r\nDate: Mon, 30 Oct 2023 00:02:21 GMT\r\nEtag: W/\"55-xpTjc7rnTGK9qKEMDhDMxCdj1SY\"\r\nRatelimit-Limit: 100\r\nRatelimit-Remaining: 0\r\nRatelimit-Reset: 11\r\nRetry-After: 300\r\nX-Powered-By: Express\r\nX-Request-Id: 2ca8ad64-22d9-4964-921d-d97e4e0002b0\r\n\r\nVous avez atteint le nombre maximal de requête. Veuillez réessayer ultérieurement.",
+      "ip": "148.253.96.193",
+      "timestamp": "2023-10-30T00:02:21.970820773Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "x-content-type-options",
+      "type": "http",
+      "host": "https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/",
+      "matched-at": "https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/",
+      "request": "GET / HTTP/1.1\r\nHost: anssi-mac-prod.osc-secnum-fr1.scalingo.io\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 85\r\nContent-Type: text/html; charset=utf-8\r\nDate: Mon, 30 Oct 2023 00:02:21 GMT\r\nEtag: W/\"55-xpTjc7rnTGK9qKEMDhDMxCdj1SY\"\r\nRatelimit-Limit: 100\r\nRatelimit-Remaining: 0\r\nRatelimit-Reset: 11\r\nRetry-After: 300\r\nX-Powered-By: Express\r\nX-Request-Id: 2ca8ad64-22d9-4964-921d-d97e4e0002b0\r\n\r\nVous avez atteint le nombre maximal de requête. Veuillez réessayer ultérieurement.",
+      "ip": "148.253.96.193",
+      "timestamp": "2023-10-30T00:02:21.970844174Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "referrer-policy",
+      "type": "http",
+      "host": "https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/",
+      "matched-at": "https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/",
+      "request": "GET / HTTP/1.1\r\nHost: anssi-mac-prod.osc-secnum-fr1.scalingo.io\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 85\r\nContent-Type: text/html; charset=utf-8\r\nDate: Mon, 30 Oct 2023 00:02:21 GMT\r\nEtag: W/\"55-xpTjc7rnTGK9qKEMDhDMxCdj1SY\"\r\nRatelimit-Limit: 100\r\nRatelimit-Remaining: 0\r\nRatelimit-Reset: 11\r\nRetry-After: 300\r\nX-Powered-By: Express\r\nX-Request-Id: 2ca8ad64-22d9-4964-921d-d97e4e0002b0\r\n\r\nVous avez atteint le nombre maximal de requête. Veuillez réessayer ultérieurement.",
+      "ip": "148.253.96.193",
+      "timestamp": "2023-10-30T00:02:21.970856274Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "x-permitted-cross-domain-policies",
+      "type": "http",
+      "host": "https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/",
+      "matched-at": "https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/",
+      "request": "GET / HTTP/1.1\r\nHost: anssi-mac-prod.osc-secnum-fr1.scalingo.io\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 85\r\nContent-Type: text/html; charset=utf-8\r\nDate: Mon, 30 Oct 2023 00:02:21 GMT\r\nEtag: W/\"55-xpTjc7rnTGK9qKEMDhDMxCdj1SY\"\r\nRatelimit-Limit: 100\r\nRatelimit-Remaining: 0\r\nRatelimit-Reset: 11\r\nRetry-After: 300\r\nX-Powered-By: Express\r\nX-Request-Id: 2ca8ad64-22d9-4964-921d-d97e4e0002b0\r\n\r\nVous avez atteint le nombre maximal de requête. Veuillez réessayer ultérieurement.",
+      "ip": "148.253.96.193",
+      "timestamp": "2023-10-30T00:02:21.970867775Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "clear-site-data",
+      "type": "http",
+      "host": "https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/",
+      "matched-at": "https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/",
+      "request": "GET / HTTP/1.1\r\nHost: anssi-mac-prod.osc-secnum-fr1.scalingo.io\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 85\r\nContent-Type: text/html; charset=utf-8\r\nDate: Mon, 30 Oct 2023 00:02:21 GMT\r\nEtag: W/\"55-xpTjc7rnTGK9qKEMDhDMxCdj1SY\"\r\nRatelimit-Limit: 100\r\nRatelimit-Remaining: 0\r\nRatelimit-Reset: 11\r\nRetry-After: 300\r\nX-Powered-By: Express\r\nX-Request-Id: 2ca8ad64-22d9-4964-921d-d97e4e0002b0\r\n\r\nVous avez atteint le nombre maximal de requête. Veuillez réessayer ultérieurement.",
+      "ip": "148.253.96.193",
+      "timestamp": "2023-10-30T00:02:21.970882375Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "cross-origin-embedder-policy",
+      "type": "http",
+      "host": "https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/",
+      "matched-at": "https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/",
+      "request": "GET / HTTP/1.1\r\nHost: anssi-mac-prod.osc-secnum-fr1.scalingo.io\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 85\r\nContent-Type: text/html; charset=utf-8\r\nDate: Mon, 30 Oct 2023 00:02:21 GMT\r\nEtag: W/\"55-xpTjc7rnTGK9qKEMDhDMxCdj1SY\"\r\nRatelimit-Limit: 100\r\nRatelimit-Remaining: 0\r\nRatelimit-Reset: 11\r\nRetry-After: 300\r\nX-Powered-By: Express\r\nX-Request-Id: 2ca8ad64-22d9-4964-921d-d97e4e0002b0\r\n\r\nVous avez atteint le nombre maximal de requête. Veuillez réessayer ultérieurement.",
+      "ip": "148.253.96.193",
+      "timestamp": "2023-10-30T00:02:21.970894575Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "strict-transport-security",
+      "type": "http",
+      "host": "https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/",
+      "matched-at": "https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/",
+      "request": "GET / HTTP/1.1\r\nHost: anssi-mac-prod.osc-secnum-fr1.scalingo.io\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 85\r\nContent-Type: text/html; charset=utf-8\r\nDate: Mon, 30 Oct 2023 00:02:21 GMT\r\nEtag: W/\"55-xpTjc7rnTGK9qKEMDhDMxCdj1SY\"\r\nRatelimit-Limit: 100\r\nRatelimit-Remaining: 0\r\nRatelimit-Reset: 11\r\nRetry-After: 300\r\nX-Powered-By: Express\r\nX-Request-Id: 2ca8ad64-22d9-4964-921d-d97e4e0002b0\r\n\r\nVous avez atteint le nombre maximal de requête. Veuillez réessayer ultérieurement.",
+      "ip": "148.253.96.193",
+      "timestamp": "2023-10-30T00:02:21.970906176Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "permissions-policy",
+      "type": "http",
+      "host": "https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/",
+      "matched-at": "https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/",
+      "request": "GET / HTTP/1.1\r\nHost: anssi-mac-prod.osc-secnum-fr1.scalingo.io\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 85\r\nContent-Type: text/html; charset=utf-8\r\nDate: Mon, 30 Oct 2023 00:02:21 GMT\r\nEtag: W/\"55-xpTjc7rnTGK9qKEMDhDMxCdj1SY\"\r\nRatelimit-Limit: 100\r\nRatelimit-Remaining: 0\r\nRatelimit-Reset: 11\r\nRetry-After: 300\r\nX-Powered-By: Express\r\nX-Request-Id: 2ca8ad64-22d9-4964-921d-d97e4e0002b0\r\n\r\nVous avez atteint le nombre maximal de requête. Veuillez réessayer ultérieurement.",
+      "ip": "148.253.96.193",
+      "timestamp": "2023-10-30T00:02:21.970920076Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "x-frame-options",
+      "type": "http",
+      "host": "https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/",
+      "matched-at": "https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/",
+      "request": "GET / HTTP/1.1\r\nHost: anssi-mac-prod.osc-secnum-fr1.scalingo.io\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 85\r\nContent-Type: text/html; charset=utf-8\r\nDate: Mon, 30 Oct 2023 00:02:21 GMT\r\nEtag: W/\"55-xpTjc7rnTGK9qKEMDhDMxCdj1SY\"\r\nRatelimit-Limit: 100\r\nRatelimit-Remaining: 0\r\nRatelimit-Reset: 11\r\nRetry-After: 300\r\nX-Powered-By: Express\r\nX-Request-Id: 2ca8ad64-22d9-4964-921d-d97e4e0002b0\r\n\r\nVous avez atteint le nombre maximal de requête. Veuillez réessayer ultérieurement.",
+      "ip": "148.253.96.193",
+      "timestamp": "2023-10-30T00:02:21.970931377Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://anssi-mac-prod.osc-secnum-fr1.scalingo.io/'",
+      "matcher-status": true
+    },
+    {
+      "template": "ssl/detect-ssl-issuer.yaml",
+      "template-url": "https://templates.nuclei.sh/public/ssl-issuer",
+      "template-id": "ssl-issuer",
+      "template-path": "/home/runner/nuclei-templates/ssl/detect-ssl-issuer.yaml",
+      "info": {
+        "name": "Detect SSL Certificate Issuer",
+        "author": [
+          "lingtren"
+        ],
+        "tags": [
+          "ssl"
+        ],
+        "description": "Extract the issuer's organization from the target's certificate. Issuers are entities which sign and distribute certificates.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "type": "ssl",
+      "host": "anssi-mac-prod.osc-secnum-fr1.scalingo.io",
+      "matched-at": "anssi-mac-prod.osc-secnum-fr1.scalingo.io:443",
+      "extracted-results": [
+        "Gandi"
+      ],
+      "ip": "148.253.96.193",
+      "timestamp": "2023-10-30T00:07:26.326525284Z",
+      "matcher-status": true
+    },
+    {
+      "template": "ssl/ssl-dns-names.yaml",
+      "template-url": "https://templates.nuclei.sh/public/ssl-dns-names",
+      "template-id": "ssl-dns-names",
+      "template-path": "/home/runner/nuclei-templates/ssl/ssl-dns-names.yaml",
+      "info": {
+        "name": "SSL DNS Names",
+        "author": [
+          "pdteam"
+        ],
+        "tags": [
+          "ssl"
+        ],
+        "description": "Extract the Subject Alternative Name (SAN) from the target's certificate. SAN facilitates the usage of additional hostnames with the same certificate.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "type": "ssl",
+      "host": "anssi-mac-prod.osc-secnum-fr1.scalingo.io",
+      "matched-at": "anssi-mac-prod.osc-secnum-fr1.scalingo.io:443",
+      "extracted-results": [
+        "*.osc-secnum-fr1.scalingo.io",
+        "osc-secnum-fr1.scalingo.io"
+      ],
+      "ip": "148.253.96.193",
+      "timestamp": "2023-10-30T00:07:26.326794593Z",
+      "matcher-status": true
+    },
+    {
+      "template": "ssl/wildcard-tls.yaml",
+      "template-url": "https://templates.nuclei.sh/public/wildcard-tls",
+      "template-id": "wildcard-tls",
+      "template-path": "/home/runner/nuclei-templates/ssl/wildcard-tls.yaml",
+      "info": {
+        "name": "Wildcard TLS Certificate",
+        "author": [
+          "lucky0x0d"
+        ],
+        "tags": [
+          "ssl",
+          "wildcard",
+          "tls"
+        ],
+        "description": "Checks a sites certificate to see if there are wildcard CN or SAN entries.\n",
+        "reference": [
+          "https://cheatsheetseries.owasp.org/cheatsheets/transport_layer_protection_cheat_sheet.html#carefully-consider-the-use-of-wildcard-certificates"
+        ],
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "type": "ssl",
+      "host": "anssi-mac-prod.osc-secnum-fr1.scalingo.io",
+      "matched-at": "anssi-mac-prod.osc-secnum-fr1.scalingo.io:443",
+      "extracted-results": [
+        "CN: *.osc-secnum-fr1.scalingo.io",
+        " SAN: [*.osc-secnum-fr1.scalingo.io osc-secnum-fr1.scalingo.io]"
+      ],
+      "ip": "148.253.96.193",
+      "timestamp": "2023-10-30T00:07:26.326842194Z",
+      "matcher-status": true
+    },
+    {
+      "template": "ssl/tls-version.yaml",
+      "template-url": "https://templates.nuclei.sh/public/tls-version",
+      "template-id": "tls-version",
+      "template-path": "/home/runner/nuclei-templates/ssl/tls-version.yaml",
+      "info": {
+        "name": "TLS Version - Detect",
+        "author": [
+          "pdteam",
+          "pussycat0x"
+        ],
+        "tags": [
+          "ssl"
+        ],
+        "description": "TLS version detection is a security process used to determine the version of the Transport Layer Security (TLS) protocol used by a computer or server.\nIt is important to detect the TLS version in order to ensure secure communication between two computers or servers.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 4
+        }
+      },
+      "type": "ssl",
+      "host": "anssi-mac-prod.osc-secnum-fr1.scalingo.io",
+      "matched-at": "anssi-mac-prod.osc-secnum-fr1.scalingo.io:443",
+      "extracted-results": [
+        "tls12"
+      ],
+      "ip": "148.253.96.193",
+      "timestamp": "2023-10-30T00:07:32.651467173Z",
+      "matcher-status": true
+    },
+    {
+      "template": "ssl/tls-version.yaml",
+      "template-url": "https://templates.nuclei.sh/public/tls-version",
+      "template-id": "tls-version",
+      "template-path": "/home/runner/nuclei-templates/ssl/tls-version.yaml",
+      "info": {
+        "name": "TLS Version - Detect",
+        "author": [
+          "pdteam",
+          "pussycat0x"
+        ],
+        "tags": [
+          "ssl"
+        ],
+        "description": "TLS version detection is a security process used to determine the version of the Transport Layer Security (TLS) protocol used by a computer or server.\nIt is important to detect the TLS version in order to ensure secure communication between two computers or servers.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 4
+        }
+      },
+      "type": "ssl",
+      "host": "anssi-mac-prod.osc-secnum-fr1.scalingo.io",
+      "matched-at": "anssi-mac-prod.osc-secnum-fr1.scalingo.io:443",
+      "extracted-results": [
+        "tls13"
+      ],
+      "ip": "148.253.96.193",
+      "timestamp": "2023-10-30T00:07:32.966057667Z",
+      "matcher-status": true
+    }
+  ]
+]
