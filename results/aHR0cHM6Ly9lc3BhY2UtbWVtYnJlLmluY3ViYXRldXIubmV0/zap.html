@@ -1,0 +1,4623 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>ZAP Scanning Report</title>
+<style type="text/css">
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #000;
+	font-size: 13px;
+}
+
+h1 {
+	text-align: center;
+	font-weight: bold;
+	font-size: 32px
+}
+
+h3 {
+	font-size: 16px;
+}
+
+table {
+	border: none;
+	font-size: 13px;
+}
+
+td, th {
+	padding: 3px 4px;
+	word-break: break-word;
+}
+
+th {
+	font-weight: bold;
+	background-color: #666666;
+}
+
+td {
+	background-color: #e8e8e8;
+}
+
+.spacer {
+	margin: 10px;
+}
+
+.spacer-lg {
+	margin: 40px;
+}
+
+.indent1 {
+	padding: 4px 20px;
+}
+
+.indent2 {
+	padding: 4px 40px;
+}
+
+.risk-3 {
+	background-color: red;
+	color: #FFF;
+}
+
+.risk-2 {
+	background-color: orange;
+	color: #FFF;
+}
+
+.risk-1 {
+	background-color: yellow;
+	color: #000;
+}
+
+.risk-0 {
+	background-color: blue;
+	color: #FFF;
+}
+
+.risk--1 {
+	background-color: green;
+	color: #FFF;
+}
+
+.summary {
+	width: 45%;
+}
+
+.summary th {
+	color: #FFF;
+}
+
+.alerts {
+	width: 75%;
+}
+
+.alerts th {
+	color: #FFF;
+}
+
+.results {
+	width: 100%;
+}
+
+.results th {
+	text-align: left;
+}
+
+.left-header {
+	display: inline-block;
+}
+</style>
+</head>
+<body>
+	<h1>
+		<!-- The ZAP Logo -->
+		<img
+			src="data:image/png;base64,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"
+			alt="" />
+		ZAP Scanning Report
+	</h1>
+	<p />
+	
+
+	<h2>
+		
+		Site: https://espace-membre.incubateur.net
+		
+	</h2>
+
+	<h3>
+		Generated on Sun, 26 Nov 2023 09:18:44
+	</h3>
+
+	<h3>
+		ZAP Version: 2.14.0
+	</h3>
+
+	
+		<h3 class="left-header">Summary of Alerts</h3>
+		<table class="summary">
+			<tr>
+				<th width="45%"
+					height="24">Risk Level</th>
+				<th width="55%"
+					align="center">Number of Alerts</th>
+			</tr>
+			<tr>
+				<td class="risk-3">
+					<div>High</div>
+				</td>
+				<td align="center">
+					<div>0</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="risk-2">
+					<div>Medium</div>
+				</td>
+				<td align="center">
+					<div>3</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="risk-1">
+					<div>Low</div>
+				</td>
+				<td align="center">
+					<div>3</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="risk-0">
+					<div>Informational</div>
+				</td>
+				<td align="center">
+					<div>11</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="risk--1">
+					<div>				False Positives:</div>
+				</td>
+				<td align="center">
+					<div>0</div>
+				</td>
+			</tr>
+		</table>
+		<div class="spacer-lg"></div>
+	
+
+	
+		<h3>Alerts</h3>
+		<table class="alerts">
+			<tr>
+				<th width="60%" height="24">Name</th>
+				<th width="20%"
+					align="center">Risk Level</th>
+				<th width="20%"
+					align="center">Number of Instances</th>
+			</tr>
+			<tr>
+				<td><a href="#10202">Absence of Anti-CSRF Tokens</a></td>
+				<td align="center" class="risk-2">Medium</td>
+				<td align="center">5</td>
+			</tr>
+			<tr>
+				<td><a href="#10038">Content Security Policy (CSP) Header Not Set</a></td>
+				<td align="center" class="risk-2">Medium</td>
+				<td align="center">5</td>
+			</tr>
+			<tr>
+				<td><a href="#10020">Missing Anti-clickjacking Header</a></td>
+				<td align="center" class="risk-2">Medium</td>
+				<td align="center">5</td>
+			</tr>
+			<tr>
+				<td><a href="#10063">Permissions Policy Header Not Set</a></td>
+				<td align="center" class="risk-1">Low</td>
+				<td align="center">8</td>
+			</tr>
+			<tr>
+				<td><a href="#10037">Server Leaks Information via &quot;X-Powered-By&quot; HTTP Response Header Field(s)</a></td>
+				<td align="center" class="risk-1">Low</td>
+				<td align="center">11</td>
+			</tr>
+			<tr>
+				<td><a href="#10021">X-Content-Type-Options Header Missing</a></td>
+				<td align="center" class="risk-1">Low</td>
+				<td align="center">12</td>
+			</tr>
+			<tr>
+				<td><a href="#10094">Base64 Disclosure</a></td>
+				<td align="center" class="risk-0">Informational</td>
+				<td align="center">12</td>
+			</tr>
+			<tr>
+				<td><a href="#10027">Information Disclosure - Suspicious Comments</a></td>
+				<td align="center" class="risk-0">Informational</td>
+				<td align="center">7</td>
+			</tr>
+			<tr>
+				<td><a href="#10049">Non-Storable Content</a></td>
+				<td align="center" class="risk-0">Informational</td>
+				<td align="center">4</td>
+			</tr>
+			<tr>
+				<td><a href="#10015">Re-examine Cache-control Directives</a></td>
+				<td align="center" class="risk-0">Informational</td>
+				<td align="center">6</td>
+			</tr>
+			<tr>
+				<td><a href="#90005">Sec-Fetch-Dest Header is Missing</a></td>
+				<td align="center" class="risk-0">Informational</td>
+				<td align="center">3</td>
+			</tr>
+			<tr>
+				<td><a href="#90005">Sec-Fetch-Mode Header is Missing</a></td>
+				<td align="center" class="risk-0">Informational</td>
+				<td align="center">3</td>
+			</tr>
+			<tr>
+				<td><a href="#90005">Sec-Fetch-Site Header is Missing</a></td>
+				<td align="center" class="risk-0">Informational</td>
+				<td align="center">3</td>
+			</tr>
+			<tr>
+				<td><a href="#90005">Sec-Fetch-User Header is Missing</a></td>
+				<td align="center" class="risk-0">Informational</td>
+				<td align="center">3</td>
+			</tr>
+			<tr>
+				<td><a href="#10112">Session Management Response Identified</a></td>
+				<td align="center" class="risk-0">Informational</td>
+				<td align="center">7</td>
+			</tr>
+			<tr>
+				<td><a href="#10049">Storable and Cacheable Content</a></td>
+				<td align="center" class="risk-0">Informational</td>
+				<td align="center">2</td>
+			</tr>
+			<tr>
+				<td><a href="#10049">Storable but Non-Cacheable Content</a></td>
+				<td align="center" class="risk-0">Informational</td>
+				<td align="center">7</td>
+			</tr>
+		</table>
+		<div class="spacer-lg"></div>
+	
+
+	
+		<h3>Alert Detail</h3>
+		
+			<table class="results">
+				<tr height="24">
+					<th width="20%" class="risk-2"><a
+						id="10202"></a>
+						<div>Medium</div></th>
+					<th class="risk-2">Absence of Anti-CSRF Tokens</th>
+				</tr>
+				<tr>
+					<td width="20%">Description</td>
+					<td width="80%">
+							<div>No Anti-CSRF tokens were found in a HTML submission form.</div>
+							<br />
+						
+							<div>A cross-site request forgery is an attack that involves forcing a victim to send an HTTP request to a target destination without their knowledge or intent in order to perform an action as the victim. The underlying cause is application functionality using predictable URL/form actions in a repeatable way. The nature of the attack is that CSRF exploits the trust that a web site has for a user. By contrast, cross-site scripting (XSS) exploits the trust that a user has for a web site. Like XSS, CSRF attacks are not necessarily cross-site, but they can be. Cross-site request forgery is also known as CSRF, XSRF, one-click attack, session riding, confused deputy, and sea surf.</div>
+							<br />
+						
+							<div>CSRF attacks are effective in a number of situations, including:</div>
+							<br />
+						
+							<div>    * The victim has an active session on the target site.</div>
+							<br />
+						
+							<div>    * The victim is authenticated via HTTP auth on the target site.</div>
+							<br />
+						
+							<div>    * The victim is on the same local network as the target site.</div>
+							<br />
+						
+							<div>CSRF has primarily been used to perform an action against a target site using the victim&#39;s privileges, but recent techniques have been discovered to disclose information by gaining access to the response. The risk of information disclosure is dramatically increased when the target site is vulnerable to XSS, because XSS can be used as a platform for CSRF, allowing the attack to operate within the bounds of the same-origin policy.</div>
+							
+						</td>
+				</tr>
+				<TR vAlign="top">
+					<TD colspan="2"></TD>
+				</TR>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net">https://espace-membre.incubateur.net</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">&lt;form action=&quot;/login?next=/&quot; method=&quot;POST&quot; id=&quot;login_form&quot;&gt;</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: &quot;emailInput&quot; ].</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/login?next=/">https://espace-membre.incubateur.net/login?next=/</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">&lt;form action=&quot;/login?next=/&quot; method=&quot;POST&quot; id=&quot;login_form&quot;&gt;</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: &quot;emailInput&quot; ].</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/login?next=/robots.txt">https://espace-membre.incubateur.net/login?next=/robots.txt</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">&lt;form action=&quot;/login?next=/robots.txt&quot; method=&quot;POST&quot; id=&quot;login_form&quot;&gt;</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: &quot;emailInput&quot; ].</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/login?next=/sitemap.xml">https://espace-membre.incubateur.net/login?next=/sitemap.xml</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">&lt;form action=&quot;/login?next=/sitemap.xml&quot; method=&quot;POST&quot; id=&quot;login_form&quot;&gt;</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: &quot;emailInput&quot; ].</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/onboarding">https://espace-membre.incubateur.net/onboarding</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">&lt;form action=&quot;/onboarding&quot; method=&quot;POST&quot;&gt;</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: &quot;averageNbOfDays&quot; &quot;email&quot; &quot;employer&quot; &quot;end&quot; &quot;firstName&quot; &quot;github&quot; &quot;input-insee-code&quot; &quot;input-osm-city&quot; &quot;lastName&quot; &quot;legal_status&quot; &quot;memberType&quot; &quot;referent&quot; &quot;role&quot; &quot;start&quot; &quot;startup&quot; &quot;status&quot; &quot;tjm&quot; &quot;website&quot; ].</td>
+					</tr>
+				
+				<tr>
+					<td width="20%">Instances</td>
+					<td width="80%">5</td>
+				</tr>
+				<tr>
+					<td width="20%">Solution</td>
+					<td width="80%">
+							<div>Phase: Architecture and Design</div>
+							<br />
+						
+							<div>Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid.</div>
+							<br />
+						
+							<div>For example, use anti-CSRF packages such as the OWASP CSRFGuard.</div>
+							<br />
+						
+							<div>Phase: Implementation</div>
+							<br />
+						
+							<div>Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.</div>
+							<br />
+						
+							<div>Phase: Architecture and Design</div>
+							<br />
+						
+							<div>Generate a unique nonce for each form, place the nonce into the form, and verify the nonce upon receipt of the form. Be sure that the nonce is not predictable (CWE-330).</div>
+							<br />
+						
+							<div>Note that this can be bypassed using XSS.</div>
+							<br />
+						
+							<div>Identify especially dangerous operations. When the user performs a dangerous operation, send a separate confirmation request to ensure that the user intended to perform that operation.</div>
+							<br />
+						
+							<div>Note that this can be bypassed using XSS.</div>
+							<br />
+						
+							<div>Use the ESAPI Session Management control.</div>
+							<br />
+						
+							<div>This control includes a component for CSRF.</div>
+							<br />
+						
+							<div>Do not use the GET method for any request that triggers a state change.</div>
+							<br />
+						
+							<div>Phase: Implementation</div>
+							<br />
+						
+							<div>Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.</div>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">Reference</td>
+					<td width="80%">
+							<a href="http://projects.webappsec.org/Cross-Site-Request-Forgery">http://projects.webappsec.org/Cross-Site-Request-Forgery</a>
+							<br />
+						
+							<a href="https://cwe.mitre.org/data/definitions/352.html">https://cwe.mitre.org/data/definitions/352.html</a>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">CWE Id</td>
+					<td width="80%"><a
+						href="https://cwe.mitre.org/data/definitions/352.html">352</a></td>
+				</tr>
+				<tr>
+					<td width="20%">WASC Id</td>
+					<td width="80%">9</td>
+				</tr>
+				<tr>
+					<td width="20%">Plugin Id</td>
+					<td width="80%"><a
+						href="https://www.zaproxy.org/docs/alerts/10202/">10202</a></td>
+				</tr>
+			</table>
+			<div class="spacer"></div>
+		
+			<table class="results">
+				<tr height="24">
+					<th width="20%" class="risk-2"><a
+						id="10038"></a>
+						<div>Medium</div></th>
+					<th class="risk-2">Content Security Policy (CSP) Header Not Set</th>
+				</tr>
+				<tr>
+					<td width="20%">Description</td>
+					<td width="80%">
+							<div>Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross Site Scripting (XSS) and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware. CSP provides a set of standard HTTP headers that allow website owners to declare approved sources of content that browsers should be allowed to load on that page — covered types are JavaScript, CSS, HTML frames, fonts, images and embeddable objects such as Java applets, ActiveX, audio and video files.</div>
+							
+						</td>
+				</tr>
+				<TR vAlign="top">
+					<TD colspan="2"></TD>
+				</TR>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net">https://espace-membre.incubateur.net</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/login?next=/">https://espace-membre.incubateur.net/login?next=/</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/login?next=/robots.txt">https://espace-membre.incubateur.net/login?next=/robots.txt</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/login?next=/sitemap.xml">https://espace-membre.incubateur.net/login?next=/sitemap.xml</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/onboarding">https://espace-membre.incubateur.net/onboarding</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+				<tr>
+					<td width="20%">Instances</td>
+					<td width="80%">5</td>
+				</tr>
+				<tr>
+					<td width="20%">Solution</td>
+					<td width="80%">
+							<div>Ensure that your web server, application server, load balancer, etc. is configured to set the Content-Security-Policy header.</div>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">Reference</td>
+					<td width="80%">
+							<a href="https://developer.mozilla.org/en-US/docs/Web/Security/CSP/Introducing_Content_Security_Policy">https://developer.mozilla.org/en-US/docs/Web/Security/CSP/Introducing_Content_Security_Policy</a>
+							<br />
+						
+							<a href="https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html">https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html</a>
+							<br />
+						
+							<a href="http://www.w3.org/TR/CSP/">http://www.w3.org/TR/CSP/</a>
+							<br />
+						
+							<a href="http://w3c.github.io/webappsec/specs/content-security-policy/csp-specification.dev.html">http://w3c.github.io/webappsec/specs/content-security-policy/csp-specification.dev.html</a>
+							<br />
+						
+							<a href="http://www.html5rocks.com/en/tutorials/security/content-security-policy/">http://www.html5rocks.com/en/tutorials/security/content-security-policy/</a>
+							<br />
+						
+							<a href="http://caniuse.com/#feat=contentsecuritypolicy">http://caniuse.com/#feat=contentsecuritypolicy</a>
+							<br />
+						
+							<a href="http://content-security-policy.com/">http://content-security-policy.com/</a>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">CWE Id</td>
+					<td width="80%"><a
+						href="https://cwe.mitre.org/data/definitions/693.html">693</a></td>
+				</tr>
+				<tr>
+					<td width="20%">WASC Id</td>
+					<td width="80%">15</td>
+				</tr>
+				<tr>
+					<td width="20%">Plugin Id</td>
+					<td width="80%"><a
+						href="https://www.zaproxy.org/docs/alerts/10038/">10038</a></td>
+				</tr>
+			</table>
+			<div class="spacer"></div>
+		
+			<table class="results">
+				<tr height="24">
+					<th width="20%" class="risk-2"><a
+						id="10020"></a>
+						<div>Medium</div></th>
+					<th class="risk-2">Missing Anti-clickjacking Header</th>
+				</tr>
+				<tr>
+					<td width="20%">Description</td>
+					<td width="80%">
+							<div>The response does not include either Content-Security-Policy with &#39;frame-ancestors&#39; directive or X-Frame-Options to protect against &#39;ClickJacking&#39; attacks.</div>
+							
+						</td>
+				</tr>
+				<TR vAlign="top">
+					<TD colspan="2"></TD>
+				</TR>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net">https://espace-membre.incubateur.net</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">x-frame-options</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/login?next=/">https://espace-membre.incubateur.net/login?next=/</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">x-frame-options</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/login?next=/robots.txt">https://espace-membre.incubateur.net/login?next=/robots.txt</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">x-frame-options</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/login?next=/sitemap.xml">https://espace-membre.incubateur.net/login?next=/sitemap.xml</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">x-frame-options</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/onboarding">https://espace-membre.incubateur.net/onboarding</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">x-frame-options</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+				<tr>
+					<td width="20%">Instances</td>
+					<td width="80%">5</td>
+				</tr>
+				<tr>
+					<td width="20%">Solution</td>
+					<td width="80%">
+							<div>Modern Web browsers support the Content-Security-Policy and X-Frame-Options HTTP headers. Ensure one of them is set on all web pages returned by your site/app.</div>
+							<br />
+						
+							<div>If you expect the page to be framed only by pages on your server (e.g. it&#39;s part of a FRAMESET) then you&#39;ll want to use SAMEORIGIN, otherwise if you never expect the page to be framed, you should use DENY. Alternatively consider implementing Content Security Policy&#39;s &quot;frame-ancestors&quot; directive.</div>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">Reference</td>
+					<td width="80%">
+							<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options">https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options</a>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">CWE Id</td>
+					<td width="80%"><a
+						href="https://cwe.mitre.org/data/definitions/1021.html">1021</a></td>
+				</tr>
+				<tr>
+					<td width="20%">WASC Id</td>
+					<td width="80%">15</td>
+				</tr>
+				<tr>
+					<td width="20%">Plugin Id</td>
+					<td width="80%"><a
+						href="https://www.zaproxy.org/docs/alerts/10020/">10020</a></td>
+				</tr>
+			</table>
+			<div class="spacer"></div>
+		
+			<table class="results">
+				<tr height="24">
+					<th width="20%" class="risk-1"><a
+						id="10063"></a>
+						<div>Low</div></th>
+					<th class="risk-1">Permissions Policy Header Not Set</th>
+				</tr>
+				<tr>
+					<td width="20%">Description</td>
+					<td width="80%">
+							<div>Permissions Policy Header is an added layer of security that helps to restrict from unauthorized access or usage of browser/client features by web resources. This policy ensures the user privacy by limiting or specifying the features of the browsers can be used by the web resources. Permissions Policy provides a set of standard HTTP headers that allow website owners to limit which features of browsers can be used by the page such as camera, microphone, location, full screen etc.</div>
+							
+						</td>
+				</tr>
+				<TR vAlign="top">
+					<TD colspan="2"></TD>
+				</TR>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net">https://espace-membre.incubateur.net</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/login?next=/">https://espace-membre.incubateur.net/login?next=/</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/login?next=/robots.txt">https://espace-membre.incubateur.net/login?next=/robots.txt</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/login?next=/sitemap.xml">https://espace-membre.incubateur.net/login?next=/sitemap.xml</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/onboarding">https://espace-membre.incubateur.net/onboarding</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/public/js/Home.js?1.0.0">https://espace-membre.incubateur.net/public/js/Home.js?1.0.0</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/public/js/shared.js">https://espace-membre.incubateur.net/public/js/shared.js</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/static/scripts/hashtoparam.js">https://espace-membre.incubateur.net/static/scripts/hashtoparam.js</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+				<tr>
+					<td width="20%">Instances</td>
+					<td width="80%">8</td>
+				</tr>
+				<tr>
+					<td width="20%">Solution</td>
+					<td width="80%">
+							<div>Ensure that your web server, application server, load balancer, etc. is configured to set the Permissions-Policy header.</div>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">Reference</td>
+					<td width="80%">
+							<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy">https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy</a>
+							<br />
+						
+							<a href="https://developer.chrome.com/blog/feature-policy/">https://developer.chrome.com/blog/feature-policy/</a>
+							<br />
+						
+							<a href="https://scotthelme.co.uk/a-new-security-header-feature-policy/">https://scotthelme.co.uk/a-new-security-header-feature-policy/</a>
+							<br />
+						
+							<a href="https://w3c.github.io/webappsec-feature-policy/">https://w3c.github.io/webappsec-feature-policy/</a>
+							<br />
+						
+							<a href="https://www.smashingmagazine.com/2018/12/feature-policy/">https://www.smashingmagazine.com/2018/12/feature-policy/</a>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">CWE Id</td>
+					<td width="80%"><a
+						href="https://cwe.mitre.org/data/definitions/693.html">693</a></td>
+				</tr>
+				<tr>
+					<td width="20%">WASC Id</td>
+					<td width="80%">15</td>
+				</tr>
+				<tr>
+					<td width="20%">Plugin Id</td>
+					<td width="80%"><a
+						href="https://www.zaproxy.org/docs/alerts/10063/">10063</a></td>
+				</tr>
+			</table>
+			<div class="spacer"></div>
+		
+			<table class="results">
+				<tr height="24">
+					<th width="20%" class="risk-1"><a
+						id="10037"></a>
+						<div>Low</div></th>
+					<th class="risk-1">Server Leaks Information via &quot;X-Powered-By&quot; HTTP Response Header Field(s)</th>
+				</tr>
+				<tr>
+					<td width="20%">Description</td>
+					<td width="80%">
+							<div>The web/application server is leaking information via one or more &quot;X-Powered-By&quot; HTTP response headers. Access to such information may facilitate attackers identifying other frameworks/components your web application is reliant upon and the vulnerabilities such components may be subject to.</div>
+							
+						</td>
+				</tr>
+				<TR vAlign="top">
+					<TD colspan="2"></TD>
+				</TR>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net">https://espace-membre.incubateur.net</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">X-Powered-By: Express</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/">https://espace-membre.incubateur.net/</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">X-Powered-By: Express</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/login?next=/">https://espace-membre.incubateur.net/login?next=/</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">X-Powered-By: Express</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/react-datepicker/react-datepicker.css">https://espace-membre.incubateur.net/react-datepicker/react-datepicker.css</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">X-Powered-By: Express</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/react-tabulator/styles.css">https://espace-membre.incubateur.net/react-tabulator/styles.css</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">X-Powered-By: Express</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/react-tabulator/tabulator.min.css">https://espace-membre.incubateur.net/react-tabulator/tabulator.min.css</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">X-Powered-By: Express</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/robots.txt">https://espace-membre.incubateur.net/robots.txt</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">X-Powered-By: Express</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/sitemap.xml">https://espace-membre.incubateur.net/sitemap.xml</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">X-Powered-By: Express</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/static/favicon/apple-touch-icon.png">https://espace-membre.incubateur.net/static/favicon/apple-touch-icon.png</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">X-Powered-By: Express</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/static/favicon/favicon-16x16.png">https://espace-membre.incubateur.net/static/favicon/favicon-16x16.png</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">X-Powered-By: Express</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/static/favicon/favicon-32x32.png">https://espace-membre.incubateur.net/static/favicon/favicon-32x32.png</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">X-Powered-By: Express</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+				<tr>
+					<td width="20%">Instances</td>
+					<td width="80%">11</td>
+				</tr>
+				<tr>
+					<td width="20%">Solution</td>
+					<td width="80%">
+							<div>Ensure that your web server, application server, load balancer, etc. is configured to suppress &quot;X-Powered-By&quot; headers.</div>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">Reference</td>
+					<td width="80%">
+							<a href="http://blogs.msdn.com/b/varunm/archive/2013/04/23/remove-unwanted-http-response-headers.aspx">http://blogs.msdn.com/b/varunm/archive/2013/04/23/remove-unwanted-http-response-headers.aspx</a>
+							<br />
+						
+							<a href="http://www.troyhunt.com/2012/02/shhh-dont-let-your-response-headers.html">http://www.troyhunt.com/2012/02/shhh-dont-let-your-response-headers.html</a>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">CWE Id</td>
+					<td width="80%"><a
+						href="https://cwe.mitre.org/data/definitions/200.html">200</a></td>
+				</tr>
+				<tr>
+					<td width="20%">WASC Id</td>
+					<td width="80%">13</td>
+				</tr>
+				<tr>
+					<td width="20%">Plugin Id</td>
+					<td width="80%"><a
+						href="https://www.zaproxy.org/docs/alerts/10037/">10037</a></td>
+				</tr>
+			</table>
+			<div class="spacer"></div>
+		
+			<table class="results">
+				<tr height="24">
+					<th width="20%" class="risk-1"><a
+						id="10021"></a>
+						<div>Low</div></th>
+					<th class="risk-1">X-Content-Type-Options Header Missing</th>
+				</tr>
+				<tr>
+					<td width="20%">Description</td>
+					<td width="80%">
+							<div>The Anti-MIME-Sniffing header X-Content-Type-Options was not set to &#39;nosniff&#39;. This allows older versions of Internet Explorer and Chrome to perform MIME-sniffing on the response body, potentially causing the response body to be interpreted and displayed as a content type other than the declared content type. Current (early 2014) and legacy versions of Firefox will use the declared content type (if one is set), rather than performing MIME-sniffing.</div>
+							
+						</td>
+				</tr>
+				<TR vAlign="top">
+					<TD colspan="2"></TD>
+				</TR>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net">https://espace-membre.incubateur.net</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">x-content-type-options</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At &quot;High&quot; threshold this scan rule will not alert on client or server error responses.</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/login?next=/">https://espace-membre.incubateur.net/login?next=/</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">x-content-type-options</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At &quot;High&quot; threshold this scan rule will not alert on client or server error responses.</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/react-datepicker/react-datepicker.css">https://espace-membre.incubateur.net/react-datepicker/react-datepicker.css</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">x-content-type-options</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At &quot;High&quot; threshold this scan rule will not alert on client or server error responses.</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/react-markdown-editor-lite/index.css">https://espace-membre.incubateur.net/react-markdown-editor-lite/index.css</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">x-content-type-options</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At &quot;High&quot; threshold this scan rule will not alert on client or server error responses.</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/react-tabulator/styles.css">https://espace-membre.incubateur.net/react-tabulator/styles.css</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">x-content-type-options</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At &quot;High&quot; threshold this scan rule will not alert on client or server error responses.</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/react-tabulator/tabulator.min.css">https://espace-membre.incubateur.net/react-tabulator/tabulator.min.css</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">x-content-type-options</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At &quot;High&quot; threshold this scan rule will not alert on client or server error responses.</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/static/css/main.css">https://espace-membre.incubateur.net/static/css/main.css</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">x-content-type-options</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At &quot;High&quot; threshold this scan rule will not alert on client or server error responses.</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/static/favicon/apple-touch-icon.png">https://espace-membre.incubateur.net/static/favicon/apple-touch-icon.png</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">x-content-type-options</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At &quot;High&quot; threshold this scan rule will not alert on client or server error responses.</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/static/favicon/favicon-16x16.png">https://espace-membre.incubateur.net/static/favicon/favicon-16x16.png</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">x-content-type-options</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At &quot;High&quot; threshold this scan rule will not alert on client or server error responses.</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/static/favicon/favicon-32x32.png">https://espace-membre.incubateur.net/static/favicon/favicon-32x32.png</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">x-content-type-options</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At &quot;High&quot; threshold this scan rule will not alert on client or server error responses.</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/static/favicon/site.webmanifest">https://espace-membre.incubateur.net/static/favicon/site.webmanifest</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">x-content-type-options</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At &quot;High&quot; threshold this scan rule will not alert on client or server error responses.</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/static/scripts/hashtoparam.js">https://espace-membre.incubateur.net/static/scripts/hashtoparam.js</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">x-content-type-options</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At &quot;High&quot; threshold this scan rule will not alert on client or server error responses.</td>
+					</tr>
+				
+				<tr>
+					<td width="20%">Instances</td>
+					<td width="80%">12</td>
+				</tr>
+				<tr>
+					<td width="20%">Solution</td>
+					<td width="80%">
+							<div>Ensure that the application/web server sets the Content-Type header appropriately, and that it sets the X-Content-Type-Options header to &#39;nosniff&#39; for all web pages.</div>
+							<br />
+						
+							<div>If possible, ensure that the end user uses a standards-compliant and modern web browser that does not perform MIME-sniffing at all, or that can be directed by the web application/web server to not perform MIME-sniffing.</div>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">Reference</td>
+					<td width="80%">
+							<a href="http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx">http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx</a>
+							<br />
+						
+							<a href="https://owasp.org/www-community/Security_Headers">https://owasp.org/www-community/Security_Headers</a>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">CWE Id</td>
+					<td width="80%"><a
+						href="https://cwe.mitre.org/data/definitions/693.html">693</a></td>
+				</tr>
+				<tr>
+					<td width="20%">WASC Id</td>
+					<td width="80%">15</td>
+				</tr>
+				<tr>
+					<td width="20%">Plugin Id</td>
+					<td width="80%"><a
+						href="https://www.zaproxy.org/docs/alerts/10021/">10021</a></td>
+				</tr>
+			</table>
+			<div class="spacer"></div>
+		
+			<table class="results">
+				<tr height="24">
+					<th width="20%" class="risk-0"><a
+						id="10094"></a>
+						<div>Informational</div></th>
+					<th class="risk-0">Base64 Disclosure</th>
+				</tr>
+				<tr>
+					<td width="20%">Description</td>
+					<td width="80%">
+							<div>Base64 encoded data was disclosed by the application/web server. Note: in the interests of performance not all base64 strings in the response were analyzed individually, the entire response should be looked at by the analyst/security team/developer(s).</div>
+							
+						</td>
+				</tr>
+				<TR vAlign="top">
+					<TD colspan="2"></TD>
+				</TR>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net">https://espace-membre.incubateur.net</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">3APn7xWnRFEKDu-fP8SWVSzU9Ckap4nHEy</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">����DQ
+�?ĖU,��)���</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net">https://espace-membre.incubateur.net</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">3A5JoP_iVdFAazCVTW42gp1zTNKUb6TAxr</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">�I���U�@k0�Mn6��sLҔo���</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/">https://espace-membre.incubateur.net/</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">3A5JoP_iVdFAazCVTW42gp1zTNKUb6TAxr</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">�I���U�@k0�Mn6��sLҔo���</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/login?next=/">https://espace-membre.incubateur.net/login?next=/</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">3A5JoP_iVdFAazCVTW42gp1zTNKUb6TAxr</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">�I���U�@k0�Mn6��sLҔo���</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/public/js/Home.js?1.0.0">https://espace-membre.incubateur.net/public/js/Home.js?1.0.0</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAA5klEQVQ4jc3QMUuCURTG8V8tNQRGY45BS01OfQHH8EMEbUJ9iQga+yAFKo42BI3RYkRQkxKuCba9DZ6LF3nT3DxwuNzn+Z9zzz2sU3TwgrMFzHkw7TLzG0VkD/3QxnjFY+aPyxq8ZcCy/ExFm3HuYWvJF/PYwX4uXK/wespb2MjGPwzjHu+o4ST8JzwH04i6DxykCSZRfPGP8S+D/cnFUYiVuHdKCpO2G+yI2RIf4kyLLEoaFHNMLzePTb9xtXh6cBPs0bxRxxfucIoqtiOrpstrBVP/q3sFTXQxjJcmGITWNNvTmsQvxG9Kly7hW/kAAAAASUVORK5CYII=</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">�PNG
+
+   IHDR         ��a   bKGD � � �����   �IDAT8���1K�Q��_-5Fc�AKMN}��CmB}�� *�6��bDP��	����y��&lt;p�����s�=�St����y0�2�Ed���x�c���e���LE�q�ak����~.\��z�[���?���$�&#39;&lt;ӈ��	&amp;Q|��/����Q���wJ
+�����L�,JsL/7�M�q�xzp�ѼQ��p�*�#���kS��{Mt1��&amp;��4�Ӛ�/�oJ�.�[�    IEND�B`�</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/react-markdown-editor-lite/index.css">https://espace-membre.incubateur.net/react-markdown-editor-lite/index.css</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">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NS4BJyMOAd0VGwEBGxWRFRsbFWEcFBQcYRUbGxWRFRsBARsCK2EVGxsVkRUbAQEbKRySARsVYRwpGwEBGxWRFRsBHwEbFZEVGwEBGykcYRUbwwEbFWEcKRsBARsVkRUb/qscKRsBARsVkRUbGxUBtRQcYRUbGxWRFRsBARsAAAAAAAASAN4AAQAAAAAAAAAVAAAAAQAAAAAAAQANABUAAQAAAAAAAgAHACIAAQAAAAAAAwANACkAAQAAAAAABAANADYAAQAAAAAABQALAEMAAQAAAAAABgANAE4AAQAAAAAACgArAFsAAQAAAAAACwATAIYAAwABBAkAAAAqAJkAAwABBAkAAQAaAMMAAwABBAkAAgAOAN0AAwABBAkAAwAaAOsAAwABBAkABAAaAQUAAwABBAkABQAWAR8AAwABBAkABgAaATUAAwABBAkACgBWAU8AAwABBAkACwAmAaUKQ3JlYXRlZCBieSBpY29uZm9udApybWVsLWljb25mb250UmVndWxhcnJtZWwtaWNvbmZvbnRybWVsLWljb25mb250VmVyc2lvbiAxLjBybWVsLWljb25mb250R2VuZXJhdGVkIGJ5IHN2ZzJ0dGYgZnJvbSBGb250ZWxsbyBwcm9qZWN0Lmh0dHA6Ly9mb250ZWxsby5jb20ACgBDAHIAZQBhAHQAZQBkACAAYgB5ACAAaQBjAG8AbgBmAG8AbgB0AAoAcgBtAGUAbAAtAGkAYwBvAG4AZgBvAG4AdABSAGUAZwB1AGwAYQByAHIAbQBlAGwALQBpAGMAbwBuAGYAbwBuAHQAcgBtAGUAbAAtAGkAYwBvAG4AZgBvAG4AdABWAGUAcgBzAGkAbwBuACAAMQAuADAAcgBtAGUAbAAtAGkAYwBvAG4AZgBvAG4AdABHAGUAbgBlAHIAYQB0AGUAZAAgAGIAeQAgAHMAdgBnADIAdAB0AGYAIABmAHIAbwBtACAARgBvAG4AdABlAGwAbABvACAAcAByAG8AagBlAGMAdAAuAGgAdAB0AHAAOgAvAC8AZgBvAG4AdABlAGwAbABvAC4AYwBvAG0AAAAAAgAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaAQIBAwEEAQUBBgEHAQgBCQEKAQsBDAENAQ4BDwEQAREBEgETARQBFQEWARcBGAEZARoBGwADdGFiCGtleWJvYXJkBmRlbGV0ZQpjb2RlLWJsb2NrBGNvZGUKdmlzaWJpbGl0eQp2aWV3LXNwbGl0BGxpbmsEcmVkbwR1bmRvBGJvbGQGaXRhbGljDGxpc3Qtb3JkZXJlZA5saXN0LXVub3JkZXJlZAVxdW90ZQ1zdHJpa2V0aHJvdWdoCXVuZGVybGluZQR3cmFwCWZvbnQtc2l6ZQRncmlkBWltYWdlC2V4cGFuZC1sZXNzC2V4cGFuZC1tb3JlD2Z1bGxzY3JlZW4tZXhpdApmdWxsc2NyZWVuAAAAAAA=</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">|  �                �    LP                       ���                   r m e l - i c o n f o n t    R e g u l a r    V e r s i o n   1 . 0    r m e l - i c o n f o n t          �  0GSUB����  8   BOS/2=�O�  |   Vcmap@�]  &lt;  glyf0��m  |  `headP�O   �   6hhea��   �   $hmtxh     �   hloca5�2   D   6maxp0 {      names���  �  �post&#39;)��  �  5   ��� \                            ���_&lt;�      ��)    ��)  ��                o         
+ 
+   �          
+  , DFLT            liga                        �  ��   ���  � 2                         PfEd @�m���� \� �                                                                                                ,     �      �     ,  
+  �  �      �m�A�&lt;�E�a�u�x�����  �m�A�;�D�_�o�w�����                            * , , .          	 
+                                                                                                                                                                                                                                                                                         &lt;         �m  �m     �A  �A     �;  �;     �&lt;  �&lt;     �D  �D     �E  �E     �_  �_     �`  �`   	  �a  �a   
+  �o  �o     �p  �p     �q  �q     �r  �r     �s  �s     �t  �t     �u  �u     �w  �w     �x  �x     �  �     �  �     �  �     �  �     �  �     �  �     �  �        f ����f��4r�@��.p�
+j���F�       V�   % 4 @  !2!.46&gt;7!#!&quot;&amp;467!#!&quot;&amp;7&gt;3!2#!&quot;&amp;&#39;&amp;546�T���`���T���`��9��%%�%��%���*        ��      # &#39; 3 7 ; ? C  !!&gt;7.3#3#&#39;3#3+535#53!&quot;&amp;463!27#535#53#535#53U�V$01$�$11�\VVVV�VVVV*VVVVU�  VVVV�VVVV�1$�V$11$�$1V*V�V*VV*V��$$�V*V�V*V     +    3  %!&gt;7.&#39;!3!2!.&#39;&gt;%&#39;&amp;+&quot;#&quot;3!264&amp;# 0$V$00$��$0� � (�k U$00$�$00$��U�&#39;&#39;     ��  - &gt;  &quot;/&amp;4?&#39;&amp;4?62764/&amp;&quot;2?64&#39;&#39;&amp;676&amp;&#39;�	����	���		�B)	�(	�	�
+����
+��
+
+����s     �o  !  %&#39;764&amp;&quot;264%7&#39;&amp;462&quot;&amp;4s��$��!��!��!ڦ�!�&quot;�!��$�&quot;�$       ��   #  &gt;7..&#39;&gt;7&gt;7. ��55똘�55�VppVVppV4CC44CC����������pVVppVVp&gt;C44CC44C       ��   # 0 @  !264&amp;#!&quot;!&gt;4&amp;&#39;!!264&amp;#!&quot;&#39;!&gt;4&amp;&#39;!%!!.546� �  �  �  � � �  &#39;&#39;�&quot;&quot;U&#39;&#39;�&amp;�          �V  &amp; @  #&quot;;#&quot;;&gt;7.!&gt;4&amp;&#39;!#.&#39;&gt;73264&amp;+3264&amp;Հ�7HH7��[xx�% � U�7HH7��[xx[�U$I66I$x[[x�$�I66I$x[[x$     �+   .&#39;67&gt;723&gt;75.;�U��8
+#	+�g?o,Q�1�4:�r*Vi+%R1�       �+   &#39;&amp;3&gt;/&gt;37&gt;&#39;.U�;Q1�R-o&gt;g�+	$
+9�+:4P�1R%+iV*r�       ��   $  &gt;7.&#39;#!&gt;74&amp;%3##53�!)fN�Ii4�Ԉ&#39;&#39;����&#39;&#39;�D$Nf��aI5R�&amp;;&amp;��&amp;;&amp;     �   3#3&gt;4&amp;&#39;#3&gt;4&amp;&#39;#�&amp;!�;&amp;&amp;�&amp;&amp;!�;&amp;&amp;�&amp;z&amp;��&amp;:&#39;&#39;:&amp;l&amp;:&#39;&#39;     ��   # A R n  !&gt;4&amp;&#39;!!!&gt;4&amp;!!&gt;4&amp;#&quot;;#&quot;;#&quot;;2675.326=4&amp;+&quot;#&quot;;;264&amp;+76=.k � �  �  �XU		@
+
+@		U
+_	+	^U		7G	U
+
+7HU$$�U$$$$�	�	�k		�	�T		T		        ��    &amp; 2 ?  264&amp;264&amp;264&amp;!&gt;4&amp;&#39;!7!&gt;4&amp;&#39;!!&gt;4&amp;&#39;!�$$7$$$$7$$$$6%$� �  �  � �$6$$6$$6$$6$�$6$$6$j$$�$$*$       VV  -  %26?6=.+&quot;326?6=4&amp;+&quot;32=	�V, �&lt;	�U, �y��X3y��X3        ��   %  %&gt;75#3353&gt;4&amp;&#39;!!&gt;4&amp;&#39;! $0�0��$���$$�*$+��V@0$++$0?$��$6$$�z$$      ��+  (  %&gt;7.&quot;.5.&quot;3!264&amp;#!&quot;&quot;bz-A5!A5-�� � ��e��7S+&lt;# ��v�v$       p�  - 9  !&gt;4&amp;#!&quot;!&quot;!2#5.6753&gt;&#39;.#&quot;3&gt;4&amp;�U��� 31(`LLUMbd�m��q$$�$&#39; )9&quot;
+
+LL
+
+&quot;kNDU�$$       ��  (  32673&gt;4&amp;&#39;!326753264&amp;&#39;!k$�$6$�$$�V$�@$7$@$$� $$�$�@$$�$6$$���$$�$7$$7$ 
+    x�    ! % ) - 4 8 ?  !!&gt;7.#&quot;&amp;=35#535#546;#535#535#53#537#535#532,�� ** X **�q����qᖖ�����q����q�* �� ** X *�^qK�Kq���K�K����q�K�     ���      %.&#39;!!&gt;%762#!&quot;&amp;?&gt;�0$��$00$V$0��Y���jUV$00$��$00�l�	��       56   2?264/&amp;&quot;��!,��,!�.&amp;�,!��!,�       56   &#39;&amp;&#39;&quot;2?64.����,�!-&amp;��  ��-        k�  ! 3 D  7326=4&amp;+&quot;#&quot;;26=4&amp;&quot;26=3264&amp;+&quot;54&amp;&quot;;264&amp;#�h,�~h�,jh�J,��h�,�,��_h,�9h�,       T�  # 4 F  3&gt;4&amp;+54&amp;&#39;&gt;=3264&amp;&#39;##&quot;3&gt;75.&quot;;2675.&#39;#��aa�+a�)�a)��)a�a)���)��a�       �                          &quot;        )        6        C        N      
+ + [        �  	   * �  	   �  	   �  	   �  	    	    	  5  	 
+ VO  	  &amp;�
+Created by iconfont
+rmel-iconfontRegularrmel-iconfontrmel-iconfontVersion 1.0rmel-iconfontGenerated by svg2ttf from Fontello project.http://fontello.com 
+ C r e a t e d   b y   i c o n f o n t 
+ r m e l - i c o n f o n t R e g u l a r r m e l - i c o n f o n t r m e l - i c o n f o n t V e r s i o n   1 . 0 r m e l - i c o n f o n t G e n e r a t e d   b y   s v g 2 t t f   f r o m   F o n t e l l o   p r o j e c t . h t t p : / / f o n t e l l o . c o m           
+                       	
+ tabkeyboarddelete
+code-blockcode
+visibility
+view-splitlinkredoundobolditaliclist-orderedlist-unorderedquotestrikethrough	underlinewrap	font-sizegridimageexpand-lessexpand-morefullscreen-exit
+fullscreen     </td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/robots.txt">https://espace-membre.incubateur.net/robots.txt</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">3A5JoP_iVdFAazCVTW42gp1zTNKUb6TAxr</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">�I���U�@k0�Mn6��sLҔo���</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/sitemap.xml">https://espace-membre.incubateur.net/sitemap.xml</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">3A5JoP_iVdFAazCVTW42gp1zTNKUb6TAxr</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">�I���U�@k0�Mn6��sLҔo���</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/static/css/main.css">https://espace-membre.incubateur.net/static/css/main.css</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKBAMAAAB/HNKOAAAAD1BMVEUAAACjo6Pn5+fDw8P///8mXC3WAAAABHRSTlMAfb49zZRSvgAAADBJREFUCNdjAAIXFxBicmFwYGAQUQGSjI4sQFJEgIHBgdmRAUgyGAAxUBZOugCBAwCrDAY9nvSvKAAAAABJRU5ErkJggg==</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">�PNG
+
+   IHDR   
+   
+   Ҏ   PLTE   ������������&amp;\-�   tRNS }�=͔R�   0IDAT�c brap``Q���,@RD����ّH2 1PN� � �=���(    IEND�B`�</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/login?next=/">https://espace-membre.incubateur.net/login?next=/</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">POST</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">3A5JoP_iVdFAazCVTW42gp1zTNKUb6TAxr</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">�I���U�@k0�Mn6��sLҔo���</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/login?next=/robots.txt">https://espace-membre.incubateur.net/login?next=/robots.txt</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">POST</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">3A5JoP_iVdFAazCVTW42gp1zTNKUb6TAxr</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">�I���U�@k0�Mn6��sLҔo���</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/login?next=/sitemap.xml">https://espace-membre.incubateur.net/login?next=/sitemap.xml</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">POST</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">3A5JoP_iVdFAazCVTW42gp1zTNKUb6TAxr</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">�I���U�@k0�Mn6��sLҔo���</td>
+					</tr>
+				
+				<tr>
+					<td width="20%">Instances</td>
+					<td width="80%">12</td>
+				</tr>
+				<tr>
+					<td width="20%">Solution</td>
+					<td width="80%">
+							<div>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</div>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">Reference</td>
+					<td width="80%">
+							<a href="https://projects.webappsec.org/w/page/13246936/Information%20Leakage">https://projects.webappsec.org/w/page/13246936/Information%20Leakage</a>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">CWE Id</td>
+					<td width="80%"><a
+						href="https://cwe.mitre.org/data/definitions/200.html">200</a></td>
+				</tr>
+				<tr>
+					<td width="20%">WASC Id</td>
+					<td width="80%">13</td>
+				</tr>
+				<tr>
+					<td width="20%">Plugin Id</td>
+					<td width="80%"><a
+						href="https://www.zaproxy.org/docs/alerts/10094/">10094</a></td>
+				</tr>
+			</table>
+			<div class="spacer"></div>
+		
+			<table class="results">
+				<tr height="24">
+					<th width="20%" class="risk-0"><a
+						id="10027"></a>
+						<div>Informational</div></th>
+					<th class="risk-0">Information Disclosure - Suspicious Comments</th>
+				</tr>
+				<tr>
+					<td width="20%">Description</td>
+					<td width="80%">
+							<div>The response appears to contain suspicious comments which may help an attacker. Note: Matches made within script blocks or files are against the entire content not only comments.</div>
+							
+						</td>
+				</tr>
+				<TR vAlign="top">
+					<TD colspan="2"></TD>
+				</TR>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net">https://espace-membre.incubateur.net</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">query</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">The following pattern was used: \bQUERY\b and was detected in the element starting with: &quot;&lt;script&gt;
+              window.__INITIAL_PROPS__ = {&quot;request&quot;:{&quot;query&quot;:{&quot;next&quot;:&quot;/&quot;}},&quot;errors&quot;:[],&quot;messages&quot;:[],&quot;domain&quot;:&quot;beta.gou&quot;, see evidence field for the suspicious comment/snippet.</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/login?next=/">https://espace-membre.incubateur.net/login?next=/</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">query</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">The following pattern was used: \bQUERY\b and was detected in the element starting with: &quot;&lt;script&gt;
+              window.__INITIAL_PROPS__ = {&quot;request&quot;:{&quot;query&quot;:{&quot;next&quot;:&quot;/&quot;}},&quot;errors&quot;:[],&quot;messages&quot;:[&quot;Pour accéder à cett&quot;, see evidence field for the suspicious comment/snippet.</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/login?next=/robots.txt">https://espace-membre.incubateur.net/login?next=/robots.txt</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">query</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">The following pattern was used: \bQUERY\b and was detected in the element starting with: &quot;&lt;script&gt;
+              window.__INITIAL_PROPS__ = {&quot;request&quot;:{&quot;query&quot;:{&quot;next&quot;:&quot;/robots.txt&quot;}},&quot;errors&quot;:[],&quot;messages&quot;:[],&quot;domain&quot;&quot;, see evidence field for the suspicious comment/snippet.</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/login?next=/sitemap.xml">https://espace-membre.incubateur.net/login?next=/sitemap.xml</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">query</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">The following pattern was used: \bQUERY\b and was detected in the element starting with: &quot;&lt;script&gt;
+              window.__INITIAL_PROPS__ = {&quot;request&quot;:{&quot;query&quot;:{&quot;next&quot;:&quot;/sitemap.xml&quot;}},&quot;errors&quot;:[&quot;L&#39;adresse email foo-ba&quot;, see evidence field for the suspicious comment/snippet.</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/onboarding">https://espace-membre.incubateur.net/onboarding</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">query</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">The following pattern was used: \bQUERY\b and was detected in the element starting with: &quot;&lt;script&gt;
+              window.__INITIAL_PROPS__ = {&quot;title&quot;:&quot;Mon compte&quot;,&quot;formValidationErrors&quot;:{},&quot;startups&quot;:[{&quot;id&quot;:&quot;1000.jours&quot;&quot;, see evidence field for the suspicious comment/snippet.</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/public/js/Home.js?1.0.0">https://espace-membre.incubateur.net/public/js/Home.js?1.0.0</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">username</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">The following pattern was used: \bUSERNAME\b and was detected in the element starting with: &quot;&quot;use strict&quot;;(self.webpackChunksecretariat=self.webpackChunksecretariat||[]).push([[268],{677:(e,t,a)=&gt;{a.d(t,{D:()=&gt;n});var r=a&quot;, see evidence field for the suspicious comment/snippet.</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/public/js/shared.js">https://espace-membre.incubateur.net/public/js/shared.js</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">db</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">The following pattern was used: \bDB\b and was detected in the element starting with: &quot;(()=&gt;{var M,b,z,p={8:(M,b,z)=&gt;{z(5177).tz.load(z(1128))},5177:function(M,b,z){var p,e,O;!function(o,c){&quot;use strict&quot;;M.exports?M.&quot;, see evidence field for the suspicious comment/snippet.</td>
+					</tr>
+				
+				<tr>
+					<td width="20%">Instances</td>
+					<td width="80%">7</td>
+				</tr>
+				<tr>
+					<td width="20%">Solution</td>
+					<td width="80%">
+							<div>Remove all comments that return information that may help an attacker and fix any underlying problems they refer to.</div>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">Reference</td>
+					<td width="80%"></td>
+				</tr>
+				<tr>
+					<td width="20%">CWE Id</td>
+					<td width="80%"><a
+						href="https://cwe.mitre.org/data/definitions/200.html">200</a></td>
+				</tr>
+				<tr>
+					<td width="20%">WASC Id</td>
+					<td width="80%">13</td>
+				</tr>
+				<tr>
+					<td width="20%">Plugin Id</td>
+					<td width="80%"><a
+						href="https://www.zaproxy.org/docs/alerts/10027/">10027</a></td>
+				</tr>
+			</table>
+			<div class="spacer"></div>
+		
+			<table class="results">
+				<tr height="24">
+					<th width="20%" class="risk-0"><a
+						id="10049"></a>
+						<div>Informational</div></th>
+					<th class="risk-0">Non-Storable Content</th>
+				</tr>
+				<tr>
+					<td width="20%">Description</td>
+					<td width="80%">
+							<div>The response contents are not storable by caching components such as proxy servers. If the response does not contain sensitive, personal or user-specific information, it may benefit from being stored and cached, to improve performance.</div>
+							
+						</td>
+				</tr>
+				<TR vAlign="top">
+					<TD colspan="2"></TD>
+				</TR>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net">https://espace-membre.incubateur.net</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">302</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/">https://espace-membre.incubateur.net/</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">302</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/robots.txt">https://espace-membre.incubateur.net/robots.txt</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">302</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/sitemap.xml">https://espace-membre.incubateur.net/sitemap.xml</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">302</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+				<tr>
+					<td width="20%">Instances</td>
+					<td width="80%">4</td>
+				</tr>
+				<tr>
+					<td width="20%">Solution</td>
+					<td width="80%">
+							<div>The content may be marked as storable by ensuring that the following conditions are satisfied:</div>
+							<br />
+						
+							<div>The request method must be understood by the cache and defined as being cacheable (&quot;GET&quot;, &quot;HEAD&quot;, and &quot;POST&quot; are currently defined as cacheable)</div>
+							<br />
+						
+							<div>The response status code must be understood by the cache (one of the 1XX, 2XX, 3XX, 4XX, or 5XX response classes are generally understood)</div>
+							<br />
+						
+							<div>The &quot;no-store&quot; cache directive must not appear in the request or response header fields</div>
+							<br />
+						
+							<div>For caching by &quot;shared&quot; caches such as &quot;proxy&quot; caches, the &quot;private&quot; response directive must not appear in the response</div>
+							<br />
+						
+							<div>For caching by &quot;shared&quot; caches such as &quot;proxy&quot; caches, the &quot;Authorization&quot; header field must not appear in the request, unless the response explicitly allows it (using one of the &quot;must-revalidate&quot;, &quot;public&quot;, or &quot;s-maxage&quot; Cache-Control response directives)</div>
+							<br />
+						
+							<div>In addition to the conditions above, at least one of the following conditions must also be satisfied by the response:</div>
+							<br />
+						
+							<div>It must contain an &quot;Expires&quot; header field</div>
+							<br />
+						
+							<div>It must contain a &quot;max-age&quot; response directive</div>
+							<br />
+						
+							<div>For &quot;shared&quot; caches such as &quot;proxy&quot; caches, it must contain a &quot;s-maxage&quot; response directive</div>
+							<br />
+						
+							<div>It must contain a &quot;Cache Control Extension&quot; that allows it to be cached</div>
+							<br />
+						
+							<div>It must have a status code that is defined as cacheable by default (200, 203, 204, 206, 300, 301, 404, 405, 410, 414, 501).   </div>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">Reference</td>
+					<td width="80%">
+							<a href="https://datatracker.ietf.org/doc/html/rfc7234">https://datatracker.ietf.org/doc/html/rfc7234</a>
+							<br />
+						
+							<a href="https://datatracker.ietf.org/doc/html/rfc7231">https://datatracker.ietf.org/doc/html/rfc7231</a>
+							<br />
+						
+							<a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html">https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html</a>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">CWE Id</td>
+					<td width="80%"><a
+						href="https://cwe.mitre.org/data/definitions/524.html">524</a></td>
+				</tr>
+				<tr>
+					<td width="20%">WASC Id</td>
+					<td width="80%">13</td>
+				</tr>
+				<tr>
+					<td width="20%">Plugin Id</td>
+					<td width="80%"><a
+						href="https://www.zaproxy.org/docs/alerts/10049/">10049</a></td>
+				</tr>
+			</table>
+			<div class="spacer"></div>
+		
+			<table class="results">
+				<tr height="24">
+					<th width="20%" class="risk-0"><a
+						id="10015"></a>
+						<div>Informational</div></th>
+					<th class="risk-0">Re-examine Cache-control Directives</th>
+				</tr>
+				<tr>
+					<td width="20%">Description</td>
+					<td width="80%">
+							<div>The cache-control header has not been set properly or is missing, allowing the browser and proxies to cache content. For static assets like css, js, or image files this might be intended, however, the resources should be reviewed to ensure that no sensitive content will be cached.</div>
+							
+						</td>
+				</tr>
+				<TR vAlign="top">
+					<TD colspan="2"></TD>
+				</TR>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net">https://espace-membre.incubateur.net</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">cache-control</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/login?next=/">https://espace-membre.incubateur.net/login?next=/</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">cache-control</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/login?next=/robots.txt">https://espace-membre.incubateur.net/login?next=/robots.txt</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">cache-control</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/login?next=/sitemap.xml">https://espace-membre.incubateur.net/login?next=/sitemap.xml</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">cache-control</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/onboarding">https://espace-membre.incubateur.net/onboarding</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">cache-control</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/static/favicon/site.webmanifest">https://espace-membre.incubateur.net/static/favicon/site.webmanifest</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">cache-control</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">public, max-age=0</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+				<tr>
+					<td width="20%">Instances</td>
+					<td width="80%">6</td>
+				</tr>
+				<tr>
+					<td width="20%">Solution</td>
+					<td width="80%">
+							<div>For secure content, ensure the cache-control HTTP header is set with &quot;no-cache, no-store, must-revalidate&quot;. If an asset should be cached consider setting the directives &quot;public, max-age, immutable&quot;.</div>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">Reference</td>
+					<td width="80%">
+							<a href="https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching">https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching</a>
+							<br />
+						
+							<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control</a>
+							<br />
+						
+							<a href="https://grayduck.mn/2021/09/13/cache-control-recommendations/">https://grayduck.mn/2021/09/13/cache-control-recommendations/</a>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">CWE Id</td>
+					<td width="80%"><a
+						href="https://cwe.mitre.org/data/definitions/525.html">525</a></td>
+				</tr>
+				<tr>
+					<td width="20%">WASC Id</td>
+					<td width="80%">13</td>
+				</tr>
+				<tr>
+					<td width="20%">Plugin Id</td>
+					<td width="80%"><a
+						href="https://www.zaproxy.org/docs/alerts/10015/">10015</a></td>
+				</tr>
+			</table>
+			<div class="spacer"></div>
+		
+			<table class="results">
+				<tr height="24">
+					<th width="20%" class="risk-0"><a
+						id="90005"></a>
+						<div>Informational</div></th>
+					<th class="risk-0">Sec-Fetch-Dest Header is Missing</th>
+				</tr>
+				<tr>
+					<td width="20%">Description</td>
+					<td width="80%">
+							<div>Specifies how and where the data would be used. For instance, if the value is audio, then the requested resource must be audio data and not any other type of resource.</div>
+							
+						</td>
+				</tr>
+				<TR vAlign="top">
+					<TD colspan="2"></TD>
+				</TR>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net">https://espace-membre.incubateur.net</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">Sec-Fetch-Dest</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/robots.txt">https://espace-membre.incubateur.net/robots.txt</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">Sec-Fetch-Dest</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/sitemap.xml">https://espace-membre.incubateur.net/sitemap.xml</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">Sec-Fetch-Dest</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+				<tr>
+					<td width="20%">Instances</td>
+					<td width="80%">3</td>
+				</tr>
+				<tr>
+					<td width="20%">Solution</td>
+					<td width="80%">
+							<div>Ensure that Sec-Fetch-Dest header is included in request headers.</div>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">Reference</td>
+					<td width="80%">
+							<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Dest">https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Dest</a>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">CWE Id</td>
+					<td width="80%"><a
+						href="https://cwe.mitre.org/data/definitions/352.html">352</a></td>
+				</tr>
+				<tr>
+					<td width="20%">WASC Id</td>
+					<td width="80%">9</td>
+				</tr>
+				<tr>
+					<td width="20%">Plugin Id</td>
+					<td width="80%"><a
+						href="https://www.zaproxy.org/docs/alerts/90005/">90005</a></td>
+				</tr>
+			</table>
+			<div class="spacer"></div>
+		
+			<table class="results">
+				<tr height="24">
+					<th width="20%" class="risk-0"><a
+						id="90005"></a>
+						<div>Informational</div></th>
+					<th class="risk-0">Sec-Fetch-Mode Header is Missing</th>
+				</tr>
+				<tr>
+					<td width="20%">Description</td>
+					<td width="80%">
+							<div>Allows to differentiate between requests for navigating between HTML pages and requests for loading resources like images, audio etc.</div>
+							
+						</td>
+				</tr>
+				<TR vAlign="top">
+					<TD colspan="2"></TD>
+				</TR>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net">https://espace-membre.incubateur.net</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">Sec-Fetch-Mode</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/robots.txt">https://espace-membre.incubateur.net/robots.txt</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">Sec-Fetch-Mode</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/sitemap.xml">https://espace-membre.incubateur.net/sitemap.xml</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">Sec-Fetch-Mode</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+				<tr>
+					<td width="20%">Instances</td>
+					<td width="80%">3</td>
+				</tr>
+				<tr>
+					<td width="20%">Solution</td>
+					<td width="80%">
+							<div>Ensure that Sec-Fetch-Mode header is included in request headers.</div>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">Reference</td>
+					<td width="80%">
+							<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Mode">https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Mode</a>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">CWE Id</td>
+					<td width="80%"><a
+						href="https://cwe.mitre.org/data/definitions/352.html">352</a></td>
+				</tr>
+				<tr>
+					<td width="20%">WASC Id</td>
+					<td width="80%">9</td>
+				</tr>
+				<tr>
+					<td width="20%">Plugin Id</td>
+					<td width="80%"><a
+						href="https://www.zaproxy.org/docs/alerts/90005/">90005</a></td>
+				</tr>
+			</table>
+			<div class="spacer"></div>
+		
+			<table class="results">
+				<tr height="24">
+					<th width="20%" class="risk-0"><a
+						id="90005"></a>
+						<div>Informational</div></th>
+					<th class="risk-0">Sec-Fetch-Site Header is Missing</th>
+				</tr>
+				<tr>
+					<td width="20%">Description</td>
+					<td width="80%">
+							<div>Specifies the relationship between request initiator&#39;s origin and target&#39;s origin.</div>
+							
+						</td>
+				</tr>
+				<TR vAlign="top">
+					<TD colspan="2"></TD>
+				</TR>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net">https://espace-membre.incubateur.net</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">Sec-Fetch-Site</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/robots.txt">https://espace-membre.incubateur.net/robots.txt</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">Sec-Fetch-Site</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/sitemap.xml">https://espace-membre.incubateur.net/sitemap.xml</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">Sec-Fetch-Site</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+				<tr>
+					<td width="20%">Instances</td>
+					<td width="80%">3</td>
+				</tr>
+				<tr>
+					<td width="20%">Solution</td>
+					<td width="80%">
+							<div>Ensure that Sec-Fetch-Site header is included in request headers.</div>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">Reference</td>
+					<td width="80%">
+							<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Site">https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Site</a>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">CWE Id</td>
+					<td width="80%"><a
+						href="https://cwe.mitre.org/data/definitions/352.html">352</a></td>
+				</tr>
+				<tr>
+					<td width="20%">WASC Id</td>
+					<td width="80%">9</td>
+				</tr>
+				<tr>
+					<td width="20%">Plugin Id</td>
+					<td width="80%"><a
+						href="https://www.zaproxy.org/docs/alerts/90005/">90005</a></td>
+				</tr>
+			</table>
+			<div class="spacer"></div>
+		
+			<table class="results">
+				<tr height="24">
+					<th width="20%" class="risk-0"><a
+						id="90005"></a>
+						<div>Informational</div></th>
+					<th class="risk-0">Sec-Fetch-User Header is Missing</th>
+				</tr>
+				<tr>
+					<td width="20%">Description</td>
+					<td width="80%">
+							<div>Specifies if a navigation request was initiated by a user.</div>
+							
+						</td>
+				</tr>
+				<TR vAlign="top">
+					<TD colspan="2"></TD>
+				</TR>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net">https://espace-membre.incubateur.net</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">Sec-Fetch-User</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/robots.txt">https://espace-membre.incubateur.net/robots.txt</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">Sec-Fetch-User</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/sitemap.xml">https://espace-membre.incubateur.net/sitemap.xml</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">Sec-Fetch-User</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+				<tr>
+					<td width="20%">Instances</td>
+					<td width="80%">3</td>
+				</tr>
+				<tr>
+					<td width="20%">Solution</td>
+					<td width="80%">
+							<div>Ensure that Sec-Fetch-User header is included in user initiated requests.</div>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">Reference</td>
+					<td width="80%">
+							<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-User">https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-User</a>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">CWE Id</td>
+					<td width="80%"><a
+						href="https://cwe.mitre.org/data/definitions/352.html">352</a></td>
+				</tr>
+				<tr>
+					<td width="20%">WASC Id</td>
+					<td width="80%">9</td>
+				</tr>
+				<tr>
+					<td width="20%">Plugin Id</td>
+					<td width="80%"><a
+						href="https://www.zaproxy.org/docs/alerts/90005/">90005</a></td>
+				</tr>
+			</table>
+			<div class="spacer"></div>
+		
+			<table class="results">
+				<tr height="24">
+					<th width="20%" class="risk-0"><a
+						id="10112"></a>
+						<div>Informational</div></th>
+					<th class="risk-0">Session Management Response Identified</th>
+				</tr>
+				<tr>
+					<td width="20%">Description</td>
+					<td width="80%">
+							<div>The given response has been identified as containing a session management token. The &#39;Other Info&#39; field contains a set of header tokens that can be used in the Header Based Session Management Method. If the request is in a context which has a Session Management Method set to &quot;Auto-Detect&quot; then this rule will change the session management to use the tokens identified.</div>
+							
+						</td>
+				</tr>
+				<TR vAlign="top">
+					<TD colspan="2"></TD>
+				</TR>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net">https://espace-membre.incubateur.net</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">espaceMembreCookieName</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">s%3A5JoP_iVdFAazCVTW42gp1zTNKUb6TAxr.nkfEtO9FOncT%2FosHURUmHh4PXrVELXD9a2EgT4qJ5yM</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">
+cookie:espaceMembreCookieName</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net">https://espace-membre.incubateur.net</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">espaceMembreCookieName</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">s%3APn7xWnRFEKDu-fP8SWVSzU9Ckap4nHEy.MvI1eJTHO7ZQPnnMokIpLKJQjiFcrJIa1S0vlQrkt7I</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">
+cookie:espaceMembreCookieName</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/">https://espace-membre.incubateur.net/</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">espaceMembreCookieName</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">s%3A5JoP_iVdFAazCVTW42gp1zTNKUb6TAxr.nkfEtO9FOncT%2FosHURUmHh4PXrVELXD9a2EgT4qJ5yM</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">
+cookie:espaceMembreCookieName</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/login?next=/">https://espace-membre.incubateur.net/login?next=/</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">espaceMembreCookieName</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">s%3A5JoP_iVdFAazCVTW42gp1zTNKUb6TAxr.nkfEtO9FOncT%2FosHURUmHh4PXrVELXD9a2EgT4qJ5yM</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">
+cookie:espaceMembreCookieName</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/robots.txt">https://espace-membre.incubateur.net/robots.txt</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">espaceMembreCookieName</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">s%3A5JoP_iVdFAazCVTW42gp1zTNKUb6TAxr.nkfEtO9FOncT%2FosHURUmHh4PXrVELXD9a2EgT4qJ5yM</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">
+cookie:espaceMembreCookieName</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/sitemap.xml">https://espace-membre.incubateur.net/sitemap.xml</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">espaceMembreCookieName</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">s%3A5JoP_iVdFAazCVTW42gp1zTNKUb6TAxr.nkfEtO9FOncT%2FosHURUmHh4PXrVELXD9a2EgT4qJ5yM</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">
+cookie:espaceMembreCookieName</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/login?next=/robots.txt">https://espace-membre.incubateur.net/login?next=/robots.txt</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">POST</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">espaceMembreCookieName</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">s%3A5JoP_iVdFAazCVTW42gp1zTNKUb6TAxr.nkfEtO9FOncT%2FosHURUmHh4PXrVELXD9a2EgT4qJ5yM</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">
+cookie:espaceMembreCookieName</td>
+					</tr>
+				
+				<tr>
+					<td width="20%">Instances</td>
+					<td width="80%">7</td>
+				</tr>
+				<tr>
+					<td width="20%">Solution</td>
+					<td width="80%">
+							<div>This is an informational alert rather than a vulnerability and so there is nothing to fix.</div>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">Reference</td>
+					<td width="80%">
+							<a href="https://www.zaproxy.org/docs/desktop/addons/authentication-helper/session-mgmt-id">https://www.zaproxy.org/docs/desktop/addons/authentication-helper/session-mgmt-id</a>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">CWE Id</td>
+					<td width="80%"></td>
+				</tr>
+				<tr>
+					<td width="20%">WASC Id</td>
+					<td width="80%"></td>
+				</tr>
+				<tr>
+					<td width="20%">Plugin Id</td>
+					<td width="80%"><a
+						href="https://www.zaproxy.org/docs/alerts/10112/">10112</a></td>
+				</tr>
+			</table>
+			<div class="spacer"></div>
+		
+			<table class="results">
+				<tr height="24">
+					<th width="20%" class="risk-0"><a
+						id="10049"></a>
+						<div>Informational</div></th>
+					<th class="risk-0">Storable and Cacheable Content</th>
+				</tr>
+				<tr>
+					<td width="20%">Description</td>
+					<td width="80%">
+							<div>The response contents are storable by caching components such as proxy servers, and may be retrieved directly from the cache, rather than from the origin server by the caching servers, in response to similar requests from other users.  If the response data is sensitive, personal or user-specific, this may result in sensitive information being leaked. In some cases, this may even result in a user gaining complete control of the session of another user, depending on the configuration of the caching components in use in their environment. This is primarily an issue where &quot;shared&quot; caching servers such as &quot;proxy&quot; caches are configured on the local network. This configuration is typically found in corporate or educational environments, for instance.</div>
+							
+						</td>
+				</tr>
+				<TR vAlign="top">
+					<TD colspan="2"></TD>
+				</TR>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net">https://espace-membre.incubateur.net</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.</td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/login?next=/">https://espace-membre.incubateur.net/login?next=/</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%">In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.</td>
+					</tr>
+				
+				<tr>
+					<td width="20%">Instances</td>
+					<td width="80%">2</td>
+				</tr>
+				<tr>
+					<td width="20%">Solution</td>
+					<td width="80%">
+							<div>Validate that the response does not contain sensitive, personal or user-specific information.  If it does, consider the use of the following HTTP response headers, to limit, or prevent the content being stored and retrieved from the cache by another user:</div>
+							<br />
+						
+							<div>Cache-Control: no-cache, no-store, must-revalidate, private</div>
+							<br />
+						
+							<div>Pragma: no-cache</div>
+							<br />
+						
+							<div>Expires: 0</div>
+							<br />
+						
+							<div>This configuration directs both HTTP 1.0 and HTTP 1.1 compliant caching servers to not store the response, and to not retrieve the response (without validation) from the cache, in response to a similar request. </div>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">Reference</td>
+					<td width="80%">
+							<a href="https://datatracker.ietf.org/doc/html/rfc7234">https://datatracker.ietf.org/doc/html/rfc7234</a>
+							<br />
+						
+							<a href="https://datatracker.ietf.org/doc/html/rfc7231">https://datatracker.ietf.org/doc/html/rfc7231</a>
+							<br />
+						
+							<a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html">https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html</a>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">CWE Id</td>
+					<td width="80%"><a
+						href="https://cwe.mitre.org/data/definitions/524.html">524</a></td>
+				</tr>
+				<tr>
+					<td width="20%">WASC Id</td>
+					<td width="80%">13</td>
+				</tr>
+				<tr>
+					<td width="20%">Plugin Id</td>
+					<td width="80%"><a
+						href="https://www.zaproxy.org/docs/alerts/10049/">10049</a></td>
+				</tr>
+			</table>
+			<div class="spacer"></div>
+		
+			<table class="results">
+				<tr height="24">
+					<th width="20%" class="risk-0"><a
+						id="10049"></a>
+						<div>Informational</div></th>
+					<th class="risk-0">Storable but Non-Cacheable Content</th>
+				</tr>
+				<tr>
+					<td width="20%">Description</td>
+					<td width="80%">
+							<div>The response contents are storable by caching components such as proxy servers, but will not be retrieved directly from the cache, without validating the request upstream, in response to similar requests from other users. </div>
+							
+						</td>
+				</tr>
+				<TR vAlign="top">
+					<TD colspan="2"></TD>
+				</TR>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/react-datepicker/react-datepicker.css">https://espace-membre.incubateur.net/react-datepicker/react-datepicker.css</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">max-age=0</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/react-tabulator/styles.css">https://espace-membre.incubateur.net/react-tabulator/styles.css</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">max-age=0</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/react-tabulator/tabulator.min.css">https://espace-membre.incubateur.net/react-tabulator/tabulator.min.css</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">max-age=0</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/static/favicon/apple-touch-icon.png">https://espace-membre.incubateur.net/static/favicon/apple-touch-icon.png</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">max-age=0</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/static/favicon/favicon-16x16.png">https://espace-membre.incubateur.net/static/favicon/favicon-16x16.png</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">max-age=0</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/static/favicon/favicon-32x32.png">https://espace-membre.incubateur.net/static/favicon/favicon-32x32.png</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">max-age=0</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
+						<td width="80%"><a href="https://espace-membre.incubateur.net/static/favicon/site.webmanifest">https://espace-membre.incubateur.net/static/favicon/site.webmanifest</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">max-age=0</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+				<tr>
+					<td width="20%">Instances</td>
+					<td width="80%">7</td>
+				</tr>
+				<tr>
+					<td width="20%">Solution</td>
+					<td width="80%"></td>
+				</tr>
+				<tr>
+					<td width="20%">Reference</td>
+					<td width="80%">
+							<a href="https://datatracker.ietf.org/doc/html/rfc7234">https://datatracker.ietf.org/doc/html/rfc7234</a>
+							<br />
+						
+							<a href="https://datatracker.ietf.org/doc/html/rfc7231">https://datatracker.ietf.org/doc/html/rfc7231</a>
+							<br />
+						
+							<a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html">https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html</a>
+							
+						</td>
+				</tr>
+				<tr>
+					<td width="20%">CWE Id</td>
+					<td width="80%"><a
+						href="https://cwe.mitre.org/data/definitions/524.html">524</a></td>
+				</tr>
+				<tr>
+					<td width="20%">WASC Id</td>
+					<td width="80%">13</td>
+				</tr>
+				<tr>
+					<td width="20%">Plugin Id</td>
+					<td width="80%"><a
+						href="https://www.zaproxy.org/docs/alerts/10049/">10049</a></td>
+				</tr>
+			</table>
+			<div class="spacer"></div>
+		
+	
+</body>
+</html>
+

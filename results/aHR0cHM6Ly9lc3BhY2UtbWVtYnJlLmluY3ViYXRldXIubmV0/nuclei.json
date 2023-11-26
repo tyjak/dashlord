@@ -1,0 +1,783 @@
+[
+  [
+    {
+      "template": "dns/caa-fingerprint.yaml",
+      "template-url": "https://templates.nuclei.sh/public/caa-fingerprint",
+      "template-id": "caa-fingerprint",
+      "template-path": "/home/runner/nuclei-templates/dns/caa-fingerprint.yaml",
+      "info": {
+        "name": "CAA Record",
+        "author": [
+          "pdteam"
+        ],
+        "tags": [
+          "dns",
+          "caa"
+        ],
+        "description": "A CAA record was discovered. A CAA record is used to specify which certificate authorities (CAs) are allowed to issue certificates for a domain.",
+        "reference": [
+          "https://support.dnsimple.com/articles/caa-record/#whats-a-caa-record"
+        ],
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        },
+        "classification": {
+          "cve-id": null,
+          "cwe-id": [
+            "cwe-200"
+          ]
+        }
+      },
+      "type": "dns",
+      "host": "espace-membre.incubateur.net.",
+      "matched-at": "espace-membre.incubateur.net",
+      "request": ";; opcode: QUERY, status: NOERROR, id: 9551\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 4096\n\n;; QUESTION SECTION:\n;espace-membre.incubateur.net.\tIN\t CAA\n",
+      "response": ";; opcode: QUERY, status: NOERROR, id: 9551\n;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 1, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 512\n\n;; QUESTION SECTION:\n;espace-membre.incubateur.net.\tIN\t CAA\n\n;; ANSWER SECTION:\nespace-membre.incubateur.net.\t3600\tIN\tCNAME\tsecretariat-beta.osc-fr1.scalingo.io.\nsecretariat-beta.osc-fr1.scalingo.io.\t300\tIN\tCNAME\tsc-lb-pool-01.osc-fr1.scalingo-network.com.\n\n;; AUTHORITY SECTION:\nscalingo-network.com.\t1800\tIN\tSOA\tburt.ns.cloudflare.com. dns.cloudflare.com. 2323953355 10000 2400 604800 1800\n",
+      "timestamp": "2023-11-26T09:27:29.806726069Z",
+      "matcher-status": true
+    },
+    {
+      "template": "dns/dns-saas-service-detection.yaml",
+      "template-url": "https://templates.nuclei.sh/public/dns-saas-service-detection",
+      "template-id": "dns-saas-service-detection",
+      "template-path": "/home/runner/nuclei-templates/dns/dns-saas-service-detection.yaml",
+      "info": {
+        "name": "DNS SaaS Service Detection",
+        "author": [
+          "noah @thesubtlety",
+          "pdteam"
+        ],
+        "tags": [
+          "dns",
+          "service"
+        ],
+        "description": "A CNAME DNS record was discovered",
+        "reference": [
+          "https://ns1.com/resources/cname",
+          "https://www.theregister.com/2021/02/24/dns_cname_tracking/",
+          "https://www.ionos.com/digitalguide/hosting/technical-matters/cname-record/"
+        ],
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "type": "dns",
+      "host": "espace-membre.incubateur.net.",
+      "matched-at": "espace-membre.incubateur.net",
+      "extracted-results": [
+        "secretariat-beta.osc-fr1.scalingo.io."
+      ],
+      "request": ";; opcode: QUERY, status: NOERROR, id: 14773\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 4096\n\n;; QUESTION SECTION:\n;espace-membre.incubateur.net.\tIN\t CNAME\n",
+      "response": ";; opcode: QUERY, status: NOERROR, id: 14773\n;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 1232\n\n;; QUESTION SECTION:\n;espace-membre.incubateur.net.\tIN\t CNAME\n\n;; ANSWER SECTION:\nespace-membre.incubateur.net.\t3600\tIN\tCNAME\tsecretariat-beta.osc-fr1.scalingo.io.\n",
+      "timestamp": "2023-11-26T09:27:29.905094665Z",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/httponly-cookie-detect.yaml",
+      "template-url": "https://templates.nuclei.sh/public/httponly-cookie-detect",
+      "template-id": "httponly-cookie-detect",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/httponly-cookie-detect.yaml",
+      "info": {
+        "name": "HttpOnly Cookie - Detect",
+        "author": [
+          "mr. bobo hp"
+        ],
+        "tags": [
+          "misconfig",
+          "http",
+          "cookie",
+          "generic"
+        ],
+        "description": "Checks whether cookies in the HTTP response contain the HttpOnly attribute. If the HttpOnly flag is set, it means that the cookie is HTTP-only\n",
+        "reference": [
+          "https://stackoverflow.com/questions/4316539/how-do-i-test-httponly-cookie-flag"
+        ],
+        "severity": "info",
+        "metadata": {
+          "max-request": 1,
+          "verified": true
+        },
+        "classification": {
+          "cve-id": null,
+          "cwe-id": null,
+          "cvss-metrics": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N"
+        }
+      },
+      "type": "http",
+      "host": "https://espace-membre.incubateur.net",
+      "matched-at": "https://espace-membre.incubateur.net",
+      "request": "GET / HTTP/1.1\r\nHost: espace-membre.incubateur.net\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 302 Found\r\nConnection: close\r\nContent-Length: 35\r\nAccess-Control-Allow-Credentials: true\r\nContent-Type: text/plain; charset=utf-8\r\nDate: Sun, 26 Nov 2023 09:27:47 GMT\r\nLocation: /login?next=/\r\nRatelimit-Limit: 10000\r\nRatelimit-Remaining: 9869\r\nRatelimit-Reset: 23566\r\nSet-Cookie: espaceMembreCookieName=s%3AMH_HZxXG3VbyraO1VmDlKPzAz1L0YThT.thmSCAtBmcvY3NXSc4KnKqaVPKPmzLePTYHxdEfuthc; Path=/; Expires=Sun, 03 Dec 2023 09:27:47 GMT; HttpOnly; Secure; SameSite=Lax\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin, Accept, Accept-Encoding\r\nX-Powered-By: Express\r\nX-Request-Id: 7670a391-08f7-478e-be72-b4d0e2cb1ada\r\n\r\nFound. Redirecting to /login?next=/",
+      "ip": "5.104.101.30",
+      "timestamp": "2023-11-26T09:27:47.639107917Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://espace-membre.incubateur.net'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/cves/2021/CVE-2021-31250.yaml",
+      "template-url": "https://templates.nuclei.sh/public/CVE-2021-31250",
+      "template-id": "CVE-2021-31250",
+      "template-path": "/home/runner/nuclei-templates/http/cves/2021/CVE-2021-31250.yaml",
+      "info": {
+        "name": "CHIYU TCP/IP Converter - Cross-Site Scripting",
+        "author": [
+          "geeknik"
+        ],
+        "tags": [
+          "cve",
+          "cve2021",
+          "chiyu",
+          "xss",
+          "iot",
+          "intrusive"
+        ],
+        "description": "CHIYU BF-430, BF-431 and BF-450M TCP/IP Converter devices contain a cross-site scripting vulnerability due to a lack of sanitization of the input on the components man.cgi, if.cgi, dhcpc.cgi, and ppp.cgi.",
+        "reference": [
+          "https://gitbook.seguranca-informatica.pt/cve-and-exploits/cves/chiyu-iot-devices#cve-2021-31250",
+          "https://www.chiyu-tech.com/msg/message-firmware-update-87.htm",
+          "https://seguranca-informatica.pt/dancing-in-the-iot-chiyu-devices-vulnerable-to-remote-attacks/",
+          "https://nvd.nist.gov/vuln/detail/cve-2021-31250"
+        ],
+        "severity": "medium",
+        "metadata": {
+          "max-request": 1,
+          "product": "bf-430_firmware",
+          "vendor": "chiyu-tech"
+        },
+        "classification": {
+          "cve-id": [
+            "cve-2021-31250"
+          ],
+          "cwe-id": [
+            "cwe-79"
+          ],
+          "cvss-metrics": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:L/I:L/A:N",
+          "cvss-score": 5.4,
+          "epss-score": 0.97079,
+          "epss-percentile": 0.9971,
+          "cpe": "cpe:2.3:o:chiyu-tech:bf-430_firmware:-:*:*:*:*:*:*:*"
+        },
+        "remediation": "To mitigate this vulnerability, ensure that all user-supplied input is properly validated and sanitized before being rendered in web pages.\n"
+      },
+      "type": "http",
+      "host": "https://espace-membre.incubateur.net",
+      "matched-at": "https://espace-membre.incubateur.net/login?next=/if.cgi?redirect=setting.htm&failure=fail.htm&type=ap_tcps_apply&TF_ip=443&TF_submask=0&TF_submask=%22%3E%3Cscript%3Ealert%282YhvtMDuK73Gi5vtlVgPfIc2vsC%29%3C%2Fscript%3E&radio_ping_block=0&max_tcp=3&B_apply=APPLY",
+      "request": "GET /if.cgi?redirect=setting.htm&failure=fail.htm&type=ap_tcps_apply&TF_ip=443&TF_submask=0&TF_submask=%22%3E%3Cscript%3Ealert%282YhvtMDuK73Gi5vtlVgPfIc2vsC%29%3C%2Fscript%3E&radio_ping_block=0&max_tcp=3&B_apply=APPLY HTTP/1.1\r\nHost: espace-membre.incubateur.net\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAuthorization: Basic OmFkbWlu\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccess-Control-Allow-Credentials: true\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 26 Nov 2023 09:27:58 GMT\r\nEtag: W/\"1689-kpWLvZGq2kdr5CUzWpAE0tGmR3w\"\r\nRatelimit-Limit: 10000\r\nRatelimit-Remaining: 9806\r\nRatelimit-Reset: 23555\r\nSet-Cookie: espaceMembreCookieName=s%3AGe0SP3CKZNvoLO5K2fsyjPTtgjpMRqaP.h15HyRiorMQhTW6S98X1J4rbvmk5VaiGlXXSwEEYZVA; Path=/; Expires=Sun, 03 Dec 2023 09:27:58 GMT; HttpOnly; Secure; SameSite=Lax\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin, Accept-Encoding\r\nX-Powered-By: Express\r\nX-Request-Id: 0848aa64-3774-4ced-8ed5-b77bd22953c2\r\n\r\n\n  <!DOCTYPE html>\n  <html>\n    <head>\n      <meta charset=\"utf-8\">\n      <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  \n      <title>Espace-Membre BetaGouv</title>\n  \n      <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/static/favicon/apple-touch-icon.png\">\n      <link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/static/favicon/favicon-32x32.png\">\n      <link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/static/favicon/favicon-16x16.png\">\n      <link rel=\"manifest\" href=\"/static/favicon/site.webmanifest\">\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-tabulator/styles.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-tabulator/tabulator.min.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-datepicker/react-datepicker.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-markdown-editor-lite/index.css'/>\n\n      <link rel=\"stylesheet\" href=\"/static/css/main.css\">\n        \n              <script src=\"/public/js/shared.js\"></script>\n              <script src=\"/public/js/Home.js?1.0.0\"></script>\n            \n      </head>\n      <!-- Matomo -->\n      <script>\n        var _paq = window._paq = window._paq || [];\n        /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */\n        _paq.push(['trackPageView']);\n        _paq.push(['enableLinkTracking']);\n        (function() {\n          var u=\"https://stats.data.gouv.fr/\";\n          _paq.push(['setTrackerUrl', u+'piwik.php']);\n          _paq.push(['setSiteId', '260']);\n          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n          g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);\n        })();\n      </script>\n      <!-- End Matomo Code -->\n      <!-- Matomo Tag Manager -->\n      <script>\n        var _mtm = window._mtm = window._mtm || [];\n        _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});\n        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n        g.async=true; g.src='https://stats.data.gouv.fr/js/container_nSSiLydj.js'; s.parentNode.insertBefore(g,s);\n      </script>\n      <!-- End Matomo Tag Manager -->\n      <body>\n        <div id=\"root\"><header id=\"header\"><a class=\"no-decoration\" href=\"/\"><h3>Espace membre de BetaGouv</h3></a></header><main role=\"main\" style=\"min-height:1500px\"><section class=\"section section-grey no-padding\"><header style=\"font-family:Marianne, arial, sans-serif;box-shadow:0 8px 8px 0 rgb(0 0 0 / 10%)\"><div class=\"p-2 lg:p-0 text-lg\"><div class=\"flex flex-col xl:mx-auto xl:max-w-7xl\"><section class=\"flex flex-row px-2 pb-1 lg:p-4 items-center\"></section></div></div></header><div class=\"container container-small\"><p>Gère ton compte email (mot de passe, redirections, etc) et les membres de la communauté (arrivées et départs).</p><div class=\"panel margin-top-m\"><h4>Me connecter</h4><form action=\"/login?next=/if.cgi?redirect=setting.htm\" method=\"POST\" id=\"login_form\"><label for=\"emailInput\"><b>Mon email</b></label><div class=\"input__group\"><input name=\"emailInput\" type=\"email\" placeholder=\"prenom.nom@beta.gouv.fr\" autoComplete=\"username\"/></div><button class=\"button\" id=\"primary_email_button\">Recevoir le lien de connexion</button><span><a href=\"#forgot\">J&#x27;ai oublié mon email</a></span></form></div><div class=\"panel border-left-primary\"><h6>👋 Tu viens d&#x27;arriver ?</h6><p>Crée ta fiche Github pour rejoindre la communauté. Tu pourras obtenir une adresse email @<!-- -->beta.gouv.fr<!-- -->.</p><p><a class=\"button\" href=\"/onboarding\" role=\"button\">Créer ma fiche Github</a></p></div><div class=\"panel border-left-primary\" id=\"forgot\"><h6>🆘 Besoin d&#x27;aide ?</h6><ul><li><b>J&#x27;ai oublié mon email pour me connecter :</b> l&#x27;accès à l&#x27;espace membre se fait avec une adresse du service public (@beta.gouv.fr, @pole-emploi.fr...) ou un email secondaire (celui sur lequel tu as reçu tes accès). En cas d&#x27;oubli, demande de l&#x27;aide sur Mattermost <a href=\"https://mattermost.incubateur.net/betagouv/channels/incubateur-help\" target=\"_blank\" title=\"Lien vers le channel secretariat sur Mattermost\">~incubateur-help</a></li><li><b>Je n&#x27;arrive pas à accéder à mes emails :</b> <a href=\"https://doc.incubateur.net/communaute/travailler-a-beta-gouv/jutilise-les-outils-de-la-communaute/emails#2.-configurer-la-reception-et-lenvoi-demails\" target=\"_blank\" title=\"lien vers la documentation pour se connecter à sa boite mail\">configure ton client webmail</a>.</li></ul></div></div><footer id=\"footer\"><div><img class=\"footer-octocat\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAA5klEQVQ4jc3QMUuCURTG8V8tNQRGY45BS01OfQHH8EMEbUJ9iQga+yAFKo42BI3RYkRQkxKuCba9DZ6LF3nT3DxwuNzn+Z9zzz2sU3TwgrMFzHkw7TLzG0VkD/3QxnjFY+aPyxq8ZcCy/ExFm3HuYWvJF/PYwX4uXK/wespb2MjGPwzjHu+o4ST8JzwH04i6DxykCSZRfPGP8S+D/cnFUYiVuHdKCpO2G+yI2RIf4kyLLEoaFHNMLzePTb9xtXh6cBPs0bxRxxfucIoqtiOrpstrBVP/q3sFTXQxjJcmGITWNNvTmsQvxG9Kly7hW/kAAAAASUVORK5CYII=\"/><a href=\"https://github.com/betagouv/secretariat/\" target=\"_blank\">Code source de l&#x27;espace membre</a></div></footer></section></main></div>\n        <script>\n              window.__INITIAL_PROPS__ = {\"request\":{\"query\":{\"next\":\"/if.cgi?redirect=setting.htm\",\"failure\":\"fail.htm\",\"type\":\"ap_tcps_apply\",\"TF_ip\":\"443\",\"TF_submask\":[\"0\",\"\\\"><script>alert(2YhvtMDuK73Gi5vtlVgPfIc2vsC)</script>\"],\"radio_ping_block\":\"0\",\"max_tcp\":\"3\",\"B_apply\":\"APPLY\"}},\"errors\":[],\"messages\":[],\"domain\":\"beta.gouv.fr\",\"next\":\"?next=/if.cgi?redirect=setting.htm\"}\n            </script>\n        <script src=\"/static/scripts/hashtoparam.js\"></script>\n      </body>\n    </html>\n  ",
+      "ip": "5.104.101.30",
+      "timestamp": "2023-11-26T09:27:58.76043273Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'Authorization: Basic OmFkbWlu' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://espace-membre.incubateur.net/if.cgi?redirect=setting.htm&failure=fail.htm&type=ap_tcps_apply&TF_ip=443&TF_submask=0&TF_submask=%22%3E%3Cscript%3Ealert%282YhvtMDuK73Gi5vtlVgPfIc2vsC%29%3C%2Fscript%3E&radio_ping_block=0&max_tcp=3&B_apply=APPLY'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/technologies/tech-detect.yaml",
+      "template-url": "https://templates.nuclei.sh/public/tech-detect",
+      "template-id": "tech-detect",
+      "template-path": "/home/runner/nuclei-templates/http/technologies/tech-detect.yaml",
+      "info": {
+        "name": "Wappalyzer Technology Detection",
+        "author": [
+          "hakluke"
+        ],
+        "tags": [
+          "tech"
+        ],
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "express",
+      "type": "http",
+      "host": "https://espace-membre.incubateur.net",
+      "matched-at": "https://espace-membre.incubateur.net/login?next=/",
+      "request": "GET / HTTP/1.1\r\nHost: espace-membre.incubateur.net\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccess-Control-Allow-Credentials: true\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 26 Nov 2023 09:28:24 GMT\r\nEtag: W/\"157b-Kq195C31BA+pgjHtuzdDyMWdTr4\"\r\nRatelimit-Limit: 10000\r\nRatelimit-Remaining: 9634\r\nRatelimit-Reset: 23529\r\nSet-Cookie: espaceMembreCookieName=s%3A6yIic4AtTqc_sHxL18KFk79Hlp_UYWTQ.5fvPqI8YRRZZzfbdL5jaXVDV37ywiRm9FLbcBEmvOQc; Path=/; Expires=Sun, 03 Dec 2023 09:28:24 GMT; HttpOnly; Secure; SameSite=Lax\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin, Accept-Encoding\r\nX-Powered-By: Express\r\nX-Request-Id: 972f4077-d104-46dd-b812-fa53759b4393\r\n\r\n\n  <!DOCTYPE html>\n  <html>\n    <head>\n      <meta charset=\"utf-8\">\n      <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  \n      <title>Espace-Membre BetaGouv</title>\n  \n      <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/static/favicon/apple-touch-icon.png\">\n      <link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/static/favicon/favicon-32x32.png\">\n      <link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/static/favicon/favicon-16x16.png\">\n      <link rel=\"manifest\" href=\"/static/favicon/site.webmanifest\">\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-tabulator/styles.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-tabulator/tabulator.min.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-datepicker/react-datepicker.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-markdown-editor-lite/index.css'/>\n\n      <link rel=\"stylesheet\" href=\"/static/css/main.css\">\n        \n              <script src=\"/public/js/shared.js\"></script>\n              <script src=\"/public/js/Home.js?1.0.0\"></script>\n            \n      </head>\n      <!-- Matomo -->\n      <script>\n        var _paq = window._paq = window._paq || [];\n        /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */\n        _paq.push(['trackPageView']);\n        _paq.push(['enableLinkTracking']);\n        (function() {\n          var u=\"https://stats.data.gouv.fr/\";\n          _paq.push(['setTrackerUrl', u+'piwik.php']);\n          _paq.push(['setSiteId', '260']);\n          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n          g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);\n        })();\n      </script>\n      <!-- End Matomo Code -->\n      <!-- Matomo Tag Manager -->\n      <script>\n        var _mtm = window._mtm = window._mtm || [];\n        _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});\n        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n        g.async=true; g.src='https://stats.data.gouv.fr/js/container_nSSiLydj.js'; s.parentNode.insertBefore(g,s);\n      </script>\n      <!-- End Matomo Tag Manager -->\n      <body>\n        <div id=\"root\"><header id=\"header\"><a class=\"no-decoration\" href=\"/\"><h3>Espace membre de BetaGouv</h3></a></header><main role=\"main\" style=\"min-height:1500px\"><section class=\"section section-grey no-padding\"><header style=\"font-family:Marianne, arial, sans-serif;box-shadow:0 8px 8px 0 rgb(0 0 0 / 10%)\"><div class=\"p-2 lg:p-0 text-lg\"><div class=\"flex flex-col xl:mx-auto xl:max-w-7xl\"><section class=\"flex flex-row px-2 pb-1 lg:p-4 items-center\"></section></div></div></header><div class=\"container container-small\"><p>Gère ton compte email (mot de passe, redirections, etc) et les membres de la communauté (arrivées et départs).</p><div class=\"panel margin-top-m\"><h4>Me connecter</h4><form action=\"/login?next=/\" method=\"POST\" id=\"login_form\"><label for=\"emailInput\"><b>Mon email</b></label><div class=\"input__group\"><input name=\"emailInput\" type=\"email\" placeholder=\"prenom.nom@beta.gouv.fr\" autoComplete=\"username\"/></div><button class=\"button\" id=\"primary_email_button\">Recevoir le lien de connexion</button><span><a href=\"#forgot\">J&#x27;ai oublié mon email</a></span></form></div><div class=\"panel border-left-primary\"><h6>👋 Tu viens d&#x27;arriver ?</h6><p>Crée ta fiche Github pour rejoindre la communauté. Tu pourras obtenir une adresse email @<!-- -->beta.gouv.fr<!-- -->.</p><p><a class=\"button\" href=\"/onboarding\" role=\"button\">Créer ma fiche Github</a></p></div><div class=\"panel border-left-primary\" id=\"forgot\"><h6>🆘 Besoin d&#x27;aide ?</h6><ul><li><b>J&#x27;ai oublié mon email pour me connecter :</b> l&#x27;accès à l&#x27;espace membre se fait avec une adresse du service public (@beta.gouv.fr, @pole-emploi.fr...) ou un email secondaire (celui sur lequel tu as reçu tes accès). En cas d&#x27;oubli, demande de l&#x27;aide sur Mattermost <a href=\"https://mattermost.incubateur.net/betagouv/channels/incubateur-help\" target=\"_blank\" title=\"Lien vers le channel secretariat sur Mattermost\">~incubateur-help</a></li><li><b>Je n&#x27;arrive pas à accéder à mes emails :</b> <a href=\"https://doc.incubateur.net/communaute/travailler-a-beta-gouv/jutilise-les-outils-de-la-communaute/emails#2.-configurer-la-reception-et-lenvoi-demails\" target=\"_blank\" title=\"lien vers la documentation pour se connecter à sa boite mail\">configure ton client webmail</a>.</li></ul></div></div><footer id=\"footer\"><div><img class=\"footer-octocat\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAA5klEQVQ4jc3QMUuCURTG8V8tNQRGY45BS01OfQHH8EMEbUJ9iQga+yAFKo42BI3RYkRQkxKuCba9DZ6LF3nT3DxwuNzn+Z9zzz2sU3TwgrMFzHkw7TLzG0VkD/3QxnjFY+aPyxq8ZcCy/ExFm3HuYWvJF/PYwX4uXK/wespb2MjGPwzjHu+o4ST8JzwH04i6DxykCSZRfPGP8S+D/cnFUYiVuHdKCpO2G+yI2RIf4kyLLEoaFHNMLzePTb9xtXh6cBPs0bxRxxfucIoqtiOrpstrBVP/q3sFTXQxjJcmGITWNNvTmsQvxG9Kly7hW/kAAAAASUVORK5CYII=\"/><a href=\"https://github.com/betagouv/secretariat/\" target=\"_blank\">Code source de l&#x27;espace membre</a></div></footer></section></main></div>\n        <script>\n              window.__INITIAL_PROPS__ = {\"request\":{\"query\":{\"next\":\"/\"}},\"errors\":[],\"messages\":[],\"domain\":\"beta.gouv.fr\",\"next\":\"?next=/\"}\n            </script>\n        <script src=\"/static/scripts/hashtoparam.js\"></script>\n      </body>\n    </html>\n  ",
+      "ip": "5.104.101.30",
+      "timestamp": "2023-11-26T09:28:24.751502072Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://espace-membre.incubateur.net'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/technologies/tech-detect.yaml",
+      "template-url": "https://templates.nuclei.sh/public/tech-detect",
+      "template-id": "tech-detect",
+      "template-path": "/home/runner/nuclei-templates/http/technologies/tech-detect.yaml",
+      "info": {
+        "name": "Wappalyzer Technology Detection",
+        "author": [
+          "hakluke"
+        ],
+        "tags": [
+          "tech"
+        ],
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "express",
+      "type": "http",
+      "host": "https://espace-membre.incubateur.net",
+      "matched-at": "https://espace-membre.incubateur.net",
+      "request": "GET / HTTP/1.1\r\nHost: espace-membre.incubateur.net\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 302 Found\r\nConnection: close\r\nContent-Length: 35\r\nAccess-Control-Allow-Credentials: true\r\nContent-Type: text/plain; charset=utf-8\r\nDate: Sun, 26 Nov 2023 09:28:24 GMT\r\nLocation: /login?next=/\r\nRatelimit-Limit: 10000\r\nRatelimit-Remaining: 9609\r\nRatelimit-Reset: 23529\r\nSet-Cookie: espaceMembreCookieName=s%3A5rBaUVcON72czf_BflfNPJh00NQoTu-L.9bNiRWIgLHsbrTSo9K6HAKkwzeJRrzGApQBEUEvXuWc; Path=/; Expires=Sun, 03 Dec 2023 09:28:24 GMT; HttpOnly; Secure; SameSite=Lax\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin, Accept, Accept-Encoding\r\nX-Powered-By: Express\r\nX-Request-Id: 15787f9f-9d71-405a-9301-1493282df5a3\r\n\r\n",
+      "ip": "5.104.101.30",
+      "timestamp": "2023-11-26T09:28:24.791163914Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://espace-membre.incubateur.net'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "permissions-policy",
+      "type": "http",
+      "host": "https://espace-membre.incubateur.net",
+      "matched-at": "https://espace-membre.incubateur.net/login?next=/",
+      "request": "GET / HTTP/1.1\r\nHost: espace-membre.incubateur.net\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccess-Control-Allow-Credentials: true\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 26 Nov 2023 09:28:45 GMT\r\nEtag: W/\"157b-Kq195C31BA+pgjHtuzdDyMWdTr4\"\r\nRatelimit-Limit: 10000\r\nRatelimit-Remaining: 9468\r\nRatelimit-Reset: 23508\r\nSet-Cookie: espaceMembreCookieName=s%3AYL0IDFX8jVyrsn_DRNNj9r5GPUbMmruu.PRod1hJ%2FbnOJKImrK1rfVWhIcFvMMW13WCdl91UghYk; Path=/; Expires=Sun, 03 Dec 2023 09:28:45 GMT; HttpOnly; Secure; SameSite=Lax\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin, Accept-Encoding\r\nX-Powered-By: Express\r\nX-Request-Id: d1a9ae4a-d039-40de-b851-dcfcc4c7108a\r\n\r\n\n  <!DOCTYPE html>\n  <html>\n    <head>\n      <meta charset=\"utf-8\">\n      <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  \n      <title>Espace-Membre BetaGouv</title>\n  \n      <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/static/favicon/apple-touch-icon.png\">\n      <link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/static/favicon/favicon-32x32.png\">\n      <link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/static/favicon/favicon-16x16.png\">\n      <link rel=\"manifest\" href=\"/static/favicon/site.webmanifest\">\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-tabulator/styles.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-tabulator/tabulator.min.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-datepicker/react-datepicker.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-markdown-editor-lite/index.css'/>\n\n      <link rel=\"stylesheet\" href=\"/static/css/main.css\">\n        \n              <script src=\"/public/js/shared.js\"></script>\n              <script src=\"/public/js/Home.js?1.0.0\"></script>\n            \n      </head>\n      <!-- Matomo -->\n      <script>\n        var _paq = window._paq = window._paq || [];\n        /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */\n        _paq.push(['trackPageView']);\n        _paq.push(['enableLinkTracking']);\n        (function() {\n          var u=\"https://stats.data.gouv.fr/\";\n          _paq.push(['setTrackerUrl', u+'piwik.php']);\n          _paq.push(['setSiteId', '260']);\n          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n          g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);\n        })();\n      </script>\n      <!-- End Matomo Code -->\n      <!-- Matomo Tag Manager -->\n      <script>\n        var _mtm = window._mtm = window._mtm || [];\n        _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});\n        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n        g.async=true; g.src='https://stats.data.gouv.fr/js/container_nSSiLydj.js'; s.parentNode.insertBefore(g,s);\n      </script>\n      <!-- End Matomo Tag Manager -->\n      <body>\n        <div id=\"root\"><header id=\"header\"><a class=\"no-decoration\" href=\"/\"><h3>Espace membre de BetaGouv</h3></a></header><main role=\"main\" style=\"min-height:1500px\"><section class=\"section section-grey no-padding\"><header style=\"font-family:Marianne, arial, sans-serif;box-shadow:0 8px 8px 0 rgb(0 0 0 / 10%)\"><div class=\"p-2 lg:p-0 text-lg\"><div class=\"flex flex-col xl:mx-auto xl:max-w-7xl\"><section class=\"flex flex-row px-2 pb-1 lg:p-4 items-center\"></section></div></div></header><div class=\"container container-small\"><p>Gère ton compte email (mot de passe, redirections, etc) et les membres de la communauté (arrivées et départs).</p><div class=\"panel margin-top-m\"><h4>Me connecter</h4><form action=\"/login?next=/\" method=\"POST\" id=\"login_form\"><label for=\"emailInput\"><b>Mon email</b></label><div class=\"input__group\"><input name=\"emailInput\" type=\"email\" placeholder=\"prenom.nom@beta.gouv.fr\" autoComplete=\"username\"/></div><button class=\"button\" id=\"primary_email_button\">Recevoir le lien de connexion</button><span><a href=\"#forgot\">J&#x27;ai oublié mon email</a></span></form></div><div class=\"panel border-left-primary\"><h6>👋 Tu viens d&#x27;arriver ?</h6><p>Crée ta fiche Github pour rejoindre la communauté. Tu pourras obtenir une adresse email @<!-- -->beta.gouv.fr<!-- -->.</p><p><a class=\"button\" href=\"/onboarding\" role=\"button\">Créer ma fiche Github</a></p></div><div class=\"panel border-left-primary\" id=\"forgot\"><h6>🆘 Besoin d&#x27;aide ?</h6><ul><li><b>J&#x27;ai oublié mon email pour me connecter :</b> l&#x27;accès à l&#x27;espace membre se fait avec une adresse du service public (@beta.gouv.fr, @pole-emploi.fr...) ou un email secondaire (celui sur lequel tu as reçu tes accès). En cas d&#x27;oubli, demande de l&#x27;aide sur Mattermost <a href=\"https://mattermost.incubateur.net/betagouv/channels/incubateur-help\" target=\"_blank\" title=\"Lien vers le channel secretariat sur Mattermost\">~incubateur-help</a></li><li><b>Je n&#x27;arrive pas à accéder à mes emails :</b> <a href=\"https://doc.incubateur.net/communaute/travailler-a-beta-gouv/jutilise-les-outils-de-la-communaute/emails#2.-configurer-la-reception-et-lenvoi-demails\" target=\"_blank\" title=\"lien vers la documentation pour se connecter à sa boite mail\">configure ton client webmail</a>.</li></ul></div></div><footer id=\"footer\"><div><img class=\"footer-octocat\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAA5klEQVQ4jc3QMUuCURTG8V8tNQRGY45BS01OfQHH8EMEbUJ9iQga+yAFKo42BI3RYkRQkxKuCba9DZ6LF3nT3DxwuNzn+Z9zzz2sU3TwgrMFzHkw7TLzG0VkD/3QxnjFY+aPyxq8ZcCy/ExFm3HuYWvJF/PYwX4uXK/wespb2MjGPwzjHu+o4ST8JzwH04i6DxykCSZRfPGP8S+D/cnFUYiVuHdKCpO2G+yI2RIf4kyLLEoaFHNMLzePTb9xtXh6cBPs0bxRxxfucIoqtiOrpstrBVP/q3sFTXQxjJcmGITWNNvTmsQvxG9Kly7hW/kAAAAASUVORK5CYII=\"/><a href=\"https://github.com/betagouv/secretariat/\" target=\"_blank\">Code source de l&#x27;espace membre</a></div></footer></section></main></div>\n        <script>\n              window.__INITIAL_PROPS__ = {\"request\":{\"query\":{\"next\":\"/\"}},\"errors\":[],\"messages\":[],\"domain\":\"beta.gouv.fr\",\"next\":\"?next=/\"}\n            </script>\n        <script src=\"/static/scripts/hashtoparam.js\"></script>\n      </body>\n    </html>\n  ",
+      "ip": "5.104.101.30",
+      "timestamp": "2023-11-26T09:28:45.630698279Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://espace-membre.incubateur.net'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "x-content-type-options",
+      "type": "http",
+      "host": "https://espace-membre.incubateur.net",
+      "matched-at": "https://espace-membre.incubateur.net/login?next=/",
+      "request": "GET / HTTP/1.1\r\nHost: espace-membre.incubateur.net\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccess-Control-Allow-Credentials: true\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 26 Nov 2023 09:28:45 GMT\r\nEtag: W/\"157b-Kq195C31BA+pgjHtuzdDyMWdTr4\"\r\nRatelimit-Limit: 10000\r\nRatelimit-Remaining: 9468\r\nRatelimit-Reset: 23508\r\nSet-Cookie: espaceMembreCookieName=s%3AYL0IDFX8jVyrsn_DRNNj9r5GPUbMmruu.PRod1hJ%2FbnOJKImrK1rfVWhIcFvMMW13WCdl91UghYk; Path=/; Expires=Sun, 03 Dec 2023 09:28:45 GMT; HttpOnly; Secure; SameSite=Lax\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin, Accept-Encoding\r\nX-Powered-By: Express\r\nX-Request-Id: d1a9ae4a-d039-40de-b851-dcfcc4c7108a\r\n\r\n\n  <!DOCTYPE html>\n  <html>\n    <head>\n      <meta charset=\"utf-8\">\n      <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  \n      <title>Espace-Membre BetaGouv</title>\n  \n      <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/static/favicon/apple-touch-icon.png\">\n      <link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/static/favicon/favicon-32x32.png\">\n      <link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/static/favicon/favicon-16x16.png\">\n      <link rel=\"manifest\" href=\"/static/favicon/site.webmanifest\">\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-tabulator/styles.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-tabulator/tabulator.min.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-datepicker/react-datepicker.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-markdown-editor-lite/index.css'/>\n\n      <link rel=\"stylesheet\" href=\"/static/css/main.css\">\n        \n              <script src=\"/public/js/shared.js\"></script>\n              <script src=\"/public/js/Home.js?1.0.0\"></script>\n            \n      </head>\n      <!-- Matomo -->\n      <script>\n        var _paq = window._paq = window._paq || [];\n        /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */\n        _paq.push(['trackPageView']);\n        _paq.push(['enableLinkTracking']);\n        (function() {\n          var u=\"https://stats.data.gouv.fr/\";\n          _paq.push(['setTrackerUrl', u+'piwik.php']);\n          _paq.push(['setSiteId', '260']);\n          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n          g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);\n        })();\n      </script>\n      <!-- End Matomo Code -->\n      <!-- Matomo Tag Manager -->\n      <script>\n        var _mtm = window._mtm = window._mtm || [];\n        _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});\n        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n        g.async=true; g.src='https://stats.data.gouv.fr/js/container_nSSiLydj.js'; s.parentNode.insertBefore(g,s);\n      </script>\n      <!-- End Matomo Tag Manager -->\n      <body>\n        <div id=\"root\"><header id=\"header\"><a class=\"no-decoration\" href=\"/\"><h3>Espace membre de BetaGouv</h3></a></header><main role=\"main\" style=\"min-height:1500px\"><section class=\"section section-grey no-padding\"><header style=\"font-family:Marianne, arial, sans-serif;box-shadow:0 8px 8px 0 rgb(0 0 0 / 10%)\"><div class=\"p-2 lg:p-0 text-lg\"><div class=\"flex flex-col xl:mx-auto xl:max-w-7xl\"><section class=\"flex flex-row px-2 pb-1 lg:p-4 items-center\"></section></div></div></header><div class=\"container container-small\"><p>Gère ton compte email (mot de passe, redirections, etc) et les membres de la communauté (arrivées et départs).</p><div class=\"panel margin-top-m\"><h4>Me connecter</h4><form action=\"/login?next=/\" method=\"POST\" id=\"login_form\"><label for=\"emailInput\"><b>Mon email</b></label><div class=\"input__group\"><input name=\"emailInput\" type=\"email\" placeholder=\"prenom.nom@beta.gouv.fr\" autoComplete=\"username\"/></div><button class=\"button\" id=\"primary_email_button\">Recevoir le lien de connexion</button><span><a href=\"#forgot\">J&#x27;ai oublié mon email</a></span></form></div><div class=\"panel border-left-primary\"><h6>👋 Tu viens d&#x27;arriver ?</h6><p>Crée ta fiche Github pour rejoindre la communauté. Tu pourras obtenir une adresse email @<!-- -->beta.gouv.fr<!-- -->.</p><p><a class=\"button\" href=\"/onboarding\" role=\"button\">Créer ma fiche Github</a></p></div><div class=\"panel border-left-primary\" id=\"forgot\"><h6>🆘 Besoin d&#x27;aide ?</h6><ul><li><b>J&#x27;ai oublié mon email pour me connecter :</b> l&#x27;accès à l&#x27;espace membre se fait avec une adresse du service public (@beta.gouv.fr, @pole-emploi.fr...) ou un email secondaire (celui sur lequel tu as reçu tes accès). En cas d&#x27;oubli, demande de l&#x27;aide sur Mattermost <a href=\"https://mattermost.incubateur.net/betagouv/channels/incubateur-help\" target=\"_blank\" title=\"Lien vers le channel secretariat sur Mattermost\">~incubateur-help</a></li><li><b>Je n&#x27;arrive pas à accéder à mes emails :</b> <a href=\"https://doc.incubateur.net/communaute/travailler-a-beta-gouv/jutilise-les-outils-de-la-communaute/emails#2.-configurer-la-reception-et-lenvoi-demails\" target=\"_blank\" title=\"lien vers la documentation pour se connecter à sa boite mail\">configure ton client webmail</a>.</li></ul></div></div><footer id=\"footer\"><div><img class=\"footer-octocat\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAA5klEQVQ4jc3QMUuCURTG8V8tNQRGY45BS01OfQHH8EMEbUJ9iQga+yAFKo42BI3RYkRQkxKuCba9DZ6LF3nT3DxwuNzn+Z9zzz2sU3TwgrMFzHkw7TLzG0VkD/3QxnjFY+aPyxq8ZcCy/ExFm3HuYWvJF/PYwX4uXK/wespb2MjGPwzjHu+o4ST8JzwH04i6DxykCSZRfPGP8S+D/cnFUYiVuHdKCpO2G+yI2RIf4kyLLEoaFHNMLzePTb9xtXh6cBPs0bxRxxfucIoqtiOrpstrBVP/q3sFTXQxjJcmGITWNNvTmsQvxG9Kly7hW/kAAAAASUVORK5CYII=\"/><a href=\"https://github.com/betagouv/secretariat/\" target=\"_blank\">Code source de l&#x27;espace membre</a></div></footer></section></main></div>\n        <script>\n              window.__INITIAL_PROPS__ = {\"request\":{\"query\":{\"next\":\"/\"}},\"errors\":[],\"messages\":[],\"domain\":\"beta.gouv.fr\",\"next\":\"?next=/\"}\n            </script>\n        <script src=\"/static/scripts/hashtoparam.js\"></script>\n      </body>\n    </html>\n  ",
+      "ip": "5.104.101.30",
+      "timestamp": "2023-11-26T09:28:45.63074184Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://espace-membre.incubateur.net'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "x-permitted-cross-domain-policies",
+      "type": "http",
+      "host": "https://espace-membre.incubateur.net",
+      "matched-at": "https://espace-membre.incubateur.net/login?next=/",
+      "request": "GET / HTTP/1.1\r\nHost: espace-membre.incubateur.net\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccess-Control-Allow-Credentials: true\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 26 Nov 2023 09:28:45 GMT\r\nEtag: W/\"157b-Kq195C31BA+pgjHtuzdDyMWdTr4\"\r\nRatelimit-Limit: 10000\r\nRatelimit-Remaining: 9468\r\nRatelimit-Reset: 23508\r\nSet-Cookie: espaceMembreCookieName=s%3AYL0IDFX8jVyrsn_DRNNj9r5GPUbMmruu.PRod1hJ%2FbnOJKImrK1rfVWhIcFvMMW13WCdl91UghYk; Path=/; Expires=Sun, 03 Dec 2023 09:28:45 GMT; HttpOnly; Secure; SameSite=Lax\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin, Accept-Encoding\r\nX-Powered-By: Express\r\nX-Request-Id: d1a9ae4a-d039-40de-b851-dcfcc4c7108a\r\n\r\n\n  <!DOCTYPE html>\n  <html>\n    <head>\n      <meta charset=\"utf-8\">\n      <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  \n      <title>Espace-Membre BetaGouv</title>\n  \n      <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/static/favicon/apple-touch-icon.png\">\n      <link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/static/favicon/favicon-32x32.png\">\n      <link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/static/favicon/favicon-16x16.png\">\n      <link rel=\"manifest\" href=\"/static/favicon/site.webmanifest\">\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-tabulator/styles.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-tabulator/tabulator.min.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-datepicker/react-datepicker.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-markdown-editor-lite/index.css'/>\n\n      <link rel=\"stylesheet\" href=\"/static/css/main.css\">\n        \n              <script src=\"/public/js/shared.js\"></script>\n              <script src=\"/public/js/Home.js?1.0.0\"></script>\n            \n      </head>\n      <!-- Matomo -->\n      <script>\n        var _paq = window._paq = window._paq || [];\n        /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */\n        _paq.push(['trackPageView']);\n        _paq.push(['enableLinkTracking']);\n        (function() {\n          var u=\"https://stats.data.gouv.fr/\";\n          _paq.push(['setTrackerUrl', u+'piwik.php']);\n          _paq.push(['setSiteId', '260']);\n          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n          g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);\n        })();\n      </script>\n      <!-- End Matomo Code -->\n      <!-- Matomo Tag Manager -->\n      <script>\n        var _mtm = window._mtm = window._mtm || [];\n        _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});\n        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n        g.async=true; g.src='https://stats.data.gouv.fr/js/container_nSSiLydj.js'; s.parentNode.insertBefore(g,s);\n      </script>\n      <!-- End Matomo Tag Manager -->\n      <body>\n        <div id=\"root\"><header id=\"header\"><a class=\"no-decoration\" href=\"/\"><h3>Espace membre de BetaGouv</h3></a></header><main role=\"main\" style=\"min-height:1500px\"><section class=\"section section-grey no-padding\"><header style=\"font-family:Marianne, arial, sans-serif;box-shadow:0 8px 8px 0 rgb(0 0 0 / 10%)\"><div class=\"p-2 lg:p-0 text-lg\"><div class=\"flex flex-col xl:mx-auto xl:max-w-7xl\"><section class=\"flex flex-row px-2 pb-1 lg:p-4 items-center\"></section></div></div></header><div class=\"container container-small\"><p>Gère ton compte email (mot de passe, redirections, etc) et les membres de la communauté (arrivées et départs).</p><div class=\"panel margin-top-m\"><h4>Me connecter</h4><form action=\"/login?next=/\" method=\"POST\" id=\"login_form\"><label for=\"emailInput\"><b>Mon email</b></label><div class=\"input__group\"><input name=\"emailInput\" type=\"email\" placeholder=\"prenom.nom@beta.gouv.fr\" autoComplete=\"username\"/></div><button class=\"button\" id=\"primary_email_button\">Recevoir le lien de connexion</button><span><a href=\"#forgot\">J&#x27;ai oublié mon email</a></span></form></div><div class=\"panel border-left-primary\"><h6>👋 Tu viens d&#x27;arriver ?</h6><p>Crée ta fiche Github pour rejoindre la communauté. Tu pourras obtenir une adresse email @<!-- -->beta.gouv.fr<!-- -->.</p><p><a class=\"button\" href=\"/onboarding\" role=\"button\">Créer ma fiche Github</a></p></div><div class=\"panel border-left-primary\" id=\"forgot\"><h6>🆘 Besoin d&#x27;aide ?</h6><ul><li><b>J&#x27;ai oublié mon email pour me connecter :</b> l&#x27;accès à l&#x27;espace membre se fait avec une adresse du service public (@beta.gouv.fr, @pole-emploi.fr...) ou un email secondaire (celui sur lequel tu as reçu tes accès). En cas d&#x27;oubli, demande de l&#x27;aide sur Mattermost <a href=\"https://mattermost.incubateur.net/betagouv/channels/incubateur-help\" target=\"_blank\" title=\"Lien vers le channel secretariat sur Mattermost\">~incubateur-help</a></li><li><b>Je n&#x27;arrive pas à accéder à mes emails :</b> <a href=\"https://doc.incubateur.net/communaute/travailler-a-beta-gouv/jutilise-les-outils-de-la-communaute/emails#2.-configurer-la-reception-et-lenvoi-demails\" target=\"_blank\" title=\"lien vers la documentation pour se connecter à sa boite mail\">configure ton client webmail</a>.</li></ul></div></div><footer id=\"footer\"><div><img class=\"footer-octocat\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAA5klEQVQ4jc3QMUuCURTG8V8tNQRGY45BS01OfQHH8EMEbUJ9iQga+yAFKo42BI3RYkRQkxKuCba9DZ6LF3nT3DxwuNzn+Z9zzz2sU3TwgrMFzHkw7TLzG0VkD/3QxnjFY+aPyxq8ZcCy/ExFm3HuYWvJF/PYwX4uXK/wespb2MjGPwzjHu+o4ST8JzwH04i6DxykCSZRfPGP8S+D/cnFUYiVuHdKCpO2G+yI2RIf4kyLLEoaFHNMLzePTb9xtXh6cBPs0bxRxxfucIoqtiOrpstrBVP/q3sFTXQxjJcmGITWNNvTmsQvxG9Kly7hW/kAAAAASUVORK5CYII=\"/><a href=\"https://github.com/betagouv/secretariat/\" target=\"_blank\">Code source de l&#x27;espace membre</a></div></footer></section></main></div>\n        <script>\n              window.__INITIAL_PROPS__ = {\"request\":{\"query\":{\"next\":\"/\"}},\"errors\":[],\"messages\":[],\"domain\":\"beta.gouv.fr\",\"next\":\"?next=/\"}\n            </script>\n        <script src=\"/static/scripts/hashtoparam.js\"></script>\n      </body>\n    </html>\n  ",
+      "ip": "5.104.101.30",
+      "timestamp": "2023-11-26T09:28:45.630758781Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://espace-membre.incubateur.net'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "clear-site-data",
+      "type": "http",
+      "host": "https://espace-membre.incubateur.net",
+      "matched-at": "https://espace-membre.incubateur.net/login?next=/",
+      "request": "GET / HTTP/1.1\r\nHost: espace-membre.incubateur.net\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccess-Control-Allow-Credentials: true\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 26 Nov 2023 09:28:45 GMT\r\nEtag: W/\"157b-Kq195C31BA+pgjHtuzdDyMWdTr4\"\r\nRatelimit-Limit: 10000\r\nRatelimit-Remaining: 9468\r\nRatelimit-Reset: 23508\r\nSet-Cookie: espaceMembreCookieName=s%3AYL0IDFX8jVyrsn_DRNNj9r5GPUbMmruu.PRod1hJ%2FbnOJKImrK1rfVWhIcFvMMW13WCdl91UghYk; Path=/; Expires=Sun, 03 Dec 2023 09:28:45 GMT; HttpOnly; Secure; SameSite=Lax\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin, Accept-Encoding\r\nX-Powered-By: Express\r\nX-Request-Id: d1a9ae4a-d039-40de-b851-dcfcc4c7108a\r\n\r\n\n  <!DOCTYPE html>\n  <html>\n    <head>\n      <meta charset=\"utf-8\">\n      <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  \n      <title>Espace-Membre BetaGouv</title>\n  \n      <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/static/favicon/apple-touch-icon.png\">\n      <link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/static/favicon/favicon-32x32.png\">\n      <link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/static/favicon/favicon-16x16.png\">\n      <link rel=\"manifest\" href=\"/static/favicon/site.webmanifest\">\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-tabulator/styles.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-tabulator/tabulator.min.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-datepicker/react-datepicker.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-markdown-editor-lite/index.css'/>\n\n      <link rel=\"stylesheet\" href=\"/static/css/main.css\">\n        \n              <script src=\"/public/js/shared.js\"></script>\n              <script src=\"/public/js/Home.js?1.0.0\"></script>\n            \n      </head>\n      <!-- Matomo -->\n      <script>\n        var _paq = window._paq = window._paq || [];\n        /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */\n        _paq.push(['trackPageView']);\n        _paq.push(['enableLinkTracking']);\n        (function() {\n          var u=\"https://stats.data.gouv.fr/\";\n          _paq.push(['setTrackerUrl', u+'piwik.php']);\n          _paq.push(['setSiteId', '260']);\n          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n          g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);\n        })();\n      </script>\n      <!-- End Matomo Code -->\n      <!-- Matomo Tag Manager -->\n      <script>\n        var _mtm = window._mtm = window._mtm || [];\n        _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});\n        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n        g.async=true; g.src='https://stats.data.gouv.fr/js/container_nSSiLydj.js'; s.parentNode.insertBefore(g,s);\n      </script>\n      <!-- End Matomo Tag Manager -->\n      <body>\n        <div id=\"root\"><header id=\"header\"><a class=\"no-decoration\" href=\"/\"><h3>Espace membre de BetaGouv</h3></a></header><main role=\"main\" style=\"min-height:1500px\"><section class=\"section section-grey no-padding\"><header style=\"font-family:Marianne, arial, sans-serif;box-shadow:0 8px 8px 0 rgb(0 0 0 / 10%)\"><div class=\"p-2 lg:p-0 text-lg\"><div class=\"flex flex-col xl:mx-auto xl:max-w-7xl\"><section class=\"flex flex-row px-2 pb-1 lg:p-4 items-center\"></section></div></div></header><div class=\"container container-small\"><p>Gère ton compte email (mot de passe, redirections, etc) et les membres de la communauté (arrivées et départs).</p><div class=\"panel margin-top-m\"><h4>Me connecter</h4><form action=\"/login?next=/\" method=\"POST\" id=\"login_form\"><label for=\"emailInput\"><b>Mon email</b></label><div class=\"input__group\"><input name=\"emailInput\" type=\"email\" placeholder=\"prenom.nom@beta.gouv.fr\" autoComplete=\"username\"/></div><button class=\"button\" id=\"primary_email_button\">Recevoir le lien de connexion</button><span><a href=\"#forgot\">J&#x27;ai oublié mon email</a></span></form></div><div class=\"panel border-left-primary\"><h6>👋 Tu viens d&#x27;arriver ?</h6><p>Crée ta fiche Github pour rejoindre la communauté. Tu pourras obtenir une adresse email @<!-- -->beta.gouv.fr<!-- -->.</p><p><a class=\"button\" href=\"/onboarding\" role=\"button\">Créer ma fiche Github</a></p></div><div class=\"panel border-left-primary\" id=\"forgot\"><h6>🆘 Besoin d&#x27;aide ?</h6><ul><li><b>J&#x27;ai oublié mon email pour me connecter :</b> l&#x27;accès à l&#x27;espace membre se fait avec une adresse du service public (@beta.gouv.fr, @pole-emploi.fr...) ou un email secondaire (celui sur lequel tu as reçu tes accès). En cas d&#x27;oubli, demande de l&#x27;aide sur Mattermost <a href=\"https://mattermost.incubateur.net/betagouv/channels/incubateur-help\" target=\"_blank\" title=\"Lien vers le channel secretariat sur Mattermost\">~incubateur-help</a></li><li><b>Je n&#x27;arrive pas à accéder à mes emails :</b> <a href=\"https://doc.incubateur.net/communaute/travailler-a-beta-gouv/jutilise-les-outils-de-la-communaute/emails#2.-configurer-la-reception-et-lenvoi-demails\" target=\"_blank\" title=\"lien vers la documentation pour se connecter à sa boite mail\">configure ton client webmail</a>.</li></ul></div></div><footer id=\"footer\"><div><img class=\"footer-octocat\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAA5klEQVQ4jc3QMUuCURTG8V8tNQRGY45BS01OfQHH8EMEbUJ9iQga+yAFKo42BI3RYkRQkxKuCba9DZ6LF3nT3DxwuNzn+Z9zzz2sU3TwgrMFzHkw7TLzG0VkD/3QxnjFY+aPyxq8ZcCy/ExFm3HuYWvJF/PYwX4uXK/wespb2MjGPwzjHu+o4ST8JzwH04i6DxykCSZRfPGP8S+D/cnFUYiVuHdKCpO2G+yI2RIf4kyLLEoaFHNMLzePTb9xtXh6cBPs0bxRxxfucIoqtiOrpstrBVP/q3sFTXQxjJcmGITWNNvTmsQvxG9Kly7hW/kAAAAASUVORK5CYII=\"/><a href=\"https://github.com/betagouv/secretariat/\" target=\"_blank\">Code source de l&#x27;espace membre</a></div></footer></section></main></div>\n        <script>\n              window.__INITIAL_PROPS__ = {\"request\":{\"query\":{\"next\":\"/\"}},\"errors\":[],\"messages\":[],\"domain\":\"beta.gouv.fr\",\"next\":\"?next=/\"}\n            </script>\n        <script src=\"/static/scripts/hashtoparam.js\"></script>\n      </body>\n    </html>\n  ",
+      "ip": "5.104.101.30",
+      "timestamp": "2023-11-26T09:28:45.630773729Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://espace-membre.incubateur.net'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "cross-origin-opener-policy",
+      "type": "http",
+      "host": "https://espace-membre.incubateur.net",
+      "matched-at": "https://espace-membre.incubateur.net/login?next=/",
+      "request": "GET / HTTP/1.1\r\nHost: espace-membre.incubateur.net\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccess-Control-Allow-Credentials: true\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 26 Nov 2023 09:28:45 GMT\r\nEtag: W/\"157b-Kq195C31BA+pgjHtuzdDyMWdTr4\"\r\nRatelimit-Limit: 10000\r\nRatelimit-Remaining: 9468\r\nRatelimit-Reset: 23508\r\nSet-Cookie: espaceMembreCookieName=s%3AYL0IDFX8jVyrsn_DRNNj9r5GPUbMmruu.PRod1hJ%2FbnOJKImrK1rfVWhIcFvMMW13WCdl91UghYk; Path=/; Expires=Sun, 03 Dec 2023 09:28:45 GMT; HttpOnly; Secure; SameSite=Lax\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin, Accept-Encoding\r\nX-Powered-By: Express\r\nX-Request-Id: d1a9ae4a-d039-40de-b851-dcfcc4c7108a\r\n\r\n\n  <!DOCTYPE html>\n  <html>\n    <head>\n      <meta charset=\"utf-8\">\n      <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  \n      <title>Espace-Membre BetaGouv</title>\n  \n      <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/static/favicon/apple-touch-icon.png\">\n      <link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/static/favicon/favicon-32x32.png\">\n      <link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/static/favicon/favicon-16x16.png\">\n      <link rel=\"manifest\" href=\"/static/favicon/site.webmanifest\">\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-tabulator/styles.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-tabulator/tabulator.min.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-datepicker/react-datepicker.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-markdown-editor-lite/index.css'/>\n\n      <link rel=\"stylesheet\" href=\"/static/css/main.css\">\n        \n              <script src=\"/public/js/shared.js\"></script>\n              <script src=\"/public/js/Home.js?1.0.0\"></script>\n            \n      </head>\n      <!-- Matomo -->\n      <script>\n        var _paq = window._paq = window._paq || [];\n        /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */\n        _paq.push(['trackPageView']);\n        _paq.push(['enableLinkTracking']);\n        (function() {\n          var u=\"https://stats.data.gouv.fr/\";\n          _paq.push(['setTrackerUrl', u+'piwik.php']);\n          _paq.push(['setSiteId', '260']);\n          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n          g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);\n        })();\n      </script>\n      <!-- End Matomo Code -->\n      <!-- Matomo Tag Manager -->\n      <script>\n        var _mtm = window._mtm = window._mtm || [];\n        _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});\n        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n        g.async=true; g.src='https://stats.data.gouv.fr/js/container_nSSiLydj.js'; s.parentNode.insertBefore(g,s);\n      </script>\n      <!-- End Matomo Tag Manager -->\n      <body>\n        <div id=\"root\"><header id=\"header\"><a class=\"no-decoration\" href=\"/\"><h3>Espace membre de BetaGouv</h3></a></header><main role=\"main\" style=\"min-height:1500px\"><section class=\"section section-grey no-padding\"><header style=\"font-family:Marianne, arial, sans-serif;box-shadow:0 8px 8px 0 rgb(0 0 0 / 10%)\"><div class=\"p-2 lg:p-0 text-lg\"><div class=\"flex flex-col xl:mx-auto xl:max-w-7xl\"><section class=\"flex flex-row px-2 pb-1 lg:p-4 items-center\"></section></div></div></header><div class=\"container container-small\"><p>Gère ton compte email (mot de passe, redirections, etc) et les membres de la communauté (arrivées et départs).</p><div class=\"panel margin-top-m\"><h4>Me connecter</h4><form action=\"/login?next=/\" method=\"POST\" id=\"login_form\"><label for=\"emailInput\"><b>Mon email</b></label><div class=\"input__group\"><input name=\"emailInput\" type=\"email\" placeholder=\"prenom.nom@beta.gouv.fr\" autoComplete=\"username\"/></div><button class=\"button\" id=\"primary_email_button\">Recevoir le lien de connexion</button><span><a href=\"#forgot\">J&#x27;ai oublié mon email</a></span></form></div><div class=\"panel border-left-primary\"><h6>👋 Tu viens d&#x27;arriver ?</h6><p>Crée ta fiche Github pour rejoindre la communauté. Tu pourras obtenir une adresse email @<!-- -->beta.gouv.fr<!-- -->.</p><p><a class=\"button\" href=\"/onboarding\" role=\"button\">Créer ma fiche Github</a></p></div><div class=\"panel border-left-primary\" id=\"forgot\"><h6>🆘 Besoin d&#x27;aide ?</h6><ul><li><b>J&#x27;ai oublié mon email pour me connecter :</b> l&#x27;accès à l&#x27;espace membre se fait avec une adresse du service public (@beta.gouv.fr, @pole-emploi.fr...) ou un email secondaire (celui sur lequel tu as reçu tes accès). En cas d&#x27;oubli, demande de l&#x27;aide sur Mattermost <a href=\"https://mattermost.incubateur.net/betagouv/channels/incubateur-help\" target=\"_blank\" title=\"Lien vers le channel secretariat sur Mattermost\">~incubateur-help</a></li><li><b>Je n&#x27;arrive pas à accéder à mes emails :</b> <a href=\"https://doc.incubateur.net/communaute/travailler-a-beta-gouv/jutilise-les-outils-de-la-communaute/emails#2.-configurer-la-reception-et-lenvoi-demails\" target=\"_blank\" title=\"lien vers la documentation pour se connecter à sa boite mail\">configure ton client webmail</a>.</li></ul></div></div><footer id=\"footer\"><div><img class=\"footer-octocat\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAA5klEQVQ4jc3QMUuCURTG8V8tNQRGY45BS01OfQHH8EMEbUJ9iQga+yAFKo42BI3RYkRQkxKuCba9DZ6LF3nT3DxwuNzn+Z9zzz2sU3TwgrMFzHkw7TLzG0VkD/3QxnjFY+aPyxq8ZcCy/ExFm3HuYWvJF/PYwX4uXK/wespb2MjGPwzjHu+o4ST8JzwH04i6DxykCSZRfPGP8S+D/cnFUYiVuHdKCpO2G+yI2RIf4kyLLEoaFHNMLzePTb9xtXh6cBPs0bxRxxfucIoqtiOrpstrBVP/q3sFTXQxjJcmGITWNNvTmsQvxG9Kly7hW/kAAAAASUVORK5CYII=\"/><a href=\"https://github.com/betagouv/secretariat/\" target=\"_blank\">Code source de l&#x27;espace membre</a></div></footer></section></main></div>\n        <script>\n              window.__INITIAL_PROPS__ = {\"request\":{\"query\":{\"next\":\"/\"}},\"errors\":[],\"messages\":[],\"domain\":\"beta.gouv.fr\",\"next\":\"?next=/\"}\n            </script>\n        <script src=\"/static/scripts/hashtoparam.js\"></script>\n      </body>\n    </html>\n  ",
+      "ip": "5.104.101.30",
+      "timestamp": "2023-11-26T09:28:45.630786863Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://espace-membre.incubateur.net'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "content-security-policy",
+      "type": "http",
+      "host": "https://espace-membre.incubateur.net",
+      "matched-at": "https://espace-membre.incubateur.net/login?next=/",
+      "request": "GET / HTTP/1.1\r\nHost: espace-membre.incubateur.net\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccess-Control-Allow-Credentials: true\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 26 Nov 2023 09:28:45 GMT\r\nEtag: W/\"157b-Kq195C31BA+pgjHtuzdDyMWdTr4\"\r\nRatelimit-Limit: 10000\r\nRatelimit-Remaining: 9468\r\nRatelimit-Reset: 23508\r\nSet-Cookie: espaceMembreCookieName=s%3AYL0IDFX8jVyrsn_DRNNj9r5GPUbMmruu.PRod1hJ%2FbnOJKImrK1rfVWhIcFvMMW13WCdl91UghYk; Path=/; Expires=Sun, 03 Dec 2023 09:28:45 GMT; HttpOnly; Secure; SameSite=Lax\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin, Accept-Encoding\r\nX-Powered-By: Express\r\nX-Request-Id: d1a9ae4a-d039-40de-b851-dcfcc4c7108a\r\n\r\n\n  <!DOCTYPE html>\n  <html>\n    <head>\n      <meta charset=\"utf-8\">\n      <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  \n      <title>Espace-Membre BetaGouv</title>\n  \n      <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/static/favicon/apple-touch-icon.png\">\n      <link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/static/favicon/favicon-32x32.png\">\n      <link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/static/favicon/favicon-16x16.png\">\n      <link rel=\"manifest\" href=\"/static/favicon/site.webmanifest\">\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-tabulator/styles.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-tabulator/tabulator.min.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-datepicker/react-datepicker.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-markdown-editor-lite/index.css'/>\n\n      <link rel=\"stylesheet\" href=\"/static/css/main.css\">\n        \n              <script src=\"/public/js/shared.js\"></script>\n              <script src=\"/public/js/Home.js?1.0.0\"></script>\n            \n      </head>\n      <!-- Matomo -->\n      <script>\n        var _paq = window._paq = window._paq || [];\n        /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */\n        _paq.push(['trackPageView']);\n        _paq.push(['enableLinkTracking']);\n        (function() {\n          var u=\"https://stats.data.gouv.fr/\";\n          _paq.push(['setTrackerUrl', u+'piwik.php']);\n          _paq.push(['setSiteId', '260']);\n          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n          g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);\n        })();\n      </script>\n      <!-- End Matomo Code -->\n      <!-- Matomo Tag Manager -->\n      <script>\n        var _mtm = window._mtm = window._mtm || [];\n        _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});\n        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n        g.async=true; g.src='https://stats.data.gouv.fr/js/container_nSSiLydj.js'; s.parentNode.insertBefore(g,s);\n      </script>\n      <!-- End Matomo Tag Manager -->\n      <body>\n        <div id=\"root\"><header id=\"header\"><a class=\"no-decoration\" href=\"/\"><h3>Espace membre de BetaGouv</h3></a></header><main role=\"main\" style=\"min-height:1500px\"><section class=\"section section-grey no-padding\"><header style=\"font-family:Marianne, arial, sans-serif;box-shadow:0 8px 8px 0 rgb(0 0 0 / 10%)\"><div class=\"p-2 lg:p-0 text-lg\"><div class=\"flex flex-col xl:mx-auto xl:max-w-7xl\"><section class=\"flex flex-row px-2 pb-1 lg:p-4 items-center\"></section></div></div></header><div class=\"container container-small\"><p>Gère ton compte email (mot de passe, redirections, etc) et les membres de la communauté (arrivées et départs).</p><div class=\"panel margin-top-m\"><h4>Me connecter</h4><form action=\"/login?next=/\" method=\"POST\" id=\"login_form\"><label for=\"emailInput\"><b>Mon email</b></label><div class=\"input__group\"><input name=\"emailInput\" type=\"email\" placeholder=\"prenom.nom@beta.gouv.fr\" autoComplete=\"username\"/></div><button class=\"button\" id=\"primary_email_button\">Recevoir le lien de connexion</button><span><a href=\"#forgot\">J&#x27;ai oublié mon email</a></span></form></div><div class=\"panel border-left-primary\"><h6>👋 Tu viens d&#x27;arriver ?</h6><p>Crée ta fiche Github pour rejoindre la communauté. Tu pourras obtenir une adresse email @<!-- -->beta.gouv.fr<!-- -->.</p><p><a class=\"button\" href=\"/onboarding\" role=\"button\">Créer ma fiche Github</a></p></div><div class=\"panel border-left-primary\" id=\"forgot\"><h6>🆘 Besoin d&#x27;aide ?</h6><ul><li><b>J&#x27;ai oublié mon email pour me connecter :</b> l&#x27;accès à l&#x27;espace membre se fait avec une adresse du service public (@beta.gouv.fr, @pole-emploi.fr...) ou un email secondaire (celui sur lequel tu as reçu tes accès). En cas d&#x27;oubli, demande de l&#x27;aide sur Mattermost <a href=\"https://mattermost.incubateur.net/betagouv/channels/incubateur-help\" target=\"_blank\" title=\"Lien vers le channel secretariat sur Mattermost\">~incubateur-help</a></li><li><b>Je n&#x27;arrive pas à accéder à mes emails :</b> <a href=\"https://doc.incubateur.net/communaute/travailler-a-beta-gouv/jutilise-les-outils-de-la-communaute/emails#2.-configurer-la-reception-et-lenvoi-demails\" target=\"_blank\" title=\"lien vers la documentation pour se connecter à sa boite mail\">configure ton client webmail</a>.</li></ul></div></div><footer id=\"footer\"><div><img class=\"footer-octocat\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAA5klEQVQ4jc3QMUuCURTG8V8tNQRGY45BS01OfQHH8EMEbUJ9iQga+yAFKo42BI3RYkRQkxKuCba9DZ6LF3nT3DxwuNzn+Z9zzz2sU3TwgrMFzHkw7TLzG0VkD/3QxnjFY+aPyxq8ZcCy/ExFm3HuYWvJF/PYwX4uXK/wespb2MjGPwzjHu+o4ST8JzwH04i6DxykCSZRfPGP8S+D/cnFUYiVuHdKCpO2G+yI2RIf4kyLLEoaFHNMLzePTb9xtXh6cBPs0bxRxxfucIoqtiOrpstrBVP/q3sFTXQxjJcmGITWNNvTmsQvxG9Kly7hW/kAAAAASUVORK5CYII=\"/><a href=\"https://github.com/betagouv/secretariat/\" target=\"_blank\">Code source de l&#x27;espace membre</a></div></footer></section></main></div>\n        <script>\n              window.__INITIAL_PROPS__ = {\"request\":{\"query\":{\"next\":\"/\"}},\"errors\":[],\"messages\":[],\"domain\":\"beta.gouv.fr\",\"next\":\"?next=/\"}\n            </script>\n        <script src=\"/static/scripts/hashtoparam.js\"></script>\n      </body>\n    </html>\n  ",
+      "ip": "5.104.101.30",
+      "timestamp": "2023-11-26T09:28:45.630799707Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://espace-membre.incubateur.net'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "referrer-policy",
+      "type": "http",
+      "host": "https://espace-membre.incubateur.net",
+      "matched-at": "https://espace-membre.incubateur.net/login?next=/",
+      "request": "GET / HTTP/1.1\r\nHost: espace-membre.incubateur.net\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccess-Control-Allow-Credentials: true\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 26 Nov 2023 09:28:45 GMT\r\nEtag: W/\"157b-Kq195C31BA+pgjHtuzdDyMWdTr4\"\r\nRatelimit-Limit: 10000\r\nRatelimit-Remaining: 9468\r\nRatelimit-Reset: 23508\r\nSet-Cookie: espaceMembreCookieName=s%3AYL0IDFX8jVyrsn_DRNNj9r5GPUbMmruu.PRod1hJ%2FbnOJKImrK1rfVWhIcFvMMW13WCdl91UghYk; Path=/; Expires=Sun, 03 Dec 2023 09:28:45 GMT; HttpOnly; Secure; SameSite=Lax\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin, Accept-Encoding\r\nX-Powered-By: Express\r\nX-Request-Id: d1a9ae4a-d039-40de-b851-dcfcc4c7108a\r\n\r\n\n  <!DOCTYPE html>\n  <html>\n    <head>\n      <meta charset=\"utf-8\">\n      <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  \n      <title>Espace-Membre BetaGouv</title>\n  \n      <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/static/favicon/apple-touch-icon.png\">\n      <link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/static/favicon/favicon-32x32.png\">\n      <link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/static/favicon/favicon-16x16.png\">\n      <link rel=\"manifest\" href=\"/static/favicon/site.webmanifest\">\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-tabulator/styles.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-tabulator/tabulator.min.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-datepicker/react-datepicker.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-markdown-editor-lite/index.css'/>\n\n      <link rel=\"stylesheet\" href=\"/static/css/main.css\">\n        \n              <script src=\"/public/js/shared.js\"></script>\n              <script src=\"/public/js/Home.js?1.0.0\"></script>\n            \n      </head>\n      <!-- Matomo -->\n      <script>\n        var _paq = window._paq = window._paq || [];\n        /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */\n        _paq.push(['trackPageView']);\n        _paq.push(['enableLinkTracking']);\n        (function() {\n          var u=\"https://stats.data.gouv.fr/\";\n          _paq.push(['setTrackerUrl', u+'piwik.php']);\n          _paq.push(['setSiteId', '260']);\n          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n          g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);\n        })();\n      </script>\n      <!-- End Matomo Code -->\n      <!-- Matomo Tag Manager -->\n      <script>\n        var _mtm = window._mtm = window._mtm || [];\n        _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});\n        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n        g.async=true; g.src='https://stats.data.gouv.fr/js/container_nSSiLydj.js'; s.parentNode.insertBefore(g,s);\n      </script>\n      <!-- End Matomo Tag Manager -->\n      <body>\n        <div id=\"root\"><header id=\"header\"><a class=\"no-decoration\" href=\"/\"><h3>Espace membre de BetaGouv</h3></a></header><main role=\"main\" style=\"min-height:1500px\"><section class=\"section section-grey no-padding\"><header style=\"font-family:Marianne, arial, sans-serif;box-shadow:0 8px 8px 0 rgb(0 0 0 / 10%)\"><div class=\"p-2 lg:p-0 text-lg\"><div class=\"flex flex-col xl:mx-auto xl:max-w-7xl\"><section class=\"flex flex-row px-2 pb-1 lg:p-4 items-center\"></section></div></div></header><div class=\"container container-small\"><p>Gère ton compte email (mot de passe, redirections, etc) et les membres de la communauté (arrivées et départs).</p><div class=\"panel margin-top-m\"><h4>Me connecter</h4><form action=\"/login?next=/\" method=\"POST\" id=\"login_form\"><label for=\"emailInput\"><b>Mon email</b></label><div class=\"input__group\"><input name=\"emailInput\" type=\"email\" placeholder=\"prenom.nom@beta.gouv.fr\" autoComplete=\"username\"/></div><button class=\"button\" id=\"primary_email_button\">Recevoir le lien de connexion</button><span><a href=\"#forgot\">J&#x27;ai oublié mon email</a></span></form></div><div class=\"panel border-left-primary\"><h6>👋 Tu viens d&#x27;arriver ?</h6><p>Crée ta fiche Github pour rejoindre la communauté. Tu pourras obtenir une adresse email @<!-- -->beta.gouv.fr<!-- -->.</p><p><a class=\"button\" href=\"/onboarding\" role=\"button\">Créer ma fiche Github</a></p></div><div class=\"panel border-left-primary\" id=\"forgot\"><h6>🆘 Besoin d&#x27;aide ?</h6><ul><li><b>J&#x27;ai oublié mon email pour me connecter :</b> l&#x27;accès à l&#x27;espace membre se fait avec une adresse du service public (@beta.gouv.fr, @pole-emploi.fr...) ou un email secondaire (celui sur lequel tu as reçu tes accès). En cas d&#x27;oubli, demande de l&#x27;aide sur Mattermost <a href=\"https://mattermost.incubateur.net/betagouv/channels/incubateur-help\" target=\"_blank\" title=\"Lien vers le channel secretariat sur Mattermost\">~incubateur-help</a></li><li><b>Je n&#x27;arrive pas à accéder à mes emails :</b> <a href=\"https://doc.incubateur.net/communaute/travailler-a-beta-gouv/jutilise-les-outils-de-la-communaute/emails#2.-configurer-la-reception-et-lenvoi-demails\" target=\"_blank\" title=\"lien vers la documentation pour se connecter à sa boite mail\">configure ton client webmail</a>.</li></ul></div></div><footer id=\"footer\"><div><img class=\"footer-octocat\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAA5klEQVQ4jc3QMUuCURTG8V8tNQRGY45BS01OfQHH8EMEbUJ9iQga+yAFKo42BI3RYkRQkxKuCba9DZ6LF3nT3DxwuNzn+Z9zzz2sU3TwgrMFzHkw7TLzG0VkD/3QxnjFY+aPyxq8ZcCy/ExFm3HuYWvJF/PYwX4uXK/wespb2MjGPwzjHu+o4ST8JzwH04i6DxykCSZRfPGP8S+D/cnFUYiVuHdKCpO2G+yI2RIf4kyLLEoaFHNMLzePTb9xtXh6cBPs0bxRxxfucIoqtiOrpstrBVP/q3sFTXQxjJcmGITWNNvTmsQvxG9Kly7hW/kAAAAASUVORK5CYII=\"/><a href=\"https://github.com/betagouv/secretariat/\" target=\"_blank\">Code source de l&#x27;espace membre</a></div></footer></section></main></div>\n        <script>\n              window.__INITIAL_PROPS__ = {\"request\":{\"query\":{\"next\":\"/\"}},\"errors\":[],\"messages\":[],\"domain\":\"beta.gouv.fr\",\"next\":\"?next=/\"}\n            </script>\n        <script src=\"/static/scripts/hashtoparam.js\"></script>\n      </body>\n    </html>\n  ",
+      "ip": "5.104.101.30",
+      "timestamp": "2023-11-26T09:28:45.630813052Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://espace-membre.incubateur.net'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "cross-origin-embedder-policy",
+      "type": "http",
+      "host": "https://espace-membre.incubateur.net",
+      "matched-at": "https://espace-membre.incubateur.net/login?next=/",
+      "request": "GET / HTTP/1.1\r\nHost: espace-membre.incubateur.net\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccess-Control-Allow-Credentials: true\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 26 Nov 2023 09:28:45 GMT\r\nEtag: W/\"157b-Kq195C31BA+pgjHtuzdDyMWdTr4\"\r\nRatelimit-Limit: 10000\r\nRatelimit-Remaining: 9468\r\nRatelimit-Reset: 23508\r\nSet-Cookie: espaceMembreCookieName=s%3AYL0IDFX8jVyrsn_DRNNj9r5GPUbMmruu.PRod1hJ%2FbnOJKImrK1rfVWhIcFvMMW13WCdl91UghYk; Path=/; Expires=Sun, 03 Dec 2023 09:28:45 GMT; HttpOnly; Secure; SameSite=Lax\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin, Accept-Encoding\r\nX-Powered-By: Express\r\nX-Request-Id: d1a9ae4a-d039-40de-b851-dcfcc4c7108a\r\n\r\n\n  <!DOCTYPE html>\n  <html>\n    <head>\n      <meta charset=\"utf-8\">\n      <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  \n      <title>Espace-Membre BetaGouv</title>\n  \n      <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/static/favicon/apple-touch-icon.png\">\n      <link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/static/favicon/favicon-32x32.png\">\n      <link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/static/favicon/favicon-16x16.png\">\n      <link rel=\"manifest\" href=\"/static/favicon/site.webmanifest\">\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-tabulator/styles.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-tabulator/tabulator.min.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-datepicker/react-datepicker.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-markdown-editor-lite/index.css'/>\n\n      <link rel=\"stylesheet\" href=\"/static/css/main.css\">\n        \n              <script src=\"/public/js/shared.js\"></script>\n              <script src=\"/public/js/Home.js?1.0.0\"></script>\n            \n      </head>\n      <!-- Matomo -->\n      <script>\n        var _paq = window._paq = window._paq || [];\n        /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */\n        _paq.push(['trackPageView']);\n        _paq.push(['enableLinkTracking']);\n        (function() {\n          var u=\"https://stats.data.gouv.fr/\";\n          _paq.push(['setTrackerUrl', u+'piwik.php']);\n          _paq.push(['setSiteId', '260']);\n          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n          g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);\n        })();\n      </script>\n      <!-- End Matomo Code -->\n      <!-- Matomo Tag Manager -->\n      <script>\n        var _mtm = window._mtm = window._mtm || [];\n        _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});\n        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n        g.async=true; g.src='https://stats.data.gouv.fr/js/container_nSSiLydj.js'; s.parentNode.insertBefore(g,s);\n      </script>\n      <!-- End Matomo Tag Manager -->\n      <body>\n        <div id=\"root\"><header id=\"header\"><a class=\"no-decoration\" href=\"/\"><h3>Espace membre de BetaGouv</h3></a></header><main role=\"main\" style=\"min-height:1500px\"><section class=\"section section-grey no-padding\"><header style=\"font-family:Marianne, arial, sans-serif;box-shadow:0 8px 8px 0 rgb(0 0 0 / 10%)\"><div class=\"p-2 lg:p-0 text-lg\"><div class=\"flex flex-col xl:mx-auto xl:max-w-7xl\"><section class=\"flex flex-row px-2 pb-1 lg:p-4 items-center\"></section></div></div></header><div class=\"container container-small\"><p>Gère ton compte email (mot de passe, redirections, etc) et les membres de la communauté (arrivées et départs).</p><div class=\"panel margin-top-m\"><h4>Me connecter</h4><form action=\"/login?next=/\" method=\"POST\" id=\"login_form\"><label for=\"emailInput\"><b>Mon email</b></label><div class=\"input__group\"><input name=\"emailInput\" type=\"email\" placeholder=\"prenom.nom@beta.gouv.fr\" autoComplete=\"username\"/></div><button class=\"button\" id=\"primary_email_button\">Recevoir le lien de connexion</button><span><a href=\"#forgot\">J&#x27;ai oublié mon email</a></span></form></div><div class=\"panel border-left-primary\"><h6>👋 Tu viens d&#x27;arriver ?</h6><p>Crée ta fiche Github pour rejoindre la communauté. Tu pourras obtenir une adresse email @<!-- -->beta.gouv.fr<!-- -->.</p><p><a class=\"button\" href=\"/onboarding\" role=\"button\">Créer ma fiche Github</a></p></div><div class=\"panel border-left-primary\" id=\"forgot\"><h6>🆘 Besoin d&#x27;aide ?</h6><ul><li><b>J&#x27;ai oublié mon email pour me connecter :</b> l&#x27;accès à l&#x27;espace membre se fait avec une adresse du service public (@beta.gouv.fr, @pole-emploi.fr...) ou un email secondaire (celui sur lequel tu as reçu tes accès). En cas d&#x27;oubli, demande de l&#x27;aide sur Mattermost <a href=\"https://mattermost.incubateur.net/betagouv/channels/incubateur-help\" target=\"_blank\" title=\"Lien vers le channel secretariat sur Mattermost\">~incubateur-help</a></li><li><b>Je n&#x27;arrive pas à accéder à mes emails :</b> <a href=\"https://doc.incubateur.net/communaute/travailler-a-beta-gouv/jutilise-les-outils-de-la-communaute/emails#2.-configurer-la-reception-et-lenvoi-demails\" target=\"_blank\" title=\"lien vers la documentation pour se connecter à sa boite mail\">configure ton client webmail</a>.</li></ul></div></div><footer id=\"footer\"><div><img class=\"footer-octocat\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAA5klEQVQ4jc3QMUuCURTG8V8tNQRGY45BS01OfQHH8EMEbUJ9iQga+yAFKo42BI3RYkRQkxKuCba9DZ6LF3nT3DxwuNzn+Z9zzz2sU3TwgrMFzHkw7TLzG0VkD/3QxnjFY+aPyxq8ZcCy/ExFm3HuYWvJF/PYwX4uXK/wespb2MjGPwzjHu+o4ST8JzwH04i6DxykCSZRfPGP8S+D/cnFUYiVuHdKCpO2G+yI2RIf4kyLLEoaFHNMLzePTb9xtXh6cBPs0bxRxxfucIoqtiOrpstrBVP/q3sFTXQxjJcmGITWNNvTmsQvxG9Kly7hW/kAAAAASUVORK5CYII=\"/><a href=\"https://github.com/betagouv/secretariat/\" target=\"_blank\">Code source de l&#x27;espace membre</a></div></footer></section></main></div>\n        <script>\n              window.__INITIAL_PROPS__ = {\"request\":{\"query\":{\"next\":\"/\"}},\"errors\":[],\"messages\":[],\"domain\":\"beta.gouv.fr\",\"next\":\"?next=/\"}\n            </script>\n        <script src=\"/static/scripts/hashtoparam.js\"></script>\n      </body>\n    </html>\n  ",
+      "ip": "5.104.101.30",
+      "timestamp": "2023-11-26T09:28:45.630851252Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://espace-membre.incubateur.net'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "cross-origin-resource-policy",
+      "type": "http",
+      "host": "https://espace-membre.incubateur.net",
+      "matched-at": "https://espace-membre.incubateur.net/login?next=/",
+      "request": "GET / HTTP/1.1\r\nHost: espace-membre.incubateur.net\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccess-Control-Allow-Credentials: true\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 26 Nov 2023 09:28:45 GMT\r\nEtag: W/\"157b-Kq195C31BA+pgjHtuzdDyMWdTr4\"\r\nRatelimit-Limit: 10000\r\nRatelimit-Remaining: 9468\r\nRatelimit-Reset: 23508\r\nSet-Cookie: espaceMembreCookieName=s%3AYL0IDFX8jVyrsn_DRNNj9r5GPUbMmruu.PRod1hJ%2FbnOJKImrK1rfVWhIcFvMMW13WCdl91UghYk; Path=/; Expires=Sun, 03 Dec 2023 09:28:45 GMT; HttpOnly; Secure; SameSite=Lax\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin, Accept-Encoding\r\nX-Powered-By: Express\r\nX-Request-Id: d1a9ae4a-d039-40de-b851-dcfcc4c7108a\r\n\r\n\n  <!DOCTYPE html>\n  <html>\n    <head>\n      <meta charset=\"utf-8\">\n      <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  \n      <title>Espace-Membre BetaGouv</title>\n  \n      <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/static/favicon/apple-touch-icon.png\">\n      <link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/static/favicon/favicon-32x32.png\">\n      <link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/static/favicon/favicon-16x16.png\">\n      <link rel=\"manifest\" href=\"/static/favicon/site.webmanifest\">\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-tabulator/styles.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-tabulator/tabulator.min.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-datepicker/react-datepicker.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-markdown-editor-lite/index.css'/>\n\n      <link rel=\"stylesheet\" href=\"/static/css/main.css\">\n        \n              <script src=\"/public/js/shared.js\"></script>\n              <script src=\"/public/js/Home.js?1.0.0\"></script>\n            \n      </head>\n      <!-- Matomo -->\n      <script>\n        var _paq = window._paq = window._paq || [];\n        /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */\n        _paq.push(['trackPageView']);\n        _paq.push(['enableLinkTracking']);\n        (function() {\n          var u=\"https://stats.data.gouv.fr/\";\n          _paq.push(['setTrackerUrl', u+'piwik.php']);\n          _paq.push(['setSiteId', '260']);\n          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n          g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);\n        })();\n      </script>\n      <!-- End Matomo Code -->\n      <!-- Matomo Tag Manager -->\n      <script>\n        var _mtm = window._mtm = window._mtm || [];\n        _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});\n        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n        g.async=true; g.src='https://stats.data.gouv.fr/js/container_nSSiLydj.js'; s.parentNode.insertBefore(g,s);\n      </script>\n      <!-- End Matomo Tag Manager -->\n      <body>\n        <div id=\"root\"><header id=\"header\"><a class=\"no-decoration\" href=\"/\"><h3>Espace membre de BetaGouv</h3></a></header><main role=\"main\" style=\"min-height:1500px\"><section class=\"section section-grey no-padding\"><header style=\"font-family:Marianne, arial, sans-serif;box-shadow:0 8px 8px 0 rgb(0 0 0 / 10%)\"><div class=\"p-2 lg:p-0 text-lg\"><div class=\"flex flex-col xl:mx-auto xl:max-w-7xl\"><section class=\"flex flex-row px-2 pb-1 lg:p-4 items-center\"></section></div></div></header><div class=\"container container-small\"><p>Gère ton compte email (mot de passe, redirections, etc) et les membres de la communauté (arrivées et départs).</p><div class=\"panel margin-top-m\"><h4>Me connecter</h4><form action=\"/login?next=/\" method=\"POST\" id=\"login_form\"><label for=\"emailInput\"><b>Mon email</b></label><div class=\"input__group\"><input name=\"emailInput\" type=\"email\" placeholder=\"prenom.nom@beta.gouv.fr\" autoComplete=\"username\"/></div><button class=\"button\" id=\"primary_email_button\">Recevoir le lien de connexion</button><span><a href=\"#forgot\">J&#x27;ai oublié mon email</a></span></form></div><div class=\"panel border-left-primary\"><h6>👋 Tu viens d&#x27;arriver ?</h6><p>Crée ta fiche Github pour rejoindre la communauté. Tu pourras obtenir une adresse email @<!-- -->beta.gouv.fr<!-- -->.</p><p><a class=\"button\" href=\"/onboarding\" role=\"button\">Créer ma fiche Github</a></p></div><div class=\"panel border-left-primary\" id=\"forgot\"><h6>🆘 Besoin d&#x27;aide ?</h6><ul><li><b>J&#x27;ai oublié mon email pour me connecter :</b> l&#x27;accès à l&#x27;espace membre se fait avec une adresse du service public (@beta.gouv.fr, @pole-emploi.fr...) ou un email secondaire (celui sur lequel tu as reçu tes accès). En cas d&#x27;oubli, demande de l&#x27;aide sur Mattermost <a href=\"https://mattermost.incubateur.net/betagouv/channels/incubateur-help\" target=\"_blank\" title=\"Lien vers le channel secretariat sur Mattermost\">~incubateur-help</a></li><li><b>Je n&#x27;arrive pas à accéder à mes emails :</b> <a href=\"https://doc.incubateur.net/communaute/travailler-a-beta-gouv/jutilise-les-outils-de-la-communaute/emails#2.-configurer-la-reception-et-lenvoi-demails\" target=\"_blank\" title=\"lien vers la documentation pour se connecter à sa boite mail\">configure ton client webmail</a>.</li></ul></div></div><footer id=\"footer\"><div><img class=\"footer-octocat\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAA5klEQVQ4jc3QMUuCURTG8V8tNQRGY45BS01OfQHH8EMEbUJ9iQga+yAFKo42BI3RYkRQkxKuCba9DZ6LF3nT3DxwuNzn+Z9zzz2sU3TwgrMFzHkw7TLzG0VkD/3QxnjFY+aPyxq8ZcCy/ExFm3HuYWvJF/PYwX4uXK/wespb2MjGPwzjHu+o4ST8JzwH04i6DxykCSZRfPGP8S+D/cnFUYiVuHdKCpO2G+yI2RIf4kyLLEoaFHNMLzePTb9xtXh6cBPs0bxRxxfucIoqtiOrpstrBVP/q3sFTXQxjJcmGITWNNvTmsQvxG9Kly7hW/kAAAAASUVORK5CYII=\"/><a href=\"https://github.com/betagouv/secretariat/\" target=\"_blank\">Code source de l&#x27;espace membre</a></div></footer></section></main></div>\n        <script>\n              window.__INITIAL_PROPS__ = {\"request\":{\"query\":{\"next\":\"/\"}},\"errors\":[],\"messages\":[],\"domain\":\"beta.gouv.fr\",\"next\":\"?next=/\"}\n            </script>\n        <script src=\"/static/scripts/hashtoparam.js\"></script>\n      </body>\n    </html>\n  ",
+      "ip": "5.104.101.30",
+      "timestamp": "2023-11-26T09:28:45.630866801Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://espace-membre.incubateur.net'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "x-frame-options",
+      "type": "http",
+      "host": "https://espace-membre.incubateur.net",
+      "matched-at": "https://espace-membre.incubateur.net/login?next=/",
+      "request": "GET / HTTP/1.1\r\nHost: espace-membre.incubateur.net\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nAccess-Control-Allow-Credentials: true\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 26 Nov 2023 09:28:45 GMT\r\nEtag: W/\"157b-Kq195C31BA+pgjHtuzdDyMWdTr4\"\r\nRatelimit-Limit: 10000\r\nRatelimit-Remaining: 9468\r\nRatelimit-Reset: 23508\r\nSet-Cookie: espaceMembreCookieName=s%3AYL0IDFX8jVyrsn_DRNNj9r5GPUbMmruu.PRod1hJ%2FbnOJKImrK1rfVWhIcFvMMW13WCdl91UghYk; Path=/; Expires=Sun, 03 Dec 2023 09:28:45 GMT; HttpOnly; Secure; SameSite=Lax\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin, Accept-Encoding\r\nX-Powered-By: Express\r\nX-Request-Id: d1a9ae4a-d039-40de-b851-dcfcc4c7108a\r\n\r\n\n  <!DOCTYPE html>\n  <html>\n    <head>\n      <meta charset=\"utf-8\">\n      <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  \n      <title>Espace-Membre BetaGouv</title>\n  \n      <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/static/favicon/apple-touch-icon.png\">\n      <link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/static/favicon/favicon-32x32.png\">\n      <link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/static/favicon/favicon-16x16.png\">\n      <link rel=\"manifest\" href=\"/static/favicon/site.webmanifest\">\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-tabulator/styles.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-tabulator/tabulator.min.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-datepicker/react-datepicker.css'/>\n      <link rel=\"stylesheet\" media=\"screen,print\" href='/react-markdown-editor-lite/index.css'/>\n\n      <link rel=\"stylesheet\" href=\"/static/css/main.css\">\n        \n              <script src=\"/public/js/shared.js\"></script>\n              <script src=\"/public/js/Home.js?1.0.0\"></script>\n            \n      </head>\n      <!-- Matomo -->\n      <script>\n        var _paq = window._paq = window._paq || [];\n        /* tracker methods like \"setCustomDimension\" should be called before \"trackPageView\" */\n        _paq.push(['trackPageView']);\n        _paq.push(['enableLinkTracking']);\n        (function() {\n          var u=\"https://stats.data.gouv.fr/\";\n          _paq.push(['setTrackerUrl', u+'piwik.php']);\n          _paq.push(['setSiteId', '260']);\n          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n          g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);\n        })();\n      </script>\n      <!-- End Matomo Code -->\n      <!-- Matomo Tag Manager -->\n      <script>\n        var _mtm = window._mtm = window._mtm || [];\n        _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});\n        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n        g.async=true; g.src='https://stats.data.gouv.fr/js/container_nSSiLydj.js'; s.parentNode.insertBefore(g,s);\n      </script>\n      <!-- End Matomo Tag Manager -->\n      <body>\n        <div id=\"root\"><header id=\"header\"><a class=\"no-decoration\" href=\"/\"><h3>Espace membre de BetaGouv</h3></a></header><main role=\"main\" style=\"min-height:1500px\"><section class=\"section section-grey no-padding\"><header style=\"font-family:Marianne, arial, sans-serif;box-shadow:0 8px 8px 0 rgb(0 0 0 / 10%)\"><div class=\"p-2 lg:p-0 text-lg\"><div class=\"flex flex-col xl:mx-auto xl:max-w-7xl\"><section class=\"flex flex-row px-2 pb-1 lg:p-4 items-center\"></section></div></div></header><div class=\"container container-small\"><p>Gère ton compte email (mot de passe, redirections, etc) et les membres de la communauté (arrivées et départs).</p><div class=\"panel margin-top-m\"><h4>Me connecter</h4><form action=\"/login?next=/\" method=\"POST\" id=\"login_form\"><label for=\"emailInput\"><b>Mon email</b></label><div class=\"input__group\"><input name=\"emailInput\" type=\"email\" placeholder=\"prenom.nom@beta.gouv.fr\" autoComplete=\"username\"/></div><button class=\"button\" id=\"primary_email_button\">Recevoir le lien de connexion</button><span><a href=\"#forgot\">J&#x27;ai oublié mon email</a></span></form></div><div class=\"panel border-left-primary\"><h6>👋 Tu viens d&#x27;arriver ?</h6><p>Crée ta fiche Github pour rejoindre la communauté. Tu pourras obtenir une adresse email @<!-- -->beta.gouv.fr<!-- -->.</p><p><a class=\"button\" href=\"/onboarding\" role=\"button\">Créer ma fiche Github</a></p></div><div class=\"panel border-left-primary\" id=\"forgot\"><h6>🆘 Besoin d&#x27;aide ?</h6><ul><li><b>J&#x27;ai oublié mon email pour me connecter :</b> l&#x27;accès à l&#x27;espace membre se fait avec une adresse du service public (@beta.gouv.fr, @pole-emploi.fr...) ou un email secondaire (celui sur lequel tu as reçu tes accès). En cas d&#x27;oubli, demande de l&#x27;aide sur Mattermost <a href=\"https://mattermost.incubateur.net/betagouv/channels/incubateur-help\" target=\"_blank\" title=\"Lien vers le channel secretariat sur Mattermost\">~incubateur-help</a></li><li><b>Je n&#x27;arrive pas à accéder à mes emails :</b> <a href=\"https://doc.incubateur.net/communaute/travailler-a-beta-gouv/jutilise-les-outils-de-la-communaute/emails#2.-configurer-la-reception-et-lenvoi-demails\" target=\"_blank\" title=\"lien vers la documentation pour se connecter à sa boite mail\">configure ton client webmail</a>.</li></ul></div></div><footer id=\"footer\"><div><img class=\"footer-octocat\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAA5klEQVQ4jc3QMUuCURTG8V8tNQRGY45BS01OfQHH8EMEbUJ9iQga+yAFKo42BI3RYkRQkxKuCba9DZ6LF3nT3DxwuNzn+Z9zzz2sU3TwgrMFzHkw7TLzG0VkD/3QxnjFY+aPyxq8ZcCy/ExFm3HuYWvJF/PYwX4uXK/wespb2MjGPwzjHu+o4ST8JzwH04i6DxykCSZRfPGP8S+D/cnFUYiVuHdKCpO2G+yI2RIf4kyLLEoaFHNMLzePTb9xtXh6cBPs0bxRxxfucIoqtiOrpstrBVP/q3sFTXQxjJcmGITWNNvTmsQvxG9Kly7hW/kAAAAASUVORK5CYII=\"/><a href=\"https://github.com/betagouv/secretariat/\" target=\"_blank\">Code source de l&#x27;espace membre</a></div></footer></section></main></div>\n        <script>\n              window.__INITIAL_PROPS__ = {\"request\":{\"query\":{\"next\":\"/\"}},\"errors\":[],\"messages\":[],\"domain\":\"beta.gouv.fr\",\"next\":\"?next=/\"}\n            </script>\n        <script src=\"/static/scripts/hashtoparam.js\"></script>\n      </body>\n    </html>\n  ",
+      "ip": "5.104.101.30",
+      "timestamp": "2023-11-26T09:28:45.630881428Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://espace-membre.incubateur.net'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/technologies/waf-detect.yaml",
+      "template-url": "https://templates.nuclei.sh/public/waf-detect",
+      "template-id": "waf-detect",
+      "template-path": "/home/runner/nuclei-templates/http/technologies/waf-detect.yaml",
+      "info": {
+        "name": "WAF Detection",
+        "author": [
+          "dwisiswant0",
+          "lu4nx"
+        ],
+        "tags": [
+          "waf",
+          "tech",
+          "misc"
+        ],
+        "description": "A web application firewall was detected.",
+        "reference": [
+          "https://github.com/ekultek/whatwaf"
+        ],
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        },
+        "classification": {
+          "cve-id": null,
+          "cwe-id": [
+            "cwe-200"
+          ]
+        }
+      },
+      "matcher-name": "securesphere",
+      "type": "http",
+      "host": "https://espace-membre.incubateur.net",
+      "matched-at": "https://espace-membre.incubateur.net/",
+      "request": "POST / HTTP/1.1\r\nHost: espace-membre.incubateur.net\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nContent-Length: 27\r\nContent-Type: application/x-www-form-urlencoded\r\nAccept-Encoding: gzip\r\n\r\n_=<script>alert(1)</script>",
+      "response": "HTTP/1.1 401 Unauthorized\r\nConnection: close\r\nContent-Length: 139\r\nAccess-Control-Allow-Credentials: true\r\nContent-Security-Policy: default-src 'none'\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 26 Nov 2023 09:29:22 GMT\r\nRatelimit-Limit: 10000\r\nRatelimit-Remaining: 9336\r\nRatelimit-Reset: 23471\r\nStrict-Transport-Security: max-age=31536000\r\nVary: Origin, Accept-Encoding\r\nX-Content-Type-Options: nosniff\r\nX-Powered-By: Express\r\nX-Request-Id: c813312c-a910-4102-ab19-d74427eb25b9\r\n\r\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Unauthorized</pre>\n</body>\n</html>\n",
+      "ip": "5.104.101.30",
+      "timestamp": "2023-11-26T09:29:22.505331368Z",
+      "curl-command": "curl -X 'POST' -d '_=<script>alert(1)</script>' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Host: espace-membre.incubateur.net' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://espace-membre.incubateur.net/'",
+      "matcher-status": true
+    },
+    {
+      "template": "ssl/detect-ssl-issuer.yaml",
+      "template-url": "https://templates.nuclei.sh/public/ssl-issuer",
+      "template-id": "ssl-issuer",
+      "template-path": "/home/runner/nuclei-templates/ssl/detect-ssl-issuer.yaml",
+      "info": {
+        "name": "Detect SSL Certificate Issuer",
+        "author": [
+          "lingtren"
+        ],
+        "tags": [
+          "ssl"
+        ],
+        "description": "Extract the issuer's organization from the target's certificate. Issuers are entities which sign and distribute certificates.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "type": "ssl",
+      "host": "espace-membre.incubateur.net",
+      "matched-at": "espace-membre.incubateur.net:443",
+      "extracted-results": [
+        "Let's Encrypt"
+      ],
+      "ip": "5.104.101.30",
+      "timestamp": "2023-11-26T09:35:13.98446612Z",
+      "matcher-status": true
+    },
+    {
+      "template": "ssl/ssl-dns-names.yaml",
+      "template-url": "https://templates.nuclei.sh/public/ssl-dns-names",
+      "template-id": "ssl-dns-names",
+      "template-path": "/home/runner/nuclei-templates/ssl/ssl-dns-names.yaml",
+      "info": {
+        "name": "SSL DNS Names",
+        "author": [
+          "pdteam"
+        ],
+        "tags": [
+          "ssl"
+        ],
+        "description": "Extract the Subject Alternative Name (SAN) from the target's certificate. SAN facilitates the usage of additional hostnames with the same certificate.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "type": "ssl",
+      "host": "espace-membre.incubateur.net",
+      "matched-at": "espace-membre.incubateur.net:443",
+      "extracted-results": [
+        "espace-membre.incubateur.net"
+      ],
+      "ip": "5.104.101.30",
+      "timestamp": "2023-11-26T09:35:13.984576535Z",
+      "matcher-status": true
+    },
+    {
+      "template": "ssl/tls-version.yaml",
+      "template-url": "https://templates.nuclei.sh/public/tls-version",
+      "template-id": "tls-version",
+      "template-path": "/home/runner/nuclei-templates/ssl/tls-version.yaml",
+      "info": {
+        "name": "TLS Version - Detect",
+        "author": [
+          "pdteam",
+          "pussycat0x"
+        ],
+        "tags": [
+          "ssl"
+        ],
+        "description": "TLS version detection is a security process used to determine the version of the Transport Layer Security (TLS) protocol used by a computer or server.\nIt is important to detect the TLS version in order to ensure secure communication between two computers or servers.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 4
+        }
+      },
+      "type": "ssl",
+      "host": "espace-membre.incubateur.net",
+      "matched-at": "espace-membre.incubateur.net:443",
+      "extracted-results": [
+        "tls12"
+      ],
+      "ip": "5.104.101.30",
+      "timestamp": "2023-11-26T09:35:16.877470157Z",
+      "matcher-status": true
+    },
+    {
+      "template": "ssl/tls-version.yaml",
+      "template-url": "https://templates.nuclei.sh/public/tls-version",
+      "template-id": "tls-version",
+      "template-path": "/home/runner/nuclei-templates/ssl/tls-version.yaml",
+      "info": {
+        "name": "TLS Version - Detect",
+        "author": [
+          "pdteam",
+          "pussycat0x"
+        ],
+        "tags": [
+          "ssl"
+        ],
+        "description": "TLS version detection is a security process used to determine the version of the Transport Layer Security (TLS) protocol used by a computer or server.\nIt is important to detect the TLS version in order to ensure secure communication between two computers or servers.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 4
+        }
+      },
+      "type": "ssl",
+      "host": "espace-membre.incubateur.net",
+      "matched-at": "espace-membre.incubateur.net:443",
+      "extracted-results": [
+        "tls13"
+      ],
+      "ip": "5.104.101.30",
+      "timestamp": "2023-11-26T09:35:17.268759044Z",
+      "matcher-status": true
+    }
+  ]
+]
