@@ -1,7 +1,7 @@
 {
 	"@programName": "ZAP",
 	"@version": "2.14.0",
-	"@generated": "Sun, 3 Dec 2023 05:48:36",
+	"@generated": "Sun, 10 Dec 2023 05:39:03",
 	"site":[ 
 		{
 			"@name": "https://portail-rse.beta.gouv.fr",
@@ -9,6 +9,33 @@
 			"@port": "443",
 			"@ssl": "true",
 			"alerts": [ 
+				{
+					"pluginid": "10062",
+					"alertRef": "10062",
+					"alert": "PII Disclosure",
+					"name": "PII Disclosure",
+					"riskcode": "3",
+					"confidence": "2",
+					"riskdesc": "High (Medium)",
+					"desc": "<p>The response contains Personally Identifiable Information, such as CC number, SSN and similar sensitive data.</p>",
+					"instances":[ 
+						{
+							"uri": "https://portail-rse.beta.gouv.fr/reglementations/rapport-durabilite-csrd",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "2307280747599961",
+							"otherinfo": "Credit Card Type detected: Mastercard"
+						}
+					],
+					"count": "1",
+					"solution": "<p>Check the response for the potential presence of personally identifiable information (PII), ensure nothing sensitive is leaked by the application.</p>",
+					"otherinfo": "<p>Credit Card Type detected: Mastercard</p>",
+					"reference": "",
+					"cweid": "359",
+					"wascid": "13",
+					"sourceid": "126"
+				},
 				{
 					"pluginid": "10038",
 					"alertRef": "10038-1",
@@ -114,7 +141,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/Security/CSP/Introducing_Content_Security_Policy</p><p>https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html</p><p>http://www.w3.org/TR/CSP/</p><p>http://w3c.github.io/webappsec/specs/content-security-policy/csp-specification.dev.html</p><p>http://www.html5rocks.com/en/tutorials/security/content-security-policy/</p><p>http://caniuse.com/#feat=contentsecuritypolicy</p><p>http://content-security-policy.com/</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10098",
@@ -143,7 +170,7 @@
 							"otherinfo": "The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing."
 						},
 						{
-							"uri": "https://portail-rse.beta.gouv.fr/static/dsfr-1.9.0/dsfr/dsfr.nomodule.min.js",
+							"uri": "https://portail-rse.beta.gouv.fr/static/dsfr-1.9.0/dsfr/dsfr.module.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -191,7 +218,7 @@
 							"otherinfo": "The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing."
 						},
 						{
-							"uri": "https://portail-rse.beta.gouv.fr/static/img/droits.png",
+							"uri": "https://portail-rse.beta.gouv.fr/static/img/dashboard.png",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -229,7 +256,7 @@
 					"reference": "<p>https://vulncat.fortify.com/en/detail?id=desc.config.dotnet.html5_overly_permissive_cors_policy</p>",
 					"cweid": "264",
 					"wascid": "14",
-					"sourceid": "71"
+					"sourceid": "72"
 				},
 				{
 					"pluginid": "10010",
@@ -282,22 +309,6 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://portail-rse.beta.gouv.fr/connexion?next=/reglementations",
-							"method": "GET",
-							"param": "csrftoken",
-							"attack": "",
-							"evidence": "Set-Cookie: csrftoken",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://portail-rse.beta.gouv.fr/connexion?next=/simulation",
-							"method": "GET",
-							"param": "csrftoken",
-							"attack": "",
-							"evidence": "Set-Cookie: csrftoken",
-							"otherinfo": ""
-						},
-						{
 							"uri": "https://portail-rse.beta.gouv.fr/connexion?next=/sitemap.xml",
 							"method": "GET",
 							"param": "csrftoken",
@@ -336,6 +347,22 @@
 							"attack": "",
 							"evidence": "Set-Cookie: csrftoken",
 							"otherinfo": ""
+						},
+						{
+							"uri": "https://portail-rse.beta.gouv.fr/connexion",
+							"method": "POST",
+							"param": "csrftoken",
+							"attack": "",
+							"evidence": "Set-Cookie: csrftoken",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://portail-rse.beta.gouv.fr/contact",
+							"method": "POST",
+							"param": "csrftoken",
+							"attack": "",
+							"evidence": "Set-Cookie: csrftoken",
+							"otherinfo": ""
 						}
 					],
 					"count": "12",
@@ -344,7 +371,7 @@
 					"reference": "<p>https://owasp.org/www-community/HttpOnly</p>",
 					"cweid": "1004",
 					"wascid": "13",
-					"sourceid": "45"
+					"sourceid": "47"
 				},
 				{
 					"pluginid": "10011",
@@ -397,22 +424,6 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://portail-rse.beta.gouv.fr/connexion?next=/reglementations",
-							"method": "GET",
-							"param": "csrftoken",
-							"attack": "",
-							"evidence": "Set-Cookie: csrftoken",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://portail-rse.beta.gouv.fr/connexion?next=/simulation",
-							"method": "GET",
-							"param": "csrftoken",
-							"attack": "",
-							"evidence": "Set-Cookie: csrftoken",
-							"otherinfo": ""
-						},
-						{
 							"uri": "https://portail-rse.beta.gouv.fr/connexion?next=/sitemap.xml",
 							"method": "GET",
 							"param": "csrftoken",
@@ -451,6 +462,22 @@
 							"attack": "",
 							"evidence": "Set-Cookie: csrftoken",
 							"otherinfo": ""
+						},
+						{
+							"uri": "https://portail-rse.beta.gouv.fr/connexion",
+							"method": "POST",
+							"param": "csrftoken",
+							"attack": "",
+							"evidence": "Set-Cookie: csrftoken",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://portail-rse.beta.gouv.fr/contact",
+							"method": "POST",
+							"param": "csrftoken",
+							"attack": "",
+							"evidence": "Set-Cookie: csrftoken",
+							"otherinfo": ""
 						}
 					],
 					"count": "12",
@@ -459,7 +486,7 @@
 					"reference": "<p>https://owasp.org/www-project-web-security-testing-guide/v41/4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.html</p>",
 					"cweid": "614",
 					"wascid": "13",
-					"sourceid": "45"
+					"sourceid": "47"
 				},
 				{
 					"pluginid": "10063",
@@ -624,14 +651,6 @@
 							"param": "username",
 							"attack": "",
 							"evidence": "password",
-							"otherinfo": "userParam=username\nuserValue=ZAP\npasswordParam=password\nreferer=https://portail-rse.beta.gouv.fr/connexion?next=/le-delegue-a-la-protection-des-donnees-personnelles@finances.gouv.fr\ncsrfToken=csrfmiddlewaretoken"
-						},
-						{
-							"uri": "https://portail-rse.beta.gouv.fr/connexion",
-							"method": "POST",
-							"param": "username",
-							"attack": "",
-							"evidence": "password",
 							"otherinfo": "userParam=username\nuserValue=ZAP\npasswordParam=password\nreferer=https://portail-rse.beta.gouv.fr/connexion?next=/mentions-legales\ncsrfToken=csrfmiddlewaretoken"
 						},
 						{
@@ -675,13 +694,13 @@
 							"otherinfo": "userParam=email\nuserValue=zaproxy@example.com\npasswordParam=password1\nreferer=https://portail-rse.beta.gouv.fr/creation\ncsrfToken=csrfmiddlewaretoken"
 						}
 					],
-					"count": "12",
+					"count": "11",
 					"solution": "<p>This is an informational alert rather than a vulnerability and so there is nothing to fix.</p>",
 					"otherinfo": "<p>userParam=username</p><p>userValue=ZAP</p><p>passwordParam=password</p><p>referer=https://portail-rse.beta.gouv.fr/connexion</p><p>csrfToken=csrfmiddlewaretoken</p>",
 					"reference": "<p>https://www.zaproxy.org/docs/desktop/addons/authentication-helper/auth-req-id/</p>",
 					"cweid": "-1",
 					"wascid": "-1",
-					"sourceid": "195"
+					"sourceid": "193"
 				},
 				{
 					"pluginid": "10094",
@@ -698,80 +717,72 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "vlADNilPBSTkG1dGX01AUfHZlyD6Ue3E",
-							"otherinfo": "\uFFFDP\\x00036)O\\x0005$\uFFFD\\x001bWF_M@Q\uFFFD\u0657 \uFFFDQ\uFFFD\uFFFD"
+							"evidence": "Y5Ic9hJLLdZz4cLqqT9eG7iJ9ANhMEC6",
+							"otherinfo": "c\uFFFD\\x001c\uFFFD\\x0012K-\uFFFDs\uFFFD\uFFFD\uFFFD?^\\x001b\uFFFD\uFFFD\uFFFD\\x0003a0@\uFFFD"
 						},
 						{
 							"uri": "https://portail-rse.beta.gouv.fr/connexion?next=/cgu",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "a647QmXloSiIIDpcPPKoiYqA0lYM8iuq",
-							"otherinfo": "k\uFFFD;Be\uFFFD(\uFFFD :\\<\uDA60\uDE4A\uFFFD\uFFFDV\\x000c\uFFFD+\uFFFD"
+							"evidence": "Y5Ic9hJLLdZz4cLqqT9eG7iJ9ANhMEC6",
+							"otherinfo": "c\uFFFD\\x001c\uFFFD\\x0012K-\uFFFDs\uFFFD\uFFFD\uFFFD?^\\x001b\uFFFD\uFFFD\uFFFD\\x0003a0@\uFFFD"
 						},
 						{
 							"uri": "https://portail-rse.beta.gouv.fr/connexion?next=/connexion",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "a647QmXloSiIIDpcPPKoiYqA0lYM8iuq",
-							"otherinfo": "k\uFFFD;Be\uFFFD(\uFFFD :\\<\uDA60\uDE4A\uFFFD\uFFFDV\\x000c\uFFFD+\uFFFD"
+							"evidence": "Y5Ic9hJLLdZz4cLqqT9eG7iJ9ANhMEC6",
+							"otherinfo": "c\uFFFD\\x001c\uFFFD\\x0012K-\uFFFDs\uFFFD\uFFFD\uFFFD?^\\x001b\uFFFD\uFFFD\uFFFD\\x0003a0@\uFFFD"
 						},
 						{
 							"uri": "https://portail-rse.beta.gouv.fr/connexion?next=/contact",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "a647QmXloSiIIDpcPPKoiYqA0lYM8iuq",
-							"otherinfo": "k\uFFFD;Be\uFFFD(\uFFFD :\\<\uDA60\uDE4A\uFFFD\uFFFDV\\x000c\uFFFD+\uFFFD"
+							"evidence": "Y5Ic9hJLLdZz4cLqqT9eG7iJ9ANhMEC6",
+							"otherinfo": "c\uFFFD\\x001c\uFFFD\\x0012K-\uFFFDs\uFFFD\uFFFD\uFFFD?^\\x001b\uFFFD\uFFFD\uFFFD\\x0003a0@\uFFFD"
 						},
 						{
 							"uri": "https://portail-rse.beta.gouv.fr/connexion?next=/politique-confidentialite",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "a647QmXloSiIIDpcPPKoiYqA0lYM8iuq",
-							"otherinfo": "k\uFFFD;Be\uFFFD(\uFFFD :\\<\uDA60\uDE4A\uFFFD\uFFFDV\\x000c\uFFFD+\uFFFD"
+							"evidence": "Y5Ic9hJLLdZz4cLqqT9eG7iJ9ANhMEC6",
+							"otherinfo": "c\uFFFD\\x001c\uFFFD\\x0012K-\uFFFDs\uFFFD\uFFFD\uFFFD?^\\x001b\uFFFD\uFFFD\uFFFD\\x0003a0@\uFFFD"
 						},
 						{
 							"uri": "https://portail-rse.beta.gouv.fr/connexion?next=/sitemap.xml",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "a647QmXloSiIIDpcPPKoiYqA0lYM8iuq",
-							"otherinfo": "k\uFFFD;Be\uFFFD(\uFFFD :\\<\uDA60\uDE4A\uFFFD\uFFFDV\\x000c\uFFFD+\uFFFD"
+							"evidence": "Y5Ic9hJLLdZz4cLqqT9eG7iJ9ANhMEC6",
+							"otherinfo": "c\uFFFD\\x001c\uFFFD\\x0012K-\uFFFDs\uFFFD\uFFFD\uFFFD?^\\x001b\uFFFD\uFFFD\uFFFD\\x0003a0@\uFFFD"
 						},
 						{
 							"uri": "https://portail-rse.beta.gouv.fr/contact",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "a647QmXloSiIIDpcPPKoiYqA0lYM8iuq",
-							"otherinfo": "k\uFFFD;Be\uFFFD(\uFFFD :\\<\uDA60\uDE4A\uFFFD\uFFFDV\\x000c\uFFFD+\uFFFD"
-						},
-						{
-							"uri": "https://portail-rse.beta.gouv.fr/creation",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "a647QmXloSiIIDpcPPKoiYqA0lYM8iuq",
-							"otherinfo": "k\uFFFD;Be\uFFFD(\uFFFD :\\<\uDA60\uDE4A\uFFFD\uFFFDV\\x000c\uFFFD+\uFFFD"
+							"evidence": "Y5Ic9hJLLdZz4cLqqT9eG7iJ9ANhMEC6",
+							"otherinfo": "c\uFFFD\\x001c\uFFFD\\x0012K-\uFFFDs\uFFFD\uFFFD\uFFFD?^\\x001b\uFFFD\uFFFD\uFFFD\\x0003a0@\uFFFD"
 						},
 						{
 							"uri": "https://portail-rse.beta.gouv.fr/mot-de-passe-oublie",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "a647QmXloSiIIDpcPPKoiYqA0lYM8iuq",
-							"otherinfo": "k\uFFFD;Be\uFFFD(\uFFFD :\\<\uDA60\uDE4A\uFFFD\uFFFDV\\x000c\uFFFD+\uFFFD"
+							"evidence": "Y5Ic9hJLLdZz4cLqqT9eG7iJ9ANhMEC6",
+							"otherinfo": "c\uFFFD\\x001c\uFFFD\\x0012K-\uFFFDs\uFFFD\uFFFD\uFFFD?^\\x001b\uFFFD\uFFFD\uFFFD\\x0003a0@\uFFFD"
 						},
 						{
 							"uri": "https://portail-rse.beta.gouv.fr/simulation",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "gHAK9zAPd2ALxPxjMLXkXE4QqovgkIwb",
-							"otherinfo": "\uFFFDp\n\uFFFD0\\x000fw`\\x000b\uFFFD\uFFFDc0\uFFFD\uFFFD\\N\\x0010\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\\x001b"
+							"evidence": "Y5Ic9hJLLdZz4cLqqT9eG7iJ9ANhMEC6",
+							"otherinfo": "c\uFFFD\\x001c\uFFFD\\x0012K-\uFFFDs\uFFFD\uFFFD\uFFFD?^\\x001b\uFFFD\uFFFD\uFFFD\\x0003a0@\uFFFD"
 						},
 						{
 							"uri": "https://portail-rse.beta.gouv.fr/static/dsfr-1.9.0/dsfr/dsfr.min.css",
@@ -788,15 +799,23 @@
 							"attack": "",
 							"evidence": "com/Financial-Times/polyfill-service/issues/317",
 							"otherinfo": "r\uFFFD\uFFFD\\x0016)\u069D\u021A\uFFFD\uFFFD\uFFFD\uFFFD?\uFFFD\uFFFDr~)e\uFFFD\u01EB\uFFFD'\\x001e\uFFFD+,\uFFFD\uFFFD?\uFFFD^"
+						},
+						{
+							"uri": "https://portail-rse.beta.gouv.fr/contact",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "Y5Ic9hJLLdZz4cLqqT9eG7iJ9ANhMEC6",
+							"otherinfo": "c\uFFFD\\x001c\uFFFD\\x0012K-\uFFFDs\uFFFD\uFFFD\uFFFD?^\\x001b\uFFFD\uFFFD\uFFFD\\x0003a0@\uFFFD"
 						}
 					],
 					"count": "12",
 					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
-					"otherinfo": "<p>\uFFFDP\\x00036)O\\x0005$\uFFFD\\x001bWF_M@Q\uFFFD\u0657 \uFFFDQ\uFFFD\uFFFD</p>",
+					"otherinfo": "<p>c\uFFFD\\x001c\uFFFD\\x0012K-\uFFFDs\uFFFD\uFFFD\uFFFD?^\\x001b\uFFFD\uFFFD\uFFFD\\x0003a0@\uFFFD</p>",
 					"reference": "<p>https://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "45"
+					"sourceid": "47"
 				},
 				{
 					"pluginid": "10024",
@@ -823,7 +842,7 @@
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "161"
+					"sourceid": "160"
 				},
 				{
 					"pluginid": "10027",
@@ -890,7 +909,7 @@
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "94"
+					"sourceid": "91"
 				},
 				{
 					"pluginid": "10109",
@@ -917,15 +936,23 @@
 							"attack": "",
 							"evidence": "<a href=\"/creation\" target=\"_self\">Inscrivez-vous</a>",
 							"otherinfo": "Links have been found with a target of '_self' - this is often used by modern frameworks to force a full page reload."
+						},
+						{
+							"uri": "https://portail-rse.beta.gouv.fr/simulation",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "<a href=\"/creation\" target=\"_self\">Inscrivez-vous</a>",
+							"otherinfo": "Links have been found with a target of '_self' - this is often used by modern frameworks to force a full page reload."
 						}
 					],
-					"count": "2",
+					"count": "3",
 					"solution": "<p>This is an informational alert and so no changes are required.</p>",
 					"otherinfo": "<p>Links have been found that do not have traditional href attributes, which is an indication that this is a modern web application.</p>",
 					"reference": "",
 					"cweid": "-1",
 					"wascid": "-1",
-					"sourceid": "142"
+					"sourceid": "144"
 				},
 				{
 					"pluginid": "10049",
@@ -952,7 +979,7 @@
 					"reference": "<p>https://datatracker.ietf.org/doc/html/rfc7234</p><p>https://datatracker.ietf.org/doc/html/rfc7231</p><p>https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "45"
+					"sourceid": "47"
 				},
 				{
 					"pluginid": "10015",
@@ -1037,7 +1064,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://portail-rse.beta.gouv.fr/reglementations/bdese",
+							"uri": "https://portail-rse.beta.gouv.fr/simulation",
 							"method": "GET",
 							"param": "cache-control",
 							"attack": "",
@@ -1045,8 +1072,8 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://portail-rse.beta.gouv.fr/simulation",
-							"method": "GET",
+							"uri": "https://portail-rse.beta.gouv.fr/contact",
+							"method": "POST",
 							"param": "cache-control",
 							"attack": "",
 							"evidence": "",
@@ -1059,7 +1086,7 @@
 					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching</p><p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control</p><p>https://grayduck.mn/2021/09/13/cache-control-recommendations/</p>",
 					"cweid": "525",
 					"wascid": "13",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "90005",
@@ -1080,7 +1107,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://portail-rse.beta.gouv.fr/",
+							"uri": "https://portail-rse.beta.gouv.fr/contact",
 							"method": "GET",
 							"param": "Sec-Fetch-Dest",
 							"attack": "",
@@ -1102,7 +1129,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Dest</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "90005",
@@ -1123,7 +1150,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://portail-rse.beta.gouv.fr/",
+							"uri": "https://portail-rse.beta.gouv.fr/contact",
 							"method": "GET",
 							"param": "Sec-Fetch-Mode",
 							"attack": "",
@@ -1145,7 +1172,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Mode</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "90005",
@@ -1166,7 +1193,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://portail-rse.beta.gouv.fr/",
+							"uri": "https://portail-rse.beta.gouv.fr/contact",
 							"method": "GET",
 							"param": "Sec-Fetch-Site",
 							"attack": "",
@@ -1188,7 +1215,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Site</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "90005",
@@ -1209,7 +1236,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://portail-rse.beta.gouv.fr/",
+							"uri": "https://portail-rse.beta.gouv.fr/contact",
 							"method": "GET",
 							"param": "Sec-Fetch-User",
 							"attack": "",
@@ -1231,7 +1258,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-User</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10112",
@@ -1248,7 +1275,7 @@
 							"method": "GET",
 							"param": "csrftoken",
 							"attack": "",
-							"evidence": "vlADNilPBSTkG1dGX01AUfHZlyD6Ue3E",
+							"evidence": "Y5Ic9hJLLdZz4cLqqT9eG7iJ9ANhMEC6",
 							"otherinfo": "\ncookie:csrftoken"
 						},
 						{
@@ -1256,7 +1283,7 @@
 							"method": "GET",
 							"param": "csrftoken",
 							"attack": "",
-							"evidence": "a647QmXloSiIIDpcPPKoiYqA0lYM8iuq",
+							"evidence": "Y5Ic9hJLLdZz4cLqqT9eG7iJ9ANhMEC6",
 							"otherinfo": "\ncookie:csrftoken"
 						},
 						{
@@ -1264,7 +1291,23 @@
 							"method": "GET",
 							"param": "csrftoken",
 							"attack": "",
-							"evidence": "gHAK9zAPd2ALxPxjMLXkXE4QqovgkIwb",
+							"evidence": "Y5Ic9hJLLdZz4cLqqT9eG7iJ9ANhMEC6",
+							"otherinfo": "\ncookie:csrftoken"
+						},
+						{
+							"uri": "https://portail-rse.beta.gouv.fr/connexion?next=/mot-de-passe-oublie",
+							"method": "GET",
+							"param": "csrftoken",
+							"attack": "",
+							"evidence": "Y5Ic9hJLLdZz4cLqqT9eG7iJ9ANhMEC6",
+							"otherinfo": "\ncookie:csrftoken"
+						},
+						{
+							"uri": "https://portail-rse.beta.gouv.fr/connexion?next=/reglementations/dispositif-alerte",
+							"method": "GET",
+							"param": "csrftoken",
+							"attack": "",
+							"evidence": "Y5Ic9hJLLdZz4cLqqT9eG7iJ9ANhMEC6",
 							"otherinfo": "\ncookie:csrftoken"
 						},
 						{
@@ -1272,25 +1315,17 @@
 							"method": "POST",
 							"param": "csrftoken",
 							"attack": "",
-							"evidence": "a647QmXloSiIIDpcPPKoiYqA0lYM8iuq",
-							"otherinfo": "\ncookie:csrftoken"
-						},
-						{
-							"uri": "https://portail-rse.beta.gouv.fr/creation",
-							"method": "POST",
-							"param": "csrftoken",
-							"attack": "",
-							"evidence": "a647QmXloSiIIDpcPPKoiYqA0lYM8iuq",
+							"evidence": "Y5Ic9hJLLdZz4cLqqT9eG7iJ9ANhMEC6",
 							"otherinfo": "\ncookie:csrftoken"
 						}
 					],
-					"count": "5",
+					"count": "6",
 					"solution": "<p>This is an informational alert rather than a vulnerability and so there is nothing to fix.</p>",
 					"otherinfo": "<p></p><p>cookie:csrftoken</p>",
 					"reference": "<p>https://www.zaproxy.org/docs/desktop/addons/authentication-helper/session-mgmt-id</p>",
 					"cweid": "-1",
 					"wascid": "-1",
-					"sourceid": "45"
+					"sourceid": "47"
 				},
 				{
 					"pluginid": "10049",
@@ -1335,6 +1370,14 @@
 							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
 						},
 						{
+							"uri": "https://portail-rse.beta.gouv.fr/mentions-legales",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
+						},
+						{
 							"uri": "https://portail-rse.beta.gouv.fr/politique-confidentialite",
 							"method": "GET",
 							"param": "",
@@ -1359,14 +1402,6 @@
 							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
 						},
 						{
-							"uri": "https://portail-rse.beta.gouv.fr/simulation",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
-						},
-						{
 							"uri": "https://portail-rse.beta.gouv.fr/sitemap.xml",
 							"method": "GET",
 							"param": "",
@@ -1381,9 +1416,17 @@
 							"attack": "",
 							"evidence": "max-age=60",
 							"otherinfo": ""
+						},
+						{
+							"uri": "https://portail-rse.beta.gouv.fr/static/dsfr-1.9.0/favicon/apple-touch-icon.png",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "max-age=60",
+							"otherinfo": ""
 						}
 					],
-					"count": "10",
+					"count": "11",
 					"solution": "<p>Validate that the response does not contain sensitive, personal or user-specific information.  If it does, consider the use of the following HTTP response headers, to limit, or prevent the content being stored and retrieved from the cache by another user:</p><p>Cache-Control: no-cache, no-store, must-revalidate, private</p><p>Pragma: no-cache</p><p>Expires: 0</p><p>This configuration directs both HTTP 1.0 and HTTP 1.1 compliant caching servers to not store the response, and to not retrieve the response (without validation) from the cache, in response to a similar request. </p>",
 					"otherinfo": "<p>In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.</p>",
 					"reference": "<p>https://datatracker.ietf.org/doc/html/rfc7234</p><p>https://datatracker.ietf.org/doc/html/rfc7231</p><p>https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html</p>",
@@ -1474,37 +1517,61 @@
 							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://portail-rse.beta.gouv.fr/connexion?next=/politique-confidentialite\r\n\r\nappears to include user input in: \r\n\r\na(n) [input] tag [value] attribute \r\n\r\nThe user input found was:\r\nnext=/politique-confidentialite\r\n\r\nThe user-controlled value was:\r\n/politique-confidentialite"
 						},
 						{
-							"uri": "https://portail-rse.beta.gouv.fr/connexion?next=/reglementations",
-							"method": "GET",
-							"param": "next",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://portail-rse.beta.gouv.fr/connexion?next=/reglementations\r\n\r\nappears to include user input in: \r\n\r\na(n) [a] tag [href] attribute \r\n\r\nThe user input found was:\r\nnext=/reglementations\r\n\r\nThe user-controlled value was:\r\n/reglementations"
-						},
-						{
-							"uri": "https://portail-rse.beta.gouv.fr/connexion?next=/reglementations",
-							"method": "GET",
-							"param": "next",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://portail-rse.beta.gouv.fr/connexion?next=/reglementations\r\n\r\nappears to include user input in: \r\n\r\na(n) [input] tag [value] attribute \r\n\r\nThe user input found was:\r\nnext=/reglementations\r\n\r\nThe user-controlled value was:\r\n/reglementations"
-						},
-						{
 							"uri": "https://portail-rse.beta.gouv.fr/connexion?next=/sitemap.xml",
 							"method": "GET",
 							"param": "next",
 							"attack": "",
 							"evidence": "",
 							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://portail-rse.beta.gouv.fr/connexion?next=/sitemap.xml\r\n\r\nappears to include user input in: \r\n\r\na(n) [input] tag [value] attribute \r\n\r\nThe user input found was:\r\nnext=/sitemap.xml\r\n\r\nThe user-controlled value was:\r\n/sitemap.xml"
+						},
+						{
+							"uri": "https://portail-rse.beta.gouv.fr/contact",
+							"method": "POST",
+							"param": "email",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://portail-rse.beta.gouv.fr/contact\r\n\r\nappears to include user input in: \r\n\r\na(n) [input] tag [value] attribute \r\n\r\nThe user input found was:\r\nemail=zaproxy@example.com\r\n\r\nThe user-controlled value was:\r\nzaproxy@example.com"
+						},
+						{
+							"uri": "https://portail-rse.beta.gouv.fr/contact",
+							"method": "POST",
+							"param": "subject",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://portail-rse.beta.gouv.fr/contact\r\n\r\nappears to include user input in: \r\n\r\na(n) [input] tag [value] attribute \r\n\r\nThe user input found was:\r\nsubject=Zaproxy dolore alias impedit expedita quisquam.\r\n\r\nThe user-controlled value was:\r\nzaproxy dolore alias impedit expedita quisquam."
+						},
+						{
+							"uri": "https://portail-rse.beta.gouv.fr/contact",
+							"method": "POST",
+							"param": "sum",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://portail-rse.beta.gouv.fr/contact\r\n\r\nappears to include user input in: \r\n\r\na(n) [input] tag [value] attribute \r\n\r\nThe user input found was:\r\nsum=ZAP\r\n\r\nThe user-controlled value was:\r\nzap"
+						},
+						{
+							"uri": "https://portail-rse.beta.gouv.fr/contact",
+							"method": "POST",
+							"param": "sum",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://portail-rse.beta.gouv.fr/contact\r\n\r\nappears to include user input in: \r\n\r\na(n) [input] tag [value] attribute \r\n\r\nThe user input found was:\r\nsum=ZAP\r\n\r\nThe user-controlled value was:\r\nzaproxy dolore alias impedit expedita quisquam."
+						},
+						{
+							"uri": "https://portail-rse.beta.gouv.fr/contact",
+							"method": "POST",
+							"param": "sum",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\r\n\r\nhttps://portail-rse.beta.gouv.fr/contact\r\n\r\nappears to include user input in: \r\n\r\na(n) [input] tag [value] attribute \r\n\r\nThe user input found was:\r\nsum=ZAP\r\n\r\nThe user-controlled value was:\r\nzaproxy@example.com"
 						}
 					],
-					"count": "12",
+					"count": "15",
 					"solution": "<p>Validate all input and sanitize output it before writing to any HTML attributes.</p>",
 					"otherinfo": "<p>User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:</p><p></p><p>https://portail-rse.beta.gouv.fr/connexion?next=/cgu</p><p></p><p>appears to include user input in: </p><p></p><p>a(n) [a] tag [href] attribute </p><p></p><p>The user input found was:</p><p>next=/cgu</p><p></p><p>The user-controlled value was:</p><p>/cgu</p>",
 					"reference": "<p>http://websecuritytool.codeplex.com/wikipage?title=Checks#user-controlled-html-attribute</p>",
 					"cweid": "20",
 					"wascid": "20",
-					"sourceid": "107"
+					"sourceid": "113"
 				}
 			]
 		}
