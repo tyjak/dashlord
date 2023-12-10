@@ -1,7 +1,7 @@
 {
 	"@programName": "ZAP",
 	"@version": "2.14.0",
-	"@generated": "Sun, 3 Dec 2023 09:55:24",
+	"@generated": "Sun, 10 Dec 2023 09:43:27",
 	"site":[ 
 		{
 			"@name": "https://espace-membre.incubateur.net",
@@ -9,65 +9,6 @@
 			"@port": "443",
 			"@ssl": "true",
 			"alerts": [ 
-				{
-					"pluginid": "10202",
-					"alertRef": "10202",
-					"alert": "Absence of Anti-CSRF Tokens",
-					"name": "Absence of Anti-CSRF Tokens",
-					"riskcode": "2",
-					"confidence": "1",
-					"riskdesc": "Medium (Low)",
-					"desc": "<p>No Anti-CSRF tokens were found in a HTML submission form.</p><p>A cross-site request forgery is an attack that involves forcing a victim to send an HTTP request to a target destination without their knowledge or intent in order to perform an action as the victim. The underlying cause is application functionality using predictable URL/form actions in a repeatable way. The nature of the attack is that CSRF exploits the trust that a web site has for a user. By contrast, cross-site scripting (XSS) exploits the trust that a user has for a web site. Like XSS, CSRF attacks are not necessarily cross-site, but they can be. Cross-site request forgery is also known as CSRF, XSRF, one-click attack, session riding, confused deputy, and sea surf.</p><p></p><p>CSRF attacks are effective in a number of situations, including:</p><p>    * The victim has an active session on the target site.</p><p>    * The victim is authenticated via HTTP auth on the target site.</p><p>    * The victim is on the same local network as the target site.</p><p></p><p>CSRF has primarily been used to perform an action against a target site using the victim's privileges, but recent techniques have been discovered to disclose information by gaining access to the response. The risk of information disclosure is dramatically increased when the target site is vulnerable to XSS, because XSS can be used as a platform for CSRF, allowing the attack to operate within the bounds of the same-origin policy.</p>",
-					"instances":[ 
-						{
-							"uri": "https://espace-membre.incubateur.net",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<form action=\"/login?next=/\" method=\"POST\" id=\"login_form\">",
-							"otherinfo": "No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"emailInput\" ]."
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/login?next=/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<form action=\"/login?next=/\" method=\"POST\" id=\"login_form\">",
-							"otherinfo": "No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"emailInput\" ]."
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/login?next=/robots.txt",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<form action=\"/login?next=/robots.txt\" method=\"POST\" id=\"login_form\">",
-							"otherinfo": "No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"emailInput\" ]."
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/login?next=/sitemap.xml",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<form action=\"/login?next=/sitemap.xml\" method=\"POST\" id=\"login_form\">",
-							"otherinfo": "No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"emailInput\" ]."
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/onboarding",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "<form action=\"/onboarding\" method=\"POST\">",
-							"otherinfo": "No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"averageNbOfDays\" \"email\" \"employer\" \"end\" \"firstName\" \"github\" \"input-insee-code\" \"input-osm-city\" \"lastName\" \"legal_status\" \"memberType\" \"referent\" \"role\" \"start\" \"startup\" \"status\" \"tjm\" \"website\" ]."
-						}
-					],
-					"count": "5",
-					"solution": "<p>Phase: Architecture and Design</p><p>Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid.</p><p>For example, use anti-CSRF packages such as the OWASP CSRFGuard.</p><p></p><p>Phase: Implementation</p><p>Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.</p><p></p><p>Phase: Architecture and Design</p><p>Generate a unique nonce for each form, place the nonce into the form, and verify the nonce upon receipt of the form. Be sure that the nonce is not predictable (CWE-330).</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Identify especially dangerous operations. When the user performs a dangerous operation, send a separate confirmation request to ensure that the user intended to perform that operation.</p><p>Note that this can be bypassed using XSS.</p><p></p><p>Use the ESAPI Session Management control.</p><p>This control includes a component for CSRF.</p><p></p><p>Do not use the GET method for any request that triggers a state change.</p><p></p><p>Phase: Implementation</p><p>Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.</p>",
-					"otherinfo": "<p>No known Anti-CSRF token [anticsrf, CSRFToken, __RequestVerificationToken, csrfmiddlewaretoken, authenticity_token, OWASP_CSRFTOKEN, anoncsrf, csrf_token, _csrf, _csrfSecret, __csrf_magic, CSRF, _token, _csrf_token] was found in the following HTML form: [Form 1: \"emailInput\" ].</p>",
-					"reference": "<p>http://projects.webappsec.org/Cross-Site-Request-Forgery</p><p>https://cwe.mitre.org/data/definitions/352.html</p>",
-					"cweid": "352",
-					"wascid": "9",
-					"sourceid": "1"
-				},
 				{
 					"pluginid": "10038",
 					"alertRef": "10038-1",
@@ -87,7 +28,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/login?next=/",
+							"uri": "https://espace-membre.incubateur.net/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -95,7 +36,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/login?next=/robots.txt",
+							"uri": "https://espace-membre.incubateur.net/robots.txt",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -103,15 +44,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/login?next=/sitemap.xml",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/onboarding",
+							"uri": "https://espace-membre.incubateur.net/sitemap.xml",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -119,7 +52,7 @@
 							"otherinfo": ""
 						}
 					],
-					"count": "5",
+					"count": "4",
 					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to set the Content-Security-Policy header.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/Security/CSP/Introducing_Content_Security_Policy</p><p>https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html</p><p>http://www.w3.org/TR/CSP/</p><p>http://w3c.github.io/webappsec/specs/content-security-policy/csp-specification.dev.html</p><p>http://www.html5rocks.com/en/tutorials/security/content-security-policy/</p><p>http://caniuse.com/#feat=contentsecuritypolicy</p><p>http://content-security-policy.com/</p>",
@@ -146,31 +79,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/login?next=/",
-							"method": "GET",
-							"param": "x-frame-options",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/login?next=/robots.txt",
-							"method": "GET",
-							"param": "x-frame-options",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/login?next=/sitemap.xml",
-							"method": "GET",
-							"param": "x-frame-options",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/onboarding",
+							"uri": "https://espace-membre.incubateur.net/",
 							"method": "GET",
 							"param": "x-frame-options",
 							"attack": "",
@@ -178,7 +87,7 @@
 							"otherinfo": ""
 						}
 					],
-					"count": "5",
+					"count": "2",
 					"solution": "<p>Modern Web browsers support the Content-Security-Policy and X-Frame-Options HTTP headers. Ensure one of them is set on all web pages returned by your site/app.</p><p>If you expect the page to be framed only by pages on your server (e.g. it's part of a FRAMESET) then you'll want to use SAMEORIGIN, otherwise if you never expect the page to be framed, you should use DENY. Alternatively consider implementing Content Security Policy's \"frame-ancestors\" directive.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options</p>",
@@ -205,7 +114,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/login?next=/",
+							"uri": "https://espace-membre.incubateur.net/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -213,7 +122,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/login?next=/robots.txt",
+							"uri": "https://espace-membre.incubateur.net/_next/static/chunks/7864-ee6856752340654b.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -221,7 +130,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/login?next=/sitemap.xml",
+							"uri": "https://espace-membre.incubateur.net/_next/static/chunks/fd9d1056-79d60c643979453d.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -229,7 +138,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/onboarding",
+							"uri": "https://espace-membre.incubateur.net/_next/static/chunks/main-app-b293fc524a5ae80a.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -237,7 +146,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/public/js/Home.js?1.0.0",
+							"uri": "https://espace-membre.incubateur.net/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -245,7 +154,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/public/js/shared.js",
+							"uri": "https://espace-membre.incubateur.net/_next/static/chunks/webpack-2cfb3289b3d8e0c2.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -253,7 +162,15 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/static/scripts/hashtoparam.js",
+							"uri": "https://espace-membre.incubateur.net/robots.txt",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://espace-membre.incubateur.net/sitemap.xml",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -261,7 +178,7 @@
 							"otherinfo": ""
 						}
 					],
-					"count": "8",
+					"count": "9",
 					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to set the Permissions-Policy header.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy</p><p>https://developer.chrome.com/blog/feature-policy/</p><p>https://scotthelme.co.uk/a-new-security-header-feature-policy/</p><p>https://w3c.github.io/webappsec-feature-policy/</p><p>https://www.smashingmagazine.com/2018/12/feature-policy/</p>",
@@ -284,7 +201,7 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "X-Powered-By: Express",
+							"evidence": "X-Powered-By: Next.js",
 							"otherinfo": ""
 						},
 						{
@@ -292,39 +209,7 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "X-Powered-By: Express",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/login?next=/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "X-Powered-By: Express",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/react-markdown-editor-lite/index.css",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "X-Powered-By: Express",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/react-tabulator/styles.css",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "X-Powered-By: Express",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/react-tabulator/tabulator.min.css",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "X-Powered-By: Express",
+							"evidence": "X-Powered-By: Next.js",
 							"otherinfo": ""
 						},
 						{
@@ -332,49 +217,25 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "X-Powered-By: Express",
+							"evidence": "X-Powered-By: Next.js",
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/static/favicon/apple-touch-icon.png",
+							"uri": "https://espace-membre.incubateur.net/sitemap.xml",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "X-Powered-By: Express",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/static/favicon/favicon-16x16.png",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "X-Powered-By: Express",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/static/favicon/favicon-32x32.png",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "X-Powered-By: Express",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/static/favicon/site.webmanifest",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "X-Powered-By: Express",
+							"evidence": "X-Powered-By: Next.js",
 							"otherinfo": ""
 						}
 					],
-					"count": "11",
+					"count": "4",
 					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to suppress \"X-Powered-By\" headers.</p>",
 					"otherinfo": "",
 					"reference": "<p>http://blogs.msdn.com/b/varunm/archive/2013/04/23/remove-unwanted-http-response-headers.aspx</p><p>http://www.troyhunt.com/2012/02/shhh-dont-let-your-response-headers.html</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10021",
@@ -395,7 +256,7 @@
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/login?next=/",
+							"uri": "https://espace-membre.incubateur.net/",
 							"method": "GET",
 							"param": "x-content-type-options",
 							"attack": "",
@@ -403,7 +264,7 @@
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/react-datepicker/react-datepicker.css",
+							"uri": "https://espace-membre.incubateur.net/_next/static/chunks/7864-ee6856752340654b.js",
 							"method": "GET",
 							"param": "x-content-type-options",
 							"attack": "",
@@ -411,7 +272,7 @@
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/react-markdown-editor-lite/index.css",
+							"uri": "https://espace-membre.incubateur.net/_next/static/chunks/main-app-b293fc524a5ae80a.js",
 							"method": "GET",
 							"param": "x-content-type-options",
 							"attack": "",
@@ -419,7 +280,7 @@
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/react-tabulator/styles.css",
+							"uri": "https://espace-membre.incubateur.net/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js",
 							"method": "GET",
 							"param": "x-content-type-options",
 							"attack": "",
@@ -427,7 +288,7 @@
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/react-tabulator/tabulator.min.css",
+							"uri": "https://espace-membre.incubateur.net/_next/static/chunks/webpack-2cfb3289b3d8e0c2.js",
 							"method": "GET",
 							"param": "x-content-type-options",
 							"attack": "",
@@ -435,7 +296,7 @@
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/static/css/main.css",
+							"uri": "https://espace-membre.incubateur.net/_next/static/css/1b1d10445b60e5f7.css",
 							"method": "GET",
 							"param": "x-content-type-options",
 							"attack": "",
@@ -443,7 +304,7 @@
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/static/favicon/apple-touch-icon.png",
+							"uri": "https://espace-membre.incubateur.net/_next/static/media/apple-touch-icon.1db30588.png",
 							"method": "GET",
 							"param": "x-content-type-options",
 							"attack": "",
@@ -451,7 +312,7 @@
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/static/favicon/favicon-16x16.png",
+							"uri": "https://espace-membre.incubateur.net/_next/static/media/favicon.8c087985.ico",
 							"method": "GET",
 							"param": "x-content-type-options",
 							"attack": "",
@@ -459,7 +320,7 @@
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/static/favicon/favicon-32x32.png",
+							"uri": "https://espace-membre.incubateur.net/_next/static/media/favicon.f453a8cf.svg",
 							"method": "GET",
 							"param": "x-content-type-options",
 							"attack": "",
@@ -467,15 +328,7 @@
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/static/favicon/site.webmanifest",
-							"method": "GET",
-							"param": "x-content-type-options",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/static/scripts/hashtoparam.js",
+							"uri": "https://espace-membre.incubateur.net/favicon.ico",
 							"method": "GET",
 							"param": "x-content-type-options",
 							"attack": "",
@@ -483,7 +336,7 @@
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
 						}
 					],
-					"count": "12",
+					"count": "11",
 					"solution": "<p>Ensure that the application/web server sets the Content-Type header appropriately, and that it sets the X-Content-Type-Options header to 'nosniff' for all web pages.</p><p>If possible, ensure that the end user uses a standards-compliant and modern web browser that does not perform MIME-sniffing at all, or that can be directed by the web application/web server to not perform MIME-sniffing.</p>",
 					"otherinfo": "<p>This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.</p><p>At \"High\" threshold this scan rule will not alert on client or server error responses.</p>",
 					"reference": "<p>http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx</p><p>https://owasp.org/www-community/Security_Headers</p>",
@@ -506,101 +359,45 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "3AKAmsTgCoCfZeQgBkNKZciip_1lncuxcq",
-							"otherinfo": "\uFFFD\\x0002\uFFFD\uFFFD\uFFFD\uFFFD\n\uFFFD\uFFFDe\uFFFD \\x0006CJe\u0222\uFFFD\uFFFDe\uFFFD\u02F1r"
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "3AfXAZzoLT5Lg7TmeAxekDmOH1VpysQce0",
-							"otherinfo": "\uFFFD\\x0007\uFFFD\\x0001\uFFFD\uFFFD->K\uFFFD\uFFFD\uFFFDx\\x000c^\uFFFD9\uFFFD\\x001fUi\uFFFD\uFFFD\\x001c{"
+							"evidence": "fr-header-header-with-quick-access-items-quick-access-item--Seconnecter_mobile-0",
+							"otherinfo": "~\uFFFD\uFFFDy\uFFFD^\uFFFD\uFFFD^i\u05EB\uFFFD\\x0008\uFFFD\uFFFD\uAB89\uFFFD>i\uFFFD\\x001e\uFFFD\u03E2\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDrO\uFFFDq\u01EC\uFFFD\uFFFDzo\uFFFDI\uFFFD(\uFFFDw\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD"
 						},
 						{
 							"uri": "https://espace-membre.incubateur.net/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "3AfXAZzoLT5Lg7TmeAxekDmOH1VpysQce0",
-							"otherinfo": "\uFFFD\\x0007\uFFFD\\x0001\uFFFD\uFFFD->K\uFFFD\uFFFD\uFFFDx\\x000c^\uFFFD9\uFFFD\\x001fUi\uFFFD\uFFFD\\x001c{"
+							"evidence": "fr-header-header-with-quick-access-items-quick-access-item--Seconnecter_mobile-0",
+							"otherinfo": "~\uFFFD\uFFFDy\uFFFD^\uFFFD\uFFFD^i\u05EB\uFFFD\\x0008\uFFFD\uFFFD\uAB89\uFFFD>i\uFFFD\\x001e\uFFFD\u03E2\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDrO\uFFFDq\u01EC\uFFFD\uFFFDzo\uFFFDI\uFFFD(\uFFFDw\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD"
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/login?next=/",
+							"uri": "https://espace-membre.incubateur.net/_next/static/css/6a118d9ecb787fda.css",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "3AfXAZzoLT5Lg7TmeAxekDmOH1VpysQce0",
-							"otherinfo": "\uFFFD\\x0007\uFFFD\\x0001\uFFFD\uFFFD->K\uFFFD\uFFFD\uFFFDx\\x000c^\uFFFD9\uFFFD\\x001fUi\uFFFD\uFFFD\\x001c{"
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/login?next=/robots.txt",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "3AfXAZzoLT5Lg7TmeAxekDmOH1VpysQce0",
-							"otherinfo": "\uFFFD\\x0007\uFFFD\\x0001\uFFFD\uFFFD->K\uFFFD\uFFFD\uFFFDx\\x000c^\uFFFD9\uFFFD\\x001fUi\uFFFD\uFFFD\\x001c{"
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/public/js/Home.js?1.0.0",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAA5klEQVQ4jc3QMUuCURTG8V8tNQRGY45BS01OfQHH8EMEbUJ9iQga+yAFKo42BI3RYkRQkxKuCba9DZ6LF3nT3DxwuNzn+Z9zzz2sU3TwgrMFzHkw7TLzG0VkD/3QxnjFY+aPyxq8ZcCy/ExFm3HuYWvJF/PYwX4uXK/wespb2MjGPwzjHu+o4ST8JzwH04i6DxykCSZRfPGP8S+D/cnFUYiVuHdKCpO2G+yI2RIf4kyLLEoaFHNMLzePTb9xtXh6cBPs0bxRxxfucIoqtiOrpstrBVP/q3sFTXQxjJcmGITWNNvTmsQvxG9Kly7hW/kAAAAASUVORK5CYII=",
-							"otherinfo": "\uFFFDPNG\r\n\\x001a\n\\x0000\\x0000\\x0000\rIHDR\\x0000\\x0000\\x0000\\x0010\\x0000\\x0000\\x0000\\x0010\\x0008\\x0006\\x0000\\x0000\\x0000\\x001f\uFFFD\uFFFDa\\x0000\\x0000\\x0000\\x0006bKGD\\x0000\uFFFD\\x0000\uFFFD\\x0000\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\\x0000\\x0000\\x0000\uFFFDIDAT8\uFFFD\uFFFD\uFFFD1K\uFFFDQ\\x0014\uFFFD\uFFFD_-5\\x0004Fc\uFFFDAKMN}\\x0001\uFFFD\uFFFDC\\x0004mB}\uFFFD\\x0008\\x001a\uFFFD \\x0005*\uFFFD6\\x0004\uFFFD\uFFFDbDP\uFFFD\\x0012\uFFFD\t\uFFFD\uFFFD\r\uFFFD\uFFFD\\x0017y\uFFFD\uFFFD<p\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDs\uFFFD=\uFFFDSt\uFFFD\uFFFD\uFFFD\\x0005\uFFFDy0\uFFFD2\uFFFD\\x001bEd\\x000f\uFFFD\uFFFD\uFFFDx\uFFFDc\uFFFD\uFFFD\\x001a\uFFFDe\uFFFD\uFFFD\uFFFDLE\uFFFDq\uFFFDak\uFFFD\\x0017\uFFFD\uFFFD\uFFFD~.\\\uFFFD\uFFFDz\uFFFD[\uFFFD\uFFFD\uFFFD?\\x000c\uFFFD\\x001e\uFFFD\uFFFD$\uFFFD'<\\x0007\u04C8\uFFFD\\x000f\\x001c\uFFFD\t&Q|\uFFFD\uFFFD/\uFFFD\uFFFD\uFFFD\uFFFDQ\uFFFD\uFFFD\uFFFDwJ\n\uFFFD\uFFFD\\x001b\uFFFD\uFFFD\\x0012\\x001f\uFFFDL\uFFFD,J\\x001a\\x0014sL/7\uFFFDM\uFFFDq\uFFFDxzp\\x0013\uFFFD\u047CQ\uFFFD\\x0017\uFFFDp\uFFFD*\uFFFD#\uFFFD\uFFFD\uFFFDk\\x0005S\uFFFD\uFFFD{\\x0005Mt1\uFFFD\uFFFD&\\x0018\uFFFD\uFFFD4\uFFFD\u04DA\uFFFD/\uFFFDoJ\uFFFD.\uFFFD[\uFFFD\\x0000\\x0000\\x0000\\x0000IEND\uFFFDB`\uFFFD"
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/react-markdown-editor-lite/index.css",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "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NS4BJyMOAd0VGwEBGxWRFRsbFWEcFBQcYRUbGxWRFRsBARsCK2EVGxsVkRUbAQEbKRySARsVYRwpGwEBGxWRFRsBHwEbFZEVGwEBGykcYRUbwwEbFWEcKRsBARsVkRUb/qscKRsBARsVkRUbGxUBtRQcYRUbGxWRFRsBARsAAAAAAAASAN4AAQAAAAAAAAAVAAAAAQAAAAAAAQANABUAAQAAAAAAAgAHACIAAQAAAAAAAwANACkAAQAAAAAABAANADYAAQAAAAAABQALAEMAAQAAAAAABgANAE4AAQAAAAAACgArAFsAAQAAAAAACwATAIYAAwABBAkAAAAqAJkAAwABBAkAAQAaAMMAAwABBAkAAgAOAN0AAwABBAkAAwAaAOsAAwABBAkABAAaAQUAAwABBAkABQAWAR8AAwABBAkABgAaATUAAwABBAkACgBWAU8AAwABBAkACwAmAaUKQ3JlYXRlZCBieSBpY29uZm9udApybWVsLWljb25mb250UmVndWxhcnJtZWwtaWNvbmZvbnRybWVsLWljb25mb250VmVyc2lvbiAxLjBybWVsLWljb25mb250R2VuZXJhdGVkIGJ5IHN2ZzJ0dGYgZnJvbSBGb250ZWxsbyBwcm9qZWN0Lmh0dHA6Ly9mb250ZWxsby5jb20ACgBDAHIAZQBhAHQAZQBkACAAYgB5ACAAaQBjAG8AbgBmAG8AbgB0AAoAcgBtAGUAbAAtAGkAYwBvAG4AZgBvAG4AdABSAGUAZwB1AGwAYQByAHIAbQBlAGwALQBpAGMAbwBuAGYAbwBuAHQAcgBtAGUAbAAtAGkAYwBvAG4AZgBvAG4AdABWAGUAcgBzAGkAbwBuACAAMQAuADAAcgBtAGUAbAAtAGkAYwBvAG4AZgBvAG4AdABHAGUAbgBlAHIAYQB0AGUAZAAgAGIAeQAgAHMAdgBnADIAdAB0AGYAIABmAHIAbwBtACAARgBvAG4AdABlAGwAbABvACAAcAByAG8AagBlAGMAdAAuAGgAdAB0AHAAOgAvAC8AZgBvAG4AdABlAGwAbABvAC4AYwBvAG0AAAAAAgAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaAQIBAwEEAQUBBgEHAQgBCQEKAQsBDAENAQ4BDwEQAREBEgETARQBFQEWARcBGAEZARoBGwADdGFiCGtleWJvYXJkBmRlbGV0ZQpjb2RlLWJsb2NrBGNvZGUKdmlzaWJpbGl0eQp2aWV3LXNwbGl0BGxpbmsEcmVkbwR1bmRvBGJvbGQGaXRhbGljDGxpc3Qtb3JkZXJlZA5saXN0LXVub3JkZXJlZAVxdW90ZQ1zdHJpa2V0aHJvdWdoCXVuZGVybGluZQR3cmFwCWZvbnQtc2l6ZQRncmlkBWltYWdlC2V4cGFuZC1sZXNzC2V4cGFuZC1tb3JlD2Z1bGxzY3JlZW4tZXhpdApmdWxsc2NyZWVuAAAAAAA=",
-							"otherinfo": "|\\x0019\\x0000\\x0000\uFFFD\\x0018\\x0000\\x0000\\x0001\\x0000\\x0002\\x0000\\x0000\\x0000\\x0000\\x0000\\x0002\\x0000\\x0005\\x0003\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0001\\x0000\uFFFD\\x0001\\x0000\\x0000\\x0000\\x0000LP\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0001\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0007\uFFFD\uFFFD\uFFFD\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x001a\\x0000r\\x0000m\\x0000e\\x0000l\\x0000-\\x0000i\\x0000c\\x0000o\\x0000n\\x0000f\\x0000o\\x0000n\\x0000t\\x0000\\x0000\\x0000\\x000e\\x0000R\\x0000e\\x0000g\\x0000u\\x0000l\\x0000a\\x0000r\\x0000\\x0000\\x0000\\x0016\\x0000V\\x0000e\\x0000r\\x0000s\\x0000i\\x0000o\\x0000n\\x0000 \\x00001\\x0000.\\x00000\\x0000\\x0000\\x0000\\x001a\\x0000r\\x0000m\\x0000e\\x0000l\\x0000-\\x0000i\\x0000c\\x0000o\\x0000n\\x0000f\\x0000o\\x0000n\\x0000t\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0001\\x0000\\x0000\\x0000\\x000b\\x0000\uFFFD\\x0000\\x0003\\x00000GSUB\uFFFD\uFFFD\uFFFD\uFFFD\\x0000\\x0000\\x00018\\x0000\\x0000\\x0000BOS/2=\uFFFDO\uFFFD\\x0000\\x0000\\x0001|\\x0000\\x0000\\x0000Vcmap@\uFFFD]\\x0000\\x0000\\x0002<\\x0000\\x0000\\x0003\\x0008glyf0\uFFFD\uFFFDm\\x0000\\x0000\\x0005|\\x0000\\x0000\\x000f`head\\x001bP\uFFFDO\\x0000\\x0000\\x0000\uFFFD\\x0000\\x0000\\x00006hhea\\x0007\uFFFD\\x0003\uFFFD\\x0000\\x0000\\x0000\uFFFD\\x0000\\x0000\\x0000$hmtxh\\x0000\\x0000\\x0000\\x0000\\x0000\\x0001\uFFFD\\x0000\\x0000\\x0000hloca5\uFFFD2\\x0000\\x0000\\x0000\\x0005D\\x0000\\x0000\\x00006maxp\\x00010\\x0000{\\x0000\\x0000\\x0001\\x0018\\x0000\\x0000\\x0000 names\uFFFD\uFFFD\uFFFD\\x0000\\x0000\\x0014\uFFFD\\x0000\\x0000\\x0002\uFFFDpost')\uFFFD\uFFFD\\x0000\\x0000\\x0017\uFFFD\\x0000\\x0000\\x00015\\x0000\\x0001\\x0000\\x0000\\x0003\uFFFD\uFFFD\uFFFD\\x0000\\\\x0004\\x0000\\x0000\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0001\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x001a\\x0000\\x0001\\x0000\\x0000\\x0000\\x0001\\x0000\\x0000\uFFFD\uFFFD\uFFFD\\x0007_\\x000f<\uFFFD\\x0000\\x000b\\x0004\\x0000\\x0000\\x0000\\x0000\\x0000\uFFFD\\x0018\uFFFD)\\x0000\\x0000\\x0000\\x0000\uFFFD\\x0018\uFFFD)\\x0000\\x0000\uFFFD\uFFFD\\x0004\\x0000\\x0003\\x0001\\x0000\\x0000\\x0000\\x0008\\x0000\\x0002\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0001\\x0000\\x0000\\x0000\\x001a\\x0000o\\x0000\\x000c\\x0000\\x0000\\x0000\\x0000\\x0000\\x0002\\x0000\\x0000\\x0000\n\\x0000\n\\x0000\\x0000\\x0000\uFFFD\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0001\\x0000\\x0000\\x0000\n\\x0000\\x001e\\x0000,\\x0000\\x0001DFLT\\x0000\\x0008\\x0000\\x0004\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0001\\x0000\\x0000\\x0000\\x0001liga\\x0000\\x0008\\x0000\\x0000\\x0000\\x0001\\x0000\\x0000\\x0000\\x0001\\x0000\\x0004\\x0000\\x0004\\x0000\\x0000\\x0000\\x0001\\x0000\\x0008\\x0000\\x0001\\x0000\\x0006\\x0000\\x0000\\x0000\\x0001\\x0000\\x0000\\x0000\\x0000\\x0000\\x0001\\x0004\\x0000\\x0001\uFFFD\\x0000\\x0005\\x0000\\x0008\\x0002\uFFFD\\x0002\uFFFD\\x0000\\x0000\\x0000\uFFFD\\x0002\uFFFD\\x0002\uFFFD\\x0000\\x0000\\x0001\uFFFD\\x00002\\x0001\\x0008\\x0000\\x0000\\x0002\\x0000\\x0005\\x0003\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000PfEd\\x0000@\uFFFDm\uFFFD\\x0003\uFFFD\uFFFD\uFFFD\\x0000\\\\x0003\uFFFD\\x0000\uFFFD\\x0000\\x0000\\x0000\\x0001\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0005\\x0000\\x0000\\x0000\\x0003\\x0000\\x0000\\x0000,\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0001\uFFFD\\x0000\\x0001\\x0000\\x0000\\x0000\\x0000\\x0000\uFFFD\\x0000\\x0003\\x0000\\x0001\\x0000\\x0000\\x0000,\\x0000\\x0003\\x0000\n\\x0000\\x0000\\x0001\uFFFD\\x0000\\x0004\\x0000\uFFFD\\x0000\\x0000\\x0000\\x0016\\x0000\\x0010\\x0000\\x0003\\x0000\\x0006\uFFFDm\uFFFDA\uFFFD<\uFFFDE\uFFFDa\uFFFDu\uFFFDx\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\\x0000\\x0000\uFFFDm\uFFFDA\uFFFD;\uFFFDD\uFFFD_\uFFFDo\uFFFDw\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0001\\x0000\\x0016\\x0000\\x0016\\x0000\\x0016\\x0000\\x0018\\x0000\\x001a\\x0000\\x001e\\x0000*\\x0000,\\x0000,\\x0000.\\x0000\\x0000\\x0000\\x0001\\x0000\\x0004\\x0000\\x0005\\x0000\\x0003\\x0000\\x0006\\x0000\\x0007\\x0000\\x0008\\x0000\t\\x0000\n\\x0000\\x000b\\x0000\\x000c\\x0000\r\\x0000\\x000e\\x0000\\x000f\\x0000\\x0010\\x0000\\x0011\\x0000\\x0012\\x0000\\x0013\\x0000\\x0002\\x0000\\x0014\\x0000\\x0015\\x0000\\x0016\\x0000\\x0017\\x0000\\x0018\\x0000\\x0019\\x0000\\x0000\\x0001\\x0006\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x000c\\x0000\\x0000\\x0000\\x0000\\x0001<\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0019\\x0000\\x0000\uFFFDm\\x0000\\x0000\uFFFDm\\x0000\\x0000\\x0000\\x0001\\x0000\\x0000\uFFFDA\\x0000\\x0000\uFFFDA\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\uFFFD;\\x0000\\x0000\uFFFD;\\x0000\\x0000\\x0000\\x0005\\x0000\\x0000\uFFFD<\\x0000\\x0000\uFFFD<\\x0000\\x0000\\x0000\\x0003\\x0000\\x0000\uFFFDD\\x0000\\x0000\uFFFDD\\x0000\\x0000\\x0000\\x0006\\x0000\\x0000\uFFFDE\\x0000\\x0000\uFFFDE\\x0000\\x0000\\x0000\\x0007\\x0000\\x0000\uFFFD_\\x0000\\x0000\uFFFD_\\x0000\\x0000\\x0000\\x0008\\x0000\\x0000\uFFFD`\\x0000\\x0000\uFFFD`\\x0000\\x0000\\x0000\t\\x0000\\x0000\uFFFDa\\x0000\\x0000\uFFFDa\\x0000\\x0000\\x0000\n\\x0000\\x0000\uFFFDo\\x0000\\x0000\uFFFDo\\x0000\\x0000\\x0000\\x000b\\x0000\\x0000\uFFFDp\\x0000\\x0000\uFFFDp\\x0000\\x0000\\x0000\\x000c\\x0000\\x0000\uFFFDq\\x0000\\x0000\uFFFDq\\x0000\\x0000\\x0000\r\\x0000\\x0000\uFFFDr\\x0000\\x0000\uFFFDr\\x0000\\x0000\\x0000\\x000e\\x0000\\x0000\uFFFDs\\x0000\\x0000\uFFFDs\\x0000\\x0000\\x0000\\x000f\\x0000\\x0000\uFFFDt\\x0000\\x0000\uFFFDt\\x0000\\x0000\\x0000\\x0010\\x0000\\x0000\uFFFDu\\x0000\\x0000\uFFFDu\\x0000\\x0000\\x0000\\x0011\\x0000\\x0000\uFFFDw\\x0000\\x0000\uFFFDw\\x0000\\x0000\\x0000\\x0012\\x0000\\x0000\uFFFDx\\x0000\\x0000\uFFFDx\\x0000\\x0000\\x0000\\x0013\\x0000\\x0000\uFFFD\\x0000\\x0000\uFFFD\\x0000\\x0000\\x0000\\x0002\\x0000\\x0000\uFFFD\\x0000\\x0000\uFFFD\\x0000\\x0000\\x0000\\x0014\\x0000\\x0000\uFFFD\\x0000\\x0000\uFFFD\\x0000\\x0000\\x0000\\x0015\\x0000\\x0000\uFFFD\\x0000\\x0000\uFFFD\\x0000\\x0000\\x0000\\x0016\\x0000\\x0000\uFFFD\\x0000\\x0000\uFFFD\\x0000\\x0000\\x0000\\x0017\\x0000\\x0000\uFFFD\\x0000\\x0000\uFFFD\\x0000\\x0000\\x0000\\x0018\\x0000\\x0000\uFFFD\\x0000\\x0000\uFFFD\\x0000\\x0000\\x0000\\x0019\\x0000\\x0000\\x0000\\x0000\\x0000f\\x0000\uFFFD\\x0001\\x001e\\x0001\uFFFD\\x0001\uFFFD\\x0001\uFFFD\\x0002f\\x0002\uFFFD\\x0002\uFFFD\\x00034\\x0003r\\x0003\uFFFD\\x0004@\\x0004\uFFFD\\x0004\uFFFD\\x0005.\\x0005p\\x0005\uFFFD\\x0006\n\\x0006j\\x0006\uFFFD\\x0006\uFFFD\\x0006\uFFFD\\x0007F\\x0007\uFFFD\\x0000\\x0000\\x0000\\x0005\\x0000\\x0000\\x0000\\x0000\\x0003V\\x0002\uFFFD\\x0000\\x000b\\x0000\\x0018\\x0000%\\x00004\\x0000@\\x0000\\x0000\\x0013!2\\x0016\\x0014\\x0006\\x0007!.\\x000146\\x0017>\\x00017!\\x001e\\x0001\\x0014\\x0006#!\"&\\x0003467!\\x001e\\x0001\\x0014\\x0006#!\"&7>\\x00013!2\\x001e\\x0001\\x0014\\x000e\\x0001#!\"&'\\x0016\\x0014\\x000f\\x0001\\x0006&5\\x001146\\x0017\uFFFD\\x0002T\\x0012\\x0019\\x0019\\x0012\uFFFD\uFFFD\\x0012\\x0019\\x0019\uFFFD\\x0001\\x0018\\x0013\\x0001`\\x0012\\x0019\\x0019\\x0012\uFFFD\uFFFD\\x0012\\x0019\uFFFD\\x0019\\x0012\\x0002T\\x0012\\x0019\\x0019\\x0012\uFFFD\uFFFD\\x0012\\x0019\uFFFD\\x0001\\x0018\\x0013\\x0001`\\x000c\\x0014\\x000b\\x000b\\x0014\\x000c\uFFFD\uFFFD\\x0012\\x00199\\x0008\\x0008\uFFFD\\x000b\\x001e\\x001e\\x000b\\x0002\uFFFD\\x0019%\\x0018\\x0001\\x0001\\x0018%\\x0019\uFFFD\\x0013\\x0018\\x0001\\x0001\\x0018%\\x0019\\x0019\uFFFD\uFFFD\\x0013\\x0018\\x0001\\x0001\\x0018%\\x0019\\x0019\uFFFD\\x0012\\x0019\\x000b\\x0015\\x0017\\x0014\\x000c\\x001a\uFFFD\\x0006\\x0016\\x0006\uFFFD\\x000c\\x000c\\x0011\\x0001*\\x0011\\x000c\\x000c\\x0000\\x0000\\x0000\\x0000\\x000c\\x0000\\x0000\\x0000\\x0000\\x0003\uFFFD\\x0002\uFFFD\\x0000\\x000f\\x0000\\x0013\\x0000\\x0017\\x0000\\x001b\\x0000\\x001f\\x0000#\\x0000'\\x00003\\x00007\\x0000;\\x0000?\\x0000C\\x0000\\x0000\\x0001!\\x000e\\x0001\\x0007\\x0003\\x001e\\x0001\\x0017!>\\x00017\\x0011.\\x0001\\x00053\\x0015#\\x00153\\x0015#'3\\x0015#\\x00153\\x0015+\\x0002535#53\\x0001!\"&463!2\\x0016\\x0014\\x00067#535#53\\x0017#535#53\\x0003U\uFFFDV$0\\x0001\\x0001\\x00011$\\x0002\uFFFD$1\\x0001\\x00011\uFFFD\\VVVV\uFFFDVVVV*VVVV\\x0001U\uFFFD\\x0000\\x0012\\x0018\\x0018\\x0012\\x0001\\x0000\\x0012\\x0018\\x0018\\x0019VVVV\uFFFDVVVV\\x0002\uFFFD\\x00011$\uFFFDV$1\\x0001\\x00011$\\x0001\uFFFD$1V*V\uFFFDV*VV*V\uFFFD\uFFFD\\x0018$\\x0019\\x0019$\\x0018\uFFFDV*V\uFFFDV*V\\x0000\\x0003\\x0000\\x0000\\x0000\\x0000\\x0003+\\x0003\\x0000\\x0000\\x000f\\x0000\\x001f\\x00003\\x0000\\x0000%\\x001e\\x0001\\x0017!>\\x00017\\x0011.\\x0001'!\\x000e\\x0001\\x00073!2\\x0016\\x0017\\x0011\\x000e\\x0001\\x0007!.\\x0001'\\x0011>\\x0001%'&+\\x0001\"\\x000f\\x0001#\"\\x0006\\x0014\\x00163!264&#\\x0001\\x0000\\x00010$\\x0001V$0\\x0001\\x00010$\uFFFD\uFFFD$0\\x0001\uFFFD\\x0001\\x0000\\x0013\\x0017\\x0001\\x0001\\x0017\\x0013\uFFFD\\x0000\\x0013\\x0017\\x0001\\x0001\\x0017\\x0001(\\x001e\\x000b\\x0012\uFFFD\\x0012\\x000b\\x001ek\\x0013\\x0017\\x0017\\x0013\\x0002\\x0000\\x0011\\x0019\\x0019\\x0011U$0\\x0001\\x00010$\\x0001\uFFFD$0\\x0001\\x00010$\\x0017\\x0014\uFFFD\uFFFD\\x0011\\x0019\\x0001\\x0001\\x0019\\x0011\\x0001U\\x0014\\x0017\uFFFD\\x001e\r\r\\x001e\\x0017'\\x0017\\x0017'\\x0017\\x0000\\x0003\\x0000\\x0000\\x0000\\x0000\\x0003\uFFFD\\x0002\uFFFD\\x0000\\x0016\\x0000-\\x0000>\\x0000\\x0000\\x0001\\x0015\\x0006\\x000f\\x0001\\x0006\"/\\x0001&4?\\x0001'&4?\\x000162\\x001f\\x0001\\x0016\\x0005764/\\x0001&\"\\x000f\\x0001\\x0006\\x0007\\x0015\\x0016\\x001f\\x0001\\x00162?\\x000164'\\x0001'&\\x0006\\x0007\\x0003\\x0006\\x0016\\x001f\\x0001\\x001667\\x00136&'\\x0003\uFFFD\\x0001\t\uFFFD\\x0007\\x0011\\x0007\\x001e\\x0006\\x0006\uFFFD\uFFFD\\x0006\\x0006\\x001e\\x0007\\x0011\\x0007\uFFFD\t\uFFFD\\x000f\uFFFD\\x0006\\x0006\\x001f\\x0006\\x0012\\x0006\uFFFD\t\\x0001\\x0001\t\uFFFD\\x0007\\x0011\\x0007\\x001e\\x0006\\x0006\\x0001B)\t\\x000f\\x0004\uFFFD\\x0002\\x0007\\x0008(\t\\x000f\\x0004\uFFFD\\x0003\\x0007\t\\x0001\uFFFD\\x0010\r\n\uFFFD\\x0006\\x0006\\x001e\\x0007\\x0011\\x0006\uFFFD\uFFFD\\x0006\\x0012\\x0006\\x001e\\x0006\\x0006\uFFFD\n\\x0015\uFFFD\\x0006\\x0011\\x0007\\x001e\\x0006\\x0006\uFFFD\n\r\\x0010\r\n\uFFFD\\x0006\\x0006\\x001e\\x0006\\x0012\\x0006\\x0001\uFFFD\\x000f\\x0003\\x0007\\x0008\uFFFD\uFFFD\\x0008\\x0010\\x0003\\x000e\\x0003\\x0007\\x0008\\x0002s\\x0008\\x000f\\x0004\\x0000\\x0002\\x0000\\x0000\\x0000\\x0000\\x0003\uFFFD\\x0002o\\x0000\\x0010\\x0000!\\x0000\\x0000%'764&\"\\x000f\\x0001\\x0006\\x0014\\x001f\\x0001\\x0016264%7'&462\\x001f\\x0001\\x0016\\x0014\\x000f\\x0001\\x0006\"&4\\x0001s\uFFFD\uFFFD\r\\x0019$\\x000c\uFFFD\r\r\uFFFD\\x000e!\\x001a\\x0001\r\uFFFD\uFFFD\r\\x001a!\\x000e\uFFFD\r\r\uFFFD\\x000e!\\x001a\u06A6\uFFFD\\x000e!\\x001a\r\uFFFD\r\"\r\uFFFD\r\\x001a!\\x000e\uFFFD\uFFFD\\x000c$\\x0019\r\uFFFD\r\"\r\uFFFD\r\\x0019$\\x0000\\x0000\\x0000\\x0003\\x0000\\x0000\\x0000\\x0000\\x0003\uFFFD\\x0002\uFFFD\\x0000\\x000b\\x0000\\x0017\\x0000#\\x0000\\x0000\\x0001\\x000e\\x0001\\x0007\\x001e\\x0001\\x0017>\\x00017.\\x0001\\x0003.\\x0001'>\\x00017\\x001e\\x0001\\x0017\\x000e\\x0001\\x0003\\x000e\\x0001\\x0007\\x001e\\x0001\\x0017>\\x00017.\\x0001\\x0002\\x0000\uFFFD\uFFFD55\uB618\uFFFD55\uFFFDVp\\x0002\\x0002pVVp\\x0002\\x0002pV4C\\x0001\\x0001C44C\\x0001\\x0001C\\x0002\uFFFD\\x0002\uFFFD\uFFFD\uFFFD\uFFFD\\x0002\\x0002\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\\x000e\\x0002pVVp\\x0002\\x0002pVVp\\x0001>\\x0001C44C\\x0001\\x0001C44C\\x0000\\x0000\\x0000\\x0005\\x0000\\x0000\\x0000\\x0000\\x0003\uFFFD\\x0002\uFFFD\\x0000\\x000b\\x0000\\x0017\\x0000#\\x00000\\x0000@\\x0000\\x0000\\x0013!264&#!\"\\x0006\\x0014\\x0016\\x0017!>\\x00014&'!\\x000e\\x0001\\x0014\\x0016\\x0013!264&#!\"\\x0006\\x0014\\x0016'\\x001e\\x0001\\x0017!>\\x00014&'!\\x000e\\x0001%!\\x001e\\x0001\\x0017\\x0011\\x000e\\x0001\\x0007!.\\x00015\\x001146\uFFFD\\x0001\\x0000\\x0013\\x0017\\x0017\\x0013\uFFFD\\x0000\\x0011\\x0019\\x0019\\x0011\\x0001\\x0000\\x0013\\x0017\\x0017\\x0013\uFFFD\\x0000\\x0011\\x0019\\x0019\\x0011\\x0001\\x0000\\x0013\\x0017\\x0017\\x0013\uFFFD\\x0000\\x0011\\x0019\\x0019\\x001a\\x0001\\x0019\\x0011\\x0001\\x0000\\x0013\\x0017\\x0017\\x0013\uFFFD\\x0000\\x0011\\x0019\\x0001\uFFFD\\x0001\\x0000\\x0011\\x0019\\x0001\\x0001\\x0019\\x0011\uFFFD\\x0000\\x0013\\x0017\\x0017\\x0001\\x0000\\x0017'\\x0017\\x0017'\\x0017\uFFFD\\x0001\\x0019\"\\x0019\\x0001\\x0001\\x0019\"\\x0019\\x0001U\\x0017'\\x0017\\x0017'\\x0017\uFFFD\\x0013\\x0017\\x0001\\x0001\\x0017&\\x0017\\x0001\\x0001\\x0017\\x0018\\x0001\\x0017\\x0013\uFFFD\\x0000\\x0011\\x0019\\x0001\\x0001\\x0019\\x0011\\x0002\\x0000\\x0013\\x0017\\x0000\\x0000\\x0000\\x0000\\x0003\\x0000\\x0000\\x0000\\x0000\\x0003\uFFFD\\x0002V\\x0000\\x0019\\x0000&\\x0000@\\x0000\\x0000\\x0001#\"\\x0006\\x0014\\x0016;\\x0001\\x001e\\x0001\\x0017\\x000e\\x0001\\x0007#\"\\x0006\\x0014\\x0016;\\x0001>\\x00017.\\x0001\\x0005\\x001e\\x0001\\x0017!>\\x00014&'!\\x000e\\x0001\\x0017#.\\x0001'>\\x000173264&+\\x0001\\x000e\\x0001\\x0007\\x001e\\x0001\\x00173264&\\x0002\u0540\\x0012\\x0018\\x0018\\x0012\uFFFD7H\\x0001\\x0001H7\uFFFD\\x0012\\x0018\\x0018\\x0012\uFFFD[x\\x0003\\x0003x\uFFFD%\\x0001\\x0018\\x0012\\x0001\\x0000\\x0012\\x0018\\x0018\\x0012\uFFFD\\x0000\\x0012\\x0018U\uFFFD7H\\x0001\\x0001H7\uFFFD\\x0012\\x0018\\x0018\\x0012\uFFFD[x\\x0003\\x0003x[\uFFFD\\x0012\\x0018\\x0018\\x0002U\\x0018$\\x0019\\x0001I66I\\x0001\\x0019$\\x0018\\x0002x[[x\uFFFD\\x0012\\x0018\\x0001\\x0001\\x0018$\\x0018\\x0001\\x0001\\x0018\uFFFD\\x0001I66I\\x0001\\x0019$\\x0018\\x0002x[[x\\x0002\\x0018$\\x0019\\x0000\\x0001\\x0000\\x0000\\x0000\\x0000\\x0003\uFFFD\\x0002+\\x0000\\x001e\\x0000\\x0000\\x0001.\\x0001'\\x000e\\x0001\\x0007\\x0006\\x0016\\x0017\\x001667>\\x000172\\x0016\\x0017\\x0007\\x0006\\x0016\\x00173>\\x000175.\\x0001\\x0007\\x0003\\x0012;\uFFFDU\uFFFD\uFFFD8\n\\x0013\\x0017\\x0014#\t+\uFFFDg?o,Q\\x0013\\x0013\\x001e\uFFFD\\x0012\\x0018\\x0001\\x00021\\x0016\\x0001\uFFFD4:\\x0001\\x0002\uFFFDr\\x0017*\\x0008\\x0006\\x000f\\x0012Vi\\x0001+%R\\x00161\\x0002\\x0001\\x0018\\x0012\uFFFD\\x001d\\x0014\\x0013\\x0000\\x0000\\x0000\\x0001\\x0000\\x0000\\x0000\\x0000\\x0003\uFFFD\\x0002+\\x0000\\x001e\\x0000\\x0000\\x0001\\x000e\\x0001\\x0007'&\\x0006\\x0007\\x0015\\x001e\\x0001\\x00173>\\x0001/\\x0001>\\x00013\\x001e\\x0001\\x0017\\x001e\\x00017>\\x0001'.\\x0001\\x0002\\x0014U\uFFFD;Q\\x00161\\x0002\\x0001\\x0018\\x0012\uFFFD\\x001e\\x0014\\x0013R-o>g\uFFFD+\t$\\x0013\\x0017\\x0013\n9\uFFFD\\x0002+\\x0001:4P\\x0014\\x0014\\x001d\uFFFD\\x0012\\x0018\\x0001\\x00021\\x0016R%+\\x0001iV\\x0012\\x000f\\x0006\\x0008*\\x0017r\uFFFD\\x0000\\x0000\\x0000\\x0003\\x0000\\x0000\\x0000\\x0000\\x0002\uFFFD\\x0002\uFFFD\\x0000\\x0014\\x0000\\x001c\\x0000$\\x0000\\x0000\\x0001>\\x00017.\\x0001'#\\x000e\\x0001\\x0007\\x0011\\x001e\\x0001\\x0017!>\\x000174&%3\\x001e\\x0001\\x0014\\x0006\\x0007#\\x0013#53\\x001e\\x0001\\x0014\\x0006\\x0002\uFFFD!)\\x0001\\x0002fN\uFFFD\\x0014\\x0019\\x0001\\x0001\\x0019\\x0014\\x0001\\x0007Ii\\x00024\uFFFD\u0508\\x001d''\\x001d\uFFFD\uFFFD\uFFFD\uFFFD\\x001d''\\x0001\uFFFD\\x0017D$Nf\\x0002\\x0001\\x001a\\x0013\uFFFD\uFFFD\\x0013\\x001a\\x0001\\x0002aI5R\uFFFD\\x0001&;&\\x0001\uFFFD\uFFFD\\x0001&;&\\x0000\\x0001\\x0000\\x0000\\x0000\\x0000\\x0003\\x0012\\x0002\uFFFD\\x0000\\x001c\\x0000\\x0000\\x0001\\x001e\\x0001\\x00173\\x0003#\\x000e\\x0001\\x0014\\x0016\\x00173>\\x00014&'#\\x00133>\\x00014&'#\\x000e\\x0001\\x0001\uFFFD\\x0001&\\x001d!\uFFFD;\\x001d&&\\x001d\uFFFD\\x001d&&\\x001d!\uFFFD;\\x001d&&\\x001d\uFFFD\\x001d&\\x0002z\\x001d&\\x0001\uFFFD\uFFFD\\x0001&:'\\x0001\\x0001':&\\x0001\\x0001l\\x0001&:'\\x0001\\x0001'\\x0000\\x0006\\x0000\\x0000\\x0000\\x0000\\x0003\uFFFD\\x0002\uFFFD\\x0000\\x000b\\x0000\\x0017\\x0000#\\x0000A\\x0000R\\x0000n\\x0000\\x0000\\x0001!>\\x00014&'!\\x000e\\x0001\\x0014\\x0016\\x0001!\\x000e\\x0001\\x0014\\x0016\\x0017!>\\x00014&\\x0003!\\x000e\\x0001\\x0014\\x0016\\x0017!>\\x00014&\\x0005#\"\\x0006\\x0014\\x0016;\\x0001\\x0015#\"\\x0006\\x0014\\x0016;\\x0001\\x0015#\"\\x0006\\x0014\\x0016;\\x00012675.\\x0001\\x00033\\x0015\\x001e\\x000126=\\x00014&+\\x0001\"\\x0006\\x0014\\x0016\\x0017#\"\\x0006\\x0014\\x0016;\\x0001\\x0007\\x0006\\x001d\\x0001\\x0014\\x0016;\\x0001264&+\\x000176=\\x0001.\\x0001\\x0001k\\x0002\\x0000\\x0012\\x0018\\x0018\\x0012\uFFFD\\x0000\\x0012\\x0019\\x0019\\x0002\\x0012\uFFFD\\x0000\\x0012\\x0019\\x0019\\x0012\\x0002\\x0000\\x0012\\x0018\\x0018\\x0012\uFFFD\\x0000\\x0012\\x0019\\x0019\\x0012\\x0002\\x0000\\x0012\\x0018\\x0018\uFFFDXU\t\\x000c\\x000c\t@\\x0015\n\\x000b\\x000b\n\\x0015@\t\\x000c\\x000c\tU\n\\x000b\\x0001\\x0001\\x000b_\\x0015\\x0001\\x000b\\x0013\\x000c\\x000c\t+\t\\x000c\\x000c^U\t\\x000c\\x000c\t7G\\x0005\\x000c\tU\n\\x000b\\x000b\n7H\\x0005\\x0001\\x000b\\x0002U\\x0001\\x0018$\\x0018\\x0001\\x0001\\x0018$\\x0018\uFFFDU\\x0001\\x0018$\\x0018\\x0001\\x0001\\x0018$\\x0018\\x0001\\x0001\\x0001\\x0018$\\x0018\\x0001\\x0001\\x0018$\\x0018\uFFFD\\x000c\\x0012\\x000c\\x0016\\x000c\\x0012\\x000c\\x0016\\x000c\\x0012\\x000c\\x000c\t\uFFFD\t\\x000c\\x0001\uFFFDk\t\\x000c\\x000c\t\uFFFD\t\\x000c\\x000c\\x0012\\x000c\uFFFD\\x000c\\x0012\\x000cT\\x0006\\x0008\t\t\\x000c\\x000c\\x0012\\x000cT\\x0006\\x0008\t\t\\x000c\\x0000\\x0000\\x0000\\x0000\\x0006\\x0000\\x0000\\x0000\\x0000\\x0003\uFFFD\\x0002\uFFFD\\x0000\\x0008\\x0000\\x0011\\x0000\\x001a\\x0000&\\x00002\\x0000?\\x0000\\x0000\\x0013\\x000e\\x0001\\x0014\\x0016264&\\x0003\\x000e\\x0001\\x0014\\x0016264&\\x0003\\x000e\\x0001\\x0014\\x0016264&\\x0017!>\\x00014&'!\\x000e\\x0001\\x0014\\x00167!>\\x00014&'!\\x000e\\x0001\\x0014\\x0016\\x0003\\x001e\\x0001\\x0017!>\\x00014&'!\\x000e\\x0001\uFFFD\\x001b$$7$$\\x001c\\x001b$$7$$\\x001c\\x001b$$6%$\uFFFD\\x0002\\x0000\\x0012\\x0018\\x0018\\x0012\uFFFD\\x0000\\x0012\\x0018\\x0018\\x0012\\x0002\\x0000\\x0012\\x0018\\x0018\\x0012\uFFFD\\x0000\\x0012\\x0018\\x0018\\x0019\\x0001\\x0018\\x0012\\x0002\\x0000\\x0012\\x0018\\x0018\\x0012\uFFFD\\x0000\\x0012\\x0018\\x0001\uFFFD\\x0001$6$$6$\\x0001\\x0001\\x0001$6$$6$\uFFFD\\x0001\\x0001$6$$6$j\\x0001\\x0018$\\x0018\\x0001\\x0001\\x0018$\\x0018\uFFFD\\x0001\\x0018$\\x0018\\x0001\\x0001\\x0018$\\x0018\\x0001*\\x0012\\x0018\\x0001\\x0001\\x0018$\\x0018\\x0001\\x0001\\x0018\\x0000\\x0000\\x0000\\x0002\\x0000\\x0000\\x0000\\x0000\\x0003V\\x0002V\\x0000\\x0016\\x0000-\\x0000\\x0000%26?\\x00016=\\x0001.\\x0001+\\x0001\"\\x0006\\x001d\\x0001\\x0014\\x0016\\x00173\\x0007\\x0006\\x0016\\x000526?\\x00016=\\x00014&+\\x0001\"\\x0006\\x0007\\x0015\\x001e\\x0001\\x00173\\x0007\\x0006\\x0016\\x00012\\x0011\\x001b\\x0007=\t\\x0001\\x0018\\x0012\uFFFD\\x0012\\x0018\\x0018\\x0012V,\\x000e \\x0001\uFFFD\\x0010\\x001b\\x0008<\t\\x0018\\x0012\uFFFD\\x0012\\x0018\\x0001\\x0001\\x0018\\x0012U,\r \uFFFD\\x0011\\x000ey\\x0012\\x0014\uFFFD\\x0012\\x0018\\x0018\\x0012\uFFFD\\x0012\\x0018\\x0001X\\x001e3\\x0001\\x0011\\x000ey\\x0012\\x0014\uFFFD\\x0012\\x0018\\x0018\\x0012\uFFFD\\x0012\\x0018\\x0001X\\x001e3\\x0000\\x0000\\x0000\\x0000\\x0003\\x0000\\x0000\\x0000\\x0000\\x0003\uFFFD\\x0002\uFFFD\\x0000\\x0008\\x0000\\x0019\\x0000%\\x0000\\x0000%>\\x000175#\\x0015\\x001e\\x0001\\x0001\\x001e\\x0001\\x00173\\x0015353>\\x00014&'!\\x000e\\x0001\\x0003!>\\x00014&'!\\x000e\\x0001\\x0014\\x0016\\x0002\\x0000$0\\x0001\uFFFD\\x00010\uFFFD\uFFFD\\x0001$\\x001b\uFFFD\uFFFD\uFFFD\\x001b$$\\x001b\uFFFD*\\x001b$+\\x0002\uFFFD\\x0012\\x0019\\x0019\\x0012\uFFFDV\\x0012\\x0019\\x0019@\\x00010$++$0\\x0002?\\x001b$\\x0001\uFFFD\uFFFD\\x0001$6$\\x0001\\x0001$\uFFFDz\\x0001\\x0018$\\x0018\\x0001\\x0001\\x0018$\\x0018\\x0000\\x0000\\x0000\\x0000\\x0002\\x0000\\x0000\uFFFD\uFFFD\\x0003+\\x0003\\x0001\\x0000\\x001b\\x0000(\\x0000\\x0000%>\\x00017\\x0011.\\x0001\"\\x0006\\x0007\\x0011\\x0014\\x0006\\x0007\\x0006.\\x00025\\x0011.\\x0001\"\\x0006\\x0007\\x0011\\x001e\\x0001\\x0007\\x001e\\x00013!264&#!\"\\x0006\\x0002\"bz\\x0002\\x0001\\x001e-\\x001e\\x0001A5!A5\\x001d\\x0001\\x001e-\\x001e\\x0001\\x0003\uFFFD\uFFFD\\x0001\\x0018\\x0012\\x0002\\x0000\\x0012\\x0018\\x0018\\x0012\uFFFD\\x0000\\x0012\\x0018\uFFFD\\x000f\uFFFDe\\x0001\\x0017\\x0016\\x001e\\x001e\\x0016\uFFFD\uFFFD7S\\x000c\\x0007\\x000f+<#\\x0001 \\x0016\\x001e\\x001e\\x0016\uFFFD\uFFFDv\uFFFDv\\x0012\\x0019\\x0019$\\x0018\\x0018\\x0000\\x0000\\x0000\\x0003\\x0000\\x0000\\x0000\\x0000\\x0003p\\x0002\uFFFD\\x0000\\x000b\\x0000-\\x00009\\x0000\\x0000\\x0013!>\\x00014&#!\"\\x0006\\x0014\\x0016\\x0005!\"\\x0006\\x0014\\x0016\\x0017!2\\x0016\\x0017\\x0016\\x0006\\x0007#5.\\x0001\\x000f\\x0001\\x0006\\x0014\\x001f\\x0001\\x00166753>\\x0001'.\\x0001\\x0005#\"\\x0006\\x0014\\x0016\\x00173>\\x00014&\uFFFD\\x0002U\\x0012\\x0019\\x0019\\x0012\uFFFD\uFFFD\\x0012\\x0018\\x0018\\x0002\\x000b\uFFFD\\x0007\\x0012\\x0018\\x0018\\x0012\\x0002\\x0006 3\\x0006\\x00051(`\\x0001\\x0019\\x000bL\\x0006\\x0006L\\x000c\\x0018\\x0001UMb\\x0005\\x0008d\uFFFDm\uFFFD\\x0012\\x0018\\x0018\\x0012\uFFFD\\x0012\\x0018\\x0018\\x0002q\\x0001\\x0018$\\x0018\\x0018$\\x0018\uFFFD\\x0018$\\x0018\\x0001' )9\\x0002\"\\x000f\n\nL\\x0007\\x0011\\x0007L\n\n\\x000f\"\\x0002kNDU\uFFFD\\x0018$\\x0018\\x0001\\x0001\\x0018$\\x0018\\x0000\\x0000\\x0000\\x0002\\x0000\\x0000\\x0000\\x0000\\x0003\uFFFD\\x0002\uFFFD\\x0000\\x0014\\x0000(\\x0000\\x0000\\x0001\\x0014\\x0016\\x00173\\x0011\\x001e\\x0001267\\x00113>\\x00014&'!\\x000e\\x0001\\x00033\\x0015\\x0014\\x001626753264&'!\\x000e\\x0001\\x0014\\x0016\\x0001k$\\x001c\uFFFD\\x0001$6$\\x0001\uFFFD\\x001c$$\\x001c\uFFFDV\\x001c$\uFFFD@$7$\\x0001@\\x001b$$\\x001b\uFFFD\\x0000\\x001c$$\\x0002\uFFFD\\x001b$\\x0001\uFFFD@\\x001b$$\\x001b\\x0001\uFFFD\\x0001$6$\\x0001\\x0001$\uFFFD\uFFFD\uFFFD\\x001b$$\\x001b\uFFFD$7$\\x0001\\x0001$7$\\x0000\n\\x0000\\x0000\\x0000\\x0000\\x0003x\\x0002\uFFFD\\x0000\\x000f\\x0000\\x0016\\x0000\\x001a\\x0000!\\x0000%\\x0000)\\x0000-\\x00004\\x00008\\x0000?\\x0000\\x0000\\x0001!\\x000e\\x0001\\x0007\\x0011\\x001e\\x0001\\x0017!>\\x00017\\x0011.\\x0001\\x0001#\"&=\\x000135#535#546;\\x0001\\x0013#535#535#53\\x0013#53\\x0015\\x0014\\x00067#535#532\\x0016\\x0015\\x0003,\uFFFD\uFFFD *\\x0001\\x0001* \\x0002X *\\x0001\\x0001*\uFFFD\\x001eq\\x000f\\x0016\uFFFD\uFFFD\uFFFD\uFFFD\\x0016\\x000fq\u1596\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDq\uFFFD\\x0016\\x0016\uFFFD\uFFFD\uFFFDq\\x000f\\x0016\\x0002\uFFFD\\x0001* \uFFFD\uFFFD *\\x0001\\x0001* \\x0002X *\uFFFD^\\x0016\\x000fqK\uFFFDKq\\x000f\\x0016\uFFFD\uFFFD\uFFFDK\uFFFDK\uFFFD\uFFFD\uFFFD\uFFFDq\\x000f\\x0016\uFFFDK\uFFFD\\x0016\\x000f\\x0000\\x0000\\x0000\\x0002\\x0000\\x0000\uFFFD\uFFFD\\x0003\uFFFD\\x0003\\x0000\\x0000\\x000f\\x0000 \\x0000\\x0000%\\x0011.\\x0001'!\\x000e\\x0001\\x0007\\x0011\\x001e\\x0001\\x0017!>\\x0001%\\x0017762\\x001f\\x0001\\x0016\\x0006#!\"&?\\x0001>\\x0001\\x0003\uFFFD\\x00010$\uFFFD\uFFFD$0\\x0001\\x00010$\\x0002V$0\uFFFD\uFFFDY\uFFFD\\x0007\\x0014\\x0007\uFFFD\\x0008\\x000c\r\uFFFD\\x0001\\x000e\\x000b\\x0008j\\x0007\\x0014U\\x0002V$0\\x0001\\x00010$\uFFFD\uFFFD$0\\x0001\\x00010\uFFFDl\uFFFD\\x0008\t\uFFFD\\x000b\\x0017\\x0017\\x000b\uFFFD\\x0008\\x0001\\x0000\\x0000\\x0000\\x0001\\x0000\\x0000\\x0000\\x0000\\x00035\\x00026\\x0000\\x0010\\x0000\\x0000\\x0001\\x0007\\x0006\\x0014\\x00162?\\x0001\\x0017\\x0016264/\\x0001&\"\\x0001\uFFFD\uFFFD\\x0010!,\\x0011\uFFFD\uFFFD\\x0011,!\\x0010\uFFFD\\x0010.\\x0002&\uFFFD\\x0011,!\\x0010\uFFFD\uFFFD\\x0010!,\\x0011\uFFFD\\x0010\\x0000\\x0000\\x0000\\x0001\\x0000\\x0000\\x0000\\x0000\\x00035\\x00026\\x0000\\x0012\\x0000\\x0000\\x0001\\x0007'&'\"\\x000e\\x0001\\x0016\\x001f\\x0001\\x00162?\\x000164.\\x0001\\x0002\uFFFD\uFFFD\uFFFD\\x0010\\x0017\\x0011\\x001b\r\\x0006\\x000c\uFFFD\\x0011,\\x0011\uFFFD\\x0010!-\\x0002&\uFFFD\uFFFD\\x000f\\x0001\\x0012  \\x000c\uFFFD\\x0010\\x0010\uFFFD\\x0010- \\x0001\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0000\\x0003k\\x0002\uFFFD\\x0000\\x0010\\x0000!\\x00003\\x0000D\\x0000\\x000073\\x0015\\x0014\\x001626=\\x00014&+\\x0001\"\\x0006\\x0014\\x0016\\x0013#\"\\x0006\\x0014\\x0016;\\x000126=\\x00014&\"\\x0006\\x0015\\x000126=\\x00013264&+\\x0001\"\\x0006\\x001d\\x0001\\x0014\\x0016\\x001354&\"\\x0006\\x001d\\x0001\\x0014\\x0016;\\x0001264&#\uFFFDh\\x001e,\\x001d\\x001d\\x0016\uFFFD\\x0016\\x001d\\x001d~h\\x0016\\x001d\\x001d\\x0016\uFFFD\\x0016\\x001d\\x001d,\\x001e\\x0001j\\x0016\\x001eh\\x0016\\x001d\\x001d\\x0016\uFFFD\\x0016\\x001d\\x001dJ\\x001e,\\x001d\\x001d\\x0016\uFFFD\\x0016\\x001d\\x001d\\x0016\uFFFDh\\x0016\\x001d\\x001d\\x0016\uFFFD\\x0016\\x001d\\x001d,\\x001e\\x0001\uFFFD\\x001e,\\x001d\\x001d\\x0016\uFFFD\\x0016\\x001d\\x001d\\x0016\uFFFD_\\x001d\\x0016h\\x001e,\\x001d\\x001d\\x0016\uFFFD\\x0016\\x001d\\x00029h\\x0016\\x001d\\x001d\\x0016\uFFFD\\x0016\\x001d\\x001d,\\x001e\\x0000\\x0000\\x0000\\x0004\\x0000\\x0000\\x0000\\x0000\\x0003T\\x0002\uFFFD\\x0000\\x0011\\x0000#\\x00004\\x0000F\\x0000\\x0000\\x0013\\x000e\\x0001\\x0007\\x0015\\x001e\\x0001\\x00173>\\x00014&+\\x000154&'>\\x0001=\\x00013264&'#\\x000e\\x0001\\x0007\\x0015\\x001e\\x0001\\x0001#\"\\x0006\\x0014\\x0016\\x00173>\\x000175.\\x0001\"\\x0006\\x0015\\x0003\\x001e\\x0001;\\x0001\\x0015\\x0014\\x00162675.\\x0001'#\\x000e\\x0001\uFFFD\\x0015\\x001b\\x0001\\x0001\\x001b\\x0015\uFFFD\\x0015\\x001b\\x001b\\x0015a\\x001c\\x0014\\x0014\\x001ca\\x0015\\x001b\\x001b\\x0015\uFFFD\\x0015\\x001b\\x0001\\x0001\\x001b\\x0002+a\\x0015\\x001b\\x001b\\x0015\uFFFD\\x0015\\x001b\\x0001\\x0001\\x001b)\\x001c\uFFFD\\x0001\\x001b\\x0015a\\x001c)\\x001b\\x0001\\x0001\\x001b\\x0015\uFFFD\\x0015\\x001b\\x0001\\x001f\\x0001\\x001b\\x0015\uFFFD\\x0015\\x001b\\x0001\\x0001\\x001b)\\x001ca\\x0015\\x001b\uFFFD\\x0001\\x001b\\x0015a\\x001c)\\x001b\\x0001\\x0001\\x001b\\x0015\uFFFD\\x0015\\x001b\uFFFD\uFFFD\\x001c)\\x001b\\x0001\\x0001\\x001b\\x0015\uFFFD\\x0015\\x001b\\x001b\\x0015\\x0001\uFFFD\\x0014\\x001ca\\x0015\\x001b\\x001b\\x0015\uFFFD\\x0015\\x001b\\x0001\\x0001\\x001b\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0012\\x0000\uFFFD\\x0000\\x0001\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0015\\x0000\\x0000\\x0000\\x0001\\x0000\\x0000\\x0000\\x0000\\x0000\\x0001\\x0000\r\\x0000\\x0015\\x0000\\x0001\\x0000\\x0000\\x0000\\x0000\\x0000\\x0002\\x0000\\x0007\\x0000\"\\x0000\\x0001\\x0000\\x0000\\x0000\\x0000\\x0000\\x0003\\x0000\r\\x0000)\\x0000\\x0001\\x0000\\x0000\\x0000\\x0000\\x0000\\x0004\\x0000\r\\x00006\\x0000\\x0001\\x0000\\x0000\\x0000\\x0000\\x0000\\x0005\\x0000\\x000b\\x0000C\\x0000\\x0001\\x0000\\x0000\\x0000\\x0000\\x0000\\x0006\\x0000\r\\x0000N\\x0000\\x0001\\x0000\\x0000\\x0000\\x0000\\x0000\n\\x0000+\\x0000[\\x0000\\x0001\\x0000\\x0000\\x0000\\x0000\\x0000\\x000b\\x0000\\x0013\\x0000\uFFFD\\x0000\\x0003\\x0000\\x0001\\x0004\t\\x0000\\x0000\\x0000*\\x0000\uFFFD\\x0000\\x0003\\x0000\\x0001\\x0004\t\\x0000\\x0001\\x0000\\x001a\\x0000\uFFFD\\x0000\\x0003\\x0000\\x0001\\x0004\t\\x0000\\x0002\\x0000\\x000e\\x0000\uFFFD\\x0000\\x0003\\x0000\\x0001\\x0004\t\\x0000\\x0003\\x0000\\x001a\\x0000\uFFFD\\x0000\\x0003\\x0000\\x0001\\x0004\t\\x0000\\x0004\\x0000\\x001a\\x0001\\x0005\\x0000\\x0003\\x0000\\x0001\\x0004\t\\x0000\\x0005\\x0000\\x0016\\x0001\\x001f\\x0000\\x0003\\x0000\\x0001\\x0004\t\\x0000\\x0006\\x0000\\x001a\\x00015\\x0000\\x0003\\x0000\\x0001\\x0004\t\\x0000\n\\x0000V\\x0001O\\x0000\\x0003\\x0000\\x0001\\x0004\t\\x0000\\x000b\\x0000&\\x0001\uFFFD\nCreated by iconfont\nrmel-iconfontRegularrmel-iconfontrmel-iconfontVersion 1.0rmel-iconfontGenerated by svg2ttf from Fontello project.http://fontello.com\\x0000\n\\x0000C\\x0000r\\x0000e\\x0000a\\x0000t\\x0000e\\x0000d\\x0000 \\x0000b\\x0000y\\x0000 \\x0000i\\x0000c\\x0000o\\x0000n\\x0000f\\x0000o\\x0000n\\x0000t\\x0000\n\\x0000r\\x0000m\\x0000e\\x0000l\\x0000-\\x0000i\\x0000c\\x0000o\\x0000n\\x0000f\\x0000o\\x0000n\\x0000t\\x0000R\\x0000e\\x0000g\\x0000u\\x0000l\\x0000a\\x0000r\\x0000r\\x0000m\\x0000e\\x0000l\\x0000-\\x0000i\\x0000c\\x0000o\\x0000n\\x0000f\\x0000o\\x0000n\\x0000t\\x0000r\\x0000m\\x0000e\\x0000l\\x0000-\\x0000i\\x0000c\\x0000o\\x0000n\\x0000f\\x0000o\\x0000n\\x0000t\\x0000V\\x0000e\\x0000r\\x0000s\\x0000i\\x0000o\\x0000n\\x0000 \\x00001\\x0000.\\x00000\\x0000r\\x0000m\\x0000e\\x0000l\\x0000-\\x0000i\\x0000c\\x0000o\\x0000n\\x0000f\\x0000o\\x0000n\\x0000t\\x0000G\\x0000e\\x0000n\\x0000e\\x0000r\\x0000a\\x0000t\\x0000e\\x0000d\\x0000 \\x0000b\\x0000y\\x0000 \\x0000s\\x0000v\\x0000g\\x00002\\x0000t\\x0000t\\x0000f\\x0000 \\x0000f\\x0000r\\x0000o\\x0000m\\x0000 \\x0000F\\x0000o\\x0000n\\x0000t\\x0000e\\x0000l\\x0000l\\x0000o\\x0000 \\x0000p\\x0000r\\x0000o\\x0000j\\x0000e\\x0000c\\x0000t\\x0000.\\x0000h\\x0000t\\x0000t\\x0000p\\x0000:\\x0000/\\x0000/\\x0000f\\x0000o\\x0000n\\x0000t\\x0000e\\x0000l\\x0000l\\x0000o\\x0000.\\x0000c\\x0000o\\x0000m\\x0000\\x0000\\x0000\\x0000\\x0002\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\n\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x0000\\x001a\\x0001\\x0002\\x0001\\x0003\\x0001\\x0004\\x0001\\x0005\\x0001\\x0006\\x0001\\x0007\\x0001\\x0008\\x0001\t\\x0001\n\\x0001\\x000b\\x0001\\x000c\\x0001\r\\x0001\\x000e\\x0001\\x000f\\x0001\\x0010\\x0001\\x0011\\x0001\\x0012\\x0001\\x0013\\x0001\\x0014\\x0001\\x0015\\x0001\\x0016\\x0001\\x0017\\x0001\\x0018\\x0001\\x0019\\x0001\\x001a\\x0001\\x001b\\x0000\\x0003tab\\x0008keyboard\\x0006delete\ncode-block\\x0004code\nvisibility\nview-split\\x0004link\\x0004redo\\x0004undo\\x0004bold\\x0006italic\\x000clist-ordered\\x000elist-unordered\\x0005quote\rstrikethrough\tunderline\\x0004wrap\tfont-size\\x0004grid\\x0005image\\x000bexpand-less\\x000bexpand-more\\x000ffullscreen-exit\nfullscreen\\x0000\\x0000\\x0000\\x0000\\x0000"
+							"evidence": "2H9v2H7V5H4v4h16V5h-3v2h-2V5zm5",
+							"otherinfo": "\uFFFDo\uFFFD~\uFFFD\uFFFD~/\uFFFD\\x001dzW\uFFFD~\uFFFD\uFFFD\uFFFD\uFFFDey\uFFFDn"
 						},
 						{
 							"uri": "https://espace-membre.incubateur.net/robots.txt",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "3AfXAZzoLT5Lg7TmeAxekDmOH1VpysQce0",
-							"otherinfo": "\uFFFD\\x0007\uFFFD\\x0001\uFFFD\uFFFD->K\uFFFD\uFFFD\uFFFDx\\x000c^\uFFFD9\uFFFD\\x001fUi\uFFFD\uFFFD\\x001c{"
+							"evidence": "fr-header-header-with-quick-access-items-quick-access-item--Seconnecter_mobile-0",
+							"otherinfo": "~\uFFFD\uFFFDy\uFFFD^\uFFFD\uFFFD^i\u05EB\uFFFD\\x0008\uFFFD\uFFFD\uAB89\uFFFD>i\uFFFD\\x001e\uFFFD\u03E2\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDrO\uFFFDq\u01EC\uFFFD\uFFFDzo\uFFFDI\uFFFD(\uFFFDw\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD"
 						},
 						{
 							"uri": "https://espace-membre.incubateur.net/sitemap.xml",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "3AfXAZzoLT5Lg7TmeAxekDmOH1VpysQce0",
-							"otherinfo": "\uFFFD\\x0007\uFFFD\\x0001\uFFFD\uFFFD->K\uFFFD\uFFFD\uFFFDx\\x000c^\uFFFD9\uFFFD\\x001fUi\uFFFD\uFFFD\\x001c{"
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/static/css/main.css",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKBAMAAAB/HNKOAAAAD1BMVEUAAACjo6Pn5+fDw8P///8mXC3WAAAABHRSTlMAfb49zZRSvgAAADBJREFUCNdjAAIXFxBicmFwYGAQUQGSjI4sQFJEgIHBgdmRAUgyGAAxUBZOugCBAwCrDAY9nvSvKAAAAABJRU5ErkJggg==",
-							"otherinfo": "\uFFFDPNG\r\n\\x001a\n\\x0000\\x0000\\x0000\rIHDR\\x0000\\x0000\\x0000\n\\x0000\\x0000\\x0000\n\\x0004\\x0003\\x0000\\x0000\\x0000\\x001c\u048E\\x0000\\x0000\\x0000\\x000fPLTE\\x0000\\x0000\\x0000\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD&\\-\uFFFD\\x0000\\x0000\\x0000\\x0004tRNS\\x0000}\uFFFD=\u0354R\uFFFD\\x0000\\x0000\\x00000IDAT\\x0008\uFFFDc\\x0000\\x0002\\x0017\\x0017\\x0010brap``\\x0010Q\\x0001\uFFFD\uFFFD\uFFFD,@RD\uFFFD\uFFFD\uFFFD\uFFFD\u0651\\x0001H2\\x0018\\x00001P\\x0016N\uFFFD\\x0000\uFFFD\\x0003\\x0000\uFFFD\\x000c\\x0006=\uFFFD\uFFFD\uFFFD(\\x0000\\x0000\\x0000\\x0000IEND\uFFFDB`\uFFFD"
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/login?next=/",
-							"method": "POST",
-							"param": "",
-							"attack": "",
-							"evidence": "3AfXAZzoLT5Lg7TmeAxekDmOH1VpysQce0",
-							"otherinfo": "\uFFFD\\x0007\uFFFD\\x0001\uFFFD\uFFFD->K\uFFFD\uFFFD\uFFFDx\\x000c^\uFFFD9\uFFFD\\x001fUi\uFFFD\uFFFD\\x001c{"
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/login?next=/robots.txt",
-							"method": "POST",
-							"param": "",
-							"attack": "",
-							"evidence": "3AfXAZzoLT5Lg7TmeAxekDmOH1VpysQce0",
-							"otherinfo": "\uFFFD\\x0007\uFFFD\\x0001\uFFFD\uFFFD->K\uFFFD\uFFFD\uFFFDx\\x000c^\uFFFD9\uFFFD\\x001fUi\uFFFD\uFFFD\\x001c{"
+							"evidence": "fr-header-header-with-quick-access-items-quick-access-item--Seconnecter_mobile-0",
+							"otherinfo": "~\uFFFD\uFFFDy\uFFFD^\uFFFD\uFFFD^i\u05EB\uFFFD\\x0008\uFFFD\uFFFD\uAB89\uFFFD>i\uFFFD\\x001e\uFFFD\u03E2\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDrO\uFFFDq\u01EC\uFFFD\uFFFDzo\uFFFDI\uFFFD(\uFFFDw\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD"
 						}
 					],
-					"count": "12",
+					"count": "5",
 					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
-					"otherinfo": "<p>\uFFFD\\x0002\uFFFD\uFFFD\uFFFD\uFFFD</p><p>\uFFFD\uFFFDe\uFFFD \\x0006CJe\u0222\uFFFD\uFFFDe\uFFFD\u02F1r</p>",
+					"otherinfo": "<p>~\uFFFD\uFFFDy\uFFFD^\uFFFD\uFFFD^i\u05EB\uFFFD\\x0008\uFFFD\uFFFD\uAB89\uFFFD>i\uFFFD\\x001e\uFFFD\u03E2\uFFFD\uFFFD\uFFFD\uFFFD\uFFFDrO\uFFFDq\u01EC\uFFFD\uFFFDzo\uFFFDI\uFFFD(\uFFFDw\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD</p>",
 					"reference": "<p>https://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
 					"cweid": "200",
 					"wascid": "13",
@@ -617,69 +414,45 @@
 					"desc": "<p>The response appears to contain suspicious comments which may help an attacker. Note: Matches made within script blocks or files are against the entire content not only comments.</p>",
 					"instances":[ 
 						{
-							"uri": "https://espace-membre.incubateur.net",
+							"uri": "https://espace-membre.incubateur.net/_next/static/chunks/7864-ee6856752340654b.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "bug",
+							"otherinfo": "The following pattern was used: \\bBUG\\b and was detected in the element starting with: \" */var n=r(54887),u=r(2265),o={stream:!0},l=new Map;function a(e){var t=globalThis.__next_require__(e);return\"function\"!=typeof \", see evidence field for the suspicious comment/snippet."
+						},
+						{
+							"uri": "https://espace-membre.incubateur.net/_next/static/chunks/7864-ee6856752340654b.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "query",
-							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script>\n              window.__INITIAL_PROPS__ = {\"request\":{\"query\":{\"next\":\"/\"}},\"errors\":[],\"messages\":[],\"domain\":\"beta.gou\", see evidence field for the suspicious comment/snippet."
+							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[7864],{2335:function(){\"trimStart\"in String.prototype||(String.prototyp\", see evidence field for the suspicious comment/snippet."
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/login?next=/",
+							"uri": "https://espace-membre.incubateur.net/_next/static/chunks/fd9d1056-79d60c643979453d.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "select",
+							"otherinfo": "The following pattern was used: \\bSELECT\\b and was detected in the element starting with: \" */var r,l=n(2265),a=n(8261),i={usingClientEntryPoint:!1,Events:null,Dispatcher:{current:null}};function o(e){for(var t=\"https:/\", see evidence field for the suspicious comment/snippet."
+						},
+						{
+							"uri": "https://espace-membre.incubateur.net/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js",
 							"method": "GET",
 							"param": "",
 							"attack": "",
 							"evidence": "query",
-							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script>\n              window.__INITIAL_PROPS__ = {\"request\":{\"query\":{\"next\":\"/\"}},\"errors\":[],\"messages\":[\"Pour acc\u00E9der \u00E0 cett\", see evidence field for the suspicious comment/snippet."
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/login?next=/robots.txt",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "query",
-							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script>\n              window.__INITIAL_PROPS__ = {\"request\":{\"query\":{\"next\":\"/robots.txt\"}},\"errors\":[\"L'adresse email foo-bar\", see evidence field for the suspicious comment/snippet."
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/login?next=/sitemap.xml",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "query",
-							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script>\n              window.__INITIAL_PROPS__ = {\"request\":{\"query\":{\"next\":\"/sitemap.xml\"}},\"errors\":[\"L'adresse email foo-ba\", see evidence field for the suspicious comment/snippet."
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/onboarding",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "query",
-							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script>\n              window.__INITIAL_PROPS__ = {\"title\":\"Mon compte\",\"formValidationErrors\":{},\"startups\":[{\"id\":\"1000.jours\"\", see evidence field for the suspicious comment/snippet."
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/public/js/Home.js?1.0.0",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "username",
-							"otherinfo": "The following pattern was used: \\bUSERNAME\\b and was detected in the element starting with: \"\"use strict\";(self.webpackChunksecretariat=self.webpackChunksecretariat||[]).push([[268],{677:(e,t,a)=>{a.d(t,{D:()=>n});var r=a\", see evidence field for the suspicious comment/snippet."
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/public/js/shared.js",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "db",
-							"otherinfo": "The following pattern was used: \\bDB\\b and was detected in the element starting with: \"(()=>{var M,b,z,p={8:(M,b,z)=>{z(5177).tz.load(z(1128))},5177:function(M,b,z){var p,e,O;!function(o,c){\"use strict\";M.exports?M.\", see evidence field for the suspicious comment/snippet."
+							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"!function(){var t=\"undefined\"!=typeof globalThis?globalThis:\"undefined\"!=typeof window?window:\"undefined\"!=typeof global?global:\", see evidence field for the suspicious comment/snippet."
 						}
 					],
-					"count": "7",
+					"count": "4",
 					"solution": "<p>Remove all comments that return information that may help an attacker and fix any underlying problems they refer to.</p>",
-					"otherinfo": "<p>The following pattern was used: \\bQUERY\\b and was detected in the element starting with: \"<script></p><p>              window.__INITIAL_PROPS__ = {\"request\":{\"query\":{\"next\":\"/\"}},\"errors\":[],\"messages\":[],\"domain\":\"beta.gou\", see evidence field for the suspicious comment/snippet.</p>",
+					"otherinfo": "<p>The following pattern was used: \\bBUG\\b and was detected in the element starting with: \" */var n=r(54887),u=r(2265),o={stream:!0},l=new Map;function a(e){var t=globalThis.__next_require__(e);return\"function\"!=typeof \", see evidence field for the suspicious comment/snippet.</p>",
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "1"
+					"sourceid": "33"
 				},
 				{
 					"pluginid": "10049",
@@ -692,37 +465,29 @@
 					"desc": "<p>The response contents are not storable by caching components such as proxy servers. If the response does not contain sensitive, personal or user-specific information, it may benefit from being stored and cached, to improve performance.</p>",
 					"instances":[ 
 						{
-							"uri": "https://espace-membre.incubateur.net",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "302",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "302",
-							"otherinfo": ""
-						},
-						{
 							"uri": "https://espace-membre.incubateur.net/robots.txt",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "302",
+							"evidence": "no-store",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://espace-membre.incubateur.net/sitemap.xml",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "no-store",
 							"otherinfo": ""
 						}
 					],
-					"count": "3",
+					"count": "2",
 					"solution": "<p>The content may be marked as storable by ensuring that the following conditions are satisfied:</p><p>The request method must be understood by the cache and defined as being cacheable (\"GET\", \"HEAD\", and \"POST\" are currently defined as cacheable)</p><p>The response status code must be understood by the cache (one of the 1XX, 2XX, 3XX, 4XX, or 5XX response classes are generally understood)</p><p>The \"no-store\" cache directive must not appear in the request or response header fields</p><p>For caching by \"shared\" caches such as \"proxy\" caches, the \"private\" response directive must not appear in the response</p><p>For caching by \"shared\" caches such as \"proxy\" caches, the \"Authorization\" header field must not appear in the request, unless the response explicitly allows it (using one of the \"must-revalidate\", \"public\", or \"s-maxage\" Cache-Control response directives)</p><p>In addition to the conditions above, at least one of the following conditions must also be satisfied by the response:</p><p>It must contain an \"Expires\" header field</p><p>It must contain a \"max-age\" response directive</p><p>For \"shared\" caches such as \"proxy\" caches, it must contain a \"s-maxage\" response directive</p><p>It must contain a \"Cache Control Extension\" that allows it to be cached</p><p>It must have a status code that is defined as cacheable by default (200, 203, 204, 206, 300, 301, 404, 405, 410, 414, 501).   </p>",
 					"otherinfo": "",
 					"reference": "<p>https://datatracker.ietf.org/doc/html/rfc7234</p><p>https://datatracker.ietf.org/doc/html/rfc7231</p><p>https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "6"
+					"sourceid": "31"
 				},
 				{
 					"pluginid": "10015",
@@ -739,51 +504,19 @@
 							"method": "GET",
 							"param": "cache-control",
 							"attack": "",
-							"evidence": "",
+							"evidence": "s-maxage=31536000, stale-while-revalidate",
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/login?next=/",
+							"uri": "https://espace-membre.incubateur.net/",
 							"method": "GET",
 							"param": "cache-control",
 							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/login?next=/robots.txt",
-							"method": "GET",
-							"param": "cache-control",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/login?next=/sitemap.xml",
-							"method": "GET",
-							"param": "cache-control",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/onboarding",
-							"method": "GET",
-							"param": "cache-control",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/static/favicon/site.webmanifest",
-							"method": "GET",
-							"param": "cache-control",
-							"attack": "",
-							"evidence": "public, max-age=0",
+							"evidence": "s-maxage=31536000, stale-while-revalidate",
 							"otherinfo": ""
 						}
 					],
-					"count": "6",
+					"count": "2",
 					"solution": "<p>For secure content, ensure the cache-control HTTP header is set with \"no-cache, no-store, must-revalidate\". If an asset should be cached consider setting the directives \"public, max-age, immutable\".</p>",
 					"otherinfo": "",
 					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching</p><p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control</p><p>https://grayduck.mn/2021/09/13/cache-control-recommendations/</p>",
@@ -810,7 +543,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/",
+							"uri": "https://espace-membre.incubateur.net/_next/static/chunks/webpack-2cfb3289b3d8e0c2.js",
 							"method": "GET",
 							"param": "Sec-Fetch-Dest",
 							"attack": "",
@@ -818,7 +551,15 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/robots.txt",
+							"uri": "https://espace-membre.incubateur.net/_next/static/css/1b1d10445b60e5f7.css",
+							"method": "GET",
+							"param": "Sec-Fetch-Dest",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://espace-membre.incubateur.net/_next/static/media/favicon.8c087985.ico",
 							"method": "GET",
 							"param": "Sec-Fetch-Dest",
 							"attack": "",
@@ -826,13 +567,13 @@
 							"otherinfo": ""
 						}
 					],
-					"count": "3",
+					"count": "4",
 					"solution": "<p>Ensure that Sec-Fetch-Dest header is included in request headers.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Dest</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "90005",
@@ -853,7 +594,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/",
+							"uri": "https://espace-membre.incubateur.net/_next/static/chunks/webpack-2cfb3289b3d8e0c2.js",
 							"method": "GET",
 							"param": "Sec-Fetch-Mode",
 							"attack": "",
@@ -861,7 +602,15 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/robots.txt",
+							"uri": "https://espace-membre.incubateur.net/_next/static/css/1b1d10445b60e5f7.css",
+							"method": "GET",
+							"param": "Sec-Fetch-Mode",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://espace-membre.incubateur.net/_next/static/media/favicon.8c087985.ico",
 							"method": "GET",
 							"param": "Sec-Fetch-Mode",
 							"attack": "",
@@ -869,13 +618,13 @@
 							"otherinfo": ""
 						}
 					],
-					"count": "3",
+					"count": "4",
 					"solution": "<p>Ensure that Sec-Fetch-Mode header is included in request headers.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Mode</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "90005",
@@ -896,7 +645,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/",
+							"uri": "https://espace-membre.incubateur.net/_next/static/chunks/webpack-2cfb3289b3d8e0c2.js",
 							"method": "GET",
 							"param": "Sec-Fetch-Site",
 							"attack": "",
@@ -904,7 +653,15 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/robots.txt",
+							"uri": "https://espace-membre.incubateur.net/_next/static/css/1b1d10445b60e5f7.css",
+							"method": "GET",
+							"param": "Sec-Fetch-Site",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://espace-membre.incubateur.net/_next/static/media/favicon.8c087985.ico",
 							"method": "GET",
 							"param": "Sec-Fetch-Site",
 							"attack": "",
@@ -912,13 +669,13 @@
 							"otherinfo": ""
 						}
 					],
-					"count": "3",
+					"count": "4",
 					"solution": "<p>Ensure that Sec-Fetch-Site header is included in request headers.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Site</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "90005",
@@ -939,7 +696,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/",
+							"uri": "https://espace-membre.incubateur.net/_next/static/chunks/webpack-2cfb3289b3d8e0c2.js",
 							"method": "GET",
 							"param": "Sec-Fetch-User",
 							"attack": "",
@@ -947,7 +704,15 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/robots.txt",
+							"uri": "https://espace-membre.incubateur.net/_next/static/css/1b1d10445b60e5f7.css",
+							"method": "GET",
+							"param": "Sec-Fetch-User",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://espace-membre.incubateur.net/_next/static/media/favicon.8c087985.ico",
 							"method": "GET",
 							"param": "Sec-Fetch-User",
 							"attack": "",
@@ -955,95 +720,12 @@
 							"otherinfo": ""
 						}
 					],
-					"count": "3",
+					"count": "4",
 					"solution": "<p>Ensure that Sec-Fetch-User header is included in user initiated requests.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-User</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "6"
-				},
-				{
-					"pluginid": "10112",
-					"alertRef": "10112",
-					"alert": "Session Management Response Identified",
-					"name": "Session Management Response Identified",
-					"riskcode": "0",
-					"confidence": "2",
-					"riskdesc": "Informational (Medium)",
-					"desc": "<p>The given response has been identified as containing a session management token. The 'Other Info' field contains a set of header tokens that can be used in the Header Based Session Management Method. If the request is in a context which has a Session Management Method set to \"Auto-Detect\" then this rule will change the session management to use the tokens identified.</p>",
-					"instances":[ 
-						{
-							"uri": "https://espace-membre.incubateur.net",
-							"method": "GET",
-							"param": "espaceMembreCookieName",
-							"attack": "",
-							"evidence": "s%3AKAmsTgCoCfZeQgBkNKZciip_1lncuxcq.UwXbO3e8G2PyTxReSWZYHOwj6FE8vPqNl%2FqtBsjCIbU",
-							"otherinfo": "\ncookie:espaceMembreCookieName"
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net",
-							"method": "GET",
-							"param": "espaceMembreCookieName",
-							"attack": "",
-							"evidence": "s%3AfXAZzoLT5Lg7TmeAxekDmOH1VpysQce0.Sb5gAZSF8QDGcYKSGD9KURMZBWDxH7EEmKqp0yu1lDc",
-							"otherinfo": "\ncookie:espaceMembreCookieName"
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/",
-							"method": "GET",
-							"param": "espaceMembreCookieName",
-							"attack": "",
-							"evidence": "s%3AfXAZzoLT5Lg7TmeAxekDmOH1VpysQce0.Sb5gAZSF8QDGcYKSGD9KURMZBWDxH7EEmKqp0yu1lDc",
-							"otherinfo": "\ncookie:espaceMembreCookieName"
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/login?next=/",
-							"method": "GET",
-							"param": "espaceMembreCookieName",
-							"attack": "",
-							"evidence": "s%3AfXAZzoLT5Lg7TmeAxekDmOH1VpysQce0.Sb5gAZSF8QDGcYKSGD9KURMZBWDxH7EEmKqp0yu1lDc",
-							"otherinfo": "\ncookie:espaceMembreCookieName"
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/robots.txt",
-							"method": "GET",
-							"param": "espaceMembreCookieName",
-							"attack": "",
-							"evidence": "s%3AfXAZzoLT5Lg7TmeAxekDmOH1VpysQce0.Sb5gAZSF8QDGcYKSGD9KURMZBWDxH7EEmKqp0yu1lDc",
-							"otherinfo": "\ncookie:espaceMembreCookieName"
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/login?next=/sitemap.xml",
-							"method": "GET",
-							"param": "espaceMembreCookieName",
-							"attack": "",
-							"evidence": "s%3AfXAZzoLT5Lg7TmeAxekDmOH1VpysQce0.Sb5gAZSF8QDGcYKSGD9KURMZBWDxH7EEmKqp0yu1lDc",
-							"otherinfo": "\ncookie:espaceMembreCookieName"
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/onboarding",
-							"method": "GET",
-							"param": "espaceMembreCookieName",
-							"attack": "",
-							"evidence": "s%3AfXAZzoLT5Lg7TmeAxekDmOH1VpysQce0.Sb5gAZSF8QDGcYKSGD9KURMZBWDxH7EEmKqp0yu1lDc",
-							"otherinfo": "\ncookie:espaceMembreCookieName"
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/sitemap.xml",
-							"method": "GET",
-							"param": "espaceMembreCookieName",
-							"attack": "",
-							"evidence": "s%3AfXAZzoLT5Lg7TmeAxekDmOH1VpysQce0.Sb5gAZSF8QDGcYKSGD9KURMZBWDxH7EEmKqp0yu1lDc",
-							"otherinfo": "\ncookie:espaceMembreCookieName"
-						}
-					],
-					"count": "8",
-					"solution": "<p>This is an informational alert rather than a vulnerability and so there is nothing to fix.</p>",
-					"otherinfo": "<p></p><p>cookie:espaceMembreCookieName</p>",
-					"reference": "<p>https://www.zaproxy.org/docs/desktop/addons/authentication-helper/session-mgmt-id</p>",
-					"cweid": "-1",
-					"wascid": "-1",
 					"sourceid": "1"
 				},
 				{
@@ -1061,21 +743,69 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "",
-							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
+							"evidence": "s-maxage=31536000",
+							"otherinfo": ""
 						},
 						{
-							"uri": "https://espace-membre.incubateur.net/login?next=/",
+							"uri": "https://espace-membre.incubateur.net/",
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "",
-							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
+							"evidence": "s-maxage=31536000",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://espace-membre.incubateur.net/_next/static/chunks/main-app-b293fc524a5ae80a.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "max-age=31536000",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://espace-membre.incubateur.net/_next/static/chunks/webpack-2cfb3289b3d8e0c2.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "max-age=31536000",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://espace-membre.incubateur.net/_next/static/css/1b1d10445b60e5f7.css",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "max-age=31536000",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://espace-membre.incubateur.net/_next/static/media/apple-touch-icon.1db30588.png",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "max-age=31536000",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://espace-membre.incubateur.net/_next/static/media/favicon.8c087985.ico",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "max-age=31536000",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://espace-membre.incubateur.net/_next/static/media/favicon.f453a8cf.svg",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "max-age=31536000",
+							"otherinfo": ""
 						}
 					],
-					"count": "2",
+					"count": "8",
 					"solution": "<p>Validate that the response does not contain sensitive, personal or user-specific information.  If it does, consider the use of the following HTTP response headers, to limit, or prevent the content being stored and retrieved from the cache by another user:</p><p>Cache-Control: no-cache, no-store, must-revalidate, private</p><p>Pragma: no-cache</p><p>Expires: 0</p><p>This configuration directs both HTTP 1.0 and HTTP 1.1 compliant caching servers to not store the response, and to not retrieve the response (without validation) from the cache, in response to a similar request. </p>",
-					"otherinfo": "<p>In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.</p>",
+					"otherinfo": "",
 					"reference": "<p>https://datatracker.ietf.org/doc/html/rfc7234</p><p>https://datatracker.ietf.org/doc/html/rfc7231</p><p>https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html</p>",
 					"cweid": "524",
 					"wascid": "13",
@@ -1092,55 +822,7 @@
 					"desc": "<p>The response contents are storable by caching components such as proxy servers, but will not be retrieved directly from the cache, without validating the request upstream, in response to similar requests from other users. </p>",
 					"instances":[ 
 						{
-							"uri": "https://espace-membre.incubateur.net/react-markdown-editor-lite/index.css",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "max-age=0",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/react-tabulator/styles.css",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "max-age=0",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/react-tabulator/tabulator.min.css",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "max-age=0",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/static/favicon/apple-touch-icon.png",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "max-age=0",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/static/favicon/favicon-16x16.png",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "max-age=0",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/static/favicon/favicon-32x32.png",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "max-age=0",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://espace-membre.incubateur.net/static/favicon/site.webmanifest",
+							"uri": "https://espace-membre.incubateur.net/favicon.ico",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -1148,7 +830,7 @@
 							"otherinfo": ""
 						}
 					],
-					"count": "7",
+					"count": "1",
 					"solution": "",
 					"otherinfo": "",
 					"reference": "<p>https://datatracker.ietf.org/doc/html/rfc7234</p><p>https://datatracker.ietf.org/doc/html/rfc7231</p><p>https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html</p>",
