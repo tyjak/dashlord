@@ -1,7 +1,7 @@
 {
 	"@programName": "ZAP",
 	"@version": "2.14.0",
-	"@generated": "Sun, 10 Dec 2023 10:36:38",
+	"@generated": "Sun, 17 Dec 2023 10:32:08",
 	"site":[ 
 		{
 			"@name": "https://osmose.numerique.gouv.fr",
@@ -26,25 +26,9 @@
 							"attack": "",
 							"evidence": "Set-Cookie: JSESSIONID",
 							"otherinfo": ""
-						},
-						{
-							"uri": "https://osmose.numerique.gouv.fr/",
-							"method": "GET",
-							"param": "JSESSIONID",
-							"attack": "",
-							"evidence": "Set-Cookie: JSESSIONID",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://osmose.numerique.gouv.fr/sitemap.xml",
-							"method": "GET",
-							"param": "JSESSIONID",
-							"attack": "",
-							"evidence": "Set-Cookie: JSESSIONID",
-							"otherinfo": ""
 						}
 					],
-					"count": "3",
+					"count": "1",
 					"solution": "<p>Ensure that the SameSite attribute is set to either 'lax' or ideally 'strict' for all cookies.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site</p>",
@@ -96,6 +80,33 @@
 					"sourceid": "1"
 				},
 				{
+					"pluginid": "10015",
+					"alertRef": "10015",
+					"alert": "Re-examine Cache-control Directives",
+					"name": "Re-examine Cache-control Directives",
+					"riskcode": "0",
+					"confidence": "1",
+					"riskdesc": "Informational (Low)",
+					"desc": "<p>The cache-control header has not been set properly or is missing, allowing the browser and proxies to cache content. For static assets like css, js, or image files this might be intended, however, the resources should be reviewed to ensure that no sensitive content will be cached.</p>",
+					"instances":[ 
+						{
+							"uri": "https://osmose.numerique.gouv.fr/robots.txt",
+							"method": "GET",
+							"param": "cache-control",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						}
+					],
+					"count": "1",
+					"solution": "<p>For secure content, ensure the cache-control HTTP header is set with \"no-cache, no-store, must-revalidate\". If an asset should be cached consider setting the directives \"public, max-age, immutable\".</p>",
+					"otherinfo": "",
+					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching</p><p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control</p><p>https://grayduck.mn/2021/09/13/cache-control-recommendations/</p>",
+					"cweid": "525",
+					"wascid": "13",
+					"sourceid": "7"
+				},
+				{
 					"pluginid": "90005",
 					"alertRef": "90005-3",
 					"alert": "Sec-Fetch-Dest Header is Missing",
@@ -136,7 +147,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Dest</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "90005",
@@ -179,7 +190,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Mode</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "90005",
@@ -222,7 +233,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Site</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "90005",
@@ -265,7 +276,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-User</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10112",
@@ -282,7 +293,7 @@
 							"method": "GET",
 							"param": "JSESSIONID",
 							"attack": "",
-							"evidence": "513C6D9841754B2492C5F7FC96B508A8.n1",
+							"evidence": "7CCFC57586AC3EC97CD1BFAEDF925391.n1",
 							"otherinfo": "\ncookie:JSESSIONID"
 						},
 						{
@@ -290,33 +301,25 @@
 							"method": "GET",
 							"param": "JSESSIONID",
 							"attack": "",
-							"evidence": "A53C57871F02E54AEE573A5776D2D9E4.n1",
+							"evidence": "B29725F4B615C35F5E3C0C18E3C91623.n1",
 							"otherinfo": "\ncookie:JSESSIONID"
 						},
 						{
-							"uri": "https://osmose.numerique.gouv.fr/",
+							"uri": "https://osmose.numerique.gouv.fr",
 							"method": "GET",
 							"param": "JSESSIONID",
 							"attack": "",
-							"evidence": "9DAEE1E4BB63BC684583DBCCF6337A43.n1",
-							"otherinfo": "\ncookie:JSESSIONID"
-						},
-						{
-							"uri": "https://osmose.numerique.gouv.fr/sitemap.xml",
-							"method": "GET",
-							"param": "JSESSIONID",
-							"attack": "",
-							"evidence": "9DC79DA50B0372A9A6FCFD0D9F0C5B88.n1",
+							"evidence": "7CCFC57586AC3EC97CD1BFAEDF925391.n1",
 							"otherinfo": "\ncookie:JSESSIONID"
 						}
 					],
-					"count": "4",
+					"count": "3",
 					"solution": "<p>This is an informational alert rather than a vulnerability and so there is nothing to fix.</p>",
 					"otherinfo": "<p></p><p>cookie:JSESSIONID</p>",
 					"reference": "<p>https://www.zaproxy.org/docs/desktop/addons/authentication-helper/session-mgmt-id</p>",
 					"cweid": "-1",
 					"wascid": "-1",
-					"sourceid": "10"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10049",
@@ -343,7 +346,7 @@
 					"reference": "<p>https://datatracker.ietf.org/doc/html/rfc7234</p><p>https://datatracker.ietf.org/doc/html/rfc7231</p><p>https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "6"
+					"sourceid": "7"
 				}
 			]
 		}
