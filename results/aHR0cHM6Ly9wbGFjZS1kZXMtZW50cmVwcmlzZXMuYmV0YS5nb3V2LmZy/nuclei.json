@@ -1,20 +1,24 @@
 [
   [
     {
-      "template": "dns/nameserver-fingerprint.yaml",
-      "template-url": "https://templates.nuclei.sh/public/nameserver-fingerprint",
-      "template-id": "nameserver-fingerprint",
-      "template-path": "/home/runner/nuclei-templates/dns/nameserver-fingerprint.yaml",
+      "template": "dns/mx-fingerprint.yaml",
+      "template-url": "https://templates.nuclei.sh/public/mx-fingerprint",
+      "template-id": "mx-fingerprint",
+      "template-path": "/home/runner/nuclei-templates/dns/mx-fingerprint.yaml",
       "info": {
-        "name": "NS Record Detection",
+        "name": "MX Record Detection",
         "author": [
           "pdteam"
         ],
         "tags": [
           "dns",
-          "ns"
+          "mx"
         ],
-        "description": "An NS record was detected. An NS record delegates a subdomain to a set of name servers.",
+        "description": "An MX record was detected. MX records direct emails to a mail exchange server.",
+        "reference": [
+          "https://www.cloudflare.com/learning/dns/dns-records/dns-mx-record/",
+          "https://mxtoolbox.com/"
+        ],
         "severity": "info",
         "metadata": {
           "max-request": 1
@@ -30,49 +34,12 @@
       "host": "place-des-entreprises.beta.gouv.fr.",
       "matched-at": "place-des-entreprises.beta.gouv.fr",
       "extracted-results": [
-        "dns2.alwaysdata.com.",
-        "dns1.alwaysdata.com."
+        "20 mx2.alwaysdata.com.",
+        "10 mx1.alwaysdata.com."
       ],
-      "request": ";; opcode: QUERY, status: NOERROR, id: 2351\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 4096\n\n;; QUESTION SECTION:\n;place-des-entreprises.beta.gouv.fr.\tIN\t NS\n",
-      "response": ";; opcode: QUERY, status: NOERROR, id: 2351\n;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 512\n\n;; QUESTION SECTION:\n;place-des-entreprises.beta.gouv.fr.\tIN\t NS\n\n;; ANSWER SECTION:\nplace-des-entreprises.beta.gouv.fr.\t300\tIN\tNS\tdns1.alwaysdata.com.\nplace-des-entreprises.beta.gouv.fr.\t300\tIN\tNS\tdns2.alwaysdata.com.\n",
-      "timestamp": "2023-12-17T09:02:47.863078124Z",
-      "matcher-status": true
-    },
-    {
-      "template": "dns/caa-fingerprint.yaml",
-      "template-url": "https://templates.nuclei.sh/public/caa-fingerprint",
-      "template-id": "caa-fingerprint",
-      "template-path": "/home/runner/nuclei-templates/dns/caa-fingerprint.yaml",
-      "info": {
-        "name": "CAA Record",
-        "author": [
-          "pdteam"
-        ],
-        "tags": [
-          "dns",
-          "caa"
-        ],
-        "description": "A CAA record was discovered. A CAA record is used to specify which certificate authorities (CAs) are allowed to issue certificates for a domain.",
-        "reference": [
-          "https://support.dnsimple.com/articles/caa-record/#whats-a-caa-record"
-        ],
-        "severity": "info",
-        "metadata": {
-          "max-request": 1
-        },
-        "classification": {
-          "cve-id": null,
-          "cwe-id": [
-            "cwe-200"
-          ]
-        }
-      },
-      "type": "dns",
-      "host": "place-des-entreprises.beta.gouv.fr.",
-      "matched-at": "place-des-entreprises.beta.gouv.fr",
-      "request": ";; opcode: QUERY, status: NOERROR, id: 58885\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 4096\n\n;; QUESTION SECTION:\n;place-des-entreprises.beta.gouv.fr.\tIN\t CAA\n",
-      "response": ";; opcode: QUERY, status: NOERROR, id: 58885\n;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 512\n\n;; QUESTION SECTION:\n;place-des-entreprises.beta.gouv.fr.\tIN\t CAA\n\n;; AUTHORITY SECTION:\nplace-des-entreprises.beta.gouv.fr.\t300\tIN\tSOA\tdns1.alwaysdata.com. hostmaster.alwaysdata.com. 1687166743 3600 900 1209600 300\n",
-      "timestamp": "2023-12-17T09:02:47.863335121Z",
+      "request": ";; opcode: QUERY, status: NOERROR, id: 26224\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 4096\n\n;; QUESTION SECTION:\n;place-des-entreprises.beta.gouv.fr.\tIN\t MX\n",
+      "response": ";; opcode: QUERY, status: NOERROR, id: 26224\n;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 512\n\n;; QUESTION SECTION:\n;place-des-entreprises.beta.gouv.fr.\tIN\t MX\n\n;; ANSWER SECTION:\nplace-des-entreprises.beta.gouv.fr.\t300\tIN\tMX\t20 mx2.alwaysdata.com.\nplace-des-entreprises.beta.gouv.fr.\t300\tIN\tMX\t10 mx1.alwaysdata.com.\n",
+      "timestamp": "2023-12-24T09:08:48.951907202Z",
       "matcher-status": true
     },
     {
@@ -112,29 +79,28 @@
       "extracted-results": [
         "\"v=DMARC1;p=none;\""
       ],
-      "request": ";; opcode: QUERY, status: NOERROR, id: 15808\n;; flags: rd ad; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 4096\n\n;; QUESTION SECTION:\n;_dmarc.place-des-entreprises.beta.gouv.fr.\tIN\t TXT\n",
-      "response": ";; opcode: QUERY, status: NOERROR, id: 15808\n;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 512\n\n;; QUESTION SECTION:\n;_dmarc.place-des-entreprises.beta.gouv.fr.\tIN\t TXT\n\n;; ANSWER SECTION:\n_dmarc.place-des-entreprises.beta.gouv.fr.\t300\tIN\tTXT\t\"v=DMARC1;p=none;\"\n",
-      "timestamp": "2023-12-17T09:02:47.8637754Z",
+      "request": ";; opcode: QUERY, status: NOERROR, id: 3287\n;; flags: rd ad; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 4096\n\n;; QUESTION SECTION:\n;_dmarc.place-des-entreprises.beta.gouv.fr.\tIN\t TXT\n",
+      "response": ";; opcode: QUERY, status: NOERROR, id: 3287\n;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 1232\n\n;; QUESTION SECTION:\n;_dmarc.place-des-entreprises.beta.gouv.fr.\tIN\t TXT\n\n;; ANSWER SECTION:\n_dmarc.place-des-entreprises.beta.gouv.fr.\t300\tIN\tTXT\t\"v=DMARC1;p=none;\"\n",
+      "timestamp": "2023-12-24T09:08:49.027202088Z",
       "matcher-status": true
     },
     {
-      "template": "dns/mx-fingerprint.yaml",
-      "template-url": "https://templates.nuclei.sh/public/mx-fingerprint",
-      "template-id": "mx-fingerprint",
-      "template-path": "/home/runner/nuclei-templates/dns/mx-fingerprint.yaml",
+      "template": "dns/caa-fingerprint.yaml",
+      "template-url": "https://templates.nuclei.sh/public/caa-fingerprint",
+      "template-id": "caa-fingerprint",
+      "template-path": "/home/runner/nuclei-templates/dns/caa-fingerprint.yaml",
       "info": {
-        "name": "MX Record Detection",
+        "name": "CAA Record",
         "author": [
           "pdteam"
         ],
         "tags": [
           "dns",
-          "mx"
+          "caa"
         ],
-        "description": "An MX record was detected. MX records direct emails to a mail exchange server.",
+        "description": "A CAA record was discovered. A CAA record is used to specify which certificate authorities (CAs) are allowed to issue certificates for a domain.",
         "reference": [
-          "https://www.cloudflare.com/learning/dns/dns-records/dns-mx-record/",
-          "https://mxtoolbox.com/"
+          "https://support.dnsimple.com/articles/caa-record/#whats-a-caa-record"
         ],
         "severity": "info",
         "metadata": {
@@ -150,13 +116,9 @@
       "type": "dns",
       "host": "place-des-entreprises.beta.gouv.fr.",
       "matched-at": "place-des-entreprises.beta.gouv.fr",
-      "extracted-results": [
-        "20 mx2.alwaysdata.com.",
-        "10 mx1.alwaysdata.com."
-      ],
-      "request": ";; opcode: QUERY, status: NOERROR, id: 39622\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 4096\n\n;; QUESTION SECTION:\n;place-des-entreprises.beta.gouv.fr.\tIN\t MX\n",
-      "response": ";; opcode: QUERY, status: NOERROR, id: 39622\n;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 1232\n\n;; QUESTION SECTION:\n;place-des-entreprises.beta.gouv.fr.\tIN\t MX\n\n;; ANSWER SECTION:\nplace-des-entreprises.beta.gouv.fr.\t300\tIN\tMX\t20 mx2.alwaysdata.com.\nplace-des-entreprises.beta.gouv.fr.\t300\tIN\tMX\t10 mx1.alwaysdata.com.\n",
-      "timestamp": "2023-12-17T09:02:48.116925141Z",
+      "request": ";; opcode: QUERY, status: NOERROR, id: 46835\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 4096\n\n;; QUESTION SECTION:\n;place-des-entreprises.beta.gouv.fr.\tIN\t CAA\n",
+      "response": ";; opcode: QUERY, status: NOERROR, id: 46835\n;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 512\n\n;; QUESTION SECTION:\n;place-des-entreprises.beta.gouv.fr.\tIN\t CAA\n\n;; AUTHORITY SECTION:\nplace-des-entreprises.beta.gouv.fr.\t300\tIN\tSOA\tdns1.alwaysdata.com. hostmaster.alwaysdata.com. 1687166743 3600 900 1209600 300\n",
+      "timestamp": "2023-12-24T09:08:49.03318651Z",
       "matcher-status": true
     },
     {
@@ -194,243 +156,47 @@
       "extracted-results": [
         "\"v=spf1 include:_spf.alwaysdata.com ~all\""
       ],
-      "request": ";; opcode: QUERY, status: NOERROR, id: 36625\n;; flags: rd ad; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 4096\n\n;; QUESTION SECTION:\n;place-des-entreprises.beta.gouv.fr.\tIN\t TXT\n",
-      "response": ";; opcode: QUERY, status: NOERROR, id: 36625\n;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 512\n\n;; QUESTION SECTION:\n;place-des-entreprises.beta.gouv.fr.\tIN\t TXT\n\n;; ANSWER SECTION:\nplace-des-entreprises.beta.gouv.fr.\t300\tIN\tTXT\t\"v=spf1 include:_spf.alwaysdata.com ~all\"\n",
-      "timestamp": "2023-12-17T09:02:48.700044708Z",
+      "request": ";; opcode: QUERY, status: NOERROR, id: 44305\n;; flags: rd ad; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 4096\n\n;; QUESTION SECTION:\n;place-des-entreprises.beta.gouv.fr.\tIN\t TXT\n",
+      "response": ";; opcode: QUERY, status: NOERROR, id: 44305\n;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 1232\n\n;; QUESTION SECTION:\n;place-des-entreprises.beta.gouv.fr.\tIN\t TXT\n\n;; ANSWER SECTION:\nplace-des-entreprises.beta.gouv.fr.\t300\tIN\tTXT\t\"v=spf1 include:_spf.alwaysdata.com ~all\"\n",
+      "timestamp": "2023-12-24T09:08:49.807080122Z",
       "matcher-status": true
     },
     {
-      "template": "http/misconfiguration/http-missing-security-headers.yaml",
-      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
-      "template-id": "http-missing-security-headers",
-      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "template": "dns/nameserver-fingerprint.yaml",
+      "template-url": "https://templates.nuclei.sh/public/nameserver-fingerprint",
+      "template-id": "nameserver-fingerprint",
+      "template-path": "/home/runner/nuclei-templates/dns/nameserver-fingerprint.yaml",
       "info": {
-        "name": "HTTP Missing Security Headers",
+        "name": "NS Record Detection",
         "author": [
-          "socketz",
-          "geeknik",
-          "g4l1t0",
-          "convisoappsec",
-          "kurohost",
-          "dawid-czarnecki",
-          "forgedhallpass",
-          "jub0bs"
+          "pdteam"
         ],
         "tags": [
-          "misconfig",
-          "headers",
-          "generic"
+          "dns",
+          "ns"
         ],
-        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "description": "An NS record was detected. An NS record delegates a subdomain to a set of name servers.",
         "severity": "info",
         "metadata": {
           "max-request": 1
+        },
+        "classification": {
+          "cve-id": null,
+          "cwe-id": [
+            "cwe-200"
+          ]
         }
       },
-      "matcher-name": "clear-site-data",
-      "type": "http",
-      "host": "https://place-des-entreprises.beta.gouv.fr",
-      "matched-at": "https://place-des-entreprises.beta.gouv.fr",
-      "request": "GET / HTTP/1.1\r\nHost: place-des-entreprises.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 12\r\nCache-Control: no-cache\r\nContent-Security-Policy: default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-o+K3+EHv5p0/TUl3DMxk0g=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-o+K3+EHv5p0/TUl3DMxk0g=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b\r\nContent-Type: text/plain\r\nDate: Sun, 17 Dec 2023 09:04:00 GMT\r\nStrict-Transport-Security: max-age=31536000\r\nStrict-Transport-Security: max-age=63072000; includeSubDomains\r\nX-Request-Id: 90550461-ad4e-46d9-92b4-4d00d13aac93\r\nX-Request-Id: 90550461-ad4e-46d9-92b4-4d00d13aac93\r\nX-Runtime: 0.005072\r\n\r\nRetry later\n",
-      "ip": "148.253.75.120",
-      "timestamp": "2023-12-17T09:04:00.941640941Z",
-      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://place-des-entreprises.beta.gouv.fr'",
-      "matcher-status": true
-    },
-    {
-      "template": "http/misconfiguration/http-missing-security-headers.yaml",
-      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
-      "template-id": "http-missing-security-headers",
-      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
-      "info": {
-        "name": "HTTP Missing Security Headers",
-        "author": [
-          "socketz",
-          "geeknik",
-          "g4l1t0",
-          "convisoappsec",
-          "kurohost",
-          "dawid-czarnecki",
-          "forgedhallpass",
-          "jub0bs"
-        ],
-        "tags": [
-          "misconfig",
-          "headers",
-          "generic"
-        ],
-        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-        "severity": "info",
-        "metadata": {
-          "max-request": 1
-        }
-      },
-      "matcher-name": "cross-origin-embedder-policy",
-      "type": "http",
-      "host": "https://place-des-entreprises.beta.gouv.fr",
-      "matched-at": "https://place-des-entreprises.beta.gouv.fr",
-      "request": "GET / HTTP/1.1\r\nHost: place-des-entreprises.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 12\r\nCache-Control: no-cache\r\nContent-Security-Policy: default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-o+K3+EHv5p0/TUl3DMxk0g=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-o+K3+EHv5p0/TUl3DMxk0g=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b\r\nContent-Type: text/plain\r\nDate: Sun, 17 Dec 2023 09:04:00 GMT\r\nStrict-Transport-Security: max-age=31536000\r\nStrict-Transport-Security: max-age=63072000; includeSubDomains\r\nX-Request-Id: 90550461-ad4e-46d9-92b4-4d00d13aac93\r\nX-Request-Id: 90550461-ad4e-46d9-92b4-4d00d13aac93\r\nX-Runtime: 0.005072\r\n\r\nRetry later\n",
-      "ip": "148.253.75.120",
-      "timestamp": "2023-12-17T09:04:00.941690844Z",
-      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://place-des-entreprises.beta.gouv.fr'",
-      "matcher-status": true
-    },
-    {
-      "template": "http/misconfiguration/http-missing-security-headers.yaml",
-      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
-      "template-id": "http-missing-security-headers",
-      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
-      "info": {
-        "name": "HTTP Missing Security Headers",
-        "author": [
-          "socketz",
-          "geeknik",
-          "g4l1t0",
-          "convisoappsec",
-          "kurohost",
-          "dawid-czarnecki",
-          "forgedhallpass",
-          "jub0bs"
-        ],
-        "tags": [
-          "misconfig",
-          "headers",
-          "generic"
-        ],
-        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-        "severity": "info",
-        "metadata": {
-          "max-request": 1
-        }
-      },
-      "matcher-name": "cross-origin-opener-policy",
-      "type": "http",
-      "host": "https://place-des-entreprises.beta.gouv.fr",
-      "matched-at": "https://place-des-entreprises.beta.gouv.fr",
-      "request": "GET / HTTP/1.1\r\nHost: place-des-entreprises.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 12\r\nCache-Control: no-cache\r\nContent-Security-Policy: default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-o+K3+EHv5p0/TUl3DMxk0g=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-o+K3+EHv5p0/TUl3DMxk0g=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b\r\nContent-Type: text/plain\r\nDate: Sun, 17 Dec 2023 09:04:00 GMT\r\nStrict-Transport-Security: max-age=31536000\r\nStrict-Transport-Security: max-age=63072000; includeSubDomains\r\nX-Request-Id: 90550461-ad4e-46d9-92b4-4d00d13aac93\r\nX-Request-Id: 90550461-ad4e-46d9-92b4-4d00d13aac93\r\nX-Runtime: 0.005072\r\n\r\nRetry later\n",
-      "ip": "148.253.75.120",
-      "timestamp": "2023-12-17T09:04:00.941708698Z",
-      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://place-des-entreprises.beta.gouv.fr'",
-      "matcher-status": true
-    },
-    {
-      "template": "http/misconfiguration/http-missing-security-headers.yaml",
-      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
-      "template-id": "http-missing-security-headers",
-      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
-      "info": {
-        "name": "HTTP Missing Security Headers",
-        "author": [
-          "socketz",
-          "geeknik",
-          "g4l1t0",
-          "convisoappsec",
-          "kurohost",
-          "dawid-czarnecki",
-          "forgedhallpass",
-          "jub0bs"
-        ],
-        "tags": [
-          "misconfig",
-          "headers",
-          "generic"
-        ],
-        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-        "severity": "info",
-        "metadata": {
-          "max-request": 1
-        }
-      },
-      "matcher-name": "permissions-policy",
-      "type": "http",
-      "host": "https://place-des-entreprises.beta.gouv.fr",
-      "matched-at": "https://place-des-entreprises.beta.gouv.fr",
-      "request": "GET / HTTP/1.1\r\nHost: place-des-entreprises.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 12\r\nCache-Control: no-cache\r\nContent-Security-Policy: default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-o+K3+EHv5p0/TUl3DMxk0g=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-o+K3+EHv5p0/TUl3DMxk0g=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b\r\nContent-Type: text/plain\r\nDate: Sun, 17 Dec 2023 09:04:00 GMT\r\nStrict-Transport-Security: max-age=31536000\r\nStrict-Transport-Security: max-age=63072000; includeSubDomains\r\nX-Request-Id: 90550461-ad4e-46d9-92b4-4d00d13aac93\r\nX-Request-Id: 90550461-ad4e-46d9-92b4-4d00d13aac93\r\nX-Runtime: 0.005072\r\n\r\nRetry later\n",
-      "ip": "148.253.75.120",
-      "timestamp": "2023-12-17T09:04:00.941722053Z",
-      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://place-des-entreprises.beta.gouv.fr'",
-      "matcher-status": true
-    },
-    {
-      "template": "http/misconfiguration/http-missing-security-headers.yaml",
-      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
-      "template-id": "http-missing-security-headers",
-      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
-      "info": {
-        "name": "HTTP Missing Security Headers",
-        "author": [
-          "socketz",
-          "geeknik",
-          "g4l1t0",
-          "convisoappsec",
-          "kurohost",
-          "dawid-czarnecki",
-          "forgedhallpass",
-          "jub0bs"
-        ],
-        "tags": [
-          "misconfig",
-          "headers",
-          "generic"
-        ],
-        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-        "severity": "info",
-        "metadata": {
-          "max-request": 1
-        }
-      },
-      "matcher-name": "x-content-type-options",
-      "type": "http",
-      "host": "https://place-des-entreprises.beta.gouv.fr",
-      "matched-at": "https://place-des-entreprises.beta.gouv.fr",
-      "request": "GET / HTTP/1.1\r\nHost: place-des-entreprises.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 12\r\nCache-Control: no-cache\r\nContent-Security-Policy: default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-o+K3+EHv5p0/TUl3DMxk0g=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-o+K3+EHv5p0/TUl3DMxk0g=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b\r\nContent-Type: text/plain\r\nDate: Sun, 17 Dec 2023 09:04:00 GMT\r\nStrict-Transport-Security: max-age=31536000\r\nStrict-Transport-Security: max-age=63072000; includeSubDomains\r\nX-Request-Id: 90550461-ad4e-46d9-92b4-4d00d13aac93\r\nX-Request-Id: 90550461-ad4e-46d9-92b4-4d00d13aac93\r\nX-Runtime: 0.005072\r\n\r\nRetry later\n",
-      "ip": "148.253.75.120",
-      "timestamp": "2023-12-17T09:04:00.941746729Z",
-      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://place-des-entreprises.beta.gouv.fr'",
-      "matcher-status": true
-    },
-    {
-      "template": "http/misconfiguration/http-missing-security-headers.yaml",
-      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
-      "template-id": "http-missing-security-headers",
-      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
-      "info": {
-        "name": "HTTP Missing Security Headers",
-        "author": [
-          "socketz",
-          "geeknik",
-          "g4l1t0",
-          "convisoappsec",
-          "kurohost",
-          "dawid-czarnecki",
-          "forgedhallpass",
-          "jub0bs"
-        ],
-        "tags": [
-          "misconfig",
-          "headers",
-          "generic"
-        ],
-        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
-        "severity": "info",
-        "metadata": {
-          "max-request": 1
-        }
-      },
-      "matcher-name": "referrer-policy",
-      "type": "http",
-      "host": "https://place-des-entreprises.beta.gouv.fr",
-      "matched-at": "https://place-des-entreprises.beta.gouv.fr",
-      "request": "GET / HTTP/1.1\r\nHost: place-des-entreprises.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 12\r\nCache-Control: no-cache\r\nContent-Security-Policy: default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-o+K3+EHv5p0/TUl3DMxk0g=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-o+K3+EHv5p0/TUl3DMxk0g=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b\r\nContent-Type: text/plain\r\nDate: Sun, 17 Dec 2023 09:04:00 GMT\r\nStrict-Transport-Security: max-age=31536000\r\nStrict-Transport-Security: max-age=63072000; includeSubDomains\r\nX-Request-Id: 90550461-ad4e-46d9-92b4-4d00d13aac93\r\nX-Request-Id: 90550461-ad4e-46d9-92b4-4d00d13aac93\r\nX-Runtime: 0.005072\r\n\r\nRetry later\n",
-      "ip": "148.253.75.120",
-      "timestamp": "2023-12-17T09:04:00.941760626Z",
-      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://place-des-entreprises.beta.gouv.fr'",
+      "type": "dns",
+      "host": "place-des-entreprises.beta.gouv.fr.",
+      "matched-at": "place-des-entreprises.beta.gouv.fr",
+      "extracted-results": [
+        "dns1.alwaysdata.com.",
+        "dns2.alwaysdata.com."
+      ],
+      "request": ";; opcode: QUERY, status: NOERROR, id: 59598\n;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 4096\n\n;; QUESTION SECTION:\n;place-des-entreprises.beta.gouv.fr.\tIN\t NS\n",
+      "response": ";; opcode: QUERY, status: NOERROR, id: 59598\n;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version 0; flags:; udp: 1232\n\n;; QUESTION SECTION:\n;place-des-entreprises.beta.gouv.fr.\tIN\t NS\n\n;; ANSWER SECTION:\nplace-des-entreprises.beta.gouv.fr.\t300\tIN\tNS\tdns1.alwaysdata.com.\nplace-des-entreprises.beta.gouv.fr.\t300\tIN\tNS\tdns2.alwaysdata.com.\n",
+      "timestamp": "2023-12-24T09:08:50.213487261Z",
       "matcher-status": true
     },
     {
@@ -466,9 +232,9 @@
       "host": "https://place-des-entreprises.beta.gouv.fr",
       "matched-at": "https://place-des-entreprises.beta.gouv.fr",
       "request": "GET / HTTP/1.1\r\nHost: place-des-entreprises.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 12\r\nCache-Control: no-cache\r\nContent-Security-Policy: default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-o+K3+EHv5p0/TUl3DMxk0g=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-o+K3+EHv5p0/TUl3DMxk0g=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b\r\nContent-Type: text/plain\r\nDate: Sun, 17 Dec 2023 09:04:00 GMT\r\nStrict-Transport-Security: max-age=31536000\r\nStrict-Transport-Security: max-age=63072000; includeSubDomains\r\nX-Request-Id: 90550461-ad4e-46d9-92b4-4d00d13aac93\r\nX-Request-Id: 90550461-ad4e-46d9-92b4-4d00d13aac93\r\nX-Runtime: 0.005072\r\n\r\nRetry later\n",
-      "ip": "148.253.75.120",
-      "timestamp": "2023-12-17T09:04:00.941774642Z",
+      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 12\r\nCache-Control: no-cache\r\nContent-Security-Policy: default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-S98fWPs6aYD8OGlmrHaCtQ=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-S98fWPs6aYD8OGlmrHaCtQ=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b\r\nContent-Type: text/plain\r\nDate: Sun, 24 Dec 2023 09:09:43 GMT\r\nStrict-Transport-Security: max-age=31536000\r\nStrict-Transport-Security: max-age=63072000; includeSubDomains\r\nX-Request-Id: 379bbfc9-1edd-42cd-937a-d285e8aca2ba\r\nX-Request-Id: 379bbfc9-1edd-42cd-937a-d285e8aca2ba\r\nX-Runtime: 0.003293\r\n\r\nRetry later\n",
+      "ip": "109.232.236.90",
+      "timestamp": "2023-12-24T09:09:43.850558244Z",
       "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://place-des-entreprises.beta.gouv.fr'",
       "matcher-status": true
     },
@@ -505,9 +271,165 @@
       "host": "https://place-des-entreprises.beta.gouv.fr",
       "matched-at": "https://place-des-entreprises.beta.gouv.fr",
       "request": "GET / HTTP/1.1\r\nHost: place-des-entreprises.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 12\r\nCache-Control: no-cache\r\nContent-Security-Policy: default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-o+K3+EHv5p0/TUl3DMxk0g=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-o+K3+EHv5p0/TUl3DMxk0g=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b\r\nContent-Type: text/plain\r\nDate: Sun, 17 Dec 2023 09:04:00 GMT\r\nStrict-Transport-Security: max-age=31536000\r\nStrict-Transport-Security: max-age=63072000; includeSubDomains\r\nX-Request-Id: 90550461-ad4e-46d9-92b4-4d00d13aac93\r\nX-Request-Id: 90550461-ad4e-46d9-92b4-4d00d13aac93\r\nX-Runtime: 0.005072\r\n\r\nRetry later\n",
-      "ip": "148.253.75.120",
-      "timestamp": "2023-12-17T09:04:00.94178991Z",
+      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 12\r\nCache-Control: no-cache\r\nContent-Security-Policy: default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-S98fWPs6aYD8OGlmrHaCtQ=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-S98fWPs6aYD8OGlmrHaCtQ=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b\r\nContent-Type: text/plain\r\nDate: Sun, 24 Dec 2023 09:09:43 GMT\r\nStrict-Transport-Security: max-age=31536000\r\nStrict-Transport-Security: max-age=63072000; includeSubDomains\r\nX-Request-Id: 379bbfc9-1edd-42cd-937a-d285e8aca2ba\r\nX-Request-Id: 379bbfc9-1edd-42cd-937a-d285e8aca2ba\r\nX-Runtime: 0.003293\r\n\r\nRetry later\n",
+      "ip": "109.232.236.90",
+      "timestamp": "2023-12-24T09:09:43.850601935Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://place-des-entreprises.beta.gouv.fr'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "x-content-type-options",
+      "type": "http",
+      "host": "https://place-des-entreprises.beta.gouv.fr",
+      "matched-at": "https://place-des-entreprises.beta.gouv.fr",
+      "request": "GET / HTTP/1.1\r\nHost: place-des-entreprises.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 12\r\nCache-Control: no-cache\r\nContent-Security-Policy: default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-S98fWPs6aYD8OGlmrHaCtQ=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-S98fWPs6aYD8OGlmrHaCtQ=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b\r\nContent-Type: text/plain\r\nDate: Sun, 24 Dec 2023 09:09:43 GMT\r\nStrict-Transport-Security: max-age=31536000\r\nStrict-Transport-Security: max-age=63072000; includeSubDomains\r\nX-Request-Id: 379bbfc9-1edd-42cd-937a-d285e8aca2ba\r\nX-Request-Id: 379bbfc9-1edd-42cd-937a-d285e8aca2ba\r\nX-Runtime: 0.003293\r\n\r\nRetry later\n",
+      "ip": "109.232.236.90",
+      "timestamp": "2023-12-24T09:09:43.850620199Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://place-des-entreprises.beta.gouv.fr'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "referrer-policy",
+      "type": "http",
+      "host": "https://place-des-entreprises.beta.gouv.fr",
+      "matched-at": "https://place-des-entreprises.beta.gouv.fr",
+      "request": "GET / HTTP/1.1\r\nHost: place-des-entreprises.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 12\r\nCache-Control: no-cache\r\nContent-Security-Policy: default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-S98fWPs6aYD8OGlmrHaCtQ=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-S98fWPs6aYD8OGlmrHaCtQ=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b\r\nContent-Type: text/plain\r\nDate: Sun, 24 Dec 2023 09:09:43 GMT\r\nStrict-Transport-Security: max-age=31536000\r\nStrict-Transport-Security: max-age=63072000; includeSubDomains\r\nX-Request-Id: 379bbfc9-1edd-42cd-937a-d285e8aca2ba\r\nX-Request-Id: 379bbfc9-1edd-42cd-937a-d285e8aca2ba\r\nX-Runtime: 0.003293\r\n\r\nRetry later\n",
+      "ip": "109.232.236.90",
+      "timestamp": "2023-12-24T09:09:43.850636429Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://place-des-entreprises.beta.gouv.fr'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "cross-origin-embedder-policy",
+      "type": "http",
+      "host": "https://place-des-entreprises.beta.gouv.fr",
+      "matched-at": "https://place-des-entreprises.beta.gouv.fr",
+      "request": "GET / HTTP/1.1\r\nHost: place-des-entreprises.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 12\r\nCache-Control: no-cache\r\nContent-Security-Policy: default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-S98fWPs6aYD8OGlmrHaCtQ=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-S98fWPs6aYD8OGlmrHaCtQ=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b\r\nContent-Type: text/plain\r\nDate: Sun, 24 Dec 2023 09:09:43 GMT\r\nStrict-Transport-Security: max-age=31536000\r\nStrict-Transport-Security: max-age=63072000; includeSubDomains\r\nX-Request-Id: 379bbfc9-1edd-42cd-937a-d285e8aca2ba\r\nX-Request-Id: 379bbfc9-1edd-42cd-937a-d285e8aca2ba\r\nX-Runtime: 0.003293\r\n\r\nRetry later\n",
+      "ip": "109.232.236.90",
+      "timestamp": "2023-12-24T09:09:43.850652309Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://place-des-entreprises.beta.gouv.fr'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "permissions-policy",
+      "type": "http",
+      "host": "https://place-des-entreprises.beta.gouv.fr",
+      "matched-at": "https://place-des-entreprises.beta.gouv.fr",
+      "request": "GET / HTTP/1.1\r\nHost: place-des-entreprises.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 12\r\nCache-Control: no-cache\r\nContent-Security-Policy: default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-S98fWPs6aYD8OGlmrHaCtQ=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-S98fWPs6aYD8OGlmrHaCtQ=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b\r\nContent-Type: text/plain\r\nDate: Sun, 24 Dec 2023 09:09:43 GMT\r\nStrict-Transport-Security: max-age=31536000\r\nStrict-Transport-Security: max-age=63072000; includeSubDomains\r\nX-Request-Id: 379bbfc9-1edd-42cd-937a-d285e8aca2ba\r\nX-Request-Id: 379bbfc9-1edd-42cd-937a-d285e8aca2ba\r\nX-Runtime: 0.003293\r\n\r\nRetry later\n",
+      "ip": "109.232.236.90",
+      "timestamp": "2023-12-24T09:09:43.850667116Z",
       "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://place-des-entreprises.beta.gouv.fr'",
       "matcher-status": true
     },
@@ -544,9 +466,87 @@
       "host": "https://place-des-entreprises.beta.gouv.fr",
       "matched-at": "https://place-des-entreprises.beta.gouv.fr",
       "request": "GET / HTTP/1.1\r\nHost: place-des-entreprises.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 12\r\nCache-Control: no-cache\r\nContent-Security-Policy: default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-o+K3+EHv5p0/TUl3DMxk0g=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-o+K3+EHv5p0/TUl3DMxk0g=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b\r\nContent-Type: text/plain\r\nDate: Sun, 17 Dec 2023 09:04:00 GMT\r\nStrict-Transport-Security: max-age=31536000\r\nStrict-Transport-Security: max-age=63072000; includeSubDomains\r\nX-Request-Id: 90550461-ad4e-46d9-92b4-4d00d13aac93\r\nX-Request-Id: 90550461-ad4e-46d9-92b4-4d00d13aac93\r\nX-Runtime: 0.005072\r\n\r\nRetry later\n",
-      "ip": "148.253.75.120",
-      "timestamp": "2023-12-17T09:04:00.941804858Z",
+      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 12\r\nCache-Control: no-cache\r\nContent-Security-Policy: default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-S98fWPs6aYD8OGlmrHaCtQ=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-S98fWPs6aYD8OGlmrHaCtQ=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b\r\nContent-Type: text/plain\r\nDate: Sun, 24 Dec 2023 09:09:43 GMT\r\nStrict-Transport-Security: max-age=31536000\r\nStrict-Transport-Security: max-age=63072000; includeSubDomains\r\nX-Request-Id: 379bbfc9-1edd-42cd-937a-d285e8aca2ba\r\nX-Request-Id: 379bbfc9-1edd-42cd-937a-d285e8aca2ba\r\nX-Runtime: 0.003293\r\n\r\nRetry later\n",
+      "ip": "109.232.236.90",
+      "timestamp": "2023-12-24T09:09:43.850787872Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://place-des-entreprises.beta.gouv.fr'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "clear-site-data",
+      "type": "http",
+      "host": "https://place-des-entreprises.beta.gouv.fr",
+      "matched-at": "https://place-des-entreprises.beta.gouv.fr",
+      "request": "GET / HTTP/1.1\r\nHost: place-des-entreprises.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 12\r\nCache-Control: no-cache\r\nContent-Security-Policy: default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-S98fWPs6aYD8OGlmrHaCtQ=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-S98fWPs6aYD8OGlmrHaCtQ=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b\r\nContent-Type: text/plain\r\nDate: Sun, 24 Dec 2023 09:09:43 GMT\r\nStrict-Transport-Security: max-age=31536000\r\nStrict-Transport-Security: max-age=63072000; includeSubDomains\r\nX-Request-Id: 379bbfc9-1edd-42cd-937a-d285e8aca2ba\r\nX-Request-Id: 379bbfc9-1edd-42cd-937a-d285e8aca2ba\r\nX-Runtime: 0.003293\r\n\r\nRetry later\n",
+      "ip": "109.232.236.90",
+      "timestamp": "2023-12-24T09:09:43.850801387Z",
+      "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://place-des-entreprises.beta.gouv.fr'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/http-missing-security-headers.yaml",
+      "template-url": "https://templates.nuclei.sh/public/http-missing-security-headers",
+      "template-id": "http-missing-security-headers",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/http-missing-security-headers.yaml",
+      "info": {
+        "name": "HTTP Missing Security Headers",
+        "author": [
+          "socketz",
+          "geeknik",
+          "g4l1t0",
+          "convisoappsec",
+          "kurohost",
+          "dawid-czarnecki",
+          "forgedhallpass",
+          "jub0bs"
+        ],
+        "tags": [
+          "misconfig",
+          "headers",
+          "generic"
+        ],
+        "description": "This template searches for missing HTTP security headers. The impact of these missing headers can vary.\n",
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "matcher-name": "cross-origin-opener-policy",
+      "type": "http",
+      "host": "https://place-des-entreprises.beta.gouv.fr",
+      "matched-at": "https://place-des-entreprises.beta.gouv.fr",
+      "request": "GET / HTTP/1.1\r\nHost: place-des-entreprises.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 12\r\nCache-Control: no-cache\r\nContent-Security-Policy: default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-S98fWPs6aYD8OGlmrHaCtQ=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-S98fWPs6aYD8OGlmrHaCtQ=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b\r\nContent-Type: text/plain\r\nDate: Sun, 24 Dec 2023 09:09:43 GMT\r\nStrict-Transport-Security: max-age=31536000\r\nStrict-Transport-Security: max-age=63072000; includeSubDomains\r\nX-Request-Id: 379bbfc9-1edd-42cd-937a-d285e8aca2ba\r\nX-Request-Id: 379bbfc9-1edd-42cd-937a-d285e8aca2ba\r\nX-Runtime: 0.003293\r\n\r\nRetry later\n",
+      "ip": "109.232.236.90",
+      "timestamp": "2023-12-24T09:09:43.85081391Z",
       "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://place-des-entreprises.beta.gouv.fr'",
       "matcher-status": true
     },
@@ -574,9 +574,9 @@
       "host": "https://place-des-entreprises.beta.gouv.fr",
       "matched-at": "https://place-des-entreprises.beta.gouv.fr/robots.txt",
       "request": "GET /robots.txt HTTP/1.1\r\nHost: place-des-entreprises.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-      "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 408\r\nCache-Control: public, s-maxage=31536000, max-age=15552000\r\nContent-Type: text/plain\r\nDate: Sun, 17 Dec 2023 09:04:17 GMT\r\nLast-Modified: Fri, 15 Dec 2023 09:24:44 GMT\r\nPragma: no-cache\r\nStrict-Transport-Security: max-age=31536000\r\nStrict-Transport-Security: max-age=63072000; includeSubDomains\r\nX-Content-Type-Options: nosniff\r\nX-Request-Id: 0cb6b153-2f9d-49f1-a20c-586277f96b18\r\n\r\n# See http://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file\n#\n# Incompatibilité avec balise noindex ? https://developers.google.com/search/docs/advanced/crawling/remove-information?visit_id=637529589118073605-2322335355&rd=1#if-the-information-still-exists-on-the-web\nUser-agent: Googlebot\nDisallow: /e/\n\nSitemap: https://place-des-entreprises.beta.gouv.fr/sitemap.xml\n",
-      "ip": "148.253.75.120",
-      "timestamp": "2023-12-17T09:04:17.753385524Z",
+      "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 408\r\nCache-Control: public, s-maxage=31536000, max-age=15552000\r\nContent-Type: text/plain\r\nDate: Sun, 24 Dec 2023 09:09:55 GMT\r\nLast-Modified: Fri, 22 Dec 2023 10:20:12 GMT\r\nPragma: no-cache\r\nStrict-Transport-Security: max-age=31536000\r\nStrict-Transport-Security: max-age=63072000; includeSubDomains\r\nX-Content-Type-Options: nosniff\r\nX-Request-Id: b7215dc9-dfdc-4893-8c7c-40c44baaaa08\r\n\r\n# See http://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file\n#\n# Incompatibilité avec balise noindex ? https://developers.google.com/search/docs/advanced/crawling/remove-information?visit_id=637529589118073605-2322335355&rd=1#if-the-information-still-exists-on-the-web\nUser-agent: Googlebot\nDisallow: /e/\n\nSitemap: https://place-des-entreprises.beta.gouv.fr/sitemap.xml\n",
+      "ip": "109.232.236.90",
+      "timestamp": "2023-12-24T09:09:55.459113929Z",
       "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://place-des-entreprises.beta.gouv.fr/robots.txt'",
       "matcher-status": true
     },
@@ -604,10 +604,50 @@
       "host": "https://place-des-entreprises.beta.gouv.fr",
       "matched-at": "https://place-des-entreprises.beta.gouv.fr/robots.txt",
       "request": "GET /robots.txt HTTP/1.1\r\nHost: place-des-entreprises.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept: */*\r\nAccept-Language: en\r\nAccept-Encoding: gzip\r\n\r\n",
-      "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 408\r\nCache-Control: public, s-maxage=31536000, max-age=15552000\r\nContent-Type: text/plain\r\nDate: Sun, 17 Dec 2023 09:04:17 GMT\r\nLast-Modified: Fri, 15 Dec 2023 09:24:44 GMT\r\nPragma: no-cache\r\nStrict-Transport-Security: max-age=31536000\r\nStrict-Transport-Security: max-age=63072000; includeSubDomains\r\nX-Content-Type-Options: nosniff\r\nX-Request-Id: 2f483d2b-c128-4e1a-b588-997edf075b73\r\n\r\n# See http://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file\n#\n# Incompatibilité avec balise noindex ? https://developers.google.com/search/docs/advanced/crawling/remove-information?visit_id=637529589118073605-2322335355&rd=1#if-the-information-still-exists-on-the-web\nUser-agent: Googlebot\nDisallow: /e/\n\nSitemap: https://place-des-entreprises.beta.gouv.fr/sitemap.xml\n",
-      "ip": "148.253.75.120",
-      "timestamp": "2023-12-17T09:04:17.795326608Z",
+      "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nContent-Length: 408\r\nCache-Control: public, s-maxage=31536000, max-age=15552000\r\nContent-Type: text/plain\r\nDate: Sun, 24 Dec 2023 09:09:55 GMT\r\nLast-Modified: Fri, 22 Dec 2023 10:20:12 GMT\r\nPragma: no-cache\r\nStrict-Transport-Security: max-age=31536000\r\nStrict-Transport-Security: max-age=63072000; includeSubDomains\r\nX-Content-Type-Options: nosniff\r\nX-Request-Id: 0a27a348-d9c5-4647-b05b-756166b950d7\r\n\r\n# See http://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file\n#\n# Incompatibilité avec balise noindex ? https://developers.google.com/search/docs/advanced/crawling/remove-information?visit_id=637529589118073605-2322335355&rd=1#if-the-information-still-exists-on-the-web\nUser-agent: Googlebot\nDisallow: /e/\n\nSitemap: https://place-des-entreprises.beta.gouv.fr/sitemap.xml\n",
+      "ip": "109.232.236.90",
+      "timestamp": "2023-12-24T09:09:55.47051253Z",
       "curl-command": "curl -X 'GET' -H 'Accept: */*' -H 'Accept-Language: en' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://place-des-entreprises.beta.gouv.fr/robots.txt'",
+      "matcher-status": true
+    },
+    {
+      "template": "http/misconfiguration/missing-sri.yaml",
+      "template-url": "https://templates.nuclei.sh/public/missing-sri",
+      "template-id": "missing-sri",
+      "template-path": "/home/runner/nuclei-templates/http/misconfiguration/missing-sri.yaml",
+      "info": {
+        "name": "Missing Subresource Integrity",
+        "author": [
+          "lucky0x0d",
+          "pulsesecurity.co.nz"
+        ],
+        "tags": [
+          "compliance",
+          "js",
+          "sri",
+          "misconfig"
+        ],
+        "description": "Checks if script tags within the HTML response have Subresource Integrity implemented via the integrity attribute\n",
+        "reference": [
+          "https://cheatsheetseries.owasp.org/cheatsheets/third_party_javascript_management_cheat_sheet.html#subresource-integrity"
+        ],
+        "severity": "info",
+        "metadata": {
+          "max-request": 1
+        }
+      },
+      "type": "http",
+      "host": "https://place-des-entreprises.beta.gouv.fr",
+      "matched-at": "https://place-des-entreprises.beta.gouv.fr/",
+      "extracted-results": [
+        "https://cdn.jsdelivr.net/npm/tarteaucitronjs@1.9.7/tarteaucitron.min.js",
+        "https://browser.sentry-cdn.com/7.35.0/bundle.min.js"
+      ],
+      "request": "GET / HTTP/1.1\r\nHost: place-des-entreprises.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nAccept-Encoding: gzip\r\n\r\n",
+      "response": "HTTP/1.1 200 OK\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nCache-Control: no-store\r\nContent-Security-Policy: default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-YPlvk7Vhi/yzM8i2/SttoA=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-YPlvk7Vhi/yzM8i2/SttoA=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 24 Dec 2023 09:10:02 GMT\r\nEtag: W/\"915a4398c2146bc7838435d26e4e6139\"\r\nExpires: 0\r\nLink: <https://cdn.jsdelivr.net/npm/tarteaucitronjs@1.9.7/tarteaucitron.min.js>; rel=preload; as=script; crossorigin=anonymous; integrity=sha256-8+pErQEggpGAY7uWiB65tL13ivQ31A3HKA55CEqYniU=; nopush,</assets/pages-7bb5256e3fbfbf4b0623637f54499bff788491128752ca43b511e2b83562355e.css>; rel=preload; as=style; nopush,</packs/css/pages-60ec08a8.css>; rel=preload; as=style; nopush,</packs/js/gouvfr-module-40adbc46ac37acdc6ef8.js>; rel=modulepreload; as=script; nopush,</packs/js/gouvfr-nomodule-e8d6a920bef5d013c6c8.js>; rel=preload; as=script; nopush,</assets/pages-b58b817d91e520f29b4e6045adc2b62f403f1c7137a72d1c719a5fbd4b126e9e.js>; rel=preload; as=script; nopush,</packs/js/pages-9bb75ddde803f3dd5d5a.js>; rel=preload; as=script; nopush,<https://browser.sentry-cdn.com/7.35.0/bundle.min.js>; rel=preload; as=script; crossorigin=anonymous; integrity=sha384-uwCOEtT/vtuzGz5QiQB6J1L3YFYSbznHZGi3B5Vc6+bnyGS3O9nnDfh6dCvLrQ7X; nopush\r\nPragma: no-cache\r\nReferrer-Policy: strict-origin-when-cross-origin\r\nSet-Cookie: _PlaceDesEntreprises_session=pDDZnL9t3mm1IQQMHCSdyHv%2BbSQK2ahc5Dw4cpdPYQ0g1tBcFcv6Kkj812N7ItCIRJA86FAbH0DeYlrliIKyC%2B3UGwkd4o5k94aP6v7jtIrR%2BBxTw23TeuJWrz%2BwQKRwq1Z2%2B5UhaVI%2FDnJCK2MXFOMX%2Bi5932JjIqBYyXzSVUZR3Jlxz2dV7oeMFb80dfC0QF4BAFJgrwvlTmmxban14IiEZ10N%2FVxacAdpO6%2BzWR4bfXbLIuYUd3Tn2fAYy6vudjAj%2Bz19pVatFiRoXDwKb6buf40YzBgxuRl6Q7OxYZJchtuW--%2FJteKSEJJHi4En8a--f7sKh05iIjkFv%2Bc1a9kBPQ%3D%3D; path=/; secure; HttpOnly; SameSite=Strict\r\nStrict-Transport-Security: max-age=31536000\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\r\nX-Content-Type-Options: nosniff\r\nX-Download-Options: noopen\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-Request-Id: 70b01eb6-48dd-4203-b608-d8087bd3ad92\r\nX-Request-Id: 70b01eb6-48dd-4203-b608-d8087bd3ad92\r\nX-Runtime: 0.191598\r\nX-Xss-Protection: 0\r\n\r\n<!DOCTYPE html>\n<html lang='fr'>\n<head>\n<title>Accueil | Place des Entreprises - Conseils et aides publiques</title>\n<meta name=\"description\" content=\"TPE &amp; PME vous avez un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider. Recrutement, droit du travail, investissement, difficultés financières... \" />\n<meta content='width=device-width, initial-scale=1.0' name='viewport'>\n<link href=\"https://place-des-entreprises.beta.gouv.fr\" rel=\"canonical\"><meta property=\"og:url\" content=\"https://place-des-entreprises.beta.gouv.fr\">\n<meta name=\"csrf-param\" content=\"authenticity_token\" />\n<meta name=\"csrf-token\" content=\"U815VZKv-s7j54z2lTrlGEx6z98nfGnLDRxqUm-XE8m-J-M1Rb-U3KUJ060W09kyzhZk9PNCdIIHmT4im0bLtA\" />\n<meta name=\"csp-nonce\" content=\"YPlvk7Vhi/yzM8i2/SttoA==\" />\n<script nonce=\"YPlvk7Vhi/yzM8i2/SttoA==\">\n//<![CDATA[\n  var cookieText = \"Ce site utilise des cookies permettant d’améliorer son fonctionnement et de vous proposer une publicité personnalisée pour le service, en fonction de votre navigation et de votre profil. Ces cookies ne sont déposés que si vous donnez votre accord\"\n  var tarteaucitronCustomText = {\n  \"alertBigPrivacy\": cookieText\n  };\n\n//]]>\n</script>\n<script src=\"https://cdn.jsdelivr.net/npm/tarteaucitronjs@1.9.7/tarteaucitron.min.js\" crossorigin=\"anonymous\" integrity=\"sha256-8+pErQEggpGAY7uWiB65tL13ivQ31A3HKA55CEqYniU=\" nonce=\"YPlvk7Vhi/yzM8i2/SttoA==\"></script>\n\n<script nonce=\"YPlvk7Vhi/yzM8i2/SttoA==\">\n//<![CDATA[\n  tarteaucitron.init({\n    \"privacyUrl\": \"\",\n    \"hashtag\": \"#consentement\",\n    \"cookieName\": \"tarteaucitron\",\n    \"bodyPosition\": \"top\",\n    \"adblocker\": false,\n    \"highPrivacy\": true,\n    \"handleBrowserDNTRequest\": false,\n    \"useExternalCss\": true,\n    \"orientation\": \"bottom\",\n    \"DenyAllCta\" : true,\n    \"AcceptAllCta\" : true,\n    \"closePopup\": false,\n    \"removeCredit\": true,\n    \"moreInfoLink\": true,\n    \"readmoreLink\": '/mentions_d_information#utilisation-cookies',\n    \"mandatory\": false,\n    \"showAlertSmall\": false,\n    \"cookieslist\": false,\n    \"showIcon\": false,\n    \"iconPosition\": \"BottomLeft\",\n    \"groupServices\": false\n  });\n\n  // Ouvre la boite gestion des cookies au clic sur le lien\n  document.addEventListener(\"turbo:load\", function() {\n    const cookiesLink = document.getElementById(\"open-cookies-box\")\n    if (cookiesLink !== null) {\n      cookiesLink.onclick = function() { tarteaucitron.userInterface.openPanel();return false };\n    }\n  });\n  // focus sur le lien Cookie quand on ferme la modale TAC\n  window.addEventListener('tac.close_panel', function() {\n    const cookiesLink = document.getElementById(\"open-cookies-box\")\n    cookiesLink.focus();\n  })\n\n//]]>\n</script>\n<script nonce=\"YPlvk7Vhi/yzM8i2/SttoA==\">\n//<![CDATA[\n  tarteaucitron.services.google_ads = {\n    \"key\": \"google_ads\",\n    \"type\": \"ads\",\n    \"name\": \"Google Ads (remarketing)\",\n    \"uri\": \"https://policies.google.com/privacy\",\n    \"needConsent\": true,\n    \"cookies\": ['__Secure-3PSIDCC', '__Secure-3PSID', '__Secure-3PAPISID', 'NID'],\n    \"js\": function () {\n      \"use strict\";\n      tarteaucitron.addScript('https://www.googletagmanager.com/gtag/js?id=' + tarteaucitron.user.gtagAw);\n      window.dataLayer = window.dataLayer || [];\n      window.gtag = function gtag() { dataLayer.push(arguments); }\n      gtag('consent', 'update', {\n        'ad_storage': 'granted'\n      });\n      gtag('js', new Date());\n      gtag('config', tarteaucitron.user.gtagAw);\n    },\n    \"fallback\": function() {\n      \"use strict\";\n      tarteaucitron.addScript('https://www.googletagmanager.com/gtag/js?id=' + tarteaucitron.user.gtagAw);\n      window.dataLayer = window.dataLayer || [];\n      window.gtag = function gtag() { dataLayer.push(arguments); }\n      gtag('consent', 'default', {\n        'ad_storage': 'denied'\n      });\n      gtag('js', new Date());\n      gtag('config', tarteaucitron.user.gtagAw);\n    }\n  };\n\n  tarteaucitron.user.gtagAw = 'AW-415474841';\n  (tarteaucitron.job = tarteaucitron.job || []).push('google_ads');\n  (tarteaucitron.job = tarteaucitron.job || []).push('youtube');\n\n//]]>\n</script>\n<link rel=\"stylesheet\" href=\"/assets/pages-7bb5256e3fbfbf4b0623637f54499bff788491128752ca43b511e2b83562355e.css\" data-turbo-track=\"reload\" />\n<link rel=\"stylesheet\" href=\"/packs/css/pages-60ec08a8.css\" media=\"all\" data-turbo-track=\"reload\" />\n<script src=\"/packs/js/gouvfr-module-40adbc46ac37acdc6ef8.js\" type=\"module\" data-turbo-track=\"reload\" nonce=\"YPlvk7Vhi/yzM8i2/SttoA==\"></script>\n<script src=\"/packs/js/gouvfr-nomodule-e8d6a920bef5d013c6c8.js\" type=\"text/javascript\" nomodule=\"nomodule\" data-turbo-track=\"reload\" nonce=\"YPlvk7Vhi/yzM8i2/SttoA==\"></script>\n<script src=\"/assets/pages-b58b817d91e520f29b4e6045adc2b62f403f1c7137a72d1c719a5fbd4b126e9e.js\" data-turbo-track=\"reload\" nonce=\"YPlvk7Vhi/yzM8i2/SttoA==\"></script>\n<script src=\"/packs/js/pages-9bb75ddde803f3dd5d5a.js\" data-turbo-track=\"reload\" nonce=\"YPlvk7Vhi/yzM8i2/SttoA==\"></script>\n<script src=\"https://browser.sentry-cdn.com/7.35.0/bundle.min.js\" crossorigin=\"anonymous\" integrity=\"sha384-uwCOEtT/vtuzGz5QiQB6J1L3YFYSbznHZGi3B5Vc6+bnyGS3O9nnDfh6dCvLrQ7X\" data-turbo-track=\"reload\" nonce=\"YPlvk7Vhi/yzM8i2/SttoA==\"></script>\n<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/assets/favicon/apple-touch-icon-6d7664a9f7b80d68d7e255353f46c9e3232a65f1f5b802c104de05248dd041ab.png\">\n<link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/assets/favicon/favicon-32x32-77a9a2c301bafb0907f3e83177caffe0edb6337736cdf25245623051e6eb5efd.png\">\n<link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/assets/favicon/favicon-16x16-3c8e8d858cc62e13dbfe9347fb0236d460cf836ad1a2c3aa08778caf80924c07.png\">\n<link rel=\"manifest\" href=\"/assets/favicon/site-97c5c3f73b0d29336003921cd4022114ce226cca5dd9e49328b580636a68c474.webmanifest\">\n<link rel=\"shortcut icon\" href=\"/assets/favicon/favicon-cfcc00edd6aff5a1837afb8588fa6125d593cd9103892cc68992dd15e8e3506b.ico\">\n<meta name=\"msapplication-TileColor\" content=\"#da532c\">\n<meta name=\"msapplication-config\" content=\"/assets/favicon/browserconfig-280a33583456a55b625a16ff3667cf8e9f965cec5c1c12e8cac04dafd1dc76b8.xml\">\n<meta name=\"theme-color\" content=\"#ffffff\">\n\n<script nonce=\"YPlvk7Vhi/yzM8i2/SttoA==\">\n//<![CDATA[\n  Sentry.init({\n    dsn: \"https://d975e83e2bee46cd8b3ca7be531a0a6b@o1133659.ingest.sentry.io/5747178\",\n    ignoreErrors: [\n      'Non-Error promise rejection captured'\n    ],\n    tracesSampleRate: .3,\n    send_modules: false\n  });\n\n//]]>\n</script>\n<script data-turbo-eval=\"false\" nonce=\"YPlvk7Vhi/yzM8i2/SttoA==\">\n//<![CDATA[\n  var _paq = window._paq = window._paq || [];\n\n  // Load script from Matomo\n  _paq.push(['setCookieSameSite', 'None']);\n  _paq.push(['trackPageView']);\n  _paq.push(['enableLinkTracking']);\n\n  (function() {\n  var u=\"//stats.beta.gouv.fr/\";\n  _paq.push(['setTrackerUrl', u+'matomo.php']);\n  _paq.push(['setSiteId', '74']);\n  var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n  g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);\n  })();\n\n  // Also send all the tracking data to the old stats.data.gouv.fr Matomo server\n  var secondaryTracker = 'https://stats.data.gouv.fr/matomo.php';\n  var secondaryWebsiteId = '80';\n  _paq.push(['addTracker', secondaryTracker, secondaryWebsiteId]);\n\n  // Send Matomo a new event when navigating to a new page using turbo\n  // (see https://developer.matomo.org/guides/spa-tracking)\n  addEventListener('turbo:load', function(event) {\n    var isInitialLoad = (window.gMatomoPreviousPageUrl === undefined);\n    if (!isInitialLoad) {\n      _paq.push(['setReferrerUrl', window.gMatomoPreviousPageUrl]);\n      _paq.push(['setCustomUrl', window.location.href]);\n      _paq.push(['setDocumentTitle', document.title]);\n      _paq.push(['trackPageView']);\n      if ((typeof event.data !== \"undefined\") && (event.data !== null) &&\n      (typeof event.data.timing !== \"undefined\") && (event.data.timing !== null) ) {\n        var loadTimeMs = event.data.timing.visitEnd - event.data.timing.visitStart;\n        _paq.push(['setPagePerformanceTiming', loadTimeMs]);\n      }\n    }\n    window.gMatomoPreviousPageUrl = window.location.href;\n  });\n\n//]]>\n</script>\n</head>\n<body>\n<div class='fr-skiplinks' id='fr-skiplinks'>\n<nav aria-label='Accès rapide' class='fr-container' role='navigation'>\n<ul class='fr-skiplinks__list'>\n<li>\n<a class=\"fr-link\" data-turbo=\"false\" href=\"#content\">Contenu</a>\n</li>\n<li>\n<a class=\"fr-link\" data-turbo=\"false\" href=\"#header-navigation\">Menu</a>\n</li>\n<li>\n<a class=\"fr-link\" data-turbo=\"false\" href=\"#footer\">Pied de page</a>\n</li>\n</ul>\n</nav>\n</div>\n\n<header class='fr-header' id='header-navigation' role='banner'>\n<div class='fr-header__body'>\n<div class='fr-container'>\n<div class='fr-header__body-row'>\n<div class='fr-header__brand fr-enlarge-link'>\n<div class='fr-header__brand-top'>\n<div class='fr-header__logo'>\n<p class='fr-logo'>\nRépublique <br /> Française\n</p>\n</div>\n<div class='fr-header__operator'>\n<a href=\"/\"><img alt=\"Place des Entreprises - Page d’accueil\" class=\"fr-responsive-img\" src=\"/assets/logo-PDE-5be31da117e7cc69887468d1d6e089c09227734337450ed2c1270dc98c89c331.svg\" />\n</a></div>\n<div class='fr-header__navbar'>\n<button aria-controls='modal-responsive-menu' aria-haspopup='menu' class='fr-btn--menu fr-btn' data-fr-opened='false' id='fr-btn-menu-mobile-4' title='Menu'>\nMenu\n</button>\n</div>\n</div>\n</div>\n<div class='fr-header__tools'>\n<nav class='fr-header__tools-links' role='navigation'>\n<ul class='fr-links-group'>\n<li>\n<a title=\"Lien vers le blog de Place des Entreprises - lien externe\" class=\"fr-link\" href=\"https://blog.place-des-entreprises.beta.gouv.fr\">Actu aides</a>\n</li>\n<li>\n<a class=\"fr-link\" href=\"/comment_ca_marche\">Comment ça marche ?</a>\n</li>\n<li>\n<a class=\"fr-link\" href=\"/mon_compte/sign_in\">Accès conseillers</a>\n</li>\n</ul>\n</nav>\n</div>\n</div>\n</div>\n</div>\n<div aria-labelledby='fr-btn-menu-mobile-4' class='fr-header__menu fr-modal' id='modal-responsive-menu'>\n<div class='fr-container'>\n<button aria-controls='modal-responsive-menu' class='fr-link--close fr-link'>Fermer</button>\n<nav aria-label='Menu principal' class='fr-header__menu-links' role='navigation'>\n<ul class='fr-nav__list'>\n</ul>\n</nav>\n</div>\n</div>\n</header>\n\n\n\n\n<main id='content' role='main'>\n<div class='fr-container-fluid fr-py-8w home-banner'>\n<div class='fr-container'>\n<div class='fr-grid-row fr-grid-row--gutters'>\n<div class='fr-col-12 fr-col-md-7' id='col-text'>\n<div class='home-title'>\n<h1>\nTPE &amp; PME, vous avez un projet, une difficulté, une question du quotidien ?\n</h1>\n<p>\nService public simple et rapide : vous êtes rappelé par LE conseiller qui peut vous aider.\n</p>\n<div class='fr-grid-row' id='links'>\n<div class='fr-col-12 fr-col-md-6'>\n<a class=\"fr-btn fr-btn--lg\" href=\"#scroll-section\"><span aria-hidden='true' class='ri-phone-fill fr-mr-1v'></span>\nÉchanger avec un conseiller\n</a>\n</div>\n<div class='fr-col-12 fr-col-md-6 fr-my-2w fr-my-md-0'>\n<a class=\"blue\" href=\"/comment_ca_marche\">Comment ça marche ?</a>\n</div>\n</div>\n</div>\n</div>\n<div class='fr-col-12 fr-col-md-5' id='col-image'>\n<img alt=\"\" src=\"/assets/home-16c7184f0baa1a4115a664e8a4ea663324648e043cb194aa236fc5ec05af77db.png\" />\n</div>\n</div>\n</div>\n</div>\n<div class='fr-container-fluid section-grey fr-py-4w home landing'>\n<div class='fr-container'>\n<h2 class='fr-h3 fr-mb-6w'>Échanger avec un conseiller pour :</h2>\n<div class='fr-grid-row fr-grid-row--gutters landing-theme-container'>\n<div class='fr-card fr-enlarge-link fr-card--no-border landing-card'>\n<div class='fr-card__body'>\n<div class='fr-card__content'>\n<h3 class='fr-card__title'>\n<a href=\"/aide-entreprise/accueil/theme/recrutement-formation#section-breadcrumbs\">Recruter ou former vos salariés, améliorer l’organisation du travail</a>\n</h3>\n<p class=\"fr-card__desc\">S’informer sur les aides à l’embauche, trouver des candidats, identifier la bonne formation, recruter une personne en situation de handicap, être accompagné sur la GPEC, gérer les départs en retraite. </p>\n</div>\n</div>\n</div>\n<div class='fr-card fr-enlarge-link fr-card--no-border landing-card'>\n<div class='fr-card__body'>\n<div class='fr-card__content'>\n<h3 class='fr-card__title'>\n<a href=\"/aide-entreprise/accueil/theme/financement-projets#section-breadcrumbs\">Financer vos investissements</a>\n</h3>\n<p class=\"fr-card__desc\">Identifier les solutions financières possibles, connaître les aides de la Région, les aides aux projets innovants, aux investissements techniques touchant à la santé-sécurité des salariés, à l’implantation sur un nouveau territoire ou les crédits d'impôt à mobiliser.\n</p>\n</div>\n</div>\n</div>\n<div class='fr-card fr-enlarge-link fr-card--no-border landing-card'>\n<div class='fr-card__body'>\n<div class='fr-card__content'>\n<h3 class='fr-card__title'>\n<a href=\"/aide-entreprise/accueil/theme/entreprise-en-difficulte#section-breadcrumbs\">Résoudre un problème de trésorerie, financier ou contractuel</a>\n</h3>\n<p class=\"fr-card__desc\">Faire un diagnostic de votre situation, demander une avance de trésorerie, une médiation du crédit, un étalement de vos cotisations, rechercher des solutions avec le conseiller départemental à la sortie de crise, résoudre un différend avec un partenaire privé ou public. </p>\n</div>\n</div>\n</div>\n<div class='fr-card fr-enlarge-link fr-card--no-border landing-card'>\n<div class='fr-card__body'>\n<div class='fr-card__content'>\n<h3 class='fr-card__title'>\n<a href=\"/aide-entreprise/accueil/theme/droit-du-travail#section-breadcrumbs\">Être conseillé en droit du travail</a>\n</h3>\n<p class=\"fr-card__desc\">Obtenir un renseignement en droit du travail, connaître votre convention collective, le calcul de rémunérations, mettre en place de l'activité partielle pour vos salariés en cas de baisse d'activité.</p>\n</div>\n</div>\n</div>\n<div class='fr-card fr-enlarge-link fr-card--no-border landing-card'>\n<div class='fr-card__body'>\n<div class='fr-card__content'>\n<h3 class='fr-card__title'>\n<a href=\"/aide-entreprise/accueil/theme/developpement-commercial#section-breadcrumbs\">Rebondir et développer votre activité commerciale</a>\n</h3>\n<p class=\"fr-card__desc\">Faire un point sur votre stratégie de développement, diversifier votre activité, trouver de nouveaux clients, rejoindre un club d’entreprise, s’étendre à l’international.</p>\n</div>\n</div>\n</div>\n<div class='fr-card fr-enlarge-link fr-card--no-border landing-card'>\n<div class='fr-card__body'>\n<div class='fr-card__content'>\n<h3 class='fr-card__title'>\n<a href=\"/aide-entreprise/accueil/theme/internet-web#section-breadcrumbs\">Développer votre activité sur internet</a>\n</h3>\n<p class=\"fr-card__desc\">Créer un site internet, un click and collect, un service de réservation en ligne, améliorer votre référencement Google, protéger vos données.</p>\n</div>\n</div>\n</div>\n<div class='fr-card fr-enlarge-link fr-card--no-border landing-card'>\n<div class='fr-card__body'>\n<div class='fr-card__content'>\n<h3 class='fr-card__title'>\n<a href=\"/aide-entreprise/accueil/theme/environnement-transition-ecologique#section-breadcrumbs\">Mettre en oeuvre votre transition écologique &amp; RSE</a>\n</h3>\n<p class=\"fr-card__desc\">Optimiser vos consommations d’énergie, valoriser vos déchets par la revente de matière, éco-concevoir un produit, mettre en place une démarche RSE, un plan de déplacement entreprise (PDE).\n</p>\n</div>\n</div>\n</div>\n<div class='fr-card fr-enlarge-link fr-card--no-border landing-card'>\n<div class='fr-card__body'>\n<div class='fr-card__content'>\n<h3 class='fr-card__title'>\n<a href=\"/aide-entreprise/accueil/theme/sante-securite-travail#section-breadcrumbs\">Améliorer les conditions de travail, la santé et sécurité de vos salariés</a>\n</h3>\n<p class=\"fr-card__desc\">Réviser votre document unique d'évaluation des risques professionnels (DUERP), former vos salariés à la prévention des risques professionnels, améliorer la qualité de vie au travail pour être plus performant.</p>\n</div>\n</div>\n</div>\n<div class='fr-card fr-enlarge-link fr-card--no-border landing-card'>\n<div class='fr-card__body'>\n<div class='fr-card__content'>\n<h3 class='fr-card__title'>\n<a href=\"/aide-entreprise/accueil/theme/cession-reprise#section-breadcrumbs\">Vendre ou reprendre une entreprise</a>\n</h3>\n<p class=\"fr-card__desc\">Trouver une liste d'entreprises à vendre, connaître les aides à la reprise, trouver un repreneur, réaliser un diagnostic pour valoriser votre entreprise, être accompagné jusqu’à la signature par conseiller en cession-reprise.</p>\n</div>\n</div>\n</div>\n\n</div>\n<p class='text-center contact-us'>\n<b>Vous ne trouvez pas ce que vous voulez ?</b>\n<b><a class=\"click-on-landing\" href=\"/aide-entreprise/contactez-nous\">Découvrez les autres sujets.</a></b>\n</p>\n\n</div>\n</div>\n<div class='fr-container-fluid section-partners fr-py-7w section-light-grey'>\n<div class='fr-container text-center'>\n<div class='logo-list'>\n\n\n<img alt=\"Aract\" class=\"institution-logo\" src=\"/assets/institutions/aract-f4a1c507cea7862ba15852d9c83464d022fb08c045643e79926f52d1216b7481.png\" /><img alt=\"Agefiph\" class=\"institution-logo\" src=\"/assets/institutions/agefiph-837d1578e0aa62f539e79f4bf0974526cfdc56466059c0f576eea1be07d1c62d.png\" /><img alt=\"Adie\" class=\"institution-logo\" src=\"/assets/institutions/adie-59f316304d7fc1bf15be6f8ab3f9c958944fbb703be8a33aee7d9b4ec1b83198.png\" /><img alt=\"Apec\" class=\"institution-logo\" src=\"/assets/institutions/apec-4a9667110b901bd45e024172b8eb9bb47ff3a956606dda53d30a296ae1f84c83.png\" /><img alt=\"Banque de france\" class=\"institution-logo\" src=\"/assets/institutions/banque-de-france-3a875515d3cbc149cf1a79ef66e5b66533a75f846b36ecca2d82d5f8c4d86233.png\" /><img alt=\"Bpi france\" class=\"institution-logo\" src=\"/assets/institutions/bpi-france-38161a25937b5c7bbe95306e4bd9cf2c06cc2670e48b0588085eb50597aabc05.png\" /><img alt=\"Cap emploi\" class=\"institution-logo\" src=\"/assets/institutions/cap-emploi-b552bcda97c15a6c795a4e9d0125e95d54ab8eed112b24557f8a093f60f0f522.png\" /><img alt=\"Cci\" class=\"institution-logo\" src=\"/assets/institutions/cci-7e60f9ec73a676d78e0ba90afddd7ef983d18cb0f027993f4fd7d8ba2fc51c0e.png\" /><img alt=\"Cma\" class=\"institution-logo\" src=\"/assets/institutions/cma-fc2b9a288e2ee2a758e7dfb5df0d8edac4ff9ee54c895e60fcf6bbc974e514ba.png\" /><img alt=\"Dgfip\" class=\"institution-logo\" src=\"/assets/institutions/dgfip-d5d966c31418a169b44497b382f84ac7079c672e295ad06dbd3bcfd89d5e6a5f.png\" /><img alt=\"Douanes\" class=\"institution-logo\" src=\"/assets/institutions/douanes-de7e53902b122b17718d2995a21276ccb6883523b02287ea97c159a4a935a651.png\" /><img alt=\"Reseau initiative\" class=\"institution-logo\" src=\"/assets/institutions/reseau-initiative-7da59558c312dab2ae059bef26f2a4c2a409f00577f06638e0bba4283b54274d.png\" /><img alt=\"Inpi\" class=\"institution-logo\" src=\"/assets/institutions/inpi-8ce24976329a920e46025ffb4aac6774ab8e40a0d486980f826420ed05928a4c.png\" /><img alt=\"Pole emploi\" class=\"institution-logo\" src=\"/assets/institutions/pole-emploi-3459d60fc40ce0bf1f272a93be89dd9afe8f95be2ff5da3432bec4d2678c6018.png\" /><img alt=\"Conseillers du commerce exterieur de la france\" class=\"institution-logo\" src=\"/assets/institutions/conseillers-du-commerce-exterieur-de-la-france-72d5864cef39a403a062cdc3a21c61f4572937f8c3b942a5983f63125c325382.png\" /><img alt=\"Urssaf\" class=\"institution-logo\" src=\"/assets/institutions/urssaf-d716f263fc4297325a0c9c92d3594d40a7de08e6d396e51a3981bd535c24049c.png\" />\n</div>\n<div class='title'>\n<p>Place des Entreprises vous met en relation avec le conseiller qui peut vous aider.</p>\n<p>Découvrez <a href='/comment_ca_marche#liste-partenaires'>plus de 40 partenaires</a> à votre service.</p>\n</div>\n\n</div>\n</div>\n<div class='fr-container-fluid fr-py-7w'>\n<div class='fr-container'>\n<div class='fr-container' id='newsletter'>\n<div class='fr-grid-row--center fr-grid-row'>\n<div class='fr-col'>\n<div class='text-center'>\n<h2 class='fr-h3'>\nDécouvrez les nouveaux accompagnements publics :\n</h2>\n<p>\nDécouvrez chaque mois comment une administration ou un organisme public peut aider votre entreprise\n</p>\n</div>\n<form data-turbo=\"false\" action=\"/newsletters\" accept-charset=\"UTF-8\" method=\"post\"><input type=\"hidden\" name=\"authenticity_token\" value=\"aOCCtTrifaqeQo71ixFWIEeKglnAatqnSCuxy7PbpVh_cRpr4W00FVnjiGV7RuDsJGksesHo0NCaC89Dh3m7MA\" autocomplete=\"off\" /><div class='fr-input-group'>\n<label class=\"fr-label\" for=\"email\">Email\n<span class='fr-hint-text' id='format'>Format attendu : nom@example.org</span>\n</label><div class='fr-input-wrap fr-input-wrap--addon'>\n<input required=\"required\" class=\"fr-input\" id=\"newsletter-email\" aria-describedby=\"format fr-newsletter-hint-text\" aria-label=\"Votre adresse email\" autocomplete=\"email\" type=\"email\" name=\"email\" />\n<input type=\"submit\" name=\"commit\" value=\"S’abonner\" class=\"fr-btn\" id=\"newsletter-button\" data-disable-with=\"S’abonner\" />\n</div>\n</div>\n<p class='fr-hint-text' id='fr-newsletter-hint-text'>Vous pouvez vous désinscrire à tout moment avec le lien de désinscription dans la <span lang='en'>newsletter</span></p>\n</form></div>\n</div>\n</div>\n\n</div>\n</div>\n\n</main>\n<footer class='fr-footer' id='footer' role='contentinfo'>\n<div class='fr-container'>\n<div class='fr-footer__body'>\n<div class='fr-footer__brand fr-enlarge-link'>\n<a title=\"Retour à l’accueil\" href=\"/\"><p class='fr-logo'>\nRépublique <br /> Française\n</p>\n</a></div>\n<div class='fr-footer__content'>\n<p class='fr-footer__content-desc'>\n<a title=\"Lien vers le site de Beta.gouv.fr - ouvre une nouvelle fenêtre\" target=\"_blank\" rel=\"noopener\" href=\"https://beta.gouv.fr/startups/place-des-entreprises\">Une startup d’État de beta.gouv</a>\n</p>\n<div class='fr-my-2v'>\n<div class='social-network'>\n<ul>\n<li>\n<a title=\"Page Linkedin de Place des Entreprises - ouvre une nouvelle fenêtre\" target=\"_blank\" rel=\"noopener\" href=\"https://www.linkedin.com/company/place-des-entreprises\"><span aria-hidden='true' class='ri-linkedin-box-fill'></span>\n<span class='fr-sr-only'>Page Linkedin de Place des Entreprises</span>\n</a></li>\n<li>\n<a title=\"Compte twitter de Place des Entreprises - ouvre une nouvelle fenêtre\" target=\"_blank\" rel=\"noopener\" href=\"https://twitter.com/place_des_ets\"><span aria-hidden='true' class='ri-twitter-fill'></span>\n<span class='fr-sr-only'>Compte twitter de Place des Entreprises</span>\n</a></li>\n<li>\n<a title=\"Page Github de Place des Entreprises - ouvre une nouvelle fenêtre\" target=\"_blank\" rel=\"noopener\" href=\"https://github.com/betagouv/place-des-entreprises\"><span aria-hidden='true' class='ri-github-fill'></span>\n<span class='fr-sr-only'>Page Github de Place des Entreprises</span>\n</a></li>\n</ul>\n</div>\n</div>\n<div>\n<ul class='fr-footer__content-list'>\n<li class='fr-footer__content-item'>\n<a class=\"fr-footer__content-link\" href=\"/stats\">Statistiques</a>\n</li>\n<li class='fr-footer__content-item'>\n<a aria-label=\"S’ouvre dans un nouvel onglet - Fichier (PDF 438 ko) de présentation de Place des Entreprises\" target=\"_blank\" rel=\"noopener\" class=\"fr-footer__content-link\" href=\"/dossier-presse.pdf\">Dossier de presse (PDF 438 ko)</a>\n</li>\n<li class='fr-footer__content-item'>\n<a class=\"fr-footer__content-link\" href=\"/equipe\">Qui sommes-nous ?</a>\n</li>\n</ul>\n</div>\n</div>\n</div>\n<div class='fr-footer__bottom'>\n<ul class='fr-footer__bottom-list'>\n<li class='fr-footer__bottom-item'>\n<a class=\"fr-footer__bottom-link\" href=\"/accessibilite\">Accessibilité : partiellement conforme</a>\n</li>\n<li class='fr-footer__bottom-item'>\n<a class=\"fr-footer__bottom-link\" href=\"/mentions_legales\">Mentions légales</a>\n</li>\n<li class='fr-footer__bottom-item'>\n<a class=\"fr-footer__bottom-link\" href=\"/mentions_d_information\">Mentions d&#39;information</a>\n</li>\n<li class='fr-footer__bottom-item'>\n<a class=\"fr-footer__bottom-link\" href=\"/cgu\">Conditions d’utilisation</a>\n</li>\n<li class='fr-footer__bottom-item'>\n<button aria-label='Ouvre la fenêtre de gestion des cookies' class='link fr-footer__bottom-link' id='open-cookies-box'>\nGestion des cookies\n</button>\n</li>\n<li class='fr-footer__bottom-item'>\n<a class=\"fr-footer__bottom-link\" href=\"/sitemap\">Plan du site</a>\n</li>\n</ul>\n</div>\n</div>\n</footer>\n\n</body>\n</html>\n",
+      "ip": "109.232.236.90",
+      "timestamp": "2023-12-24T09:10:02.92654169Z",
+      "curl-command": "curl -X 'GET' -d '' -H 'Host: place-des-entreprises.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://place-des-entreprises.beta.gouv.fr/'",
       "matcher-status": true
     },
     {
@@ -646,9 +686,9 @@
       "host": "https://place-des-entreprises.beta.gouv.fr",
       "matched-at": "https://place-des-entreprises.beta.gouv.fr/",
       "request": "POST / HTTP/1.1\r\nHost: place-des-entreprises.beta.gouv.fr\r\nUser-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)\r\nConnection: close\r\nContent-Length: 27\r\nContent-Type: application/x-www-form-urlencoded\r\nAccept-Encoding: gzip\r\n\r\n_=<script>alert(1)</script>",
-      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 12\r\nCache-Control: no-cache\r\nContent-Security-Policy: default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-lvs+N2Ewv4BF/nORsIqp4Q=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-lvs+N2Ewv4BF/nORsIqp4Q=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b\r\nContent-Type: text/plain\r\nDate: Sun, 17 Dec 2023 09:04:39 GMT\r\nStrict-Transport-Security: max-age=31536000\r\nStrict-Transport-Security: max-age=63072000; includeSubDomains\r\nX-Request-Id: f0a410b4-223e-43fe-9998-8408a3a35864\r\nX-Request-Id: f0a410b4-223e-43fe-9998-8408a3a35864\r\nX-Runtime: 0.005136\r\n\r\nRetry later\n",
-      "ip": "148.253.75.120",
-      "timestamp": "2023-12-17T09:04:39.873991983Z",
+      "response": "HTTP/1.1 429 Too Many Requests\r\nConnection: close\r\nContent-Length: 12\r\nCache-Control: no-cache\r\nContent-Security-Policy: default-src 'self'; base-uri 'self'; font-src 'self' data: https://github.com https://fonts.gstatic.com; img-src 'self' data: https://jedonnemonavis.numerique.gouv.fr https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com https://www.gstatic.com https://adservice.google.com 415474841.privacysandbox.googleadservices.com; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-I2T4ZCOGtDBg4Gj8uXHYFA=='; script-src-elem 'self' blob: https://browser.sentry-cdn.com sentry.io https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://cdn.jsdelivr.net/ https://www.googletagmanager.com/ https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com www.pagespeed-mod.com 'nonce-I2T4ZCOGtDBg4Gj8uXHYFA=='; frame-src 'self' stats.data.gouv.fr browser.sentry-cdn.com https://cdn.jsdelivr.net/ https://bid.g.doubleclick.net https://tube.nocturlab.fr https://tpc.googlesyndication.com https://www.youtube-nocookie.com; connect-src 'self' *.sentry.io https://api-adresse.data.gouv.fr/ *.google.com https://adservice.google.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://stats.data.gouv.fr/ https://stats.beta.gouv.fr/ https://www.googletagmanager.com https://browser.sentry-cdn.com https://cdn.jsdelivr.net/; report-uri https://o548798.ingest.sentry.io/api/5747178/security/?sentry_key=d975e83e2bee46cd8b3ca7be531a0a6b\r\nContent-Type: text/plain\r\nDate: Sun, 24 Dec 2023 09:10:11 GMT\r\nStrict-Transport-Security: max-age=31536000\r\nStrict-Transport-Security: max-age=63072000; includeSubDomains\r\nX-Request-Id: feb7ef2b-71cb-41f1-b082-4accd5140422\r\nX-Request-Id: feb7ef2b-71cb-41f1-b082-4accd5140422\r\nX-Runtime: 0.003324\r\n\r\nRetry later\n",
+      "ip": "109.232.236.90",
+      "timestamp": "2023-12-24T09:10:11.709874506Z",
       "curl-command": "curl -X 'POST' -d '_=<script>alert(1)</script>' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Host: place-des-entreprises.beta.gouv.fr' -H 'User-Agent: Nuclei - Open-source project (github.com/projectdiscovery/nuclei)' 'https://place-des-entreprises.beta.gouv.fr/'",
       "matcher-status": true
     },
@@ -663,7 +703,8 @@
           "lingtren"
         ],
         "tags": [
-          "ssl"
+          "ssl",
+          "tls"
         ],
         "description": "Extract the issuer's organization from the target's certificate. Issuers are entities which sign and distribute certificates.\n",
         "severity": "info",
@@ -677,8 +718,8 @@
       "extracted-results": [
         "Let's Encrypt"
       ],
-      "ip": "148.253.75.120",
-      "timestamp": "2023-12-17T09:10:33.780583183Z",
+      "ip": "109.232.236.90",
+      "timestamp": "2023-12-24T09:15:55.43463771Z",
       "matcher-status": true
     },
     {
@@ -692,7 +733,8 @@
           "pdteam"
         ],
         "tags": [
-          "ssl"
+          "ssl",
+          "tls"
         ],
         "description": "Extract the Subject Alternative Name (SAN) from the target's certificate. SAN facilitates the usage of additional hostnames with the same certificate.\n",
         "severity": "info",
@@ -706,8 +748,8 @@
       "extracted-results": [
         "place-des-entreprises.beta.gouv.fr"
       ],
-      "ip": "148.253.75.120",
-      "timestamp": "2023-12-17T09:10:33.780702957Z",
+      "ip": "109.232.236.90",
+      "timestamp": "2023-12-24T09:15:55.434762753Z",
       "matcher-status": true
     },
     {
@@ -722,7 +764,8 @@
           "pussycat0x"
         ],
         "tags": [
-          "ssl"
+          "ssl",
+          "tls"
         ],
         "description": "TLS version detection is a security process used to determine the version of the Transport Layer Security (TLS) protocol used by a computer or server.\nIt is important to detect the TLS version in order to ensure secure communication between two computers or servers.\n",
         "severity": "info",
@@ -736,8 +779,8 @@
       "extracted-results": [
         "tls12"
       ],
-      "ip": "148.253.75.120",
-      "timestamp": "2023-12-17T09:10:36.274323001Z",
+      "ip": "109.232.236.90",
+      "timestamp": "2023-12-24T09:15:57.019005713Z",
       "matcher-status": true
     },
     {
@@ -752,7 +795,8 @@
           "pussycat0x"
         ],
         "tags": [
-          "ssl"
+          "ssl",
+          "tls"
         ],
         "description": "TLS version detection is a security process used to determine the version of the Transport Layer Security (TLS) protocol used by a computer or server.\nIt is important to detect the TLS version in order to ensure secure communication between two computers or servers.\n",
         "severity": "info",
@@ -766,8 +810,8 @@
       "extracted-results": [
         "tls13"
       ],
-      "ip": "148.253.75.120",
-      "timestamp": "2023-12-17T09:10:36.587059846Z",
+      "ip": "109.232.236.90",
+      "timestamp": "2023-12-24T09:15:57.603892137Z",
       "matcher-status": true
     }
   ]
